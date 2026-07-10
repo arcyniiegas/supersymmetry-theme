@@ -4,11 +4,12 @@ The live plan for turning this theme into the framework described in
 [ARCHITECTURE.md](ARCHITECTURE.md). Work top to bottom; each phase is
 behaviour‑preserving and verified before the next begins.
 
-**Status:** Milestones 1–6 shipped (8 commits, each Theme-Check-verified &
-visually neutral): `tokens.css`, the `button` primitive + rollout (13 CTAs),
-chrome i18n (0 → 22 `t` calls), and button/card component CSS extracted
-(`base.css` 42 → 30 KB). Next: continue dismantling the `base.css` chrome
-(header/dock/footer/search) + remaining primitives.
+**Status:** Milestones 1–7 shipped (11 commits, each Theme-Check-verified &
+visually neutral). `base.css` 42.7 → 16.9 KB (−60%): tokens + button/card/
+mobile-menu/dock/search now own component files; chrome i18n live (22 `t` calls).
+Remaining `base.css` chrome (header/footer/utility-bar) can follow the same safe
+pattern; the big wins (shared blocks, mega-section splits, colour schemes) need
+a live `shopify theme dev` preview to verify per-section rendering.
 
 **Every task's definition of done:** storefront pixel‑identical to the committed
 baseline · Theme Editor add/reorder/remove still works · `theme-check` clean ·
