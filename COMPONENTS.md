@@ -116,6 +116,7 @@ re‑initialises them on section load. Sections initialise; nothing page‑speci
 | `Reveal` | On‑scroll enter animations | per‑page reveal scripts |
 | `Video` | Lazy/lightbox video control | `article.js`, product media JS |
 | `Tabs` | Tabbed panels | bespoke tab code |
+| ✅ `scroll-spy` **(shipped — first Custom Element)** | Subnav scroll-spy; Theme-Editor-aware (`connectedCallback`), `data-spy-margin` config, click-to-highlight | replaced `avalynes-prieziura.js` + `grazinimai.js` (2 sections, 1 component) |
 | `ScrollObserver` | Shared IntersectionObserver utility | duplicated observers |
 
 **Retained shared modules:** `chrome.js` (global header/dock/menu/overlay glue)
