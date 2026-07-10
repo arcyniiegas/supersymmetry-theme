@@ -55,7 +55,7 @@ architecture.
   from section/block settings — never inline in Liquid. The store is
   Lithuanian; translators must be able to reach every word.
 - **No new section‑scoped CSS/JS monoliths.** Styles belong in
-  `assets/components/*`; behaviour belongs in shared JS components. See
+  `assets/component-*.css`; behaviour belongs in shared JS components. See
   [STYLE_GUIDE.md](STYLE_GUIDE.md).
 - **Prefer blocks over repeated settings. Prefer CSS over JS. Prefer Liquid and
   data‑attributes over inline styles.**
@@ -83,7 +83,7 @@ The litmus test for any decision:
 | `sections/`   | 38 sections + `header-group` / `footer-group`     | Orchestrate layout; today they also define bespoke blocks |
 | `snippets/`   | 10 partials                                       | Reusable UI — thin today, must grow |
 | `blocks/`     | _(to be created)_                                 | Shared `@theme` blocks — the block vocabulary |
-| `assets/`     | CSS, JS, fonts, images                            | Today: page‑scoped CSS/JS. Target: `tokens.css` + `components/` |
+| `assets/`     | CSS, JS, fonts, images                            | Today: page‑scoped CSS/JS. Target: `tokens.css` + `component-*.css` |
 | `config/`     | `settings_schema.json`, `settings_data.json`      | Global theme settings |
 | `locales/`    | `lt.default.json`, `en.json`                      | **All** customer‑facing strings |
 

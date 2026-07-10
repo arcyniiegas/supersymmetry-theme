@@ -1,0 +1,8 @@
+# Theme Check — https://shopify.dev/docs/storefronts/themes/tools/theme-check
+# Run locally with:  shopify theme check
+#
+# The recommended rule set is the shared baseline for Shopify correctness.
+# As the refactor progresses this file is where we tighten standards
+# (e.g. lowering TemplateLength once the mega-sections are split).
+root: "."
+extends: theme-check:recommended

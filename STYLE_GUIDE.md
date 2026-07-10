@@ -10,23 +10,20 @@ The implementation standard for everything under `assets/`. Architecture in
 CSS is **component‑based**, not page‑based. Files map to the layer model:
 
 ```
-assets/
+assets/                 (flat — Shopify forbids subdirectories; namespace by prefix)
   tokens.css            design decisions only — CSS custom properties
   base.css              resets, element defaults, base typography, layout primitives
-  components/
-    button.css          .btn and its modifiers
-    card.css            .card
-    accordion.css       .accordion
-    badge.css           .badge / .tag / .chip
-    drawer.css          off-canvas panels
-    modal.css
-    container.css       layout width + gutters
-    price.css           .price
-    …
-  sections/
-    hero.css            layout-only rules unique to a section
-    collection.css
-    …
+  component-button.css  .btn and its modifiers
+  component-card.css    .card
+  component-accordion.css   .accordion
+  component-badge.css   .badge / .tag / .chip
+  component-drawer.css  off-canvas panels
+  component-modal.css
+  component-container.css   layout width + gutters
+  component-price.css   .price
+  section-hero.css      layout-only rules unique to a section
+  section-collection.css
+  …
 ```
 
 **Rules**
@@ -98,7 +95,7 @@ Follow the convention the theme already uses:
 JS is **component‑based**. One reusable behaviour per file, initialised by the
 sections that need it — never a per‑page script re‑implementing the same thing.
 
-**Target component library** (`assets/components/*.js`):
+**Target component library** (`assets/component-*.js`):
 
 `Accordion`, `Carousel`, `Drawer`, `Modal`, `Sticky`, `Reveal`, `Video`,
 `Tabs`, `ScrollObserver`. These replace today's page scripts (`duk.js`,
@@ -108,7 +105,7 @@ sections that need it — never a per‑page script re‑implementing the same t
 Editor can re‑init on `shopify:section:load`:
 
 ```js
-// assets/components/accordion.js
+// assets/component-accordion.js
 class ThemeAccordion extends HTMLElement {
   connectedCallback() {
     this.summary = this.querySelector('[data-accordion-trigger]');
@@ -123,7 +120,7 @@ customElements.define('theme-accordion', ThemeAccordion);
 ```liquid
 {# section markup #}
 <theme-accordion>…</theme-accordion>
-{{ 'accordion.js' | asset_url | script_tag }}  {# or load once globally #}
+{{ 'component-accordion.js' | asset_url | script_tag }}  {# or load once globally #}
 ```
 
 **Rules**

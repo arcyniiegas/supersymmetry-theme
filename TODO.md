@@ -4,7 +4,8 @@ The live plan for turning this theme into the framework described in
 [ARCHITECTURE.md](ARCHITECTURE.md). Work top to bottom; each phase is
 behaviour‑preserving and verified before the next begins.
 
-**Status:** Phase 0 not started · nothing refactored yet · docs in place.
+**Status:** Phase 0 in progress — git baseline + `tokens.css` extracted; Theme
+Check green (4 benign warnings). Color scheme + section wrapper next.
 
 **Every task's definition of done:** storefront pixel‑identical to the committed
 baseline · Theme Editor add/reorder/remove still works · `theme-check` clean ·
@@ -14,14 +15,15 @@ committed as a small, self‑describing change.
 
 ## Phase 0 — Foundations & safety
 
-- [ ] `git init`; commit the current theme verbatim as the **baseline**.
-- [ ] Add `.theme-check.yml`; get the current theme to a known lint state.
-- [ ] Create `assets/tokens.css`; extract color/type/space/radius/glass tokens
-      out of `base.css` (values unchanged — only relocated).
+- [x] `git init`; commit the current theme verbatim as the **baseline**.
+- [x] Add `.theme-check.yml`; baseline = 82 files, 4 benign `UndefinedObject`
+      warnings (customer templates), 0 errors.
+- [x] Create `assets/tokens.css`; relocate colour/type/space/radius/glass tokens
+      out of `base.css` (values unchanged — 43 tokens moved, loaded first).
 - [ ] Add a **color‑scheme group** + typography settings to
       `config/settings_schema.json`; wire schemes to tokens.
-- [ ] Slim `base.css` to resets + primitives; create empty
-      `assets/components/` and `blocks/` directories with a README each.
+- [ ] Slim `base.css` to resets + primitives; adopt the `component-*.css/js`
+      asset naming (assets/ is flat); create `blocks/` with a README.
 - [ ] Establish the section wrapper convention (`padding_top`/`padding_bottom`,
       `color_scheme`) and a shared section CSS baseline.
 
@@ -29,7 +31,7 @@ committed as a small, self‑describing change.
 
 Build and adopt the missing primitives (see [COMPONENTS.md](COMPONENTS.md) §1).
 
-- [ ] `button.liquid` + `components/button.css`; replace hand‑rolled
+- [ ] `button.liquid` + `component-button.css`; replace hand‑rolled
       `<a class="btn">` in `home-hero` and every other section.
 - [ ] Harden `price.liquid`: remove `€289/€340` fallback literals, fix
       multi‑currency (`money_without_trailing_zeros`, no `remove:'€'`).
@@ -67,7 +69,7 @@ templates; **preserve content verbatim**; delete the old section + CSS + JS.
 
 ## Phase 4 — JavaScript components
 
-Extract shared behaviour into `assets/components/*.js`; retire page scripts.
+Extract shared behaviour into `assets/component-*.js`; retire page scripts.
 
 - [ ] `Accordion` (Custom Element) — powers `content-accordion`; retire `duk.js`.
 - [ ] `Drawer` — mobile menu + any off‑canvas; pull menu JS out of `chrome.js`.
@@ -87,7 +89,7 @@ The high‑value, high‑complexity surfaces, onto the shared kit last.
 
 ## Phase 6 — Consolidation
 
-- [ ] Fold every remaining page stylesheet into `components/` + thin `sections/`;
+- [ ] Fold every remaining page stylesheet into `component-*.css` + thin `section-*.css`;
       delete `section-*.css` monoliths.
 - [ ] Prune unused CSS/JS/assets; dedupe images (`Nr1.webp` vs
       `Nr1-0c6678ce.webp`, etc.).

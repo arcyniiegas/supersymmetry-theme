@@ -39,8 +39,8 @@ the spine of the whole theme.
 |------------------|---------------------------------|----------------------------------------------------------------|--------------|
 | **Tokens**       | `assets/tokens.css`             | Design decisions as CSS vars: color schemes, type scale, spacing, radius, glass | Contain selectors or component rules |
 | **Base**         | `assets/base.css`               | Resets, element defaults, base typography, layout primitives   | Component‑specific styling |
-| **Components (CSS)** | `assets/components/*.css`    | The look of **one** reusable thing (button, card, accordion)   | Page or section layout |
-| **Components (JS)**  | `assets/components/*.js`     | **One** reusable behaviour (Accordion, Carousel, Drawer)       | Page‑specific glue |
+| **Components (CSS)** | `assets/component-*.css`    | The look of **one** reusable thing (button, card, accordion)   | Page or section layout |
+| **Components (JS)**  | `assets/component-*.js`     | **One** reusable behaviour (Accordion, Carousel, Drawer)       | Page‑specific glue |
 | **Snippets**     | `snippets/*.liquid`             | Render **one** reusable piece of markup (button, price, image) | Business orchestration |
 | **Blocks**       | `blocks/*.liquid` (+ section‑local) | One unit of merchant‑editable content, from the shared vocabulary | Fixed layout, page logic |
 | **Sections**     | `sections/*.liquid`             | Orchestrate layout, accept blocks, initialise components        | Re‑implement UI or behaviour |
@@ -59,9 +59,9 @@ Current, with the target additions marked `←`:
 assets/
   tokens.css              ← design tokens (new)
   base.css                  resets + primitives (slim down; today 42 KB)
-  components/             ← button.css, card.css, accordion.css, badge.css… (new)
-  components/*.js         ← accordion.js, carousel.js, drawer.js… (new)
-  sections/              ← thin layout-only section CSS (target home of what's left)
+  component-*.css        ← button, card, accordion, badge… (new; assets/ is flat)
+  component-*.js         ← accordion, carousel, drawer… (new)
+  section-*.css            layout-only section CSS (thin down; keep the prefix)
   chrome.js                shared core JS (header, dock, menu, overlay)
   predictive-search.js     shared search JS
   geist*.woff2             self-hosted fonts
@@ -111,7 +111,8 @@ The single root cause: *every page reinvents its own parts.*
   names. A `stat` block is defined **twice** with **incompatible** schemas:
   `label`/`value` in `page.apie-mus.json`, `k`/`v`/`tabular` in
   `page.avalynes-prieziura.json`.
-- **Page‑scoped CSS and JS.** No `tokens.css`, no `components/`. Instead
+- **Page‑scoped CSS and JS.** No design-token file, no component layer (Phase 0
+  introduces `tokens.css`). Instead
   `base.css` (42 KB) plus `section-product.css` (39 KB), `section-home.css`
   (31 KB), `section-collection.css` (27 KB), and a bespoke stylesheet **and**
   script per content page (`duk`, `kontaktai`, `grazinimai`,
@@ -132,8 +133,9 @@ None of this is visible to a shopper, which is exactly why it is safe to fix.
 
 - A single **`tokens.css`** holds every design decision; `base.css` shrinks to
   resets and primitives.
-- An **`assets/components/`** layer owns the look and behaviour of each reusable
-  thing, once.
+- An **`assets/component-*.css` / `component-*.js`** layer owns the look and
+  behaviour of each reusable thing, once. (Shopify's `assets/` is flat — no
+  subdirectories — so components are namespaced by filename prefix, Dawn‑style.)
 - A **primitive snippet library** (`button`, `heading`, `image`, `icon`,
   `badge`, `container`, `section-header`, hardened `price`) renders shared markup.
 - A **shared block vocabulary** in `/blocks` (`@theme` blocks) replaces the

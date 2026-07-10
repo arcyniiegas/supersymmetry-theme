@@ -6,6 +6,7 @@
   <meta name="theme-color" content="#FFFFFF">
   {{ 'geist-latin.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2' }}
   {{ 'geistmono-latin.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2' }}
+  {{ 'tokens.css' | asset_url | stylesheet_tag }}
   {{ 'base.css' | asset_url | stylesheet_tag }}
   {{ content_for_header }}
   {%- assign brand = settings.brand_name | default: shop.name -%}

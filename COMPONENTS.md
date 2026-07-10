@@ -92,7 +92,7 @@ only the block `type` and its setting IDs are normalised (see
 
 ## 3. JavaScript components — reusable behaviour
 
-Target: `assets/components/*.js`, ideally as Custom Elements so the Theme Editor
+Target: `assets/component-*.js` (Shopify's `assets/` is flat), ideally as Custom Elements so the Theme Editor
 re‑initialises them on section load. Sections initialise; nothing page‑specific.
 
 | Component | Behaviour | Replaces (today) |
