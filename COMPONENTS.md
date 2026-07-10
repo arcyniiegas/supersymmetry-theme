@@ -36,6 +36,7 @@ Render with named args and a documented `{% comment %}` header:
 | `product-reviews` | PDP reviews + `review` sub-blocks | `section`, `block`, `product` | Stable |
 | `product-related` | PDP related-products grid | `block`, `product` | ✅ verified live |
 | `product-docs` | PDP doc sections (spec/story/care) | `section`, `product` | ✅ verified live |
+| `faq-fallback` | DUK/FAQ hardcoded empty-state (rail + 6 groups) | — | Stable (split from `main-duk`) |
 
 ### Planned primitives (the missing library)
 
