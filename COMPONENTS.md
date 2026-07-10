@@ -35,6 +35,7 @@ Render with named args and a documented `{% comment %}` header:
 | `product-glance` | PDP at-a-glance bento | `block`, `product` | ✅ verified live |
 | `product-reviews` | PDP reviews + `review` sub-blocks | `section`, `block`, `product` | Stable |
 | `product-related` | PDP related-products grid | `block`, `product` | ✅ verified live |
+| `product-docs` | PDP doc sections (spec/story/care) | `section`, `product` | ✅ verified live |
 
 ### Planned primitives (the missing library)
 
