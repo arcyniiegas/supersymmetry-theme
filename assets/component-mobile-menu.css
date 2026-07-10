@@ -1,0 +1,74 @@
+/* Mobile menu / burger component · snippets/mobile-menu.liquid + chrome.js · loaded in <head>. */
+
+/* ════════════════════════════════════════════════════════════
+   MOBILE CHROME — burger + full-screen menu (mobile-first nav)
+   ════════════════════════════════════════════════════════════ */
+.header__burger{
+  display: none;
+  width: 44px; height: 44px; margin-left: 2px;
+  flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+}
+.header__burger span{
+  display: block; width: 22px; height: 2px; border-radius: 2px;
+  background: var(--ink);
+}
+
+@media (max-width: 960px){
+  .header{ grid-template-columns: 1fr auto; gap: 12px; padding: 12px var(--gutter); }
+  .header__nav{ display: none; }
+  .header__burger{ display: inline-flex; }
+  .header__tools a.header__tool-search,
+  .header__tools a.header__tool-account{ display: none; } /* these live in the menu */
+}
+/* progressive disclosure in the utility bar */
+.u-mobile{ display: none; }
+@media (max-width: 768px){
+  .utility{ padding: 9px 16px; font-size: 10px; gap: 12px; overflow: hidden; }
+  .utility__left, .utility__right{ gap: 14px; }
+  .u-desktop{ display: none; }
+  .u-mobile{ display: inline; }
+}
+
+/* ── full-screen mobile menu ── */
+body.menu-open{ overflow: hidden; }
+.mobilemenu{
+  position: fixed; inset: 0; z-index: 70;
+  background: var(--ink); color: #FFFFFF;
+  display: flex; flex-direction: column;
+  padding: 16px var(--gutter) calc(env(safe-area-inset-bottom, 0px) + 28px);
+  opacity: 0; pointer-events: none;
+}
+.mobilemenu.is-open{ opacity: 1; pointer-events: auto; }
+@media (min-width: 961px){ .mobilemenu{ display: none; } }
+
+.mobilemenu__top{ display: flex; align-items: center; justify-content: space-between; padding: 6px 0 20px; }
+.mobilemenu__brand{ font: 600 22px/1 var(--font-sans); letter-spacing: -0.025em; color: #FFFFFF; display: inline-flex; align-items: center; gap: 8px; }
+.mobilemenu__brand .brand-dot{ width: 8px; height: 8px; }
+.mobilemenu__close{ width: 44px; height: 44px; display: grid; place-items: center; color: #FFFFFF; font-size: 20px; }
+
+.mobilemenu__nav{ display: flex; flex-direction: column; border-top: 1px solid rgba(255,255,255,0.14); }
+.mobilemenu__nav a{
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 17px 0; min-height: 44px;
+  font: 500 clamp(27px, 8vw, 34px)/1 var(--font-sans); letter-spacing: -0.035em; color: #FFFFFF;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.mobilemenu__nav a span{ color: var(--orange); font-size: 20px; opacity: 0; transform: translateX(-6px); transition: opacity .2s var(--ease), transform .2s var(--ease); }
+.mobilemenu__nav a:hover span, .mobilemenu__nav a:active span{ opacity: 1; transform: none; }
+
+.mobilemenu__sec{ display: flex; flex-wrap: wrap; gap: 0 22px; padding: 20px 0 0; }
+.mobilemenu__sec a{ padding: 12px 0; min-height: 44px; display: inline-flex; align-items: center; font: 500 12px/1 var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+.mobilemenu__sec a:hover, .mobilemenu__sec a:active{ color: #FFFFFF; }
+
+.mobilemenu__foot{
+  margin-top: auto; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.14);
+  font: 500 11px/1.4 var(--font-mono); letter-spacing: 0.04em; color: rgba(255,255,255,0.5);
+}
+
+/* ── Card component ─────────────────────────────────────────
+   .card / .card__* relocated to component-card.css
+   (loaded after base.css in layout/theme.liquid). Context-scoped
+   card rules (.ss-search__grid .card, reduced-motion) stay below.
+   ──────────────────────────────────────────────────────────── */
+

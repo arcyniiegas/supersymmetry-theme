@@ -1,0 +1,84 @@
+/* Dock component · snippets/dock.liquid · loaded in <head>. */
+
+/* ════════════════════════════════════════════════════════════
+   DOCK — signature liquid-glass nav pill, fixed bottom-centre.
+   Replaces the burger menu; present on every page.
+   ════════════════════════════════════════════════════════════ */
+.dockwrap{
+  position: fixed; left: 50%; z-index: 60;
+  bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%);
+  max-width: calc(100vw - 20px);
+  pointer-events: none;
+}
+/* Dock is mobile-only — desktop navigates via the header */
+@media (min-width: 961px){ .dockwrap{ display: none; } }
+.dock{
+  pointer-events: auto;
+  display: flex; align-items: stretch; gap: 2px;
+  padding: 6px; width: max-content; max-width: 100%;
+  border-radius: var(--r-pill); isolation: isolate;
+  /* Firmer fill than panel glass: the dock floats over arbitrary content, so it
+     needs enough body to read as a surface, while blur keeps it translucent. */
+  background:
+    radial-gradient(135% 140% at 16% -20%, rgba(255,255,255,0.55), rgba(255,255,255,0) 50%),
+    linear-gradient(180deg, rgba(255,255,255,0.62), rgba(255,255,255,0.42));
+  backdrop-filter: blur(20px) saturate(1.8);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+  border: 1px solid rgba(255,255,255,0.55);
+  border-top-color: rgba(255,255,255,0.85);
+  box-shadow: var(--shadow-dock);
+}
+.dock__item{
+  position: relative;
+  display: grid; justify-items: center; align-content: center; gap: 4px;
+  min-height: 48px; min-width: 56px;
+  padding: 6px 10px; border-radius: var(--r-pill);
+  color: var(--text);
+  transition: background var(--tx-fast) var(--ease), color var(--tx-fast) var(--ease);
+}
+.dock__item:hover{ background: rgba(10,10,10,0.06); }
+/* Active = dark glass pill — same accent grammar as chips and tabs. */
+.dock__item[aria-current="page"]{
+  background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.02) 40%), var(--ink);
+  color: var(--bg);
+}
+.dock__item svg{
+  width: 20px; height: 20px; stroke: currentColor; fill: none;
+  stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round;
+}
+.dock__label{
+  font: 500 10px/1 var(--font-mono);
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+.dock__badge{
+  position: absolute; top: 3px; right: 7px;
+  min-width: 16px; height: 16px; padding: 0 4px;
+  display: grid; place-items: center;
+  background: var(--ink); color: #FFFFFF;
+  border-radius: 99px;
+  font: 500 9.5px/1 var(--font-mono);
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.8);
+}
+.dock__item[aria-current="page"] .dock__badge{
+  background: var(--bg); color: var(--text);
+  box-shadow: none;
+}
+@media (max-width: 400px){
+  .dock{ gap: 1px; padding: 5px; }
+  .dock__item{ padding: 6px 7px; gap: 3px; min-width: 52px; }
+  .dock__label{ font-size: 9px; letter-spacing: 0.02em; }
+  .dock__item svg{ width: 19px; height: 19px; }
+}
+@media (max-width: 330px){
+  .dock__label{ display: none; }
+  .dock__item{ padding: 8px; min-width: 48px; }
+}
+/* keep the footer's legal row clear of the floating dock (mobile only) */
+@media (max-width: 960px){
+  .foot__legal{ padding-bottom: 64px; }
+}
+@media (prefers-reduced-motion: reduce){
+  .dock__item, .post__media img, .card__media img{ transition: none; }
+}
+
