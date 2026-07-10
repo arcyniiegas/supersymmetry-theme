@@ -9,7 +9,7 @@
   endif
 -%}
 <div class="dockwrap">
-  <nav class="dock" aria-label="Navigacija">
+  <nav class="dock" aria-label="{{ 'accessibility.navigation' | t }}">
     {%- assign l_home = settings.dock_label_home | default: 'Pradžia' -%}
     {%- assign l_products = settings.dock_label_products | default: 'Gaminiai' -%}
     {%- assign l_search = settings.dock_label_search | default: 'Paieška' -%}

@@ -12,10 +12,10 @@
     assign is_journal = true
   endif
 -%}
-<div class="mobilemenu" id="ssMenu" role="dialog" aria-modal="true" aria-label="Meniu">
+<div class="mobilemenu" id="ssMenu" role="dialog" aria-modal="true" aria-label="{{ 'nav.menu' | t }}">
   <div class="mobilemenu__top">
     <a href="{{ routes.root_url }}" class="mobilemenu__brand">{{ settings.brand_name | default: 'Supersymmetry' }}<span class="brand-dot" aria-hidden="true"></span></a>
-    <button type="button" class="mobilemenu__close" data-menu-close aria-label="Uždaryti meniu">✕</button>
+    <button type="button" class="mobilemenu__close" data-menu-close aria-label="{{ 'accessibility.close_menu' | t }}">✕</button>
   </div>
   {%- liquid
     assign nav_menu = settings.menu_main
@@ -23,16 +23,16 @@
       assign nav_menu = linklists['supersymmetry-main']
     endif
   -%}
-  <nav class="mobilemenu__nav" aria-label="Pagrindinė">
-    <a href="{{ routes.root_url }}"{% if is_home %} aria-current="page"{% endif %}>Pradžia<span aria-hidden="true">→</span></a>
+  <nav class="mobilemenu__nav" aria-label="{{ 'accessibility.main_nav' | t }}">
+    <a href="{{ routes.root_url }}"{% if is_home %} aria-current="page"{% endif %}>{{ 'nav.home' | t }}<span aria-hidden="true">→</span></a>
     {%- if nav_menu.links != blank -%}
       {%- for link in nav_menu.links -%}
         <a href="{{ link.url }}"{% if link.active %} aria-current="page"{% endif %}>{{ link.title }}<span aria-hidden="true">→</span></a>
       {%- endfor -%}
     {%- else -%}
-      <a href="{{ collections.all.url | default: routes.collections_url }}"{% if is_coll %} aria-current="page"{% endif %}>Avalynė<span aria-hidden="true">→</span></a>
-      <a href="{{ collections.aksesuarai.url | default: routes.collections_url }}">Aksesuarai<span aria-hidden="true">→</span></a>
-      <a href="{{ blog.url | default: routes.root_url }}"{% if is_journal %} aria-current="page"{% endif %}>Žurnalas<span aria-hidden="true">→</span></a>
+      <a href="{{ collections.all.url | default: routes.collections_url }}"{% if is_coll %} aria-current="page"{% endif %}>{{ 'nav.shoes' | t }}<span aria-hidden="true">→</span></a>
+      <a href="{{ collections.aksesuarai.url | default: routes.collections_url }}">{{ 'nav.accessories' | t }}<span aria-hidden="true">→</span></a>
+      <a href="{{ blog.url | default: routes.root_url }}"{% if is_journal %} aria-current="page"{% endif %}>{{ 'nav.journal' | t }}<span aria-hidden="true">→</span></a>
     {%- endif -%}
   </nav>
   <div class="mobilemenu__sec">
@@ -41,15 +41,15 @@
         <a href="{{ link.url }}">{{ link.title }}</a>
       {%- endfor -%}
     {%- else -%}
-      <a href="{{ routes.collections_url }}">Visos kolekcijos</a>
-      <a href="/products/dovanu-kuponas">Dovanų kuponai</a>
-      <a href="{{ pages['dydziu-lentele'].url | default: '#' }}">Dydžių lentelė</a>
-      <a href="{{ pages.grazinimai.url | default: '#' }}">Grąžinimai</a>
-      <a href="{{ pages['apie-mus'].url | default: '#' }}">Apie mus</a>
-      <a href="{{ pages.duk.url | default: '#' }}">DUK</a>
-      <a href="{{ pages.kontaktai.url | default: '#' }}">Susisiekti</a>
+      <a href="{{ routes.collections_url }}">{{ 'nav.all_collections' | t }}</a>
+      <a href="/products/dovanu-kuponas">{{ 'nav.gift_cards' | t }}</a>
+      <a href="{{ pages['dydziu-lentele'].url | default: '#' }}">{{ 'nav.size_chart' | t }}</a>
+      <a href="{{ pages.grazinimai.url | default: '#' }}">{{ 'nav.returns' | t }}</a>
+      <a href="{{ pages['apie-mus'].url | default: '#' }}">{{ 'nav.about' | t }}</a>
+      <a href="{{ pages.duk.url | default: '#' }}">{{ 'nav.faq' | t }}</a>
+      <a href="{{ pages.kontaktai.url | default: '#' }}">{{ 'nav.contact' | t }}</a>
     {%- endif -%}
-    <a href="{{ routes.account_url }}">Paskyra</a>
+    <a href="{{ routes.account_url }}">{{ 'nav.account' | t }}</a>
   </div>
   <div class="mobilemenu__foot">
     <span>{{ settings.atelier_address }} · {{ settings.atelier_city }}</span>

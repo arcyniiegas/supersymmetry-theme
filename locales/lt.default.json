@@ -41,5 +41,11 @@
     "services": "Paslaugos",
     "about": "Apie ateljė",
     "legal_right": "Privatumas · Sąlygos · Rekvizitai"
+  },
+  "accessibility": {
+    "navigation": "Navigacija",
+    "main_nav": "Pagrindinė",
+    "close_menu": "Uždaryti meniu",
+    "close_search": "Uždaryti paiešką"
   }
 }

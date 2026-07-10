@@ -41,5 +41,11 @@
     "services": "Services",
     "about": "About the atelier",
     "legal_right": "Privacy · Terms · Details"
+  },
+  "accessibility": {
+    "navigation": "Navigation",
+    "main_nav": "Main",
+    "close_menu": "Close menu",
+    "close_search": "Close search"
   }
 }
