@@ -4,13 +4,14 @@ The live plan for turning this theme into the framework described in
 [ARCHITECTURE.md](ARCHITECTURE.md). Work top to bottom; each phase is
 behaviour‑preserving and verified before the next begins.
 
-**Status:** Milestones 1–9 shipped (16 commits, Theme-Check green). `base.css`
-42.7 → **10.6 KB (−75%)** — now reset + primitives + breadcrumbs/page-head + glass;
-8 `component-*.css` files own the reusable UI + chrome. `button` primitive live
-(13 CTAs); chrome i18n (22 `t` calls); **colour-scheme system** (Colors panel,
-default-identical — ⚠️ spot-check pending). Remaining big wins (shared blocks,
-mega-section splits, per-section scheme adoption, page `section-*.css` cleanup)
-benefit from a `shopify theme dev` preview.
+**Status:** 21 commits, Theme-Check green, live-verified on `shopify theme dev`.
+`base.css` 42.7 → **10.6 KB (−75%)**, 8 `component-*.css` files; `button` primitive
+(13 CTAs); chrome i18n (22 `t`); **colour-scheme system live** (caught + fixed a
+theme-breaking role bug via the preview). Mega-sections split: `main-product`
+578→297, `main-duk` 446→161, `main-avalynes` 404→223 (all under 300). Remaining:
+`main-cart` / `main-collection` splits (interactive — want stable preview), the
+shared-block vocabulary unification, per-section scheme adoption, `section-*.css`
+cleanup.
 
 **Every task's definition of done:** storefront pixel‑identical to the committed
 baseline · Theme Editor add/reorder/remove still works · `theme-check` clean ·
