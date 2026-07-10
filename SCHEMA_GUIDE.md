@@ -83,8 +83,16 @@ inherits the store palette and both glass and solid surfaces stay coherent:
 { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" }
 ```
 
-Define the schemes once in `settings_schema.json` via a `color_scheme_group`;
-sections reference them. (This replaces the per‑section `text_color` picker.)
+The `color_scheme_group` is defined in `settings_schema.json` (`scheme-1` = the
+current light palette mirrored exactly; `scheme-2` surface; `scheme-3` ink) and
+rendered by `snippets/color-schemes.liquid`, which maps each scheme onto the
+theme tokens (`--bg` / `--text` / `--surface` / `--line`). The default scheme is
+applied on `<body>`. A section opts into per-section colours by adding the
+`color_scheme` setting above **and** `class="… color-{{ section.settings.color_scheme }}"`
+on its root. Because a scheme rule sets only those four tokens, a section that
+reads them recolours; `scheme-1` equals the current values, so the default is a
+computed no-op. (This is the successor to the per-section `text_color` picker in
+`section-appearance`.)
 
 ## 4. Blocks vs settings
 

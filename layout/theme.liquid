@@ -13,13 +13,14 @@
   {{ 'component-mobile-menu.css' | asset_url | stylesheet_tag }}
   {{ 'component-dock.css' | asset_url | stylesheet_tag }}
   {{ 'component-search.css' | asset_url | stylesheet_tag }}
+  <style>{% render 'color-schemes' %}</style>
   {{ content_for_header }}
   {%- assign brand = settings.brand_name | default: shop.name -%}
   <title>{% if page_title contains brand or page_title == blank %}{{ page_title | default: brand }}{% else %}{{ page_title }} · {{ brand }}{% endif %}</title>
   {% if page_description %}<meta name="description" content="{{ page_description | escape }}">{% endif %}
   {% render 'meta-social' %}
 </head>
-<body class="template-{{ request.page_type }}">
+<body class="template-{{ request.page_type }} color-scheme-1">
   {% sections 'header-group' %}
   <main id="MainContent">{{ content_for_layout }}</main>
   {% sections 'footer-group' %}

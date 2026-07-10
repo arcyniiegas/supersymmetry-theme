@@ -1,0 +1,19 @@
+{%- comment -%}
+  color-schemes — renders one `.color-<id>` rule per merchant colour scheme,
+  mapping each scheme onto the theme's existing design tokens. Output goes inside
+  a <style> in the layout <head>.
+
+  Each rule sets ONLY the four palette tokens, so any element that reads them
+  recolours while everything else stays on tokens.css. scheme-1's defaults equal
+  the current palette exactly, so applying `.color-scheme-1` (the default, on
+  <body>) is a computed no-op — the storefront is unchanged until a merchant edits
+  a scheme or a section opts into a different one. See SCHEMA_GUIDE.md.
+{%- endcomment -%}
+{%- for scheme in settings.color_schemes -%}
+.color-{{ scheme.id }}{
+  --bg: {{ scheme.settings.background }};
+  --text: {{ scheme.settings.text }};
+  --surface: {{ scheme.settings.surface }};
+  --line: {{ scheme.settings.line }};
+}
+{% endfor -%}

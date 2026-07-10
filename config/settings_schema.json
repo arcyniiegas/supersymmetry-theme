@@ -8,6 +8,38 @@
     "theme_support_url": "https://supersymmetry.lt"
   },
   {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "color_scheme_group",
+        "id": "color_schemes",
+        "definition": [
+          { "type": "color", "id": "background",   "default": "#FFFFFF", "label": "Background" },
+          { "type": "color_background", "id": "background_gradient", "label": "Background gradient", "info": "Optional. Overlays the solid background where supported." },
+          { "type": "color", "id": "text",         "default": "#0A0A0A", "label": "Text" },
+          { "type": "color", "id": "surface",      "default": "#F5F5F5", "label": "Surface" },
+          { "type": "color", "id": "line",         "default": "#EEEEEE", "label": "Lines & borders" },
+          { "type": "color", "id": "button",       "default": "#0A0A0A", "label": "Button" },
+          { "type": "color", "id": "button_label", "default": "#FFFFFF", "label": "Button label" }
+        ],
+        "role": {
+          "background": { "solid": "background", "gradient": "background_gradient" },
+          "text": "text",
+          "primary_button": "button",
+          "on_primary_button": "button_label",
+          "primary_button_border": "button",
+          "secondary_button": "surface",
+          "on_secondary_button": "text",
+          "secondary_button_border": "line",
+          "links": "text",
+          "icons": "text",
+          "lines_and_borders": "line",
+          "shadow": "text"
+        }
+      }
+    ]
+  },
+  {
     "name": "Brand",
     "settings": [
       {
