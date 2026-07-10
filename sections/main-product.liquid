@@ -36,48 +36,7 @@
   data-current-size="{{ current_variant.title | split: ' (' | first | strip | escape }}">
 
   <!-- GALLERY -->
-  <section class="gallery" aria-label="Produkto galerija">
-{%- if product.media.size > 0 -%}
-{%- for media in product.media -%}
-    <figure class="shot {% cycle 'shot--portrait', 'shot--square', 'shot--landscape' %}">
-      <img class="shot__img" src="{{ media | image_url: width: 1400 }}" srcset="{{ media | image_url: width: 700 }} 700w, {{ media | image_url: width: 1400 }} 1400w" sizes="(max-width: 960px) 100vw, 60vw" width="{{ media.preview_image.width | default: 1400 }}" height="{{ media.preview_image.height | default: 1400 }}" alt="{% if media.alt != blank and media.alt != product.title %}{{ media.alt | escape }}{% else %}{{ product.title | escape }} — vaizdas {{ forloop.index }} iš {{ product.media.size }}{% endif %}" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"/>
-{%- if forloop.first %}
-      <button class="shot__zoom" type="button" aria-label="Padidinti">
-        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M16 16 L21 21"/><path d="M8 11 H14 M11 8 V14"/></svg>
-      </button>
-{%- endif %}
-    </figure>
-{%- endfor -%}
-{%- else -%}
-    <figure class="shot shot--portrait">
-      <img class="shot__img" src="{{ 'Nr1-0c6678ce.webp' | asset_url }}" width="1400" height="1400" alt="Šoninis profilis" loading="eager"/>
-      <button class="shot__zoom" type="button" aria-label="Padidinti">
-        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M16 16 L21 21"/><path d="M8 11 H14 M11 8 V14"/></svg>
-      </button>
-    </figure>
-
-    <figure class="shot shot--square">
-      <img class="shot__img" src="{{ 'Nr2-65b64fb1.webp' | asset_url }}" width="1400" height="1400" alt="Pora iš viršaus" loading="lazy"/>
-    </figure>
-
-    <figure class="shot shot--landscape">
-      <img class="shot__img" src="{{ 'Nr3-0f817725.webp' | asset_url }}" width="1400" height="1400" alt="Trijų ketvirčių kampu" loading="lazy"/>
-    </figure>
-{%- endif -%}
-
-  </section>
-
-  <div class="gallery-dots" role="group" aria-label="Galerijos nuotraukos">
-{%- if product.media.size > 0 -%}
-{%- for media in product.media -%}
-    <button type="button" aria-current="{% if forloop.first %}true{% else %}false{% endif %}" aria-label="{{ forloop.index }} nuotrauka"></button>
-{%- endfor -%}
-{%- else -%}
-    <button type="button" aria-current="true" aria-label="1 nuotrauka"></button>
-    <button type="button" aria-current="false" aria-label="2 nuotrauka"></button>
-    <button type="button" aria-current="false" aria-label="3 nuotrauka"></button>
-{%- endif -%}
-  </div>
+  {% render 'product-gallery', product: product %}
 
   <!-- INFO STICKY -->
   <aside class="info">
@@ -231,68 +190,7 @@
   {%- case block.type -%}
   {%- when 'glance' -%}
 <!-- ──────────── TRUMPAI — bento ──────────── -->
-<section class="glance" {{ block.shopify_attributes }}>
-  <div class="glance__head">
-    <div>
-      <div class="glance__eyebrow">{{ block.settings.eyebrow }}</div>
-    </div>
-  </div>
-
-  <div class="bento">
-
-    <div class="bento__cell b-1">
-      <div class="bento__label">Medžiaga</div>
-      <div>
-        <div class="bento__value">{{ product.metafields.glance.material | default: 'Natūrali oda' }}</div>
-        {%- if block.settings.material_sub != blank -%}<div class="bento__sub" style="margin-top: 8px;">{{ block.settings.material_sub }}</div>{%- endif -%}
-      </div>
-      <div class="bento__bg" aria-hidden="true">
-        <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 140 Q20 110 50 100 L120 80 Q160 70 180 100 Q190 130 170 150 L40 152 Z"/></svg>
-      </div>
-    </div>
-
-    <div class="bento__cell b-2">
-      <div class="bento__label">Padas</div>
-      <div>
-        <div class="bento__value bento__value--mono">{{ product.metafields.glance.sole | default: 'Vulkanizuota guma' }}</div>
-        {%- if block.settings.sole_sub != blank -%}<div class="bento__sub" style="margin-top: 8px;">{{ block.settings.sole_sub }}</div>{%- endif -%}
-      </div>
-    </div>
-
-    <div class="bento__cell bento__cell--orange b-3">
-      <div class="bento__label">Kaina</div>
-      <div>
-        <div class="bento__value bento__value--big bento__value--mono">{{ product.price | money | remove: '€' | remove: ',00' }}</div>
-        {%- if block.settings.price_sub != blank -%}<div class="bento__sub" style="margin-top: 8px;">{{ block.settings.price_sub }}</div>{%- endif -%}
-      </div>
-    </div>
-
-    <div class="bento__cell b-4">
-      <div class="bento__label">Gamintojas</div>
-      <div>
-        <div class="bento__value bento__value--mono">{{ product.metafields.glance.maker | default: product.vendor }}</div>
-        {%- if block.settings.maker_sub != blank -%}<div class="bento__sub" style="margin-top: 8px;">{{ block.settings.maker_sub }}</div>{%- endif -%}
-      </div>
-    </div>
-
-    <div class="bento__cell b-5">
-      <div class="bento__label">Svoris</div>
-      <div>
-        <div class="bento__value bento__value--mono">{{ product.metafields.glance.weight | default: '—' }}</div>
-        {%- if block.settings.weight_sub != blank -%}<div class="bento__sub" style="margin-top: 8px;">{{ block.settings.weight_sub }}</div>{%- endif -%}
-      </div>
-    </div>
-
-    <div class="bento__cell b-6">
-      <div class="bento__label">Kilmė</div>
-      <div>
-        <div class="bento__value">{{ product.metafields.glance.origin | default: '—' }}</div>
-        {%- if block.settings.origin_sub != blank -%}<div class="bento__sub" style="margin-top: 8px;">{{ block.settings.origin_sub }}</div>{%- endif -%}
-      </div>
-    </div>
-
-  </div>
-</section>
+{% render 'product-glance', block: block, product: product %}
   {%- endcase -%}
 {%- endfor -%}
 
@@ -412,79 +310,10 @@
   {%- case block.type -%}
   {%- when 'reviews' -%}
 <!-- ──────────── ATSILIEPIMAI (compact, expandable) ──────────── -->
-<section class="reviews" id="atsiliepimai" {{ block.shopify_attributes }}>
-  <div class="reviews__bar">
-    <div class="reviews__lead">
-      <div class="eyebrow-rule">{{ block.settings.eyebrow }}</div>
-      {%- comment -%} Score line renders only when the merchant supplies a real
-        score — no fabricated social proof by default. {%- endcomment -%}
-      {%- if block.settings.score != blank -%}
-      <div class="reviews__scoreline">
-        <span class="num">{{ block.settings.score }}<small>/5</small></span>
-        <span class="stars" aria-hidden="true">★★★★★</span>
-        {%- if block.settings.count_line != blank -%}<span class="cnt">{{ block.settings.count_line }}</span>{%- endif -%}
-      </div>
-      {%- endif -%}
-    </div>
-    <p class="reviews__brief">{{ block.settings.brief }}</p>
-    <button class="reviews__toggle" type="button" id="revToggle" aria-expanded="false" aria-controls="revList">
-      {{ block.settings.toggle_label }}
-      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5 L7 9 L11 5"></path></svg>
-    </button>
-  </div>
-
-  <div class="reviews__list" id="revList" hidden>
-    {%- for rev in section.blocks -%}
-      {%- if rev.type == 'review' -%}
-      <article class="rev" {{ rev.shopify_attributes }}>
-        <div class="rev__meta">
-          <span class="rev__stars" aria-label="{{ rev.settings.rating }} iš 5">{% for i in (1..5) %}{% if i <= rev.settings.rating %}★{% else %}<span class="off">★</span>{% endif %}{% endfor %}</span>
-          <span class="rev__who"><b>{{ rev.settings.author }}</b> · patvirtintas pirkimas</span>
-          <time class="rev__date" datetime="{{ rev.settings.date }}">{{ rev.settings.date }}</time>
-        </div>
-        <p class="rev__body">{{ rev.settings.body }}</p>
-        {%- if rev.settings.fit_note != blank -%}<span class="rev__fit">{{ rev.settings.fit_note }}</span>{%- endif -%}
-      </article>
-      {%- endif -%}
-    {%- endfor -%}
-  </div>
-</section>
+{% render 'product-reviews', section: section, block: block, product: product %}
   {%- when 'related' -%}
 <!-- ──────────── RELATED ──────────── -->
-<section class="related" {{ block.shopify_attributes }}>
-  <div class="related__head">
-    <h3 class="related__title">{{ block.settings.title }}</h3>
-    <a href="{{ block.settings.more_link | default: routes.collections_url }}" class="related__more">
-      {{ block.settings.more_label }}
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 7 H11 M7 3 L11 7 L7 11"/></svg>
-    </a>
-  </div>
-  <div class="related__grid" data-product-recommendations>
-{%- if recommendations.performed and recommendations.products_count > 0 -%}
-{%- for p in recommendations.products limit: 4 -%}
-    <a class="card" href="{{ p.url }}" aria-label="{{ p.title | escape }}">
-      <div class="card__media">
-        <span class="card__price-chip">{{ p.price | money | remove: '€' | remove: ',00' }}</span>
-        {%- if p.featured_image -%}
-        <img src="{{ p.featured_image | image_url: width: 800 }}" srcset="{{ p.featured_image | image_url: width: 400 }} 400w, {{ p.featured_image | image_url: width: 800 }} 800w" sizes="(max-width: 520px) 50vw, 25vw" width="{{ p.featured_image.width }}" height="{{ p.featured_image.height }}" alt="{{ p.featured_image.alt | escape }}" loading="lazy">
-        {%- endif -%}
-      </div>
-    </a>
-{%- endfor -%}
-{%- else -%}
-{%- for p in collections.all.products limit: 4 -%}
-    <a class="card" href="{{ p.url }}" aria-label="{{ p.title | escape }}">
-      <div class="card__media">
-        <span class="card__price-chip">{{ p.price | money | remove: '€' | remove: ',00' }}</span>
-        {%- if p.featured_image -%}
-        <img src="{{ p.featured_image | image_url: width: 800 }}" srcset="{{ p.featured_image | image_url: width: 400 }} 400w, {{ p.featured_image | image_url: width: 800 }} 800w" sizes="(max-width: 520px) 50vw, 25vw" width="{{ p.featured_image.width }}" height="{{ p.featured_image.height }}" alt="{{ p.featured_image.alt | escape }}" loading="lazy">
-        {%- endif -%}
-      </div>
-    </a>
-{%- endfor -%}
-{%- endif -%}
-  </div>
-</section>
+{% render 'product-related', block: block, product: product %}
   {%- endcase -%}
 {%- endfor -%}
 

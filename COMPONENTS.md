@@ -31,6 +31,10 @@ Render with named args and a documented `{% comment %}` header:
 | `search-overlay` | Full‑screen search overlay | reads settings | **Needs work** — pair with `predictive-search.js` cleanly |
 | `cookie-banner` | GDPR consent banner | reads settings | **Stable** |
 | `customer-address-fields` | Address form fields | `address` (confirm on touch) | **Stable** |
+| `product-gallery` | PDP media gallery + dots (split from `main-product`) | `product` | ✅ verified live |
+| `product-glance` | PDP at-a-glance bento | `block`, `product` | ✅ verified live |
+| `product-reviews` | PDP reviews + `review` sub-blocks | `section`, `block`, `product` | Stable |
+| `product-related` | PDP related-products grid | `block`, `product` | ✅ verified live |
 
 ### Planned primitives (the missing library)
 

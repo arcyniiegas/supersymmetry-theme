@@ -1,0 +1,35 @@
+{%- comment -%} Product — related products grid. Rendered by main-product for the `related` block. {%- endcomment -%}
+<section class="related" {{ block.shopify_attributes }}>
+  <div class="related__head">
+    <h3 class="related__title">{{ block.settings.title }}</h3>
+    <a href="{{ block.settings.more_link | default: routes.collections_url }}" class="related__more">
+      {{ block.settings.more_label }}
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 7 H11 M7 3 L11 7 L7 11"/></svg>
+    </a>
+  </div>
+  <div class="related__grid" data-product-recommendations>
+{%- if recommendations.performed and recommendations.products_count > 0 -%}
+{%- for p in recommendations.products limit: 4 -%}
+    <a class="card" href="{{ p.url }}" aria-label="{{ p.title | escape }}">
+      <div class="card__media">
+        <span class="card__price-chip">{{ p.price | money | remove: '€' | remove: ',00' }}</span>
+        {%- if p.featured_image -%}
+        <img src="{{ p.featured_image | image_url: width: 800 }}" srcset="{{ p.featured_image | image_url: width: 400 }} 400w, {{ p.featured_image | image_url: width: 800 }} 800w" sizes="(max-width: 520px) 50vw, 25vw" width="{{ p.featured_image.width }}" height="{{ p.featured_image.height }}" alt="{{ p.featured_image.alt | escape }}" loading="lazy">
+        {%- endif -%}
+      </div>
+    </a>
+{%- endfor -%}
+{%- else -%}
+{%- for p in collections.all.products limit: 4 -%}
+    <a class="card" href="{{ p.url }}" aria-label="{{ p.title | escape }}">
+      <div class="card__media">
+        <span class="card__price-chip">{{ p.price | money | remove: '€' | remove: ',00' }}</span>
+        {%- if p.featured_image -%}
+        <img src="{{ p.featured_image | image_url: width: 800 }}" srcset="{{ p.featured_image | image_url: width: 400 }} 400w, {{ p.featured_image | image_url: width: 800 }} 800w" sizes="(max-width: 520px) 50vw, 25vw" width="{{ p.featured_image.width }}" height="{{ p.featured_image.height }}" alt="{{ p.featured_image.alt | escape }}" loading="lazy">
+        {%- endif -%}
+      </div>
+    </a>
+{%- endfor -%}
+{%- endif -%}
+  </div>
+</section>

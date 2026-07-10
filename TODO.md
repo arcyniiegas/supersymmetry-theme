@@ -87,8 +87,9 @@ Extract shared behaviour into `assets/component-*.js`; retire page scripts.
 
 The high‑value, high‑complexity surfaces, onto the shared kit last.
 
-- [ ] Split `main-product.liquid` (578 lines) into blocks: gallery, info,
-      buy‑buttons, description, accordion, recommendations.
+- [~] Split `main-product.liquid`: **578 → 407 lines** — gallery / glance / reviews /
+      related extracted to `product-*` snippets, **verified pixel-identical live**.
+      Remaining: the info aside (size picker + form) and docs (spec/story/care).
 - [ ] Rebuild `section-product.css` (39 KB) as component CSS; delete the monolith.
 - [ ] `main-collection` + `main-cart` onto shared components/blocks.
 - [ ] Audit `home-*` sections against the shared kit; remove leftovers.
