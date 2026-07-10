@@ -7,11 +7,12 @@ behaviour‑preserving and verified before the next begins.
 **Status:** 21 commits, Theme-Check green, live-verified on `shopify theme dev`.
 `base.css` 42.7 → **10.6 KB (−75%)**, 8 `component-*.css` files; `button` primitive
 (13 CTAs); chrome i18n (22 `t`); **colour-scheme system live** (caught + fixed a
-theme-breaking role bug via the preview). Mega-sections split: `main-product`
-578→297, `main-duk` 446→161, `main-avalynes` 404→223 (all under 300). Remaining:
-`main-cart` / `main-collection` splits (interactive — want stable preview), the
-shared-block vocabulary unification, per-section scheme adoption, `section-*.css`
-cleanup.
+theme-breaking role bug via the preview). **All 5 mega-sections split under 300:**
+`main-product` 578→297, `main-duk` 446→161, `main-avalynes` 404→223, `main-cart`
+361→268, `main-collection` 358→192 (`main-grazinimai` 298 already under). 28
+snippets (was 10). Remaining: the shared-block vocabulary unification (39→~8, the
+audit's #1 finding — needs a stable preview for per-section redesign), per-section
+scheme adoption, section-level i18n, `section-*.css` cleanup.
 
 **Every task's definition of done:** storefront pixel‑identical to the committed
 baseline · Theme Editor add/reorder/remove still works · `theme-check` clean ·

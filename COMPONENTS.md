@@ -38,6 +38,9 @@ Render with named args and a documented `{% comment %}` header:
 | `product-docs` | PDP doc sections (spec/story/care) | `section`, `product` | ✅ verified live |
 | `faq-fallback` | DUK/FAQ hardcoded empty-state (rail + 6 groups) | — | Stable (split from `main-duk`) |
 | `care-*` (daily/leather/suede/storage/fixes/kit) | Shoe-care page thematic sections | `section` | Stable (split from `main-avalynes-prieziura`) |
+| `cart-empty` / `cart-upsell` | Cart empty-state + upsell | `section` | Stable (split from `main-cart`) |
+| `collection-filter-drawer` | Off-canvas filters (swatch case) | `section`, `collection`, `paginate` | Stable — clean compile |
+| `collection-notes` | Collection notes (`note_row`) | `section` | Stable (split from `main-collection`) |
 
 ### Planned primitives (the missing library)
 
