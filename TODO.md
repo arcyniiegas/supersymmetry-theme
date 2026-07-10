@@ -4,8 +4,9 @@ The live plan for turning this theme into the framework described in
 [ARCHITECTURE.md](ARCHITECTURE.md). Work top to bottom; each phase is
 behaviour‑preserving and verified before the next begins.
 
-**Status:** Phase 0 in progress — git baseline + `tokens.css` extracted; Theme
-Check green (4 benign warnings). Color scheme + section wrapper next.
+**Status:** Milestones 1–4 shipped (5 commits, each Theme-Check-verified &
+visually neutral): foundations + `tokens.css`, the `button` primitive (13 anchor
+CTAs), and chrome i18n (0 → 22 `t` calls). Next: remaining primitives / shared blocks.
 
 **Every task's definition of done:** storefront pixel‑identical to the committed
 baseline · Theme Editor add/reorder/remove still works · `theme-check` clean ·
@@ -31,8 +32,8 @@ committed as a small, self‑describing change.
 
 Build and adopt the missing primitives (see [COMPONENTS.md](COMPONENTS.md) §1).
 
-- [ ] `button.liquid` + `component-button.css`; replace hand‑rolled
-      `<a class="btn">` in `home-hero` and every other section.
+- [~] `button.liquid` shipped + 13 anchor CTAs adopted (M2–M3). Pending:
+      `component-button.css` (CSS still declared in 7 files) + 3 inline-`style=` anchors.
 - [ ] Harden `price.liquid`: remove `€289/€340` fallback literals, fix
       multi‑currency (`money_without_trailing_zeros`, no `remove:'€'`).
 - [ ] Adopt `price` inside `product-card`; move card price logic out of the card.
