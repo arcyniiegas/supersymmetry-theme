@@ -1,0 +1,44 @@
+{%- comment -%} Cart — upsell section. Rendered by main-cart. {%- endcomment -%}
+<section class="upsell" id="upsell">
+  <div class="upsell__head">
+    <h2 class="upsell__title"><span class="light">{{ section.settings.upsell_title_light | default: 'Galbūt' }}</span> {{ section.settings.upsell_title | default: 'praleidai' }}</h2>
+    <a href="{{ section.settings.upsell_more_link | default: routes.all_products_collection_url }}" class="uline mono" style="font-size:12px;color:var(--mid)">{{ section.settings.upsell_more_label | default: 'Visa kolekcija →' }}</a>
+  </div>
+  <div class="upsell__grid">
+    {%- comment -%} Product-picker blocks; empty pickers are skipped, and when
+      none are valid the previous literals render unchanged. {%- endcomment -%}
+    {%- assign mini_valid = 0 -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'mini' and block.settings.product != blank -%}{%- assign mini_valid = mini_valid | plus: 1 -%}{%- endif -%}
+    {%- endfor -%}
+    {%- if mini_valid > 0 -%}
+      {%- for block in section.blocks -%}
+        {%- assign p = block.settings.product -%}
+        {%- if block.type == 'mini' and p != blank -%}
+    <a class="mini" href="{{ p.url }}" {{ block.shopify_attributes }}>
+      <div class="mini__media">{% if p.featured_image %}<img src="{{ p.featured_image | image_url: width: 400 }}" sizes="84px" alt="{{ p.title | escape }}" width="{{ p.featured_image.width }}" height="{{ p.featured_image.height }}" />{% endif %}</div>
+      <div>
+        <div class="mini__name">{{ p.title }}</div>
+        {%- if block.settings.meta != blank -%}<div class="mini__meta">{{ block.settings.meta }}</div>{%- endif -%}
+        <div class="mini__price">{{ p.price | money | remove: '€' | remove: ',00' }}</div>
+      </div>
+      <span class="mini__go" aria-hidden="true">→</span>
+    </a>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- else -%}
+    {%- comment -%} No products picked → fall back to real catalog items,
+      never invented ones. {%- endcomment -%}
+    {%- for p in collections.all.products limit: 3 -%}
+    <a class="mini" href="{{ p.url }}">
+      <div class="mini__media">{% if p.featured_image %}<img src="{{ p.featured_image | image_url: width: 400 }}" sizes="84px" alt="{{ p.title | escape }}" width="{{ p.featured_image.width }}" height="{{ p.featured_image.height }}" />{% endif %}</div>
+      <div>
+        <div class="mini__name">{{ p.title }}</div>
+        <div class="mini__price">{{ p.price | money | remove: '€' | remove: ',00' }}</div>
+      </div>
+      <span class="mini__go" aria-hidden="true">→</span>
+    </a>
+    {%- endfor -%}
+    {%- endif -%}
+  </div>
+</section>

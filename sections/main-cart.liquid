@@ -30,58 +30,7 @@
 {%- if cart.item_count == 0 -%}
 
 <!-- ══════════════ EMPTY STATE ══════════════ -->
-<section class="empty" style="display:block">
-  <div class="empty__wrap">
-    <div>
-      <div class="eyebrow-rule">{{ section.settings.empty_eyebrow | default: 'Krepšelis · <b>0 prekių</b>' }}</div>
-      <h2 class="empty__big">{{ section.settings.empty_title | default: 'Krepšelis kol kas <b>tuščias.</b>' }}</h2>
-      <p class="empty__lede">{{ section.settings.empty_lede | default: 'Kiekviena pora gaminama ranka, ribota partija. Pradėk nuo šio sezono — arba grįžk ten, kur buvai.' }}</p>
-      <div class="empty__ctas">
-        {% render 'button', label: section.settings.empty_cta_label | default: 'Į kolekciją', href: section.settings.empty_cta_link | default: routes.all_products_collection_url, style: 'primary', size: 'lg', arrow: true %}
-        {%- assign ghost_label = section.settings.empty_ghost_label | default: 'Kolekcijos' -%}
-        {%- if ghost_label != blank -%}
-        {% render 'button', label: ghost_label, href: section.settings.empty_ghost_link | default: routes.collections_url, style: 'ghost', size: 'lg' %}
-        {%- endif -%}
-      </div>
-    </div>
-    <div class="empty__side">
-      <h6>{{ section.settings.empty_side_heading | default: 'Iš kolekcijos' }}</h6>
-      {%- comment -%} Product-picker blocks; blocks with no product chosen are
-        skipped, and when none are valid the previous literals render unchanged. {%- endcomment -%}
-      {%- assign eside_valid = 0 -%}
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'eside' and block.settings.product != blank -%}{%- assign eside_valid = eside_valid | plus: 1 -%}{%- endif -%}
-      {%- endfor -%}
-      {%- if eside_valid > 0 -%}
-        {%- for block in section.blocks -%}
-          {%- assign p = block.settings.product -%}
-          {%- if block.type == 'eside' and p != blank -%}
-      <a class="eside" href="{{ p.url }}" {{ block.shopify_attributes }}>
-        <div class="eside__media">{% if p.featured_image %}<img src="{{ p.featured_image | image_url: width: 200 }}" sizes="64px" alt="{{ p.title | escape }}" width="{{ p.featured_image.width }}" height="{{ p.featured_image.height }}" />{% endif %}</div>
-        <div>
-          <div class="eside__name">{{ p.title }}</div>
-          {%- if block.settings.meta != blank -%}<div class="eside__meta">{{ block.settings.meta }}</div>{%- endif -%}
-        </div>
-        <div class="eside__price">{{ p.price | money | remove: '€' | remove: ',00' }}</div>
-      </a>
-          {%- endif -%}
-        {%- endfor -%}
-      {%- else -%}
-      {%- comment -%} No products picked → fall back to real catalog items,
-        never invented ones. {%- endcomment -%}
-      {%- for p in collections.all.products limit: 3 -%}
-      <a class="eside" href="{{ p.url }}">
-        <div class="eside__media">{% if p.featured_image %}<img src="{{ p.featured_image | image_url: width: 200 }}" sizes="64px" alt="{{ p.title | escape }}" width="{{ p.featured_image.width }}" height="{{ p.featured_image.height }}" />{% endif %}</div>
-        <div>
-          <div class="eside__name">{{ p.title }}</div>
-        </div>
-        <div class="eside__price">{{ p.price | money | remove: '€' | remove: ',00' }}</div>
-      </a>
-      {%- endfor -%}
-      {%- endif -%}
-    </div>
-  </div>
-</section>
+{% render 'cart-empty', section: section %}
 
 {%- else -%}
 
@@ -231,49 +180,7 @@
 </section>
 
 <!-- ──────────── UPSELL ──────────── -->
-<section class="upsell" id="upsell">
-  <div class="upsell__head">
-    <h2 class="upsell__title"><span class="light">{{ section.settings.upsell_title_light | default: 'Galbūt' }}</span> {{ section.settings.upsell_title | default: 'praleidai' }}</h2>
-    <a href="{{ section.settings.upsell_more_link | default: routes.all_products_collection_url }}" class="uline mono" style="font-size:12px;color:var(--mid)">{{ section.settings.upsell_more_label | default: 'Visa kolekcija →' }}</a>
-  </div>
-  <div class="upsell__grid">
-    {%- comment -%} Product-picker blocks; empty pickers are skipped, and when
-      none are valid the previous literals render unchanged. {%- endcomment -%}
-    {%- assign mini_valid = 0 -%}
-    {%- for block in section.blocks -%}
-      {%- if block.type == 'mini' and block.settings.product != blank -%}{%- assign mini_valid = mini_valid | plus: 1 -%}{%- endif -%}
-    {%- endfor -%}
-    {%- if mini_valid > 0 -%}
-      {%- for block in section.blocks -%}
-        {%- assign p = block.settings.product -%}
-        {%- if block.type == 'mini' and p != blank -%}
-    <a class="mini" href="{{ p.url }}" {{ block.shopify_attributes }}>
-      <div class="mini__media">{% if p.featured_image %}<img src="{{ p.featured_image | image_url: width: 400 }}" sizes="84px" alt="{{ p.title | escape }}" width="{{ p.featured_image.width }}" height="{{ p.featured_image.height }}" />{% endif %}</div>
-      <div>
-        <div class="mini__name">{{ p.title }}</div>
-        {%- if block.settings.meta != blank -%}<div class="mini__meta">{{ block.settings.meta }}</div>{%- endif -%}
-        <div class="mini__price">{{ p.price | money | remove: '€' | remove: ',00' }}</div>
-      </div>
-      <span class="mini__go" aria-hidden="true">→</span>
-    </a>
-        {%- endif -%}
-      {%- endfor -%}
-    {%- else -%}
-    {%- comment -%} No products picked → fall back to real catalog items,
-      never invented ones. {%- endcomment -%}
-    {%- for p in collections.all.products limit: 3 -%}
-    <a class="mini" href="{{ p.url }}">
-      <div class="mini__media">{% if p.featured_image %}<img src="{{ p.featured_image | image_url: width: 400 }}" sizes="84px" alt="{{ p.title | escape }}" width="{{ p.featured_image.width }}" height="{{ p.featured_image.height }}" />{% endif %}</div>
-      <div>
-        <div class="mini__name">{{ p.title }}</div>
-        <div class="mini__price">{{ p.price | money | remove: '€' | remove: ',00' }}</div>
-      </div>
-      <span class="mini__go" aria-hidden="true">→</span>
-    </a>
-    {%- endfor -%}
-    {%- endif -%}
-  </div>
-</section>
+{% render 'cart-upsell', section: section %}
 
 {%- endif -%}
 
