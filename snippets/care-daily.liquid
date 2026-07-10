@@ -1,0 +1,22 @@
+{%- comment -%} Avalynės priežiūra — daily section. Rendered by main-avalynes-prieziura. {%- endcomment -%}
+<section class="sec" id="kasdien">
+  <div class="sec__head">
+    <div>
+      <div class="eyebrow-rule">{{ section.settings.daily_eyebrow | default: 'Kasdienė rutina' }}</div>
+      <h2 class="sec__title"><span class="light">{{ section.settings.daily_title_light | default: 'Dvi minutės,' }}</span> {{ section.settings.daily_title | default: 'kurios keičia viską.' }}</h2>
+    </div>
+    <p class="sec__sub">{{ section.settings.daily_sub | default: 'Didžiausią skirtumą daro ne priemonės, o pastovumas. Keturi įpročiai, kuriuos verta paversti automatiškais.' }}</p>
+  </div>
+  {%- assign habit_blocks = section.blocks | where: 'type', 'habit' -%}
+  {%- if habit_blocks.size > 0 -%}
+  <div class="habits">
+    {%- for block in habit_blocks -%}
+    <div class="habit" {{ block.shopify_attributes }}>
+      <span class="habit__k">{{ block.settings.k }}</span>
+      <h3 class="habit__t">{{ block.settings.t }}</h3>
+      <p class="habit__b">{{ block.settings.b }}</p>
+    </div>
+    {%- endfor -%}
+  </div>
+  {%- endif -%}
+</section>

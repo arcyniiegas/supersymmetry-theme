@@ -1,0 +1,23 @@
+{%- comment -%} Avalynės priežiūra — kit section. Rendered by main-avalynes-prieziura. {%- endcomment -%}
+<section class="sec sec--surface" id="priemones">
+  <div class="sec__wrap">
+    <div class="sec__head">
+      <div>
+        <div class="eyebrow-rule">{{ section.settings.kit_eyebrow | default: '05 · Priemonės' }}</div>
+        <h2 class="sec__title"><span class="light">{{ section.settings.kit_title_light | default: 'Viskas telpa' }}</span> {{ section.settings.kit_title | default: 'į vieną dėžutę.' }}</h2>
+      </div>
+      <p class="sec__sub">{{ section.settings.kit_sub | default: 'Nereikia dešimties buteliukų. Septyni daiktai padengia visą odos ir zomšos priežiūrą metų metus.' }}</p>
+    </div>
+    {%- assign kit_blocks = section.blocks | where: 'type', 'kit_item' -%}
+    {%- if kit_blocks.size > 0 -%}
+    <div class="kit">
+      {%- for block in kit_blocks -%}
+      <div class="kit__item" {{ block.shopify_attributes }}>
+        <div class="kit__name">{{ block.settings.name }}<small>{{ block.settings.small }}</small></div>
+        <span class="kit__for">{{ block.settings.for }}</span>
+      </div>
+      {%- endfor -%}
+    </div>
+    {%- endif -%}
+  </div>
+</section>

@@ -1,0 +1,50 @@
+{%- comment -%} Avalynės priežiūra — suede section. Rendered by main-avalynes-prieziura. {%- endcomment -%}
+<section class="sec sec--surface" id="zomsa">
+  <div class="sec__wrap">
+    <div class="sec__head">
+      <div>
+        <div class="eyebrow-rule">{{ section.settings.zomsa_eyebrow | default: '02 · Zomša ir nubukas' }}</div>
+        <h2 class="sec__title"><span class="light">{{ section.settings.zomsa_title_light | default: 'Zomšos priežiūra' }}</span> {{ section.settings.zomsa_title | default: '— sausas metodas.' }}</h2>
+      </div>
+      <p class="sec__sub">{{ section.settings.zomsa_sub | default: 'Zomša valoma sausai. Jokio vandens, jokio kremo, jokio vaško — tik šepetys, garas ir teisingas impregnantas.' }}</p>
+    </div>
+
+    <div class="tut tut--rev">
+      <div class="tut__media">
+        <span class="tut__word">{{ section.settings.zomsa_word | default: 'Zomša' }}</span>
+        <div class="tut__photo">
+          {%- if section.settings.zomsa_image -%}
+          <img src="{{ section.settings.zomsa_image | image_url: width: 1400 }}" srcset="{{ section.settings.zomsa_image | image_url: width: 700 }} 700w, {{ section.settings.zomsa_image | image_url: width: 1400 }} 1400w" sizes="(max-width: 960px) 100vw, 50vw" width="{{ section.settings.zomsa_image.width }}" height="{{ section.settings.zomsa_image.height }}" alt="{{ section.settings.zomsa_image.alt | default: section.settings.zomsa_alt | escape }}" />
+          {%- else -%}
+          <img src="{{ 'Glr1.webp' | asset_url }}" width="1400" height="1400" alt="{{ section.settings.zomsa_alt | default: 'Rudos zomšos batelis su sagtimi' }}" />
+          {%- endif -%}
+        </div>
+        <div class="tut__cap">
+          <span>{{ section.settings.zomsa_cap_1 | default: 'Ruda zomša' }}</span>
+          <span class="sep">·</span>
+          <span>{{ section.settings.zomsa_cap_2 | default: 'Šepetys ir impregnantas' }}</span>
+        </div>
+      </div>
+
+      <div class="tsteps">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'tstep' and block.settings.group == 'zomsa' -%}
+        <div class="tstep" {{ block.shopify_attributes }}>
+          <div class="tstep__n">{{ block.settings.n }}</div>
+          <div>
+            <h3 class="tstep__t">{{ block.settings.t }}</h3>
+            <p class="tstep__b">{{ block.settings.b }}</p>
+            {%- if block.settings.tip_b != blank -%}
+            <div class="tip{% if block.settings.tip_warn %} tip--warn{% endif %}">
+              <span class="tip__k">{{ block.settings.tip_k }}</span>
+              <p class="tip__b">{{ block.settings.tip_b }}</p>
+            </div>
+            {%- endif -%}
+          </div>
+        </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>

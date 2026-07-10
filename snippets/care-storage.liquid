@@ -1,0 +1,26 @@
+{%- comment -%} Avalynės priežiūra — storage section. Rendered by main-avalynes-prieziura. {%- endcomment -%}
+<section class="sec sec--ink" id="sandelis">
+  <div class="sec__wrap">
+    <div class="sec__head">
+      <div>
+        <div class="eyebrow-rule">{{ section.settings.store_eyebrow | default: '03 · Sandėliavimas' }}</div>
+        <h2 class="sec__title"><span class="light">{{ section.settings.store_title_light | default: 'Kaip laikyti' }}</span> {{ section.settings.store_title | default: 'tarp sezonų.' }}</h2>
+      </div>
+      <p class="sec__sub">{{ section.settings.store_sub | default: 'Oda gyva medžiaga — jai reikia kvėpuoti. Teisingas laikymas apsaugo formą ir spalvą tiek pat, kiek valymas.' }}</p>
+    </div>
+    {%- assign store_blocks = section.blocks | where: 'type', 'store_row' -%}
+    {%- if store_blocks.size > 0 -%}
+    <div class="store">
+      {%- for block in store_blocks -%}
+      <div class="store__row" {{ block.shopify_attributes }}>
+        <span class="store__n">{{ block.settings.n }}</span>
+        <div>
+          <h3 class="store__t">{{ block.settings.t }}</h3>
+          <p class="store__d">{{ block.settings.d }}</p>
+        </div>
+      </div>
+      {%- endfor -%}
+    </div>
+    {%- endif -%}
+  </div>
+</section>

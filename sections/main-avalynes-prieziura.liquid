@@ -47,203 +47,22 @@
 {%- endif -%}
 
 <!-- ──────────── 00 · DAILY ──────────── -->
-<section class="sec" id="kasdien">
-  <div class="sec__head">
-    <div>
-      <div class="eyebrow-rule">{{ section.settings.daily_eyebrow | default: 'Kasdienė rutina' }}</div>
-      <h2 class="sec__title"><span class="light">{{ section.settings.daily_title_light | default: 'Dvi minutės,' }}</span> {{ section.settings.daily_title | default: 'kurios keičia viską.' }}</h2>
-    </div>
-    <p class="sec__sub">{{ section.settings.daily_sub | default: 'Didžiausią skirtumą daro ne priemonės, o pastovumas. Keturi įpročiai, kuriuos verta paversti automatiškais.' }}</p>
-  </div>
-  {%- assign habit_blocks = section.blocks | where: 'type', 'habit' -%}
-  {%- if habit_blocks.size > 0 -%}
-  <div class="habits">
-    {%- for block in habit_blocks -%}
-    <div class="habit" {{ block.shopify_attributes }}>
-      <span class="habit__k">{{ block.settings.k }}</span>
-      <h3 class="habit__t">{{ block.settings.t }}</h3>
-      <p class="habit__b">{{ block.settings.b }}</p>
-    </div>
-    {%- endfor -%}
-  </div>
-  {%- endif -%}
-</section>
+{% render 'care-daily', section: section %}
 
 <!-- ──────────── 01 · LEATHER ──────────── -->
-<section class="sec" id="oda">
-  <div class="sec__head">
-    <div>
-      <div class="eyebrow-rule">{{ section.settings.oda_eyebrow | default: '01 · Lygi oda' }}</div>
-      <h2 class="sec__title"><span class="light">{{ section.settings.oda_title_light | default: 'Odos priežiūra' }}</span> {{ section.settings.oda_title | default: '— penki žingsniai.' }}</h2>
-    </div>
-    <p class="sec__sub">{{ section.settings.oda_sub | default: 'Nuo dulkių iki apsaugos. Visą ciklą kartokite kartą per mėnesį, poliravimą — kada tik norite blizgesio.' }}</p>
-  </div>
-
-  <div class="tut">
-    <div class="tut__media">
-      <span class="tut__word">{{ section.settings.oda_word | default: 'Oda' }}</span>
-      <div class="tut__photo">
-        {%- if section.settings.oda_image -%}
-        <img src="{{ section.settings.oda_image | image_url: width: 1400 }}" srcset="{{ section.settings.oda_image | image_url: width: 700 }} 700w, {{ section.settings.oda_image | image_url: width: 1400 }} 1400w" sizes="(max-width: 960px) 100vw, 50vw" width="{{ section.settings.oda_image.width }}" height="{{ section.settings.oda_image.height }}" alt="{{ section.settings.oda_image.alt | default: section.settings.oda_alt | escape }}" />
-        {%- else -%}
-        <img src="{{ 'Nr1.webp' | asset_url }}" width="1400" height="1400" alt="{{ section.settings.oda_alt | default: 'Juoda lygios odos moka' }}" />
-        {%- endif -%}
-      </div>
-      <div class="tut__cap">
-        <span>{{ section.settings.oda_cap_1 | default: 'Lygi veršio oda' }}</span>
-        <span class="sep">·</span>
-        <span>{{ section.settings.oda_cap_2 | default: 'Bespalvis balzamas' }}</span>
-      </div>
-    </div>
-
-    <div class="tsteps">
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'tstep' and block.settings.group == 'oda' -%}
-      <div class="tstep" {{ block.shopify_attributes }}>
-        <div class="tstep__n">{{ block.settings.n }}</div>
-        <div>
-          <h3 class="tstep__t">{{ block.settings.t }}</h3>
-          <p class="tstep__b">{{ block.settings.b }}</p>
-          {%- if block.settings.tip_b != blank -%}
-          <div class="tip{% if block.settings.tip_warn %} tip--warn{% endif %}">
-            <span class="tip__k">{{ block.settings.tip_k }}</span>
-            <p class="tip__b">{{ block.settings.tip_b }}</p>
-          </div>
-          {%- endif -%}
-        </div>
-      </div>
-        {%- endif -%}
-      {%- endfor -%}
-    </div>
-  </div>
-</section>
+{% render 'care-leather', section: section %}
 
 <!-- ──────────── 02 · SUEDE ──────────── -->
-<section class="sec sec--surface" id="zomsa">
-  <div class="sec__wrap">
-    <div class="sec__head">
-      <div>
-        <div class="eyebrow-rule">{{ section.settings.zomsa_eyebrow | default: '02 · Zomša ir nubukas' }}</div>
-        <h2 class="sec__title"><span class="light">{{ section.settings.zomsa_title_light | default: 'Zomšos priežiūra' }}</span> {{ section.settings.zomsa_title | default: '— sausas metodas.' }}</h2>
-      </div>
-      <p class="sec__sub">{{ section.settings.zomsa_sub | default: 'Zomša valoma sausai. Jokio vandens, jokio kremo, jokio vaško — tik šepetys, garas ir teisingas impregnantas.' }}</p>
-    </div>
-
-    <div class="tut tut--rev">
-      <div class="tut__media">
-        <span class="tut__word">{{ section.settings.zomsa_word | default: 'Zomša' }}</span>
-        <div class="tut__photo">
-          {%- if section.settings.zomsa_image -%}
-          <img src="{{ section.settings.zomsa_image | image_url: width: 1400 }}" srcset="{{ section.settings.zomsa_image | image_url: width: 700 }} 700w, {{ section.settings.zomsa_image | image_url: width: 1400 }} 1400w" sizes="(max-width: 960px) 100vw, 50vw" width="{{ section.settings.zomsa_image.width }}" height="{{ section.settings.zomsa_image.height }}" alt="{{ section.settings.zomsa_image.alt | default: section.settings.zomsa_alt | escape }}" />
-          {%- else -%}
-          <img src="{{ 'Glr1.webp' | asset_url }}" width="1400" height="1400" alt="{{ section.settings.zomsa_alt | default: 'Rudos zomšos batelis su sagtimi' }}" />
-          {%- endif -%}
-        </div>
-        <div class="tut__cap">
-          <span>{{ section.settings.zomsa_cap_1 | default: 'Ruda zomša' }}</span>
-          <span class="sep">·</span>
-          <span>{{ section.settings.zomsa_cap_2 | default: 'Šepetys ir impregnantas' }}</span>
-        </div>
-      </div>
-
-      <div class="tsteps">
-        {%- for block in section.blocks -%}
-          {%- if block.type == 'tstep' and block.settings.group == 'zomsa' -%}
-        <div class="tstep" {{ block.shopify_attributes }}>
-          <div class="tstep__n">{{ block.settings.n }}</div>
-          <div>
-            <h3 class="tstep__t">{{ block.settings.t }}</h3>
-            <p class="tstep__b">{{ block.settings.b }}</p>
-            {%- if block.settings.tip_b != blank -%}
-            <div class="tip{% if block.settings.tip_warn %} tip--warn{% endif %}">
-              <span class="tip__k">{{ block.settings.tip_k }}</span>
-              <p class="tip__b">{{ block.settings.tip_b }}</p>
-            </div>
-            {%- endif -%}
-          </div>
-        </div>
-          {%- endif -%}
-        {%- endfor -%}
-      </div>
-    </div>
-  </div>
-</section>
+{% render 'care-suede', section: section %}
 
 <!-- ──────────── 03 · STORAGE ──────────── -->
-<section class="sec sec--ink" id="sandelis">
-  <div class="sec__wrap">
-    <div class="sec__head">
-      <div>
-        <div class="eyebrow-rule">{{ section.settings.store_eyebrow | default: '03 · Sandėliavimas' }}</div>
-        <h2 class="sec__title"><span class="light">{{ section.settings.store_title_light | default: 'Kaip laikyti' }}</span> {{ section.settings.store_title | default: 'tarp sezonų.' }}</h2>
-      </div>
-      <p class="sec__sub">{{ section.settings.store_sub | default: 'Oda gyva medžiaga — jai reikia kvėpuoti. Teisingas laikymas apsaugo formą ir spalvą tiek pat, kiek valymas.' }}</p>
-    </div>
-    {%- assign store_blocks = section.blocks | where: 'type', 'store_row' -%}
-    {%- if store_blocks.size > 0 -%}
-    <div class="store">
-      {%- for block in store_blocks -%}
-      <div class="store__row" {{ block.shopify_attributes }}>
-        <span class="store__n">{{ block.settings.n }}</span>
-        <div>
-          <h3 class="store__t">{{ block.settings.t }}</h3>
-          <p class="store__d">{{ block.settings.d }}</p>
-        </div>
-      </div>
-      {%- endfor -%}
-    </div>
-    {%- endif -%}
-  </div>
-</section>
+{% render 'care-storage', section: section %}
 
 <!-- ──────────── 04 · TROUBLESHOOTING ──────────── -->
-<section class="sec" id="bedos">
-  <div class="sec__head">
-    <div>
-      <div class="eyebrow-rule">{{ section.settings.fix_eyebrow | default: '04 · Dažnos bėdos' }}</div>
-      <h2 class="sec__title"><span class="light">{{ section.settings.fix_title_light | default: 'Kai kažkas' }}</span> {{ section.settings.fix_title | default: 'nutinka.' }}</h2>
-    </div>
-    <p class="sec__sub">{{ section.settings.fix_sub | default: 'Greiti, patikrinti sprendimai. Jei abejojate ar pažeidimas gilus — parašykite mums prieš imdamiesi patys.' }}</p>
-  </div>
-  {%- assign fix_blocks = section.blocks | where: 'type', 'fix' -%}
-  {%- if fix_blocks.size > 0 -%}
-  <div class="fixes">
-    {%- for block in fix_blocks -%}
-    <div class="fix" {{ block.shopify_attributes }}>
-      <div class="fix__p">
-        <span class="tag">{{ block.settings.tag }}</span>
-        <span class="q">{{ block.settings.q }}</span>
-      </div>
-      <p class="fix__f">{{ block.settings.f }}</p>
-    </div>
-    {%- endfor -%}
-  </div>
-  {%- endif -%}
-</section>
+{% render 'care-fixes', section: section %}
 
 <!-- ──────────── 05 · KIT ──────────── -->
-<section class="sec sec--surface" id="priemones">
-  <div class="sec__wrap">
-    <div class="sec__head">
-      <div>
-        <div class="eyebrow-rule">{{ section.settings.kit_eyebrow | default: '05 · Priemonės' }}</div>
-        <h2 class="sec__title"><span class="light">{{ section.settings.kit_title_light | default: 'Viskas telpa' }}</span> {{ section.settings.kit_title | default: 'į vieną dėžutę.' }}</h2>
-      </div>
-      <p class="sec__sub">{{ section.settings.kit_sub | default: 'Nereikia dešimties buteliukų. Septyni daiktai padengia visą odos ir zomšos priežiūrą metų metus.' }}</p>
-    </div>
-    {%- assign kit_blocks = section.blocks | where: 'type', 'kit_item' -%}
-    {%- if kit_blocks.size > 0 -%}
-    <div class="kit">
-      {%- for block in kit_blocks -%}
-      <div class="kit__item" {{ block.shopify_attributes }}>
-        <div class="kit__name">{{ block.settings.name }}<small>{{ block.settings.small }}</small></div>
-        <span class="kit__for">{{ block.settings.for }}</span>
-      </div>
-      {%- endfor -%}
-    </div>
-    {%- endif -%}
-  </div>
-</section>
+{% render 'care-kit', section: section %}
 
 <!-- ──────────── CLOSING ──────────── -->
 <section class="sec close">

@@ -37,6 +37,7 @@ Render with named args and a documented `{% comment %}` header:
 | `product-related` | PDP related-products grid | `block`, `product` | ✅ verified live |
 | `product-docs` | PDP doc sections (spec/story/care) | `section`, `product` | ✅ verified live |
 | `faq-fallback` | DUK/FAQ hardcoded empty-state (rail + 6 groups) | — | Stable (split from `main-duk`) |
+| `care-*` (daily/leather/suede/storage/fixes/kit) | Shoe-care page thematic sections | `section` | Stable (split from `main-avalynes-prieziura`) |
 
 ### Planned primitives (the missing library)
 

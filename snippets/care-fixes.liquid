@@ -1,0 +1,24 @@
+{%- comment -%} Avalynės priežiūra — fixes section. Rendered by main-avalynes-prieziura. {%- endcomment -%}
+<section class="sec" id="bedos">
+  <div class="sec__head">
+    <div>
+      <div class="eyebrow-rule">{{ section.settings.fix_eyebrow | default: '04 · Dažnos bėdos' }}</div>
+      <h2 class="sec__title"><span class="light">{{ section.settings.fix_title_light | default: 'Kai kažkas' }}</span> {{ section.settings.fix_title | default: 'nutinka.' }}</h2>
+    </div>
+    <p class="sec__sub">{{ section.settings.fix_sub | default: 'Greiti, patikrinti sprendimai. Jei abejojate ar pažeidimas gilus — parašykite mums prieš imdamiesi patys.' }}</p>
+  </div>
+  {%- assign fix_blocks = section.blocks | where: 'type', 'fix' -%}
+  {%- if fix_blocks.size > 0 -%}
+  <div class="fixes">
+    {%- for block in fix_blocks -%}
+    <div class="fix" {{ block.shopify_attributes }}>
+      <div class="fix__p">
+        <span class="tag">{{ block.settings.tag }}</span>
+        <span class="q">{{ block.settings.q }}</span>
+      </div>
+      <p class="fix__f">{{ block.settings.f }}</p>
+    </div>
+    {%- endfor -%}
+  </div>
+  {%- endif -%}
+</section>
