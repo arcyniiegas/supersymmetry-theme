@@ -49,7 +49,7 @@
       {%- else -%}
       <div class="acct-empty">
         <p>{{ section.settings.empty_text | default: 'Užsakymų kol kas nėra — pirmoji pora dar laukia.' }}</p>
-        <a class="btn btn--primary" href="{{ routes.all_products_collection_url }}">{{ section.settings.empty_cta | default: 'Žiūrėti kolekciją' }} <span class="btn__arrow">→</span></a>
+        {% render 'button', label: section.settings.empty_cta | default: 'Žiūrėti kolekciją', href: routes.all_products_collection_url, style: 'primary', arrow: true %}
       </div>
       {%- endif -%}
       {%- endpaginate -%}

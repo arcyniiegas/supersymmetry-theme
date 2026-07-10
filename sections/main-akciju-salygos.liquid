@@ -60,7 +60,7 @@
 <section class="tmeta">
   <div class="tmeta__cta">
     <p>{{ section.settings.cta_text | default: 'Neaišku dėl perskaičiavimo? Parašykite — <b>Saulius ir Aistė</b> paskaičiuos jūsų grąžinimą.' }}</p>
-    <a href="{{ section.settings.cta_link | default: pages.kontaktai.url | default: '/pages/kontaktai' }}" class="btn btn--primary">{{ section.settings.cta_label | default: 'Susisiekti' }}<span class="btn__arrow">→</span></a>
+    {% render 'button', label: section.settings.cta_label | default: 'Susisiekti', href: section.settings.cta_link | default: pages.kontaktai.url | default: '/pages/kontaktai', style: 'primary', arrow: true %}
   </div>
   <div class="tmeta__line">
     <span>{{ section.settings.meta_left | default: 'Atnaujinta 2026-06' }}</span>

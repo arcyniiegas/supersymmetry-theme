@@ -37,10 +37,10 @@
       <h2 class="empty__big">{{ section.settings.empty_title | default: 'Krepšelis kol kas <b>tuščias.</b>' }}</h2>
       <p class="empty__lede">{{ section.settings.empty_lede | default: 'Kiekviena pora gaminama ranka, ribota partija. Pradėk nuo šio sezono — arba grįžk ten, kur buvai.' }}</p>
       <div class="empty__ctas">
-        <a href="{{ section.settings.empty_cta_link | default: routes.all_products_collection_url }}" class="btn btn--primary btn--lg">{{ section.settings.empty_cta_label | default: 'Į kolekciją' }} <span class="btn__arrow">→</span></a>
+        {% render 'button', label: section.settings.empty_cta_label | default: 'Į kolekciją', href: section.settings.empty_cta_link | default: routes.all_products_collection_url, style: 'primary', size: 'lg', arrow: true %}
         {%- assign ghost_label = section.settings.empty_ghost_label | default: 'Kolekcijos' -%}
         {%- if ghost_label != blank -%}
-        <a href="{{ section.settings.empty_ghost_link | default: routes.collections_url }}" class="btn btn--ghost btn--lg">{{ ghost_label }}</a>
+        {% render 'button', label: ghost_label, href: section.settings.empty_ghost_link | default: routes.collections_url, style: 'ghost', size: 'lg' %}
         {%- endif -%}
       </div>
     </div>

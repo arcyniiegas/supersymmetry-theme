@@ -254,8 +254,8 @@
       <p>{{ section.settings.close_text | default: 'Padų keitimas, persiuvimas ir gilus atnaujinimas atliekami ateljė. Parašykite ar užsukite — pasakysime, ką dar galima išgelbėti.' }}</p>
     </div>
     <div class="close__cta">
-      <a href="{{ section.settings.close_cta_link | default: pages.kontaktai.url | default: '/pages/kontaktai' }}" class="btn btn--primary">{{ section.settings.close_cta_label | default: 'Susisiekti' }}<span class="btn__arrow">→</span></a>
-      <a href="{{ section.settings.close_cta2_link | default: pages.duk.url | default: '/pages/duk' }}" class="btn btn--secondary">{{ section.settings.close_cta2_label | default: 'DUK' }}</a>
+      {% render 'button', label: section.settings.close_cta_label | default: 'Susisiekti', href: section.settings.close_cta_link | default: pages.kontaktai.url | default: '/pages/kontaktai', style: 'primary', arrow: true %}
+      {% render 'button', label: section.settings.close_cta2_label | default: 'DUK', href: section.settings.close_cta2_link | default: pages.duk.url | default: '/pages/duk', style: 'secondary' %}
     </div>
   </div>
 </section>
