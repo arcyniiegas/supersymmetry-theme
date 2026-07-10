@@ -34,13 +34,13 @@
 <!-- ──────────── SUBNAV ──────────── -->
 {%- assign chip_blocks = section.blocks | where: 'type', 'chip' -%}
 {%- if chip_blocks.size > 0 -%}
-<nav class="subnav" aria-label="Skyriai">
+<scroll-spy class="subnav" role="navigation" aria-label="Skyriai" data-spy-margin="-30% 0px -60% 0px">
   <div class="subnav__wrap">
     {%- for block in chip_blocks -%}
     <a class="subnav__chip" href="#{{ block.settings.anchor }}"{% if forloop.first %} aria-current="true"{% endif %} {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
     {%- endfor -%}
   </div>
-</nav>
+</scroll-spy>
 {%- endif -%}
 
 <!-- ──────────── 1 · EIGA / PROCESS ──────────── -->
@@ -174,7 +174,7 @@
     </div>
   </div>
 </section>
-<script src="{{ 'grazinimai.js' | asset_url }}" defer></script>
+<script src="{{ 'component-scroll-spy.js' | asset_url }}" defer></script>
 {% schema %}
 {
   "name": "Grąžinimai",

@@ -15,6 +15,7 @@
    IN-PAGE NAV — sticky, scroll-to anchors
    ════════════════════════════════════════════════════════════ */
 .subnav{
+  display: block; /* explicit — the element is now <scroll-spy>, not <nav> */
   position: sticky; top: 73px;
   z-index: 20;
   background: color-mix(in oklab, var(--bg) 88%, transparent);
