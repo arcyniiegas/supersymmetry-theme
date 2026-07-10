@@ -8,15 +8,44 @@
     Array.prototype.forEach.call(els, function (el) { el.addEventListener(ev, fn); });
   }
 
+  /* Focusable-element selector shared by the modal focus traps below. */
+  var FOCUSABLE = 'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';
+
+  /* Trap Tab within an open modal dialog (WCAG 2.4.3 — keyboard stays inside). */
+  function trapTab(container, e) {
+    if (e.key !== 'Tab') return;
+    var f = Array.prototype.filter.call(
+      container.querySelectorAll(FOCUSABLE),
+      function (el) { return el.offsetParent !== null; }
+    );
+    if (!f.length) return;
+    var first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  }
+
   /* ── full-screen Meniu overlay ── */
   var menu = document.getElementById('ssMenu');
   if (menu) {
-    var openMenu = function () { menu.classList.add('is-open'); document.body.classList.add('menu-open'); };
-    var closeMenu = function () { menu.classList.remove('is-open'); document.body.classList.remove('menu-open'); };
+    var menuTrigger = null;
+    var openMenu = function (e) {
+      menuTrigger = (e && e.currentTarget) || document.activeElement;
+      menu.classList.add('is-open'); document.body.classList.add('menu-open');
+      /* move focus into the dialog so Tab is trapped from the first press */
+      var mClose = menu.querySelector('[data-menu-close]');
+      if (mClose) setTimeout(function () { mClose.focus(); }, 60);
+    };
+    var closeMenu = function () {
+      menu.classList.remove('is-open'); document.body.classList.remove('menu-open');
+      /* return focus to whatever opened the menu (WCAG 2.4.3) */
+      if (menuTrigger && typeof menuTrigger.focus === 'function') { menuTrigger.focus(); }
+    };
     on(document.querySelectorAll('[data-menu-open]'), 'click', openMenu);
     on(document.querySelectorAll('[data-menu-close]'), 'click', closeMenu);
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && menu.classList.contains('is-open')) closeMenu();
+      if (!menu.classList.contains('is-open')) return;
+      if (e.key === 'Escape') { closeMenu(); return; }
+      trapTab(menu, e);
     });
   }
 
@@ -26,7 +55,6 @@
     var sInput = document.getElementById('ssSearchInput');
     var sClear = document.getElementById('ssSearchClear');
     var lastTrigger = null;
-    var FOCUSABLE = 'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';
     var openSearch = function (e) {
       if (e) e.preventDefault();
       lastTrigger = (e && e.currentTarget) || document.activeElement;
@@ -51,17 +79,7 @@
     document.addEventListener('keydown', function (e) {
       if (!sOverlay.classList.contains('is-open')) return;
       if (e.key === 'Escape') { closeSearch(); return; }
-      /* focus trap: keep Tab within the modal dialog */
-      if (e.key === 'Tab') {
-        var f = Array.prototype.filter.call(
-          sOverlay.querySelectorAll(FOCUSABLE),
-          function (el) { return el.offsetParent !== null; }
-        );
-        if (!f.length) return;
-        var first = f[0], last = f[f.length - 1];
-        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-      }
+      trapTab(sOverlay, e);
     });
   }
 
