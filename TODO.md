@@ -4,11 +4,12 @@ The live plan for turning this theme into the framework described in
 [ARCHITECTURE.md](ARCHITECTURE.md). Work top to bottom; each phase is
 behaviour‑preserving and verified before the next begins.
 
-**Status:** Milestones 1–8 shipped (14 commits, Theme-Check green). `base.css`
-42.7 → 16.9 KB (−60%, component CSS extracted); chrome i18n live (22 `t` calls);
-**merchant colour-scheme system added** (Colors panel, 3 schemes, default-identical).
-⚠️ M8 was engineered without a live preview — spot-check it (see below). Remaining
-big wins (shared blocks, mega-section splits, per-section scheme adoption) still
+**Status:** Milestones 1–9 shipped (16 commits, Theme-Check green). `base.css`
+42.7 → **10.6 KB (−75%)** — now reset + primitives + breadcrumbs/page-head + glass;
+8 `component-*.css` files own the reusable UI + chrome. `button` primitive live
+(13 CTAs); chrome i18n (22 `t` calls); **colour-scheme system** (Colors panel,
+default-identical — ⚠️ spot-check pending). Remaining big wins (shared blocks,
+mega-section splits, per-section scheme adoption, page `section-*.css` cleanup)
 benefit from a `shopify theme dev` preview.
 
 **Every task's definition of done:** storefront pixel‑identical to the committed
