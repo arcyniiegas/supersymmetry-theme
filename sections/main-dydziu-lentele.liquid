@@ -23,10 +23,7 @@
     {%- if stat_blocks.size > 0 -%}
     <div class="phead__stats">
       {%- for block in stat_blocks -%}
-      <div class="phead__stat" {{ block.shopify_attributes }}>
-        <span class="k">{{ block.settings.k }}</span>
-        <span class="v{% if block.settings.tabular %} tabular{% endif %}">{{ block.settings.v }}</span>
-      </div>
+      {% render 'stat', k: block.settings.k, v: block.settings.v, tabular: block.settings.tabular, attrs: block.shopify_attributes %}
       {%- endfor -%}
     </div>
     {%- endif -%}

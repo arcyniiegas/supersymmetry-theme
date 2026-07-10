@@ -1,0 +1,18 @@
+{%- comment -%}
+  stat — the shared page-head stat (label + value). Renders the .phead__stat
+  markup used across every content page's header; the .phead__stat / .k / .v
+  styling lives in base.css (page head). This is the single source for a stat,
+  replacing the 5 near-identical inline copies (main-avalynes-prieziura,
+  main-grazinimai, main-akciju-salygos, main-dydziu-lentele, main-apie-mus).
+
+  Params:
+    k        (string) — label (small, above).
+    v        (string) — value (large).
+    tabular  (boolean) — tabular figures on the value. Default false.
+    accent   (boolean) — recolour the value with the accent. Default false.
+    attrs    (string)  — pass block.shopify_attributes for the Theme Editor.
+{%- endcomment -%}
+<div class="phead__stat"{% if attrs %} {{ attrs }}{% endif %}>
+  <span class="k">{{ k }}</span>
+  <span class="v{% if tabular %} tabular{% endif %}"{% if accent %} style="color:var(--orange);"{% endif %}>{{ v }}</span>
+</div>

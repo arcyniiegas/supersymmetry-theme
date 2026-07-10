@@ -20,10 +20,7 @@
     <div class="phead__stats">
       {%- for block in section.blocks -%}
         {%- if block.type == 'stat' -%}
-      <div class="phead__stat" {{ block.shopify_attributes }}>
-        <span class="k">{{ block.settings.label }}</span>
-        <span class="v tabular">{{ block.settings.value }}</span>
-      </div>
+      {% render 'stat', k: block.settings.label, v: block.settings.value, tabular: true, attrs: block.shopify_attributes %}
         {%- endif -%}
       {%- endfor -%}
     </div>

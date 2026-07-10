@@ -41,6 +41,7 @@ Render with named args and a documented `{% comment %}` header:
 | `cart-empty` / `cart-upsell` | Cart empty-state + upsell | `section` | Stable (split from `main-cart`) |
 | `collection-filter-drawer` | Off-canvas filters (swatch case) | `section`, `collection`, `paginate` | Stable — clean compile |
 | `collection-notes` | Collection notes (`note_row`) | `section` | Stable (split from `main-collection`) |
+| `stat` | Shared page-head stat — **unifies 5 sections** | `k`, `v`, `tabular`, `accent`, `attrs` | ✅ verified live |
 
 ### Planned primitives (the missing library)
 
