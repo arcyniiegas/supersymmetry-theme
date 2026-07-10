@@ -1,5 +1,12 @@
 (function () {
-  var main = document.querySelector('.product');
+  /* Re-runnable so the product section re-initialises when the Theme Editor
+     re-renders it (shopify:section:load). On the storefront this runs exactly
+     once — identical to before. The one portaled element (the body-level buy
+     bar) is cleared first so a re-render can't leave a duplicate behind. */
+  function initProduct() {
+    var staleBuybar = document.querySelector('.buybar');
+    if (staleBuybar) staleBuybar.remove();
+    var main = document.querySelector('.product');
   var title = (main && main.getAttribute('data-product-title')) || '';
   var price = (main && main.getAttribute('data-price')) || '';
   var compare = (main && main.getAttribute('data-compare')) || '';
@@ -235,4 +242,10 @@
       t.firstChild.textContent = open ? 'Skaityti atsiliepimus\n      ' : 'Suskleisti\n      ';
     });
   })();
+  }
+
+  initProduct();
+  document.addEventListener('shopify:section:load', function (e) {
+    if (e.target && e.target.querySelector('.product')) initProduct();
+  });
 })();
