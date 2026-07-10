@@ -20,7 +20,7 @@
     <a class="prod" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
       <div class="prod__media">
         {%- if product.featured_image -%}
-        <img src="{{ product.featured_image | image_url: width: 800 }}" srcset="{{ product.featured_image | image_url: width: 400 }} 400w, {{ product.featured_image | image_url: width: 800 }} 800w" sizes="(max-width: 720px) 80vw, 33vw" width="{{ product.featured_image.width }}" height="{{ product.featured_image.height }}" alt="{{ product.featured_image.alt | escape }}">
+        <img loading="lazy" src="{{ product.featured_image | image_url: width: 800 }}" srcset="{{ product.featured_image | image_url: width: 400 }} 400w, {{ product.featured_image | image_url: width: 800 }} 800w" sizes="(max-width: 720px) 80vw, 33vw" width="{{ product.featured_image.width }}" height="{{ product.featured_image.height }}" alt="{{ product.featured_image.alt | escape }}">
         {%- endif -%}
         {%- if product.compare_at_price > product.price -%}
         <span class="prod__tag">–{{ product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round }}%</span>

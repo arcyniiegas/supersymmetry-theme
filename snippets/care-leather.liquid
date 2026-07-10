@@ -13,9 +13,9 @@
       <span class="tut__word">{{ section.settings.oda_word | default: 'Oda' }}</span>
       <div class="tut__photo">
         {%- if section.settings.oda_image -%}
-        <img src="{{ section.settings.oda_image | image_url: width: 1400 }}" srcset="{{ section.settings.oda_image | image_url: width: 700 }} 700w, {{ section.settings.oda_image | image_url: width: 1400 }} 1400w" sizes="(max-width: 960px) 100vw, 50vw" width="{{ section.settings.oda_image.width }}" height="{{ section.settings.oda_image.height }}" alt="{{ section.settings.oda_image.alt | default: section.settings.oda_alt | escape }}" />
+        <img loading="lazy" src="{{ section.settings.oda_image | image_url: width: 1400 }}" srcset="{{ section.settings.oda_image | image_url: width: 700 }} 700w, {{ section.settings.oda_image | image_url: width: 1400 }} 1400w" sizes="(max-width: 960px) 100vw, 50vw" width="{{ section.settings.oda_image.width }}" height="{{ section.settings.oda_image.height }}" alt="{{ section.settings.oda_image.alt | default: section.settings.oda_alt | escape }}" />
         {%- else -%}
-        <img src="{{ 'Nr1.webp' | asset_url }}" width="1400" height="1400" alt="{{ section.settings.oda_alt | default: 'Juoda lygios odos moka' }}" />
+        <img loading="lazy" src="{{ 'Nr1.webp' | asset_url }}" width="1400" height="1400" alt="{{ section.settings.oda_alt | default: 'Juoda lygios odos moka' }}" />
         {%- endif -%}
       </div>
       <div class="tut__cap">

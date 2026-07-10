@@ -16,7 +16,7 @@
         {%- assign p = block.settings.product -%}
         {%- if block.type == 'mini' and p != blank -%}
     <a class="mini" href="{{ p.url }}" {{ block.shopify_attributes }}>
-      <div class="mini__media">{% if p.featured_image %}<img src="{{ p.featured_image | image_url: width: 400 }}" sizes="84px" alt="{{ p.title | escape }}" width="{{ p.featured_image.width }}" height="{{ p.featured_image.height }}" />{% endif %}</div>
+      <div class="mini__media">{% if p.featured_image %}<img loading="lazy" src="{{ p.featured_image | image_url: width: 400 }}" sizes="84px" alt="{{ p.title | escape }}" width="{{ p.featured_image.width }}" height="{{ p.featured_image.height }}" />{% endif %}</div>
       <div>
         <div class="mini__name">{{ p.title }}</div>
         {%- if block.settings.meta != blank -%}<div class="mini__meta">{{ block.settings.meta }}</div>{%- endif -%}
@@ -31,7 +31,7 @@
       never invented ones. {%- endcomment -%}
     {%- for p in collections.all.products limit: 3 -%}
     <a class="mini" href="{{ p.url }}">
-      <div class="mini__media">{% if p.featured_image %}<img src="{{ p.featured_image | image_url: width: 400 }}" sizes="84px" alt="{{ p.title | escape }}" width="{{ p.featured_image.width }}" height="{{ p.featured_image.height }}" />{% endif %}</div>
+      <div class="mini__media">{% if p.featured_image %}<img loading="lazy" src="{{ p.featured_image | image_url: width: 400 }}" sizes="84px" alt="{{ p.title | escape }}" width="{{ p.featured_image.width }}" height="{{ p.featured_image.height }}" />{% endif %}</div>
       <div>
         <div class="mini__name">{{ p.title }}</div>
         <div class="mini__price">{{ p.price | money | remove: '€' | remove: ',00' }}</div>

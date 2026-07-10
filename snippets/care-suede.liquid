@@ -14,9 +14,9 @@
         <span class="tut__word">{{ section.settings.zomsa_word | default: 'Zomša' }}</span>
         <div class="tut__photo">
           {%- if section.settings.zomsa_image -%}
-          <img src="{{ section.settings.zomsa_image | image_url: width: 1400 }}" srcset="{{ section.settings.zomsa_image | image_url: width: 700 }} 700w, {{ section.settings.zomsa_image | image_url: width: 1400 }} 1400w" sizes="(max-width: 960px) 100vw, 50vw" width="{{ section.settings.zomsa_image.width }}" height="{{ section.settings.zomsa_image.height }}" alt="{{ section.settings.zomsa_image.alt | default: section.settings.zomsa_alt | escape }}" />
+          <img loading="lazy" src="{{ section.settings.zomsa_image | image_url: width: 1400 }}" srcset="{{ section.settings.zomsa_image | image_url: width: 700 }} 700w, {{ section.settings.zomsa_image | image_url: width: 1400 }} 1400w" sizes="(max-width: 960px) 100vw, 50vw" width="{{ section.settings.zomsa_image.width }}" height="{{ section.settings.zomsa_image.height }}" alt="{{ section.settings.zomsa_image.alt | default: section.settings.zomsa_alt | escape }}" />
           {%- else -%}
-          <img src="{{ 'Glr1.webp' | asset_url }}" width="1400" height="1400" alt="{{ section.settings.zomsa_alt | default: 'Rudos zomšos batelis su sagtimi' }}" />
+          <img loading="lazy" src="{{ 'Glr1.webp' | asset_url }}" width="1400" height="1400" alt="{{ section.settings.zomsa_alt | default: 'Rudos zomšos batelis su sagtimi' }}" />
           {%- endif -%}
         </div>
         <div class="tut__cap">

@@ -22,7 +22,7 @@
         <div class="article__cover">
           <span class="article__tag"><span class="dot"></span>{{ article.tags.first | default: 'Žurnalas' }}</span>
           {%- if article.image -%}
-          <img src="{{ article.image | image_url: width: 800 }}" srcset="{{ article.image | image_url: width: 400 }} 400w, {{ article.image | image_url: width: 800 }} 800w" sizes="(max-width: 720px) 90vw, 33vw" width="{{ article.image.width }}" height="{{ article.image.height }}" alt="{{ article.image.alt | escape }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <img loading="lazy" src="{{ article.image | image_url: width: 800 }}" srcset="{{ article.image | image_url: width: 400 }} 400w, {{ article.image | image_url: width: 800 }} 800w" sizes="(max-width: 720px) 90vw, 33vw" width="{{ article.image.width }}" height="{{ article.image.height }}" alt="{{ article.image.alt | escape }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
           {%- endif -%}
         </div>
         <div class="article__meta">

@@ -26,7 +26,7 @@
           {%- assign p = block.settings.product -%}
           {%- if block.type == 'eside' and p != blank -%}
       <a class="eside" href="{{ p.url }}" {{ block.shopify_attributes }}>
-        <div class="eside__media">{% if p.featured_image %}<img src="{{ p.featured_image | image_url: width: 200 }}" sizes="64px" alt="{{ p.title | escape }}" width="{{ p.featured_image.width }}" height="{{ p.featured_image.height }}" />{% endif %}</div>
+        <div class="eside__media">{% if p.featured_image %}<img loading="lazy" src="{{ p.featured_image | image_url: width: 200 }}" sizes="64px" alt="{{ p.title | escape }}" width="{{ p.featured_image.width }}" height="{{ p.featured_image.height }}" />{% endif %}</div>
         <div>
           <div class="eside__name">{{ p.title }}</div>
           {%- if block.settings.meta != blank -%}<div class="eside__meta">{{ block.settings.meta }}</div>{%- endif -%}
@@ -40,7 +40,7 @@
         never invented ones. {%- endcomment -%}
       {%- for p in collections.all.products limit: 3 -%}
       <a class="eside" href="{{ p.url }}">
-        <div class="eside__media">{% if p.featured_image %}<img src="{{ p.featured_image | image_url: width: 200 }}" sizes="64px" alt="{{ p.title | escape }}" width="{{ p.featured_image.width }}" height="{{ p.featured_image.height }}" />{% endif %}</div>
+        <div class="eside__media">{% if p.featured_image %}<img loading="lazy" src="{{ p.featured_image | image_url: width: 200 }}" sizes="64px" alt="{{ p.title | escape }}" width="{{ p.featured_image.width }}" height="{{ p.featured_image.height }}" />{% endif %}</div>
         <div>
           <div class="eside__name">{{ p.title }}</div>
         </div>
