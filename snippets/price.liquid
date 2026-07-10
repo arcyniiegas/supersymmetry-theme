@@ -3,8 +3,8 @@
   Usage:
     {% render 'price', product: product %}
     {% render 'price', price: 28900, compare_at: 34000 %}
-  Fallback (no product / no price given) renders the prototype literals:
-    €289 · €340 · –15%.
+  Renders nothing when no product/price is supplied (never the case on a real
+  product page).
 {%- endcomment -%}
 {%- liquid
   assign p_price = price
@@ -14,15 +14,7 @@
     assign p_compare = product.compare_at_price
   endif
 -%}
-{%- if p_price == nil -%}
-<div class="price">
-  <div class="price__main">
-    <div class="price__current tabular">€289</div>
-    <div class="price__strike tabular">€340</div>
-  </div>
-  <span class="price__chip">–15%</span>
-</div>
-{%- else -%}
+{%- if p_price != nil -%}
 <div class="price">
   <div class="price__main">
     <div class="price__current tabular">{{ p_price | money | remove: '€' | remove: ',00' }}</div>
