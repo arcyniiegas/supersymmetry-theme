@@ -8,8 +8,8 @@
     <h2 class="homefit__title"><span class="light">{{ section.settings.title_light }}</span> {{ section.settings.title }}</h2>
     <p class="homefit__sub">{{ section.settings.sub }}</p>
     <div class="homefit__cta">
-      <a href="{{ section.settings.cta_primary_link | default: pages['dydziu-lentele'].url | default: routes.root_url }}" class="btn btn--primary">{{ section.settings.cta_primary_label }}<span class="btn__arrow">→</span></a>
-      <a href="{{ section.settings.cta_secondary_link | default: pages.grazinimai.url | default: routes.root_url }}" class="btn btn--secondary">{{ section.settings.cta_secondary_label }}</a>
+      {% render 'button', label: section.settings.cta_primary_label, href: section.settings.cta_primary_link | default: pages['dydziu-lentele'].url | default: routes.root_url, style: 'primary', arrow: true %}
+      {% render 'button', label: section.settings.cta_secondary_label, href: section.settings.cta_secondary_link | default: pages.grazinimai.url | default: routes.root_url, style: 'secondary' %}
     </div>
   </div>
   <div class="homefit__facts">

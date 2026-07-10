@@ -36,7 +36,7 @@ Render with named args and a documented `{% comment %}` header:
 
 | Snippet | Purpose | Proposed API |
 |---------|---------|--------------|
-| `button` | The one button, everywhere | `label`, `href`, `style` (`primary`/`secondary`/`link`), `arrow` (bool), `aria_label` |
+| ✅ `button` **(shipped M2)** | The one button, everywhere — **anchor CTAs** | `label`, `href`, `style`, `size`, `arrow`, `aria_label`, `target`, `id`, `class`. Adopted in `home-hero`/`home-fit`/`home-visit`; rollout continues. Behavioral `<button>` (submit/ATC/drawer) not yet covered. |
 | `heading` | Consistent headings + level control | `text`, `level` (1–6), `size`, `eyebrow` |
 | `image` | Responsive image with sizes/loading | `image`, `sizes`, `widths`, `loading`, `fetchpriority`, `alt` |
 | `video` | Native/host video with poster | `video`, `poster`, `autoplay`, `loop`, `muted` |

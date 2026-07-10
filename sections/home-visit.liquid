@@ -13,7 +13,7 @@
           <div class="homevisit__hr{% if block.settings.closed %} closed{% endif %}{% if block.settings.highlight %} today{% endif %}" {{ block.shopify_attributes }}><span class="d">{{ block.settings.day }}</span><span class="t">{{ block.settings.time }}</span></div>
         {%- endfor -%}
       </div>
-      <a href="{{ section.settings.cta_link | default: pages.kontaktai.url | default: routes.root_url }}" class="btn btn--primary homevisit__cta">{{ section.settings.cta_label }}<span class="btn__arrow">→</span></a>
+      {% render 'button', label: section.settings.cta_label, href: section.settings.cta_link | default: pages.kontaktai.url | default: routes.root_url, style: 'primary', arrow: true, class: 'homevisit__cta' %}
     </div>
     <div class="homevisit__map">
       <svg viewBox="0 0 400 275" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
