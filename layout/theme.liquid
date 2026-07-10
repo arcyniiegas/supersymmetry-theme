@@ -9,6 +9,7 @@
   {{ 'tokens.css' | asset_url | stylesheet_tag }}
   {{ 'base.css' | asset_url | stylesheet_tag }}
   {{ 'component-button.css' | asset_url | stylesheet_tag }}
+  {{ 'component-card.css' | asset_url | stylesheet_tag }}
   {{ content_for_header }}
   {%- assign brand = settings.brand_name | default: shop.name -%}
   <title>{% if page_title contains brand or page_title == blank %}{{ page_title | default: brand }}{% else %}{{ page_title }} · {{ brand }}{% endif %}</title>
