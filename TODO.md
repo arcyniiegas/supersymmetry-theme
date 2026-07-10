@@ -4,12 +4,12 @@ The live plan for turning this theme into the framework described in
 [ARCHITECTURE.md](ARCHITECTURE.md). Work top to bottom; each phase is
 behaviour‑preserving and verified before the next begins.
 
-**Status:** Milestones 1–7 shipped (11 commits, each Theme-Check-verified &
-visually neutral). `base.css` 42.7 → 16.9 KB (−60%): tokens + button/card/
-mobile-menu/dock/search now own component files; chrome i18n live (22 `t` calls).
-Remaining `base.css` chrome (header/footer/utility-bar) can follow the same safe
-pattern; the big wins (shared blocks, mega-section splits, colour schemes) need
-a live `shopify theme dev` preview to verify per-section rendering.
+**Status:** Milestones 1–8 shipped (14 commits, Theme-Check green). `base.css`
+42.7 → 16.9 KB (−60%, component CSS extracted); chrome i18n live (22 `t` calls);
+**merchant colour-scheme system added** (Colors panel, 3 schemes, default-identical).
+⚠️ M8 was engineered without a live preview — spot-check it (see below). Remaining
+big wins (shared blocks, mega-section splits, per-section scheme adoption) still
+benefit from a `shopify theme dev` preview.
 
 **Every task's definition of done:** storefront pixel‑identical to the committed
 baseline · Theme Editor add/reorder/remove still works · `theme-check` clean ·
@@ -24,8 +24,9 @@ committed as a small, self‑describing change.
       warnings (customer templates), 0 errors.
 - [x] Create `assets/tokens.css`; relocate colour/type/space/radius/glass tokens
       out of `base.css` (values unchanged — 43 tokens moved, loaded first).
-- [ ] Add a **color‑scheme group** + typography settings to
-      `config/settings_schema.json`; wire schemes to tokens.
+- [x] Add a **color‑scheme group** (3 schemes; scheme-1 = current palette) to
+      `config/settings_schema.json`, rendered by `color-schemes.liquid` → tokens,
+      default applied on `<body>`. Typography settings still pending.
 - [ ] Slim `base.css` to resets + primitives; adopt the `component-*.css/js`
       asset naming (assets/ is flat); create `blocks/` with a README.
 - [ ] Establish the section wrapper convention (`padding_top`/`padding_bottom`,
