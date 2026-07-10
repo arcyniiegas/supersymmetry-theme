@@ -120,82 +120,10 @@ input, textarea{ min-width:0; max-width:100%; }
   background: var(--orange);
 }
 
-/* ════════════════════════════════════════════════════════════
-   UTILITY BAR
-   ════════════════════════════════════════════════════════════ */
-.utility{
-  display:flex; justify-content:space-between; align-items:center;
-  padding: 10px var(--gutter);
-  font: 500 11px/1 var(--font-mono);
-  letter-spacing: 0.04em;
-  background: var(--ink);
-  color: #BFBFBF;
-  white-space: nowrap;
-}
-.utility__left, .utility__right{ display:flex; gap: var(--sp-6); align-items:center; min-width:0; }
-.utility__dot{
-  width:8px; height:8px; border-radius:99px;
-  background: #FFFFFF; display:inline-block;
-  margin-right: 10px; vertical-align: middle;
-  box-shadow: 0 0 0 3px rgba(255,255,255,0.20);
-}
-.utility b{ color: #FFFFFF; font-weight: 500; }
-
-/* ════════════════════════════════════════════════════════════
-   HEADER
-   Sticky lives on the Shopify section wrapper (.section-header,
-   set via schema "class") — the wrapper is exactly as tall as the
-   header, so sticky on .header itself has zero travel and dies.
-   ════════════════════════════════════════════════════════════ */
-.section-header{ position: sticky; top: 0; z-index: 30; }
-.header{
-  position: sticky; top: 0; z-index: 30;
-  background: color-mix(in oklab, var(--bg) 52%, transparent);
-  backdrop-filter: blur(26px) saturate(1.7);
-  -webkit-backdrop-filter: blur(26px) saturate(1.7);
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  padding: 18px var(--gutter);
-  gap: 24px;
-}
-.header__brand{
-  font: 600 22px/1 var(--font-sans);
-  letter-spacing: -0.025em;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-.header__nav{
-  display:flex; gap: var(--sp-8); justify-content: center;
-  font: 500 14px/1 var(--font-sans);
-  letter-spacing: -0.005em;
-}
-.header__nav a{ padding: 6px 0; color: var(--text-muted); transition: color var(--tx-fast) var(--ease); }
-.header__nav a:hover, .header__nav a[aria-current="page"]{ color: var(--text); }
-.header__tools{
-  display:flex; gap: var(--sp-6); justify-content:flex-end; align-items:center;
-  font: 500 14px/1 var(--font-sans);
-}
-.header__tools a{ display: inline-flex; align-items: center; gap: 8px; padding: 8px 0; }
-.header__tool{ position: relative; color: var(--text); }
-.header__tool svg{ width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; display: block; }
-.header__tool:hover{ color: var(--text-muted); }
-.header__tool[aria-current="page"]{ color: var(--text); }
-.header__tool-cart .bag-count{ position: absolute; top: -4px; right: -9px; }
-.bag-count{
-  display:inline-grid; place-items:center;
-  min-width:22px; height:22px; padding: 0 7px;
-  background: var(--ink); color: var(--bg);
-  font: 500 11px/1 var(--font-mono);
-  border-radius: 99px;
-}
-
-/* ── Button component ───────────────────────────────────────
-   .btn / .btn--* / .btn__arrow relocated to component-button.css
-   (loaded after base.css in layout/theme.liquid).
+/* ── Utility bar + header components ─────────────────────────
+   Relocated to component-utility-bar.css / component-header.css
+   (loaded in <head>). Their glass-off overrides win by specificity.
    ──────────────────────────────────────────────────────────── */
-
 /* ════════════════════════════════════════════════════════════
    BREADCRUMBS
    ════════════════════════════════════════════════════════════ */
@@ -278,101 +206,9 @@ input, textarea{ min-width:0; max-width:100%; }
   font-feature-settings: 'tnum';
 }
 
-/* ════════════════════════════════════════════════════════════
-   FOOTER
-   ════════════════════════════════════════════════════════════ */
-.foot{
-  background: var(--ink);
-  color: var(--bg);
-  padding: var(--sp-16) var(--gutter) var(--sp-8);
-}
-@media (max-width: 720px){ .foot{ padding: var(--sp-10) var(--gutter) var(--sp-6); } }
-.foot__head{
-  display: flex; justify-content: space-between; align-items: baseline;
-  padding-bottom: var(--sp-10);
-  gap: var(--sp-6); flex-wrap: wrap;
-  border-bottom: 1px solid rgba(255,255,255,0.14);
-}
-.foot__mark{
-  font: 600 clamp(36px, 9.5vw, 56px)/0.98 var(--font-sans);
-  letter-spacing: -0.03em;
-  font-kerning: normal;
-  display: inline-flex; align-items: center; gap: 14px;
-}
-.foot__mark .brand-dot{ width: 18px; height: 18px; top: 6px; background:#FFFFFF; }
-@media (max-width: 600px){
-  .foot__mark .brand-dot{ width: 12px; height: 12px; top: 4px; }
-}
-.foot__tag{
-  font: 400 14px/1.6 var(--font-sans);
-  color: rgba(255,255,255,0.65);
-  max-width: 32ch;
-  text-align: right;
-}
-@media (max-width: 720px){
-  .foot__head{
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--sp-4);
-    padding-bottom: var(--sp-8);
-  }
-  .foot__tag{ text-align: left; }
-}
-.foot__cols{
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--sp-8);
-  padding: var(--sp-10) 0;
-}
-@media (max-width: 720px){
-  .foot__cols{ grid-template-columns: repeat(2, 1fr); gap: var(--sp-8) var(--sp-6); }
-  .foot__newsletter{ grid-column: 1 / -1; max-width: 420px; }
-}
-.foot__col h6{
-  margin: 0 0 var(--sp-4);
-  font: 500 11px/1.3 var(--font-mono);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.5);
-}
-.foot__col ul{ list-style: none; padding: 0; margin: 0; display: grid; gap: var(--sp-3); }
-.foot__col a{
-  font: 400 14px/1.3 var(--font-sans);
-  letter-spacing: -0.005em;
-  color: rgba(255,255,255,0.9);
-}
-.foot__col a:hover{ color: #FFFFFF; }
-.foot__newsletter p{
-  margin: 0 0 var(--sp-3);
-  font: 400 14px/1.55 var(--font-sans);
-  color: rgba(255,255,255,0.7);
-}
-.foot__newsletter form{
-  display: flex; align-items: center;
-  background: rgba(255,255,255,0.08);
-  border-radius: 999px;
-  padding: 4px 4px 4px 14px;
-}
-.foot__newsletter input{
-  flex: 1 1 0%; width: 0; min-width: 0; background: transparent; border: 0;
-  padding: 10px 0; font: 400 14px/1 var(--font-sans); color: #FFFFFF;
-}
-.foot__newsletter input::placeholder{ color: rgba(255,255,255,0.4); }
-.foot__newsletter button{
-  background: #FFFFFF; color: var(--text);
-  padding: 10px 16px; border-radius: 999px;
-  font: 500 13px/1 var(--font-sans);
-  white-space: nowrap; flex-shrink: 0;
-}
-.foot__legal{
-  display: flex; justify-content: space-between; align-items: center;
-  padding-top: var(--sp-6);
-  border-top: 1px solid rgba(255,255,255,0.14);
-  font: 500 11px/1.5 var(--font-mono);
-  color: rgba(255,255,255,0.5);
-  flex-wrap: wrap; gap: var(--sp-3); letter-spacing: 0.02em;
-}
-
+/* ── Footer component ───────────────────────────────────────
+   Relocated to component-footer.css (loaded in <head>).
+   ──────────────────────────────────────────────────────────── */
 /* ── Chrome overlay components ───────────────────────────────
    Mobile menu, dock and search overlay relocated to
    component-mobile-menu.css / component-dock.css / component-search.css

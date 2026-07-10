@@ -13,6 +13,9 @@
   {{ 'component-mobile-menu.css' | asset_url | stylesheet_tag }}
   {{ 'component-dock.css' | asset_url | stylesheet_tag }}
   {{ 'component-search.css' | asset_url | stylesheet_tag }}
+  {{ 'component-utility-bar.css' | asset_url | stylesheet_tag }}
+  {{ 'component-header.css' | asset_url | stylesheet_tag }}
+  {{ 'component-footer.css' | asset_url | stylesheet_tag }}
   <style>{% render 'color-schemes' %}</style>
   {{ content_for_header }}
   {%- assign brand = settings.brand_name | default: shop.name -%}
