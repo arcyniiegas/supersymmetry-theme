@@ -32,9 +32,7 @@
           "on_secondary_button": "text",
           "secondary_button_border": "line",
           "links": "text",
-          "icons": "text",
-          "lines_and_borders": "line",
-          "shadow": "text"
+          "icons": "text"
         }
       }
     ]

@@ -9,5 +9,8 @@
 # Shopify CLI
 .shopify/
 
+# Local preview config — contains a Theme Access token, never commit
+.claude/launch.json
+
 # Node (build tooling, if introduced)
 node_modules/
