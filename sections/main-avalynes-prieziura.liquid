@@ -34,13 +34,13 @@
 <!-- ──────────── SUBNAV ──────────── -->
 {%- assign chip_blocks = section.blocks | where: 'type', 'chip' -%}
 {%- if chip_blocks.size > 0 -%}
-<nav class="subnav" aria-label="Skyriai">
+<scroll-spy class="subnav" role="navigation" aria-label="Skyriai">
   <div class="subnav__wrap">
     {%- for block in chip_blocks -%}
     <a class="subnav__chip" href="#{{ block.settings.anchor }}"{% if forloop.first %} aria-current="true"{% endif %} {{ block.shopify_attributes }}><span class="n">{{ block.settings.n }}</span> {{ block.settings.label }}</a>
     {%- endfor -%}
   </div>
-</nav>
+</scroll-spy>
 {%- endif -%}
 
 <!-- ──────────── 00 · DAILY ──────────── -->
@@ -75,7 +75,7 @@
     </div>
   </div>
 </section>
-<script src="{{ 'avalynes-prieziura.js' | asset_url }}" defer></script>
+<script src="{{ 'component-scroll-spy.js' | asset_url }}" defer></script>
 {% schema %}
 {
   "name": "Avalynės priežiūra",
