@@ -1,0 +1,36 @@
+{%- comment -%}
+  structured-data-product — Product JSON-LD generated from {{ product }}.
+  Replaces the hardcoded block from the prototype's <head>.
+{%- endcomment -%}
+{%- liquid
+  assign sd_variant = product.selected_or_first_available_variant
+  assign sd_desc = product.description | strip_html
+  if sd_desc == blank
+    assign sd_desc = 'Odinis sportbatis'
+  endif
+-%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": {{ product.title | json }},
+  "brand": { "@type": "Brand", "name": "Supersymmetry" },
+  "description": {{ sd_desc | json }}
+  {%- if product.featured_image -%},
+  "image": {{ product.featured_image | image_url: width: 1400 | prepend: "https:" | json }}
+  {%- endif -%}
+  {%- if sd_variant.sku != blank -%},
+  "sku": {{ sd_variant.sku | json }}
+  {%- endif -%},
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": {{ cart.currency.iso_code | default: 'EUR' | json }},
+    "price": {{ product.price | divided_by: 100.0 | json }},
+    "availability": "https://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
+    "itemCondition": "https://schema.org/NewCondition"
+    {%- if product.url != blank -%},
+    "url": {{ product.url | prepend: shop.url | json }}
+    {%- endif -%}
+  }
+}
+</script>

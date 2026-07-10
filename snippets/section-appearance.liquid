@@ -1,0 +1,37 @@
+{%- comment -%}
+  section-appearance — per-section Text colour + heading-size overrides.
+
+  Emits a {% style %} block scoped to this section's own #shopify-section
+  wrapper, so it only affects this section. Reads whichever of these
+  settings the calling section declares (all optional):
+
+    text_color      → --text              (recolours body + heading text)
+    title_scale     → --title-scale        (heading size, %)
+    headline_scale  → --hero-scale         (hero headline size, %)
+    intro_scale     → --hero-intro-scale   (hero intro size, %)
+
+  Text colour works because every text `color:` in the theme reads
+  var(--text) / var(--text-muted); decorative ink (fills, borders, dark
+  cards) keeps using --ink, so backgrounds are untouched.
+
+  Usage (near the top of a section): {% render 'section-appearance', section: section %}
+{%- endcomment -%}
+{%- liquid
+  assign c = section.settings.text_color
+  assign ts = section.settings.title_scale
+  assign hs = section.settings.headline_scale
+  assign is = section.settings.intro_scale
+-%}
+{%- if c != blank or ts != blank or hs != blank or is != blank -%}
+{% style %}
+#shopify-section-{{ section.id }}{
+{%- comment -%} Primary text takes the picked colour; muted/secondary text takes a
+  softened blend of it toward the background so the section stays harmonised.
+  color-mix degrades gracefully — unsupported browsers keep the default greys. {%- endcomment -%}
+{%- if c != blank %} --text: {{ c }}; --text-muted: color-mix(in srgb, {{ c }} 68%, var(--bg)); color: {{ c }};{% endif %}
+{%- if ts != blank %} --title-scale: {{ ts | divided_by: 100.0 }};{% endif %}
+{%- if hs != blank %} --hero-scale: {{ hs | divided_by: 100.0 }};{% endif %}
+{%- if is != blank %} --hero-intro-scale: {{ is | divided_by: 100.0 }};{% endif %}
+}
+{% endstyle %}
+{%- endif -%}

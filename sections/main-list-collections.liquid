@@ -1,0 +1,262 @@
+{{ 'section-list-collections.css' | asset_url | stylesheet_tag }}
+{% render 'section-appearance', section: section %}
+{%- comment -%} Curated collection blocks: if the merchant has added any
+  Collection blocks, show exactly those in that order; otherwise fall back to
+  every published collection, then to the demo grid. {%- endcomment -%}
+{%- liquid
+  assign coll_blocks = section.blocks | where: 'type', 'collection'
+  assign curated_count = 0
+  for block in coll_blocks
+    if block.settings.collection != blank
+      assign curated_count = curated_count | plus: 1
+    endif
+  endfor
+  assign shown_count = collections.size
+  if curated_count > 0
+    assign shown_count = curated_count
+  endif
+-%}
+<!-- ──────────── BREADCRUMBS ──────────── -->
+<nav class="crumbs" aria-label="Breadcrumb">
+  <a href="{{ routes.root_url }}">Pradžia</a>
+  <span class="sep">/</span>
+  <b>Kolekcijos</b>
+</nav>
+
+<!-- ──────────── PAGE HEAD ──────────── -->
+<div class="phead2">
+  <div>
+    <div class="eyebrow-rule">{{ section.settings.eyebrow }}</div>
+    <h1 class="phead2__title"><span class="light">{{ section.settings.title_light }}</span> {{ section.settings.title }}</h1>
+  </div>
+  <div class="phead2__aside">
+    <p class="phead2__intro">{{ section.settings.intro }}</p>
+    <div class="phead2__stats">
+      <div class="pstat"><div class="k">Rinkinių</div><div class="v">{% if shown_count < 10 %}0{% endif %}{{ shown_count }}</div></div>
+      <div class="pstat"><div class="k">Prekių viso</div><div class="v">{{ collections.all.all_products_count | default: 0 }}</div></div>
+      <div class="pstat"><div class="k">Sezonas</div><div class="v">{{ section.settings.season }}</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ──────────── COLLECTIONS GRID ──────────── -->
+<section class="colls">
+{% if curated_count > 0 %}
+{%- comment -%} Curated: only the collections the merchant chose, in block order. {%- endcomment -%}
+{% for block in coll_blocks %}
+  {%- assign c = block.settings.collection -%}
+  {%- if c != blank -%}
+  {%- assign coll_img = block.settings.image | default: c.featured_image -%}
+  <a class="coll coll--dark" href="{{ c.url }}" {{ block.shopify_attributes }}>
+    <div class="coll__img">
+      {% if coll_img %}<img src="{{ coll_img | image_url: width: 1400 }}" srcset="{{ coll_img | image_url: width: 700 }} 700w, {{ coll_img | image_url: width: 1000 }} 1000w, {{ coll_img | image_url: width: 1400 }} 1400w" sizes="(max-width: 720px) 100vw, 50vw" width="{{ coll_img.width }}" height="{{ coll_img.height }}" alt="{{ c.title | escape }}" />{% endif %}
+    </div>
+    <div class="coll__scrim"></div>
+    {%- if block.settings.badge != blank -%}
+    <div class="coll__top"><span class="coll__badge">{{ block.settings.badge }}</span></div>
+    {%- endif -%}
+    <div class="coll__body">
+      <h2 class="coll__name">{{ c.title }}</h2>
+      <div class="coll__foot">
+        <span class="coll__count">{{ c.all_products_count }} {{ block.settings.count_word | default: 'poros' }}</span>
+        <span class="coll__cta">Žiūrėti <span class="coll__arrow">→</span></span>
+      </div>
+    </div>
+  </a>
+  {%- endif -%}
+{% endfor %}
+{% elsif collections.size > 0 %}
+{%- comment -%} No blocks chosen → list every published collection. {%- endcomment -%}
+{% for collection in collections %}
+  <a class="coll coll--dark" href="{{ collection.url }}">
+    <div class="coll__img">
+      {% if collection.featured_image %}<img src="{{ collection.featured_image | image_url: width: 1400 }}" srcset="{{ collection.featured_image | image_url: width: 700 }} 700w, {{ collection.featured_image | image_url: width: 1000 }} 1000w, {{ collection.featured_image | image_url: width: 1400 }} 1400w" sizes="(max-width: 720px) 100vw, 50vw" width="{{ collection.featured_image.width }}" height="{{ collection.featured_image.height }}" alt="{{ collection.title | escape }}" />{% endif %}
+    </div>
+    <div class="coll__scrim"></div>
+    <div class="coll__body">
+      <h2 class="coll__name">{{ collection.title }}</h2>
+      <div class="coll__foot">
+        <span class="coll__count">{{ collection.all_products_count }} poros</span>
+        <span class="coll__cta">Žiūrėti <span class="coll__arrow">→</span></span>
+      </div>
+    </div>
+  </a>
+{% endfor %}
+{% else %}
+
+  <!-- LEAD -->
+  <a class="coll coll--lead coll--dark" href="{{ routes.all_products_collection_url }}">
+    <div class="coll__img"><img src="{{ 'Nr1.webp' | asset_url }}" width="1400" height="1400" alt="de Boxe" /></div>
+    <div class="coll__scrim"></div>
+    <div class="coll__top">
+      <span class="coll__badge">Sezono ašis</span>
+    </div>
+    <div class="coll__body">
+      <h2 class="coll__name">de Boxe</h2>
+      <p class="coll__desc">Odinė mokasinė su boksininko silueto pirštu. Pradinis modelis, nuo kurio prasidėjo ateljė — keturios spalvos, ranka siūta.</p>
+      <div class="coll__foot">
+        <span class="coll__count">28 poros · EU 38—43</span>
+        <span class="coll__cta">Žiūrėti rinkinį <span class="coll__arrow">→</span></span>
+      </div>
+    </div>
+  </a>
+
+  <!-- right stack -->
+  <div class="coll-stack">
+  <a class="coll coll--dark" href="{{ routes.collections_url }}">
+    <div class="coll__img"><img src="{{ 'Nr2.webp' | asset_url }}" width="1400" height="1400" alt="Penny" /></div>
+    <div class="coll__scrim"></div>
+    <div class="coll__top">
+      <span class="coll__badge">Naujiena</span>
+    </div>
+    <div class="coll__body">
+      <h2 class="coll__name">Penny</h2>
+      <div class="coll__foot">
+        <span class="coll__count">22 poros</span>
+        <span class="coll__cta">→</span>
+      </div>
+    </div>
+  </a>
+
+  <a class="coll coll--dark" href="{{ routes.collections_url }}">
+    <div class="coll__img"><img src="{{ 'Nr3.webp' | asset_url }}" width="1400" height="1400" alt="Penny cognac" /></div>
+    <div class="coll__scrim"></div>
+    <div class="coll__body">
+      <h2 class="coll__name">Cognac serija</h2>
+      <div class="coll__foot">
+        <span class="coll__count">14 porų</span>
+        <span class="coll__cta">→</span>
+      </div>
+    </div>
+  </a>
+  </div>
+
+  <!-- WIDE -->
+  <a class="coll coll--wide coll--dark" href="{{ routes.collections_url }}">
+    <div class="coll__img"><img src="{{ 'Glr1.webp' | asset_url }}" width="1400" height="1400" alt="Brun" /></div>
+    <div class="coll__scrim"></div>
+    <div class="coll__top">
+      <span class="coll__badge coll__badge--ghost">Riboti dydžiai</span>
+    </div>
+    <div class="coll__body">
+      <h2 class="coll__name">de Boxe · brun</h2>
+      <p class="coll__desc">Ta pati mokasinė rudoje, augaliniu būdu raugintoje odoje — patinuojasi su laiku.</p>
+      <div class="coll__foot">
+        <span class="coll__count">18 porų · EU 39—44</span>
+        <span class="coll__cta">Žiūrėti <span class="coll__arrow">→</span></span>
+      </div>
+    </div>
+  </a>
+
+  <a class="coll coll--half coll--light" href="{{ collections.aksesuarai.url | default: routes.collections_url }}">
+    <div class="coll__img"><img src="{{ 'Glr3.webp' | asset_url }}" width="1400" height="1399" alt="Aksesuarai" /></div>
+    <div class="coll__scrim"></div>
+    <div class="coll__body">
+      <h2 class="coll__name">Odos aksesuarai</h2>
+      <p class="coll__desc">Diržai, raišteliai, dulkmaišiai — iš tų pačių odų likučių.</p>
+      <div class="coll__foot">
+        <span class="coll__count">11 prekių</span>
+        <span class="coll__cta">Žiūrėti <span class="coll__arrow">→</span></span>
+      </div>
+    </div>
+  </a>
+
+  <!-- bottom row of three -->
+  <a class="coll coll--dark" href="{{ routes.collections_url }}">
+    <div class="coll__img"><img src="{{ 'Glr2.webp' | asset_url }}" width="1400" height="1400" alt="Archyvas" /></div>
+    <div class="coll__scrim"></div>
+    <div class="coll__top">
+      <span class="coll__index">Archyvas</span>
+      <span class="coll__badge coll__badge--ghost">Paskutiniai vienetai</span>
+    </div>
+    <div class="coll__body">
+      <h2 class="coll__name">Archyvas</h2>
+      <div class="coll__foot">
+        <span class="coll__count">9 poros</span>
+        <span class="coll__cta">→</span>
+      </div>
+    </div>
+  </a>
+
+  <a class="coll coll--light" href="{{ routes.collections_url }}">
+    <div class="coll__img"><img src="{{ 'Glr4.webp' | asset_url }}" width="1400" height="1400" alt="Priežiūra" /></div>
+    <div class="coll__scrim"></div>
+    <div class="coll__body">
+      <h2 class="coll__name">Priežiūra</h2>
+      <div class="coll__foot">
+        <span class="coll__count">6 prekės</span>
+        <span class="coll__cta">→</span>
+      </div>
+    </div>
+  </a>
+
+  <a class="coll coll--dark" href="{{ routes.collections_url }}">
+    <div class="coll__img"><img src="{{ 'Nr1.webp' | asset_url }}" width="1400" height="1400" alt="Dovanos" style="filter:grayscale(0.4) brightness(0.8)" /></div>
+    <div class="coll__scrim"></div>
+    <div class="coll__top">
+      <span class="coll__index">Dovanoms</span>
+    </div>
+    <div class="coll__body">
+      <h2 class="coll__name">Dovanų kuponai</h2>
+      <div class="coll__foot">
+        <span class="coll__count">€50 — €500</span>
+        <span class="coll__cta">→</span>
+      </div>
+    </div>
+  </a>
+
+{% endif %}
+</section>
+
+<!-- ──────────── BAND ──────────── -->
+<section class="band">
+  <div class="band__wrap">
+    <div>
+      <div class="eyebrow-rule">{{ section.settings.band_eyebrow | default: 'Kaip skaityti partijas' }}</div>
+      <h2 class="band__title"><span class="light">{{ section.settings.band_title_light | default: 'Vienas modelis.' }}</span> {{ section.settings.band_title | default: 'Daug partijų.' }}</h2>
+    </div>
+    <p class="band__text">{{ section.settings.band_text | default: 'Negaminame visko iš karto. Kas kelis mėnesius išleidžiame naują partiją — ribotą, sunumeruotą, dažnai šiek tiek kitokią. Kai partija išparduota, ji keliauja į archyvą. Štai kodėl kiekviena pora turi savo numerį.' }}</p>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "List collections",
+  "settings": [
+    { "type": "paragraph", "content": "Add Collection blocks below to choose exactly which collections appear here, and drag to reorder. With no blocks, every published collection is listed automatically." },
+    { "type": "header", "content": "Text" },
+    { "type": "color", "id": "text_color", "label": "Text colour", "info": "Recolours this section's text. Leave empty for the default near-black." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Visi rinkiniai · <b>SS 26</b>" },
+    { "type": "text", "id": "title_light", "label": "Title (light part)", "default": "Visos" },
+    { "type": "text", "id": "title", "label": "Title", "default": "kolekcijos." },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Kiekvienas rinkinys — atskira partija, ribotas porų skaičius, <b>vienas modelis, daug niuansų</b>. Rinkis pagal nuotaiką arba pagal sezoną." },
+    { "type": "text", "id": "season", "label": "Season stat", "default": "SS·26" },
+    { "type": "header", "content": "Bottom band" },
+    { "type": "text", "id": "band_eyebrow", "label": "Eyebrow", "default": "Kaip skaityti partijas" },
+    { "type": "text", "id": "band_title_light", "label": "Title (light part)", "default": "Vienas modelis." },
+    { "type": "text", "id": "band_title", "label": "Title (bold part)", "default": "Daug partijų." },
+    { "type": "textarea", "id": "band_text", "label": "Text", "default": "Negaminame visko iš karto. Kas kelis mėnesius išleidžiame naują partiją — ribotą, sunumeruotą, dažnai šiek tiek kitokią. Kai partija išparduota, ji keliauja į archyvą. Štai kodėl kiekviena pora turi savo numerį." }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "image_picker", "id": "image", "label": "Image override", "info": "Optional — defaults to the collection's own featured image." },
+        { "type": "text", "id": "badge", "label": "Badge", "info": "Optional label shown on the tile (e.g. Naujiena)." },
+        { "type": "text", "id": "count_word", "label": "Count word", "default": "poros", "info": "Word after the product count, e.g. poros (shoes) or prekių (accessories)." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "List collections",
+      "blocks": [
+        { "type": "collection", "settings": { "count_word": "poros" } },
+        { "type": "collection", "settings": { "count_word": "poros" } },
+        { "type": "collection", "settings": { "count_word": "poros" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

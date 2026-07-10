@@ -1,0 +1,298 @@
+{{ 'section-grazinimai.css' | asset_url | stylesheet_tag }}
+{% render 'section-appearance', section: section %}
+<!-- ──────────── BREADCRUMBS ──────────── -->
+<nav class="crumbs" aria-label="Breadcrumb">
+  <a href="{{ routes.root_url }}">Pradžia</a>
+  <span class="sep">/</span>
+  <a href="{{ pages.duk.url | default: routes.root_url }}">{{ section.settings.crumb_parent | default: 'Paslaugos' }}</a>
+  <span class="sep">/</span>
+  <b>{{ section.settings.crumb_current | default: 'Grąžinimai ir keitimai' }}</b>
+</nav>
+
+<!-- ──────────── PAGE HEAD ──────────── -->
+<section class="phead">
+  <div>
+    <div class="eyebrow-rule">{{ section.settings.eyebrow | default: 'Paslauga <b>04 / 07</b> · galioja nuo <b>2024·11·01</b>' }}</div>
+    <h1 class="phead__title">
+      <span class="light">{{ section.settings.title_light | default: 'Grąžinimai' }}</span>
+      {{ section.settings.title | default: 'ir keitimai.' }}
+    </h1>
+  </div>
+  <div class="phead__aside">
+    <p class="phead__intro">{{ section.settings.intro | default: 'Pora neprigludo? <b>Per 14 dienų</b> grąžinkite porą be klausimų — Lietuvoje nemokamai, kitur Europoje fiksuotu mokesčiu. Vienodos taisyklės pirmai porai ir paskutinei partijos.' }}</p>
+    {%- assign stat_blocks = section.blocks | where: 'type', 'stat' -%}
+    {%- if stat_blocks.size > 0 -%}
+    <div class="phead__stats">
+      {%- for block in stat_blocks -%}
+      <div class="phead__stat" {{ block.shopify_attributes }}>
+        <span class="k">{{ block.settings.k }}</span>
+        <span class="v{% if block.settings.tabular %} tabular{% endif %}"{% if block.settings.accent %} style="color:var(--orange);"{% endif %}>{{ block.settings.v }}</span>
+      </div>
+      {%- endfor -%}
+    </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<!-- ──────────── SUBNAV ──────────── -->
+{%- assign chip_blocks = section.blocks | where: 'type', 'chip' -%}
+{%- if chip_blocks.size > 0 -%}
+<nav class="subnav" aria-label="Skyriai">
+  <div class="subnav__wrap">
+    {%- for block in chip_blocks -%}
+    <a class="subnav__chip" href="#{{ block.settings.anchor }}"{% if forloop.first %} aria-current="true"{% endif %} {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
+    {%- endfor -%}
+  </div>
+</nav>
+{%- endif -%}
+
+<!-- ──────────── 1 · EIGA / PROCESS ──────────── -->
+<section class="sec" id="eiga">
+  <div class="sec__head">
+    <div>
+      <div class="eyebrow-rule">{{ section.settings.eiga_eyebrow | default: 'Skyrius <b>01</b> · Eiga' }}</div>
+      <h2 class="sec__title">{{ section.settings.eiga_title | default: 'Keturi' }} <span class="light">{{ section.settings.eiga_title_light | default: 'žingsniai.' }}</span></h2>
+    </div>
+    <p class="sec__sub">{{ section.settings.eiga_sub | default: 'Nereikia skambinti. Užpildykite formą, gausite pašto etiketę el. paštu ir per savaitę pinigai grįš atgal.' }}</p>
+  </div>
+
+  {%- assign step_blocks = section.blocks | where: 'type', 'step' -%}
+  {%- if step_blocks.size > 0 -%}
+  <div class="steps">
+    {%- for block in step_blocks -%}
+    <div class="step" {{ block.shopify_attributes }}>
+      <div class="step__num"><span class="idx">{{ block.settings.idx }}</span>{{ block.settings.kicker }}</div>
+      <h3 class="step__title">{{ block.settings.t }} <span class="light">{{ block.settings.t_light }}</span></h3>
+      <p class="step__body">{{ block.settings.b }}</p>
+      <span class="step__meta"><span class="dot"></span>{{ block.settings.meta }}</span>
+    </div>
+    {%- endfor -%}
+  </div>
+  {%- endif -%}
+</section>
+
+<!-- ──────────── 2 · KAS TINKA / ELIGIBILITY ──────────── -->
+<section class="sec sec--surface" id="kas-tinka" style="background-color: #FFFFFF">
+  <div class="sec__wrap">
+    <div class="sec__head">
+      <div>
+        <div class="eyebrow-rule">{{ section.settings.elig_eyebrow | default: 'Skyrius <b>02</b> · Tinkamumas' }}</div>
+        <h2 class="sec__title">{{ section.settings.elig_title | default: 'Ką galime' }} <span class="light">{{ section.settings.elig_title_light | default: 'priimti atgal.' }}</span></h2>
+      </div>
+      <p class="sec__sub">{{ section.settings.elig_sub | default: 'Esame nedidelė ateljė — kiekviena grąžinta pora keliauja pas batsiuvį pakartotinai patikrinti, ne į sandėlį. Todėl prašome šių dalykų.' }}</p>
+    </div>
+
+    <div class="elig">
+      <div class="elig__col elig__col--yes">
+        <h3><span class="badge">✓</span>{{ section.settings.elig_yes_title | default: 'Galime priimti' }}</h3>
+        <ul>
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'elig' and block.settings.col == 'yes' -%}
+          <li {{ block.shopify_attributes }}>
+            <span class="ico" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M2 6.5 L5 9.5 L10 3"></path></svg></span>
+            <span class="c"><b>{{ block.settings.t }}</b><span>{{ block.settings.d }}</span></span>
+          </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      </div>
+
+      <div class="elig__col elig__col--no">
+        <h3><span class="badge">×</span>{{ section.settings.elig_no_title | default: 'Negalime priimti' }}</h3>
+        <ul>
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'elig' and block.settings.col == 'no' -%}
+          <li {{ block.shopify_attributes }}>
+            <span class="ico" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M3 3 L9 9 M9 3 L3 9"></path></svg></span>
+            <span class="c"><b>{{ block.settings.t }}</b><span>{{ block.settings.d }}</span></span>
+          </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────── 4 · KEITIMAS / EXCHANGES ──────────── -->
+<section class="sec sec--surface" id="keitimas" style="background-color: #FFFFFF">
+  <div class="sec__wrap">
+    <div class="sec__head">
+      <div>
+        <div class="eyebrow-rule">{{ section.settings.swap_eyebrow | default: 'Skyrius <b>03</b> · Keitimas' }}</div>
+        <h2 class="sec__title">{{ section.settings.swap_title | default: 'Pora netinka —' }} <span class="light">{{ section.settings.swap_title_light | default: 'ne grąžinkite, pakeiskite.' }}</span></h2>
+      </div>
+      <p class="sec__sub">{{ section.settings.swap_sub | default: 'Du keliai. Vienas — paštu, su kuriuo gausite kitą dydį be papildomų mokesčių. Kitas — užsukite į ateljė ir pasimatuokite kelias poras vietoje.' }}</p>
+    </div>
+
+    <div class="swap">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'swap_card' -%}
+      <div class="swap__card {% if block.settings.dark %}bg-orange{% else %}bg-surface{% endif %}" {{ block.shopify_attributes }}>
+        <div class="swap__num"><span class="idx">{{ block.settings.idx }}</span>{{ block.settings.kicker }}</div>
+        <h3 class="swap__title"><span class="light">{{ block.settings.t_light }}</span>{{ block.settings.t }}</h3>
+        <p class="swap__body">{{ block.settings.b }}</p>
+        <ul class="swap__list">
+          <li><span class="k">{{ block.settings.li1_k }}</span><span>{{ block.settings.li1_v }}</span></li>
+          <li><span class="k">{{ block.settings.li2_k }}</span><span>{{ block.settings.li2_v }}</span></li>
+          <li><span class="k">{{ block.settings.li3_k }}</span><span>{{ block.settings.li3_v }}</span></li>
+        </ul>
+        <a href="{{ block.settings.cta_link | default: pages.kontaktai.url | default: '/pages/kontaktai' }}" class="btn btn--primary" style="justify-self:start;{% if block.settings.dark %}background:var(--ink);{% endif %}">
+          {{ block.settings.cta_label }}
+          <span class="btn__arrow">→</span>
+        </a>
+      </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<!-- ──────────── 6 · DUK / FAQ ──────────── -->
+<section class="sec sec--surface" id="duk">
+  <div class="sec__wrap">
+    <div class="sec__head">
+      <div>
+        <div class="eyebrow-rule">{{ section.settings.faq_eyebrow | default: 'Skyrius <b>04</b> · DUK' }}</div>
+        <h2 class="sec__title">{{ section.settings.faq_title | default: 'Klausimai apie' }} <span class="light">{{ section.settings.faq_title_light | default: 'grąžinimą.' }}</span></h2>
+      </div>
+      <p class="sec__sub">{{ section.settings.faq_sub | default: 'Šeši klausimai, kuriuos užduoda dažniausiai. Plačiau — <a href="/pages/duk" class="uline">visi DUK</a>.' }}</p>
+    </div>
+
+    <div class="faq">
+      {%- assign faq_blocks = section.blocks | where: 'type', 'faq' -%}
+      {%- for block in faq_blocks -%}
+      <details{% if block.settings.open %} open{% endif %} {{ block.shopify_attributes }}>
+        <summary>
+          <span class="idx">{{ block.settings.idx }}</span>
+          <span class="q">{{ block.settings.q }}</span>
+          <span class="plus">+</span>
+        </summary>
+        <div class="faq__body">
+          <span></span>
+          <p class="c">{{ block.settings.a }}</p>
+        </div>
+      </details>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+<script src="{{ 'grazinimai.js' | asset_url }}" defer></script>
+{% schema %}
+{
+  "name": "Grąžinimai",
+  "settings": [
+    { "type": "header", "content": "Head" },
+    { "type": "text", "id": "crumb_parent", "label": "Breadcrumb parent", "default": "Paslaugos" },
+    { "type": "text", "id": "crumb_current", "label": "Breadcrumb current", "default": "Grąžinimai ir keitimai" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Paslauga <b>04 / 07</b> · galioja nuo <b>2024·11·01</b>" },
+    { "type": "text", "id": "title_light", "label": "Title (light part)", "default": "Grąžinimai" },
+    { "type": "text", "id": "title", "label": "Title (bold part)", "default": "ir keitimai." },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Pora neprigludo? <b>Per 14 dienų</b> grąžinkite porą be klausimų — Lietuvoje nemokamai, kitur Europoje fiksuotu mokesčiu. Vienodos taisyklės pirmai porai ir paskutinei partijos." },
+    { "type": "header", "content": "Process section" },
+    { "type": "text", "id": "eiga_eyebrow", "label": "Eyebrow", "default": "Skyrius <b>01</b> · Eiga" },
+    { "type": "text", "id": "eiga_title", "label": "Title (bold)", "default": "Keturi" },
+    { "type": "text", "id": "eiga_title_light", "label": "Title (light)", "default": "žingsniai." },
+    { "type": "textarea", "id": "eiga_sub", "label": "Sub", "default": "Nereikia skambinti. Užpildykite formą, gausite pašto etiketę el. paštu ir per savaitę pinigai grįš atgal." },
+    { "type": "header", "content": "Eligibility section" },
+    { "type": "text", "id": "elig_eyebrow", "label": "Eyebrow", "default": "Skyrius <b>02</b> · Tinkamumas" },
+    { "type": "text", "id": "elig_title", "label": "Title (bold)", "default": "Ką galime" },
+    { "type": "text", "id": "elig_title_light", "label": "Title (light)", "default": "priimti atgal." },
+    { "type": "textarea", "id": "elig_sub", "label": "Sub", "default": "Esame nedidelė ateljė — kiekviena grąžinta pora keliauja pas batsiuvį pakartotinai patikrinti, ne į sandėlį. Todėl prašome šių dalykų." },
+    { "type": "text", "id": "elig_yes_title", "label": "Accept column title", "default": "Galime priimti" },
+    { "type": "text", "id": "elig_no_title", "label": "Reject column title", "default": "Negalime priimti" },
+    { "type": "header", "content": "Exchange section" },
+    { "type": "text", "id": "swap_eyebrow", "label": "Eyebrow", "default": "Skyrius <b>03</b> · Keitimas" },
+    { "type": "text", "id": "swap_title", "label": "Title (bold)", "default": "Pora netinka —" },
+    { "type": "text", "id": "swap_title_light", "label": "Title (light)", "default": "ne grąžinkite, pakeiskite." },
+    { "type": "textarea", "id": "swap_sub", "label": "Sub", "default": "Du keliai. Vienas — paštu, su kuriuo gausite kitą dydį be papildomų mokesčių. Kitas — užsukite į ateljė ir pasimatuokite kelias poras vietoje." },
+    { "type": "header", "content": "FAQ section" },
+    { "type": "text", "id": "faq_eyebrow", "label": "Eyebrow", "default": "Skyrius <b>04</b> · DUK" },
+    { "type": "text", "id": "faq_title", "label": "Title (bold)", "default": "Klausimai apie" },
+    { "type": "text", "id": "faq_title_light", "label": "Title (light)", "default": "grąžinimą." },
+    { "type": "textarea", "id": "faq_sub", "label": "Sub", "default": "Šeši klausimai, kuriuos užduoda dažniausiai. Plačiau — <a href=\"/pages/duk\" class=\"uline\">visi DUK</a>." },
+    { "type": "header", "content": "Text size & colour" },
+    { "type": "range", "id": "title_scale", "label": "Heading size", "min": 60, "max": 130, "step": 5, "unit": "%", "default": 100 },
+    { "type": "color", "id": "text_color", "label": "Text colour", "info": "Recolours this section's text. Leave empty for the default near-black." }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Head stat",
+      "settings": [
+        { "type": "text", "id": "k", "label": "Label" },
+        { "type": "text", "id": "v", "label": "Value" },
+        { "type": "checkbox", "id": "tabular", "label": "Tabular numerals", "default": false },
+        { "type": "checkbox", "id": "accent", "label": "Ink accent", "default": false }
+      ]
+    },
+    {
+      "type": "chip",
+      "name": "Subnav chip",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "text", "id": "anchor", "label": "Anchor (eiga / kas-tinka / keitimas / duk)" }
+      ]
+    },
+    {
+      "type": "step",
+      "name": "Process step",
+      "settings": [
+        { "type": "text", "id": "idx", "label": "Number" },
+        { "type": "text", "id": "kicker", "label": "Kicker" },
+        { "type": "text", "id": "t", "label": "Title (bold)" },
+        { "type": "text", "id": "t_light", "label": "Title (light)" },
+        { "type": "textarea", "id": "b", "label": "Body" },
+        { "type": "text", "id": "meta", "label": "Meta" }
+      ]
+    },
+    {
+      "type": "elig",
+      "name": "Eligibility item",
+      "settings": [
+        {
+          "type": "select", "id": "col", "label": "Column",
+          "options": [
+            { "value": "yes", "label": "Galime priimti" },
+            { "value": "no", "label": "Negalime priimti" }
+          ],
+          "default": "yes"
+        },
+        { "type": "text", "id": "t", "label": "Title" },
+        { "type": "textarea", "id": "d", "label": "Detail" }
+      ]
+    },
+    {
+      "type": "swap_card",
+      "name": "Exchange card",
+      "settings": [
+        { "type": "text", "id": "idx", "label": "Index letter" },
+        { "type": "text", "id": "kicker", "label": "Kicker" },
+        { "type": "text", "id": "t_light", "label": "Title (light)" },
+        { "type": "text", "id": "t", "label": "Title (bold)" },
+        { "type": "textarea", "id": "b", "label": "Body" },
+        { "type": "text", "id": "li1_k", "label": "Row 1 label" },
+        { "type": "text", "id": "li1_v", "label": "Row 1 value" },
+        { "type": "text", "id": "li2_k", "label": "Row 2 label" },
+        { "type": "text", "id": "li2_v", "label": "Row 2 value" },
+        { "type": "text", "id": "li3_k", "label": "Row 3 label" },
+        { "type": "text", "id": "li3_v", "label": "Row 3 value" },
+        { "type": "text", "id": "cta_label", "label": "Button label" },
+        { "type": "url", "id": "cta_link", "label": "Button link" },
+        { "type": "checkbox", "id": "dark", "label": "Dark card", "default": false }
+      ]
+    },
+    {
+      "type": "faq",
+      "name": "FAQ item",
+      "settings": [
+        { "type": "text", "id": "idx", "label": "Number" },
+        { "type": "text", "id": "q", "label": "Question" },
+        { "type": "textarea", "id": "a", "label": "Answer" },
+        { "type": "checkbox", "id": "open", "label": "Open by default", "default": false }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Grąžinimai" }]
+}
+{% endschema %}

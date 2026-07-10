@@ -1,0 +1,176 @@
+{{ 'section-blog.css' | asset_url | stylesheet_tag }}
+{% render 'section-appearance', section: section %}
+<!-- ──────────── BREADCRUMBS ──────────── -->
+<nav class="crumbs" aria-label="Breadcrumb">
+  <a href="{{ routes.root_url }}">Pradžia</a>
+  <span class="sep">/</span>
+  <b>{{ blog.title | default: 'Žurnalas' }}</b>
+</nav>
+
+<!-- ──────────── PAGE HEAD ──────────── -->
+<div class="jhead">
+  <div>
+    <div class="eyebrow-rule">{{ blog.title | default: 'Žurnalas' }} · <b>{{ section.settings.eyebrow_suffix | default: 'užrašai iš ateljės' }}</b></div>
+    <h1 class="jhead__title"><span class="light">{{ section.settings.title_light | default: 'Apie odą,' }}</span> {{ section.settings.title | default: 'rankas ir laiką.' }}</h1>
+  </div>
+  <p class="jhead__intro">{{ section.settings.intro | default: 'Kaip gimsta pora, kodėl oda sensta gražiau nei nauja, ką reiškia partija. <b>Vienas tekstas per savaitę</b> — be skubos.' }}</p>
+</div>
+
+<!-- ──────────── CATEGORY FILTER ──────────── -->
+<div class="jfilter">
+  <span class="jfilter__label">{{ section.settings.filter_label | default: 'Temos' }}</span>
+  <a href="{{ blog.url }}" class="jchip" data-cat="all"{% if current_tags == blank or current_tags == empty %} aria-current="true"{% endif %}>{{ section.settings.filter_all_label | default: 'Viskas' }} <span class="n">{{ blog.articles_count }}</span></a>
+{%- if blog.all_tags.size > 0 -%}
+{%- for tag in blog.all_tags -%}
+  <a href="{{ blog.url }}/tagged/{{ tag | handleize }}" class="jchip" data-cat="{{ tag | handleize }}"{% if current_tags contains tag %} aria-current="true"{% endif %}>{{ tag }}</a>
+{%- endfor -%}
+{%- else -%}
+  {%- comment -%} No blog tags yet — placeholder topic chips until Shopify
+    blog tags exist. Editable via the setting below. {%- endcomment -%}
+  {%- assign fallback_chips = section.settings.fallback_chips | default: 'Dirbtuvės, Priežiūra, Medžiagos, Žmonės' | split: ',' -%}
+  {%- for chip in fallback_chips -%}
+  <a href="{{ blog.url }}" class="jchip" data-cat="{{ chip | strip | handleize }}">{{ chip | strip }}</a>
+  {%- endfor -%}
+{%- endif -%}
+</div>
+
+{%- if blog.articles.size > 0 -%}
+{%- assign feat = blog.articles.first -%}
+<!-- ──────────── FEATURED ──────────── -->
+<article class="feature" data-cat="{{ feat.tags.first | handleize }}">
+  <a href="{{ feat.url }}">
+    <div class="feature__media">
+      {%- if feat.image -%}
+      <img src="{{ feat.image | image_url: width: 1400 }}" srcset="{{ feat.image | image_url: width: 700 }} 700w, {{ feat.image | image_url: width: 1000 }} 1000w, {{ feat.image | image_url: width: 1400 }} 1400w" sizes="(max-width: 960px) 100vw, 66vw" width="{{ feat.image.width }}" height="{{ feat.image.height }}" alt="{{ feat.image.alt | escape }}" />
+      {%- else -%}
+      <img src="{{ 'Nr1.webp' | asset_url }}" width="1400" height="1400" alt="" />
+      {%- endif -%}
+      <span class="feature__badge">{{ section.settings.featured_badge | default: 'Redakcijos pasirinkimas' }}</span>
+    </div>
+    <div class="feature__body">
+      <div class="feature__meta">
+        <span class="cat">{{ feat.tags.first | default: 'Dirbtuvės' }}</span>
+        <span>·</span>
+        <span>{{ feat.published_at | date: '%Y·%m·%d' }}</span>
+        <span>·</span>
+        <span>{{ feat.metafields.custom.read_time | default: '8 min.' }}</span>
+      </div>
+      <h2 class="feature__title">{{ feat.title }}</h2>
+      <p class="feature__excerpt">{%- if feat.excerpt != blank -%}{{ feat.excerpt | strip_html }}{%- else -%}{{ feat.excerpt_or_content | strip_html | truncatewords: 28 }}{%- endif -%}</p>
+      <div class="feature__author">
+        <span class="feature__avatar">{{ section.settings.author_initials | default: 'SA' }}</span>
+        <span>{{ feat.author | default: section.settings.author_fallback | default: 'Saulius A.' }} <span class="muted">· {{ section.settings.author_role | default: 'meistras' }}</span></span>
+      </div>
+    </div>
+  </a>
+</article>
+
+<!-- ──────────── ARTICLE GRID ──────────── -->
+<section class="jgrid" id="jgrid">
+{%- for article in blog.articles offset: 1 -%}
+  <a class="post" href="{{ article.url }}" data-cat="{{ article.tags.first | handleize }}">
+    <div class="post__media">{%- if article.image -%}<img src="{{ article.image | image_url: width: 800 }}" srcset="{{ article.image | image_url: width: 400 }} 400w, {{ article.image | image_url: width: 800 }} 800w" sizes="(max-width: 720px) 100vw, 33vw" width="{{ article.image.width }}" height="{{ article.image.height }}" alt="{{ article.image.alt | escape }}" />{%- else -%}<img src="{{ 'Glr4.webp' | asset_url }}" width="1400" height="1400" alt="" />{%- endif -%}</div>
+    <div class="post__meta"><span class="cat">{{ article.tags.first | default: 'Žurnalas' }}</span><span class="sep">·</span><span>{{ article.metafields.custom.read_time | default: '5 min.' }}</span></div>
+    <div class="post__title">{{ article.title }}</div>
+    <p class="post__excerpt">{%- if article.excerpt != blank -%}{{ article.excerpt | strip_html }}{%- else -%}{{ article.excerpt_or_content | strip_html | truncatewords: 14 }}{%- endif -%}</p>
+  </a>
+{%- endfor -%}
+</section>
+
+{%- else -%}
+<!-- ──────────── FEATURED ──────────── -->
+<article class="feature" data-cat="dirbtuves">
+  <a href="{{ blog.url }}">
+    <div class="feature__media">
+      <img src="{{ 'Nr1.webp' | asset_url }}" width="1400" height="1400" alt="" />
+      <span class="feature__badge">Redakcijos pasirinkimas</span>
+    </div>
+    <div class="feature__body">
+      <div class="feature__meta">
+        <span class="cat">Dirbtuvės</span>
+        <span>·</span>
+        <span>2026·05·28</span>
+        <span>·</span>
+        <span>8 min.</span>
+      </div>
+      <h2 class="feature__title">Kaip gimsta viena pora: 42 žingsniai nuo odos iki dėžės</h2>
+      <p class="feature__excerpt">Sekėme „de Boxe" porą per visą gamybos kelią — nuo odos atrankos sandėlyje iki paskutinio dygsnio. Štai kodėl viena pora užtrunka tris dienas.</p>
+      <div class="feature__author">
+        <span class="feature__avatar">SA</span>
+        <span>Saulius A. <span class="muted">· meistras</span></span>
+      </div>
+    </div>
+  </a>
+</article>
+
+<!-- ──────────── ARTICLE GRID ──────────── -->
+<section class="jgrid" id="jgrid">
+
+  <a class="post" href="{{ blog.url }}" data-cat="prieziura">
+    <div class="post__media"><img src="{{ 'Glr4.webp' | asset_url }}" width="1400" height="1400" alt="" /></div>
+    <div class="post__meta"><span class="cat">Priežiūra</span><span class="sep">·</span><span>5 min.</span></div>
+    <div class="post__title">Vaškas ar kremas? Trumpas vadovas odos priežiūrai</div>
+    <p class="post__excerpt">Ką naudoti, kaip dažnai ir kodėl mažiau yra daugiau.</p>
+  </a>
+
+  <a class="post" href="{{ blog.url }}" data-cat="medziagos">
+    <div class="post__media"><img src="{{ 'Glr1.webp' | asset_url }}" width="1400" height="1400" alt="" /></div>
+    <div class="post__meta"><span class="cat">Medžiagos</span><span class="sep">·</span><span>6 min.</span></div>
+    <div class="post__title">Augalinis rauginimas: kodėl jis lėtas ir vertas to</div>
+    <p class="post__excerpt">Skirtumas tarp chromo ir augalinės odos — ne tik spalva.</p>
+  </a>
+
+  <a class="post" href="{{ blog.url }}" data-cat="dirbtuves">
+    <div class="post__media"><img src="{{ 'Glr2.webp' | asset_url }}" width="1400" height="1400" alt="" /></div>
+    <div class="post__meta"><span class="cat">Dirbtuvės</span><span class="sep">·</span><span>4 min.</span></div>
+    <div class="post__title">Kodėl numeruojame kiekvieną porą</div>
+    <p class="post__excerpt">Partija, numeris, tiražas — ką tai reiškia ir kam.</p>
+  </a>
+
+  <a class="post" href="{{ blog.url }}" data-cat="zmones">
+    <div class="post__media"><img src="{{ 'Nr2.webp' | asset_url }}" width="1400" height="1400" alt="" /></div>
+    <div class="post__meta"><span class="cat">Žmonės</span><span class="sep">·</span><span>7 min.</span></div>
+    <div class="post__title">Aistė ir adata: dvidešimt metų prie siuvimo mašinos</div>
+    <p class="post__excerpt">Pokalbis su ateljės siuvėja apie ranką ir ritmą.</p>
+  </a>
+
+  <a class="post" href="{{ blog.url }}" data-cat="prieziura">
+    <div class="post__media post--light"><img src="{{ 'Nr3.webp' | asset_url }}" width="1400" height="1400" alt="" /></div>
+    <div class="post__meta"><span class="cat">Priežiūra</span><span class="sep">·</span><span>3 min.</span></div>
+    <div class="post__title">Kaip džiovinti odą po lietaus (ir ko nedaryti)</div>
+    <p class="post__excerpt">Jokio radiatoriaus. Tik laikas ir popierius.</p>
+  </a>
+
+  <a class="post" href="{{ blog.url }}" data-cat="dirbtuves">
+    <div class="post__media"><img src="{{ 'Glr3.webp' | asset_url }}" width="1400" height="1399" alt="" /></div>
+    <div class="post__meta"><span class="cat">Dirbtuvės</span><span class="sep">·</span><span>6 min.</span></div>
+    <div class="post__title">Taisymas vietoj išmetimo: padų keitimo istorija</div>
+    <p class="post__excerpt">Pora, grįžusi po septynerių metų — ir vėl išėjusi nauja.</p>
+  </a>
+
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Blog",
+  "settings": [
+    { "type": "header", "content": "Head" },
+    { "type": "text", "id": "eyebrow_suffix", "label": "Eyebrow suffix", "default": "užrašai iš ateljės" },
+    { "type": "text", "id": "title_light", "label": "Title (light part)", "default": "Apie odą," },
+    { "type": "text", "id": "title", "label": "Title (bold part)", "default": "rankas ir laiką." },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Kaip gimsta pora, kodėl oda sensta gražiau nei nauja, ką reiškia partija. <b>Vienas tekstas per savaitę</b> — be skubos." },
+    { "type": "header", "content": "Topic filter" },
+    { "type": "text", "id": "filter_label", "label": "Label", "default": "Temos" },
+    { "type": "text", "id": "filter_all_label", "label": "\"All\" chip label", "default": "Viskas" },
+    { "type": "text", "id": "fallback_chips", "label": "Placeholder chips (comma-separated)", "info": "Shown only while blog articles have no tags.", "default": "Dirbtuvės, Priežiūra, Medžiagos, Žmonės" },
+    { "type": "header", "content": "Featured article" },
+    { "type": "text", "id": "featured_badge", "label": "Badge", "default": "Redakcijos pasirinkimas" },
+    { "type": "text", "id": "author_initials", "label": "Author initials", "default": "SA" },
+    { "type": "text", "id": "author_fallback", "label": "Author fallback name", "default": "Saulius A." },
+    { "type": "text", "id": "author_role", "label": "Author role", "default": "meistras" },
+    { "type": "header", "content": "Text" },
+    { "type": "color", "id": "text_color", "label": "Text colour", "info": "Recolours this section's text. Leave empty for the default near-black." }
+  ]
+}
+{% endschema %}

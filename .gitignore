@@ -1,0 +1,13 @@
+# macOS
+.DS_Store
+
+# Editor / tooling
+.vscode/
+.idea/
+*.log
+
+# Shopify CLI
+.shopify/
+
+# Node (build tooling, if introduced)
+node_modules/

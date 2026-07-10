@@ -1,0 +1,187 @@
+{{ 'section-article.css' | asset_url | stylesheet_tag }}
+{% render 'section-appearance', section: section %}
+<div class="progress" id="progress"></div>
+
+<!-- ──────────── BREADCRUMBS ──────────── -->
+<nav class="crumbs" aria-label="Breadcrumb">
+  <a href="{{ routes.root_url }}">Pradžia</a>
+  <span class="sep">/</span>
+  <a href="{{ blog.url }}">{{ blog.title | default: 'Žurnalas' }}</a>
+  <span class="sep">/</span>
+  <b>{{ article.title }}</b>
+</nav>
+
+<!-- ──────────── ARTICLE HEADER ──────────── -->
+<header class="ahead">
+  <div class="ahead__meta">
+    <span class="cat">{{ article.tags.first | default: 'Dirbtuvės' }}</span>
+    <span class="sep">·</span>
+    <span>{{ article.published_at | date: '%Y·%m·%d' }}</span>
+    <span class="sep">·</span>
+    <span>{{ article.metafields.custom.read_time | default: '8 min.' }} skaitymo</span>
+  </div>
+  <h1 class="ahead__title">{{ article.title }}</h1>
+  <p class="ahead__dek">{%- if article.excerpt != blank -%}{{ article.excerpt | strip_html }}{%- else -%}Sekėme „de Boxe" porą per visą gamybos kelią — nuo odos atrankos sandėlyje iki paskutinio dygsnio. Trys dienos, dvi rankos, jokios skubos.{%- endif -%}</p>
+  <div class="ahead__byline">
+    <span class="ahead__avatar">{{ section.settings.author_initials | default: 'SA' }}</span>
+    <span>{{ article.author | default: section.settings.author_fallback | default: 'Saulius Amantas' }} <span class="muted">· {{ section.settings.author_byline_role | default: 'ateljės meistras' }}</span></span>
+  </div>
+</header>
+
+<!-- hero -->
+<figure class="ahero">
+  <div class="ahero__frame">{%- if article.image -%}<img src="{{ article.image | image_url: width: 1400 }}" srcset="{{ article.image | image_url: width: 700 }} 700w, {{ article.image | image_url: width: 1000 }} 1000w, {{ article.image | image_url: width: 1400 }} 1400w" sizes="(max-width: 960px) 100vw, 70vw" width="{{ article.image.width }}" height="{{ article.image.height }}" alt="{{ article.image.alt | escape }}" />{%- else -%}<img src="{{ 'Nr1.webp' | asset_url }}" width="1400" height="1400" alt="de Boxe pora ant darbastalio" />{%- endif -%}</div>
+  {%- assign hero_cap = section.settings.hero_caption -%}
+  {%- if hero_cap != blank -%}
+  <figcaption class="ahero__cap">{{ hero_cap }}</figcaption>
+  {%- endif -%}
+</figure>
+
+<!-- ──────────── ARTICLE BODY ──────────── -->
+<article class="article">
+{%- if article.content != blank -%}
+{{ article.content }}
+{%- else -%}
+  <p>Viskas prasideda ne nuo dizaino, o nuo odos. Kiekvieną rytą, prieš įsijungiant siuvimo mašinoms, ant darbastalio gula keturios ar penkios odos. Mes jas liečiame, lenkiame, žiūrime prieš šviesą. Tik viena iš jų taps pora.</p>
+
+  <p>Šitas tekstas — apie kelią, kurį nueina viena „de Boxe" pora, kol pasiekia dėžę. Keturiasdešimt du žingsniai, suskaičiuoti ranka. Daugumos jų niekada nepamatysite, bet būtent jie lemia, kaip pora jausis po penkerių metų.</p>
+
+  <h2><span class="num">01 / 04</span>Oda: kodėl pradedame nuo galo</h2>
+  <p>Naudojame augaliniu būdu raugintą veršio odą iš nedidelės dirbtuvės Toskanoje. Ji brangesnė ir lėtesnė nei chromu rauginta, bet sensta kitaip — tamsėja, blizga, įgauna charakterį. <a href="{{ blog.url }}" class="inline">Apie rauginimo skirtumus rašėme atskirai</a>.</p>
+
+  <figure class="afig">
+    <div class="afig__frame"><img src="{{ 'Glr1.webp' | asset_url }}" width="1400" height="1400" alt="Odos atranka" /></div>
+    <figcaption class="afig__cap">Odos atranka · kiekvienas gabalas tikrinamas prieš šviesą</figcaption>
+  </figure>
+
+  <p>Iš vienos odos išeina dvi, kartais trys poros — priklauso nuo to, kiek randų ir nelygumų. Tų vietų neslepiame; jei oda turi žymę, ji tampa porės istorija, o ne broku.</p>
+
+  <div class="pull">
+    <p>„Pora neturi būti tobula. Ji turi būti sąžininga — tada ji sensta gražiai.“</p>
+    <cite>Aistė, siuvėja · 19 metų prie mašinos</cite>
+  </div>
+
+  <h2><span class="num">02 / 04</span>Kirpimas ir dygsnis</h2>
+  <p>Detales kerpame ranka, ne presu. Tai lėčiau, bet leidžia sekti odos kryptį — kad pora gražiai laikytų formą. Vienai porai reikia <strong>vienuolikos atskirų odos detalių</strong> ir maždaug šešių šimtų dygsnių.</p>
+
+  <p>Mokasininis priekis — sunkiausia vieta. Jį formuoja ranka, drėkinant ir tempiant odą per kurpalį. Čia klaidų ištaisyti nebeįmanoma, todėl šį žingsnį patiki tik dviem žmonėms ateljėje.</p>
+
+  <figure class="afig afig--tall">
+    <div class="afig__frame"><img src="{{ 'Nr2.webp' | asset_url }}" width="1400" height="1400" alt="Mokasinio priekio formavimas" /></div>
+    <figcaption class="afig__cap">Priekio formavimas ant kurpalio · drėkinama ir tempiama ranka</figcaption>
+  </figure>
+
+  <h2><span class="num">03 / 04</span>Padas, kuris grįžta</h2>
+  <p>Padą tvirtiname taip, kad jį būtų galima pakeisti. Tai reiškia, kad pora, kurią perkate šiandien, po penkerių ar septynerių metų gali grįžti į ateljė ir išeiti su nauju padu — ta pati pora, tik nauja.</p>
+
+  <div class="specs">
+    <div class="specs__row"><span class="specs__n">01</span><span class="specs__k">Odos detalių vienai porai</span><span class="specs__v">11 vnt.</span></div>
+    <div class="specs__row"><span class="specs__n">02</span><span class="specs__k">Dygsnių (apytiksliai)</span><span class="specs__v">~600</span></div>
+    <div class="specs__row"><span class="specs__n">03</span><span class="specs__k">Gamybos laikas</span><span class="specs__v">3 dienos</span></div>
+    <div class="specs__row"><span class="specs__n">04</span><span class="specs__k">Žmonių prisilietė</span><span class="specs__v">4</span></div>
+  </div>
+
+  <h2><span class="num">04 / 04</span>Numeris ir dėžė</h2>
+  <p>Paskutinis žingsnis — numeris. Kiekviena pora gauna partijos ir tiražo žymę: <strong>№ 23-04 · 046/500</strong>. Tai ne marketingas, o apskaita — žinome, kuri pora kur iškeliavo, ir galime ją pataisyti praėjus metams.</p>
+
+  <p>Tada pora keliauja į dėžę su gamintojo kortele, dulkmaišiu ir trumpu laišku. Ir prasideda jos antras gyvenimas — jau ne pas mus, o pas jus.</p>
+{%- endif -%}
+</article>
+
+<!-- footer: tags + share -->
+<div class="afoot">
+  <div class="atags">
+{%- if article.tags.size > 0 -%}
+{%- for tag in article.tags -%}
+    <span class="atag">{{ tag }}</span>
+{%- endfor -%}
+{%- else -%}
+    <span class="atag">Dirbtuvės</span>
+    <span class="atag">Oda</span>
+    <span class="atag">de Boxe</span>
+    <span class="atag">Gamyba</span>
+{%- endif -%}
+  </div>
+  <div class="ashare">
+    <a href="{{ section.settings.share_copy_link | default: '#' }}">{{ section.settings.share_copy_label | default: 'Kopijuoti nuorodą' }}</a>
+    <a href="{{ settings.social_instagram | default: '#' }}">{{ section.settings.share_ig_label | default: 'Instagram' }}</a>
+  </div>
+</div>
+
+<!-- author card -->
+<div class="authorcard">
+  <span class="authorcard__avatar">{{ section.settings.author_initials | default: 'SA' }}</span>
+  <div>
+    <div class="authorcard__name">{{ article.author | default: section.settings.author_fallback | default: 'Saulius Amantas' }}</div>
+    <div class="authorcard__role">{{ section.settings.author_card_role | default: 'Ateljės meistras · įkūrėjas' }}</div>
+    <p class="authorcard__bio">{{ section.settings.author_bio | default: 'Įkūrė Supersymmetry 2019 m. Vilniuje. Anksčiau — dešimt metų taisė batus mažoje dirbtuvėje senamiestyje. Tiki, kad pora turi tarnauti dešimtmečius, ne sezonus.' }}</p>
+  </div>
+</div>
+
+<!-- ──────────── RELATED ──────────── -->
+<section class="related">
+  <div class="related__head">
+    <h2 class="related__title"><span class="light">{{ section.settings.related_title_light | default: 'Skaityk' }}</span> {{ section.settings.related_title | default: 'toliau' }}</h2>
+    <a href="{{ blog.url }}" class="uline mono" style="font-size:12px;color:var(--mid)">{{ section.settings.related_more_label | default: 'Visas žurnalas →' }}</a>
+  </div>
+  <div class="related__grid">
+{%- if blog.articles.size > 1 -%}
+{%- assign rc = 0 -%}
+{%- for a in blog.articles -%}
+{%- unless a.id == article.id -%}
+{%- if rc < 3 -%}
+    <a class="post" href="{{ a.url }}">
+      <div class="post__media">{%- if a.image -%}<img src="{{ a.image | image_url: width: 800 }}" srcset="{{ a.image | image_url: width: 400 }} 400w, {{ a.image | image_url: width: 800 }} 800w" sizes="(max-width: 720px) 100vw, 33vw" width="{{ a.image.width }}" height="{{ a.image.height }}" alt="{{ a.image.alt | escape }}" />{%- else -%}<img src="{{ 'Glr1.webp' | asset_url }}" width="1400" height="1400" alt="" />{%- endif -%}</div>
+      <div class="post__meta"><span class="cat">{{ a.tags.first | default: 'Žurnalas' }}</span><span class="sep">·</span><span>{{ a.metafields.custom.read_time | default: '5 min.' }}</span></div>
+      <div class="post__title">{{ a.title }}</div>
+    </a>
+{%- assign rc = rc | plus: 1 -%}
+{%- endif -%}
+{%- endunless -%}
+{%- endfor -%}
+{%- else -%}
+    <a class="post" href="{{ blog.url }}">
+      <div class="post__media"><img src="{{ 'Glr1.webp' | asset_url }}" width="1400" height="1400" alt="" /></div>
+      <div class="post__meta"><span class="cat">Medžiagos</span><span class="sep">·</span><span>6 min.</span></div>
+      <div class="post__title">Augalinis rauginimas: kodėl jis lėtas ir vertas to</div>
+    </a>
+    <a class="post" href="{{ blog.url }}">
+      <div class="post__media"><img src="{{ 'Glr4.webp' | asset_url }}" width="1400" height="1400" alt="" /></div>
+      <div class="post__meta"><span class="cat">Priežiūra</span><span class="sep">·</span><span>5 min.</span></div>
+      <div class="post__title">Vaškas ar kremas? Trumpas vadovas odos priežiūrai</div>
+    </a>
+    <a class="post" href="{{ blog.url }}">
+      <div class="post__media"><img src="{{ 'Nr2.webp' | asset_url }}" width="1400" height="1400" alt="" /></div>
+      <div class="post__meta"><span class="cat">Žmonės</span><span class="sep">·</span><span>7 min.</span></div>
+      <div class="post__title">Aistė ir adata: dvidešimt metų prie siuvimo mašinos</div>
+    </a>
+{%- endif -%}
+  </div>
+</section>
+
+<script src="{{ 'article.js' | asset_url }}" defer></script>
+{% schema %}
+{
+  "name": "Article",
+  "settings": [
+    { "type": "header", "content": "Hero" },
+    { "type": "text", "id": "hero_caption", "label": "Hero caption", "info": "Shows under the hero image on EVERY article. Leave empty to hide." },
+    { "type": "header", "content": "Author" },
+    { "type": "text", "id": "author_initials", "label": "Avatar initials", "default": "SA" },
+    { "type": "text", "id": "author_fallback", "label": "Fallback author name", "default": "Saulius Amantas" },
+    { "type": "text", "id": "author_byline_role", "label": "Byline role", "default": "ateljės meistras" },
+    { "type": "text", "id": "author_card_role", "label": "Author-card role", "default": "Ateljės meistras · įkūrėjas" },
+    { "type": "textarea", "id": "author_bio", "label": "Author-card bio", "default": "Įkūrė Supersymmetry 2019 m. Vilniuje. Anksčiau — dešimt metų taisė batus mažoje dirbtuvėje senamiestyje. Tiki, kad pora turi tarnauti dešimtmečius, ne sezonus." },
+    { "type": "header", "content": "Share" },
+    { "type": "text", "id": "share_copy_label", "label": "Copy-link label", "default": "Kopijuoti nuorodą" },
+    { "type": "url", "id": "share_copy_link", "label": "Copy-link URL", "info": "Placeholder link until copy-to-clipboard is wired." },
+    { "type": "text", "id": "share_ig_label", "label": "Instagram label", "default": "Instagram" },
+    { "type": "header", "content": "Related" },
+    { "type": "text", "id": "related_title_light", "label": "Title (light part)", "default": "Skaityk" },
+    { "type": "text", "id": "related_title", "label": "Title (bold part)", "default": "toliau" },
+    { "type": "text", "id": "related_more_label", "label": "More link label", "default": "Visas žurnalas →" },
+    { "type": "header", "content": "Text" },
+    { "type": "color", "id": "text_color", "label": "Text colour", "info": "Recolours this section's text. Leave empty for the default near-black." }
+  ]
+}
+{% endschema %}

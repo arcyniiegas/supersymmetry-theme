@@ -1,0 +1,133 @@
+{{ 'section-home.css' | asset_url | stylesheet_tag }}
+{% render 'section-appearance', section: section %}
+<!-- ──────────── COLLECTIONS ──────────── -->
+<section class="collections" style="--title-scale: {{ section.settings.title_scale | default: 100 | divided_by: 100.0 }};">
+  <div class="collections__head">
+    <h2 class="collections__title">{{ section.settings.title | default: 'Kolekcijos' }} <span class="light">—</span></h2>
+    <a href="{{ section.settings.more_link | default: routes.collections_url }}" class="collections__more">
+      {{ section.settings.more_label | default: 'Visa kolekcija' }}
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7 H11 M7 3 L11 7 L7 11"></path></svg>
+    </a>
+  </div>
+
+  <div class="collections__grid">
+{%- for block in section.blocks -%}
+{%- assign col = block.settings.collection -%}
+{%- case forloop.index -%}
+{%- when 1 -%}{%- assign modclass = 'cat cat--wide' -%}
+{%- when 3 -%}{%- assign modclass = 'cat cat--dark' -%}
+{%- else -%}{%- assign modclass = 'cat' -%}
+{%- endcase -%}
+{%- assign card_img = block.settings.image | default: col.featured_image -%}
+{%- assign focal_pos = '50% 50%' -%}
+{%- if block.settings.focal == 'top' -%}{%- assign focal_pos = '50% 0%' -%}{%- elsif block.settings.focal == 'bottom' -%}{%- assign focal_pos = '50% 100%' -%}{%- endif -%}
+{%- if col != blank or block.settings.image != blank -%}
+    <a class="{{ modclass }}" href="{{ col.url | default: routes.all_products_collection_url }}" {{ block.shopify_attributes }}>
+      {%- if card_img != blank -%}
+      <img class="cat__img" src="{{ card_img | image_url: width: 900 }}" srcset="{{ card_img | image_url: width: 500 }} 500w, {{ card_img | image_url: width: 900 }} 900w, {{ card_img | image_url: width: 1200 }} 1200w" sizes="(max-width: 720px) 100vw, 50vw" width="{{ card_img.width }}" height="{{ card_img.height }}" alt="{{ card_img.alt | default: col.title | escape }}" style="object-position: {{ focal_pos }};">
+      {%- endif -%}
+      <div class="cat__body">
+        <span class="cat__name"{% if block.settings.text_color != blank %} style="color: {{ block.settings.text_color }};"{% endif %}>{{ col.title }}</span>
+        <span class="cat__cta">
+          <svg viewBox="0 0 16 16"><path d="M3 8 H13 M8 3 L13 8 L8 13"></path></svg>
+        </span>
+      </div>
+    </a>
+{%- else -%}
+{%- case forloop.index -%}
+{%- when 1 -%}
+    <a class="cat cat--wide" href="{{ routes.all_products_collection_url }}" {{ block.shopify_attributes }}>
+      <img class="cat__img" src="{{ 'Nr2-65b64fb1.webp' | asset_url }}" width="1400" height="1400" alt="">
+      <div class="cat__body">
+        <span class="cat__name">Avalynė</span>
+        <span class="cat__cta">
+          <svg viewBox="0 0 16 16"><path d="M3 8 H13 M8 3 L13 8 L8 13"></path></svg>
+        </span>
+      </div>
+    </a>
+{%- when 3 -%}
+    <a class="cat cat--dark" href="{{ routes.collections_url }}" {{ block.shopify_attributes }}>
+      <div class="cat__placeholder" aria-hidden="true">
+        <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.2">
+          <rect x="40" y="50" width="120" height="100" rx="4"></rect>
+          <line x1="40" y1="80" x2="160" y2="80"></line>
+          <line x1="60" y1="100" x2="140" y2="100" stroke-dasharray="3 4"></line>
+          <line x1="60" y1="115" x2="120" y2="115" stroke-dasharray="3 4"></line>
+          <line x1="60" y1="130" x2="135" y2="130" stroke-dasharray="3 4"></line>
+        </svg>
+      </div>
+      <div class="cat__body">
+        <span class="cat__name">Archyvas</span>
+        <span class="cat__cta">
+          <svg viewBox="0 0 16 16"><path d="M3 8 H13 M8 3 L13 8 L8 13"></path></svg>
+        </span>
+      </div>
+    </a>
+{%- else -%}
+    <a class="cat" href="{{ collections.aksesuarai.url | default: routes.collections_url }}" {{ block.shopify_attributes }}>
+      <div class="cat__placeholder" aria-hidden="true">
+        <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.4">
+          <!-- minimalist bag -->
+          <path d="M50 80 L150 80 L156 170 L44 170 Z"></path>
+          <path d="M75 80 V62 a25 25 0 0 1 50 0 V80"></path>
+        </svg>
+      </div>
+      <div class="cat__body">
+        <span class="cat__name">Odos<br>aksesuarai</span>
+        <span class="cat__cta">
+          <svg viewBox="0 0 16 16"><path d="M3 8 H13 M8 3 L13 8 L8 13"></path></svg>
+        </span>
+      </div>
+    </a>
+{%- endcase -%}
+{%- endif -%}
+{%- endfor -%}
+
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Home — Collections",
+  "max_blocks": 3,
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "Kolekcijos" },
+    { "type": "text", "id": "more_label", "label": "More link label", "default": "Visa kolekcija" },
+    { "type": "url", "id": "more_link", "label": "More link" },
+    { "type": "header", "content": "Text size" },
+    { "type": "range", "id": "title_scale", "label": "Heading size", "min": 60, "max": 130, "step": 5, "unit": "%", "default": 100 },
+    { "type": "header", "content": "Text colour" },
+    { "type": "color", "id": "text_color", "label": "Text colour", "info": "Recolours this section's text. Leave empty for the default near-black." }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Kortelė",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Kolekcija" },
+        { "type": "image_picker", "id": "image", "label": "Custom image", "info": "Overrides the collection's own image. Leave empty to use the collection image." },
+        {
+          "type": "select", "id": "focal", "label": "Image focal point",
+          "info": "Which part of the image stays in view when it's cropped to fit the card.",
+          "options": [
+            { "value": "top", "label": "Top" },
+            { "value": "middle", "label": "Middle" },
+            { "value": "bottom", "label": "Bottom" }
+          ],
+          "default": "middle"
+        },
+        { "type": "color", "id": "text_color", "label": "Card text colour", "info": "Colour of the card's title. Handy for light text over a dark custom image. Leave empty to follow the section's text colour." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home — Collections",
+      "blocks": [
+        { "type": "card" },
+        { "type": "card" },
+        { "type": "card" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,404 @@
+{{ 'section-avalynes-prieziura.css' | asset_url | stylesheet_tag }}
+{% render 'section-appearance', section: section %}
+<!-- ──────────── BREADCRUMBS ──────────── -->
+<nav class="crumbs" aria-label="Breadcrumb">
+  <a href="{{ routes.root_url }}">Pradžia</a>
+  <span class="sep">/</span>
+  <a href="{{ pages.duk.url | default: routes.root_url }}">{{ section.settings.crumb_parent | default: 'Paslaugos' }}</a>
+  <span class="sep">/</span>
+  <b>{{ section.settings.crumb_current | default: 'Avalynės priežiūra' }}</b>
+</nav>
+
+<!-- ──────────── PAGE HEAD ──────────── -->
+<section class="phead">
+  <div>
+    <div class="eyebrow-rule">{{ section.settings.eyebrow | default: 'Priežiūra · oda ir zomša' }}</div>
+    <h1 class="phead__title">
+      <span class="light">{{ section.settings.title_light | default: 'Avalynės' }}</span>
+      {{ section.settings.title | default: 'priežiūra.' }}
+    </h1>
+  </div>
+  <div class="phead__aside">
+    <p class="phead__intro">{{ section.settings.intro | default: 'Pora, pagaminta vieną kartą, tarnauja dešimtmetį — jei ja rūpinatės. Keli teisingi įpročiai svarbesni nei brangios priemonės. Štai <b>viskas, ką reikia žinoti</b> apie odą ir zomšą.' }}</p>
+    {%- assign stat_blocks = section.blocks | where: 'type', 'stat' -%}
+    {%- if stat_blocks.size > 0 -%}
+    <div class="phead__stats">
+      {%- for block in stat_blocks -%}
+      <div class="phead__stat" {{ block.shopify_attributes }}>
+        <span class="k">{{ block.settings.k }}</span>
+        <span class="v{% if block.settings.tabular %} tabular{% endif %}">{{ block.settings.v }}</span>
+      </div>
+      {%- endfor -%}
+    </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<!-- ──────────── SUBNAV ──────────── -->
+{%- assign chip_blocks = section.blocks | where: 'type', 'chip' -%}
+{%- if chip_blocks.size > 0 -%}
+<nav class="subnav" aria-label="Skyriai">
+  <div class="subnav__wrap">
+    {%- for block in chip_blocks -%}
+    <a class="subnav__chip" href="#{{ block.settings.anchor }}"{% if forloop.first %} aria-current="true"{% endif %} {{ block.shopify_attributes }}><span class="n">{{ block.settings.n }}</span> {{ block.settings.label }}</a>
+    {%- endfor -%}
+  </div>
+</nav>
+{%- endif -%}
+
+<!-- ──────────── 00 · DAILY ──────────── -->
+<section class="sec" id="kasdien">
+  <div class="sec__head">
+    <div>
+      <div class="eyebrow-rule">{{ section.settings.daily_eyebrow | default: 'Kasdienė rutina' }}</div>
+      <h2 class="sec__title"><span class="light">{{ section.settings.daily_title_light | default: 'Dvi minutės,' }}</span> {{ section.settings.daily_title | default: 'kurios keičia viską.' }}</h2>
+    </div>
+    <p class="sec__sub">{{ section.settings.daily_sub | default: 'Didžiausią skirtumą daro ne priemonės, o pastovumas. Keturi įpročiai, kuriuos verta paversti automatiškais.' }}</p>
+  </div>
+  {%- assign habit_blocks = section.blocks | where: 'type', 'habit' -%}
+  {%- if habit_blocks.size > 0 -%}
+  <div class="habits">
+    {%- for block in habit_blocks -%}
+    <div class="habit" {{ block.shopify_attributes }}>
+      <span class="habit__k">{{ block.settings.k }}</span>
+      <h3 class="habit__t">{{ block.settings.t }}</h3>
+      <p class="habit__b">{{ block.settings.b }}</p>
+    </div>
+    {%- endfor -%}
+  </div>
+  {%- endif -%}
+</section>
+
+<!-- ──────────── 01 · LEATHER ──────────── -->
+<section class="sec" id="oda">
+  <div class="sec__head">
+    <div>
+      <div class="eyebrow-rule">{{ section.settings.oda_eyebrow | default: '01 · Lygi oda' }}</div>
+      <h2 class="sec__title"><span class="light">{{ section.settings.oda_title_light | default: 'Odos priežiūra' }}</span> {{ section.settings.oda_title | default: '— penki žingsniai.' }}</h2>
+    </div>
+    <p class="sec__sub">{{ section.settings.oda_sub | default: 'Nuo dulkių iki apsaugos. Visą ciklą kartokite kartą per mėnesį, poliravimą — kada tik norite blizgesio.' }}</p>
+  </div>
+
+  <div class="tut">
+    <div class="tut__media">
+      <span class="tut__word">{{ section.settings.oda_word | default: 'Oda' }}</span>
+      <div class="tut__photo">
+        {%- if section.settings.oda_image -%}
+        <img src="{{ section.settings.oda_image | image_url: width: 1400 }}" srcset="{{ section.settings.oda_image | image_url: width: 700 }} 700w, {{ section.settings.oda_image | image_url: width: 1400 }} 1400w" sizes="(max-width: 960px) 100vw, 50vw" width="{{ section.settings.oda_image.width }}" height="{{ section.settings.oda_image.height }}" alt="{{ section.settings.oda_image.alt | default: section.settings.oda_alt | escape }}" />
+        {%- else -%}
+        <img src="{{ 'Nr1.webp' | asset_url }}" width="1400" height="1400" alt="{{ section.settings.oda_alt | default: 'Juoda lygios odos moka' }}" />
+        {%- endif -%}
+      </div>
+      <div class="tut__cap">
+        <span>{{ section.settings.oda_cap_1 | default: 'Lygi veršio oda' }}</span>
+        <span class="sep">·</span>
+        <span>{{ section.settings.oda_cap_2 | default: 'Bespalvis balzamas' }}</span>
+      </div>
+    </div>
+
+    <div class="tsteps">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'tstep' and block.settings.group == 'oda' -%}
+      <div class="tstep" {{ block.shopify_attributes }}>
+        <div class="tstep__n">{{ block.settings.n }}</div>
+        <div>
+          <h3 class="tstep__t">{{ block.settings.t }}</h3>
+          <p class="tstep__b">{{ block.settings.b }}</p>
+          {%- if block.settings.tip_b != blank -%}
+          <div class="tip{% if block.settings.tip_warn %} tip--warn{% endif %}">
+            <span class="tip__k">{{ block.settings.tip_k }}</span>
+            <p class="tip__b">{{ block.settings.tip_b }}</p>
+          </div>
+          {%- endif -%}
+        </div>
+      </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<!-- ──────────── 02 · SUEDE ──────────── -->
+<section class="sec sec--surface" id="zomsa">
+  <div class="sec__wrap">
+    <div class="sec__head">
+      <div>
+        <div class="eyebrow-rule">{{ section.settings.zomsa_eyebrow | default: '02 · Zomša ir nubukas' }}</div>
+        <h2 class="sec__title"><span class="light">{{ section.settings.zomsa_title_light | default: 'Zomšos priežiūra' }}</span> {{ section.settings.zomsa_title | default: '— sausas metodas.' }}</h2>
+      </div>
+      <p class="sec__sub">{{ section.settings.zomsa_sub | default: 'Zomša valoma sausai. Jokio vandens, jokio kremo, jokio vaško — tik šepetys, garas ir teisingas impregnantas.' }}</p>
+    </div>
+
+    <div class="tut tut--rev">
+      <div class="tut__media">
+        <span class="tut__word">{{ section.settings.zomsa_word | default: 'Zomša' }}</span>
+        <div class="tut__photo">
+          {%- if section.settings.zomsa_image -%}
+          <img src="{{ section.settings.zomsa_image | image_url: width: 1400 }}" srcset="{{ section.settings.zomsa_image | image_url: width: 700 }} 700w, {{ section.settings.zomsa_image | image_url: width: 1400 }} 1400w" sizes="(max-width: 960px) 100vw, 50vw" width="{{ section.settings.zomsa_image.width }}" height="{{ section.settings.zomsa_image.height }}" alt="{{ section.settings.zomsa_image.alt | default: section.settings.zomsa_alt | escape }}" />
+          {%- else -%}
+          <img src="{{ 'Glr1.webp' | asset_url }}" width="1400" height="1400" alt="{{ section.settings.zomsa_alt | default: 'Rudos zomšos batelis su sagtimi' }}" />
+          {%- endif -%}
+        </div>
+        <div class="tut__cap">
+          <span>{{ section.settings.zomsa_cap_1 | default: 'Ruda zomša' }}</span>
+          <span class="sep">·</span>
+          <span>{{ section.settings.zomsa_cap_2 | default: 'Šepetys ir impregnantas' }}</span>
+        </div>
+      </div>
+
+      <div class="tsteps">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'tstep' and block.settings.group == 'zomsa' -%}
+        <div class="tstep" {{ block.shopify_attributes }}>
+          <div class="tstep__n">{{ block.settings.n }}</div>
+          <div>
+            <h3 class="tstep__t">{{ block.settings.t }}</h3>
+            <p class="tstep__b">{{ block.settings.b }}</p>
+            {%- if block.settings.tip_b != blank -%}
+            <div class="tip{% if block.settings.tip_warn %} tip--warn{% endif %}">
+              <span class="tip__k">{{ block.settings.tip_k }}</span>
+              <p class="tip__b">{{ block.settings.tip_b }}</p>
+            </div>
+            {%- endif -%}
+          </div>
+        </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────── 03 · STORAGE ──────────── -->
+<section class="sec sec--ink" id="sandelis">
+  <div class="sec__wrap">
+    <div class="sec__head">
+      <div>
+        <div class="eyebrow-rule">{{ section.settings.store_eyebrow | default: '03 · Sandėliavimas' }}</div>
+        <h2 class="sec__title"><span class="light">{{ section.settings.store_title_light | default: 'Kaip laikyti' }}</span> {{ section.settings.store_title | default: 'tarp sezonų.' }}</h2>
+      </div>
+      <p class="sec__sub">{{ section.settings.store_sub | default: 'Oda gyva medžiaga — jai reikia kvėpuoti. Teisingas laikymas apsaugo formą ir spalvą tiek pat, kiek valymas.' }}</p>
+    </div>
+    {%- assign store_blocks = section.blocks | where: 'type', 'store_row' -%}
+    {%- if store_blocks.size > 0 -%}
+    <div class="store">
+      {%- for block in store_blocks -%}
+      <div class="store__row" {{ block.shopify_attributes }}>
+        <span class="store__n">{{ block.settings.n }}</span>
+        <div>
+          <h3 class="store__t">{{ block.settings.t }}</h3>
+          <p class="store__d">{{ block.settings.d }}</p>
+        </div>
+      </div>
+      {%- endfor -%}
+    </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<!-- ──────────── 04 · TROUBLESHOOTING ──────────── -->
+<section class="sec" id="bedos">
+  <div class="sec__head">
+    <div>
+      <div class="eyebrow-rule">{{ section.settings.fix_eyebrow | default: '04 · Dažnos bėdos' }}</div>
+      <h2 class="sec__title"><span class="light">{{ section.settings.fix_title_light | default: 'Kai kažkas' }}</span> {{ section.settings.fix_title | default: 'nutinka.' }}</h2>
+    </div>
+    <p class="sec__sub">{{ section.settings.fix_sub | default: 'Greiti, patikrinti sprendimai. Jei abejojate ar pažeidimas gilus — parašykite mums prieš imdamiesi patys.' }}</p>
+  </div>
+  {%- assign fix_blocks = section.blocks | where: 'type', 'fix' -%}
+  {%- if fix_blocks.size > 0 -%}
+  <div class="fixes">
+    {%- for block in fix_blocks -%}
+    <div class="fix" {{ block.shopify_attributes }}>
+      <div class="fix__p">
+        <span class="tag">{{ block.settings.tag }}</span>
+        <span class="q">{{ block.settings.q }}</span>
+      </div>
+      <p class="fix__f">{{ block.settings.f }}</p>
+    </div>
+    {%- endfor -%}
+  </div>
+  {%- endif -%}
+</section>
+
+<!-- ──────────── 05 · KIT ──────────── -->
+<section class="sec sec--surface" id="priemones">
+  <div class="sec__wrap">
+    <div class="sec__head">
+      <div>
+        <div class="eyebrow-rule">{{ section.settings.kit_eyebrow | default: '05 · Priemonės' }}</div>
+        <h2 class="sec__title"><span class="light">{{ section.settings.kit_title_light | default: 'Viskas telpa' }}</span> {{ section.settings.kit_title | default: 'į vieną dėžutę.' }}</h2>
+      </div>
+      <p class="sec__sub">{{ section.settings.kit_sub | default: 'Nereikia dešimties buteliukų. Septyni daiktai padengia visą odos ir zomšos priežiūrą metų metus.' }}</p>
+    </div>
+    {%- assign kit_blocks = section.blocks | where: 'type', 'kit_item' -%}
+    {%- if kit_blocks.size > 0 -%}
+    <div class="kit">
+      {%- for block in kit_blocks -%}
+      <div class="kit__item" {{ block.shopify_attributes }}>
+        <div class="kit__name">{{ block.settings.name }}<small>{{ block.settings.small }}</small></div>
+        <span class="kit__for">{{ block.settings.for }}</span>
+      </div>
+      {%- endfor -%}
+    </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<!-- ──────────── CLOSING ──────────── -->
+<section class="sec close">
+  <div class="close__wrap">
+    <div>
+      <div class="eyebrow-rule">{{ section.settings.close_eyebrow | default: 'Reikia daugiau?' }}</div>
+      <h2>{{ section.settings.close_title | default: 'Kai kurie darbai — meistrui.' }}</h2>
+      <p>{{ section.settings.close_text | default: 'Padų keitimas, persiuvimas ir gilus atnaujinimas atliekami ateljė. Parašykite ar užsukite — pasakysime, ką dar galima išgelbėti.' }}</p>
+    </div>
+    <div class="close__cta">
+      <a href="{{ section.settings.close_cta_link | default: pages.kontaktai.url | default: '/pages/kontaktai' }}" class="btn btn--primary">{{ section.settings.close_cta_label | default: 'Susisiekti' }}<span class="btn__arrow">→</span></a>
+      <a href="{{ section.settings.close_cta2_link | default: pages.duk.url | default: '/pages/duk' }}" class="btn btn--secondary">{{ section.settings.close_cta2_label | default: 'DUK' }}</a>
+    </div>
+  </div>
+</section>
+<script src="{{ 'avalynes-prieziura.js' | asset_url }}" defer></script>
+{% schema %}
+{
+  "name": "Avalynės priežiūra",
+  "settings": [
+    { "type": "header", "content": "Head" },
+    { "type": "text", "id": "crumb_parent", "label": "Breadcrumb parent", "default": "Paslaugos" },
+    { "type": "text", "id": "crumb_current", "label": "Breadcrumb current", "default": "Avalynės priežiūra" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Priežiūra · oda ir zomša" },
+    { "type": "text", "id": "title_light", "label": "Title (light part)", "default": "Avalynės" },
+    { "type": "text", "id": "title", "label": "Title (bold part)", "default": "priežiūra." },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Pora, pagaminta vieną kartą, tarnauja dešimtmetį — jei ja rūpinatės. Keli teisingi įpročiai svarbesni nei brangios priemonės. Štai <b>viskas, ką reikia žinoti</b> apie odą ir zomšą." },
+    { "type": "header", "content": "Daily section" },
+    { "type": "text", "id": "daily_eyebrow", "label": "Eyebrow", "default": "Kasdienė rutina" },
+    { "type": "text", "id": "daily_title_light", "label": "Title (light)", "default": "Dvi minutės," },
+    { "type": "text", "id": "daily_title", "label": "Title (bold)", "default": "kurios keičia viską." },
+    { "type": "textarea", "id": "daily_sub", "label": "Sub", "default": "Didžiausią skirtumą daro ne priemonės, o pastovumas. Keturi įpročiai, kuriuos verta paversti automatiškais." },
+    { "type": "header", "content": "Leather tutorial" },
+    { "type": "text", "id": "oda_eyebrow", "label": "Eyebrow", "default": "01 · Lygi oda" },
+    { "type": "text", "id": "oda_title_light", "label": "Title (light)", "default": "Odos priežiūra" },
+    { "type": "text", "id": "oda_title", "label": "Title (bold)", "default": "— penki žingsniai." },
+    { "type": "textarea", "id": "oda_sub", "label": "Sub", "default": "Nuo dulkių iki apsaugos. Visą ciklą kartokite kartą per mėnesį, poliravimą — kada tik norite blizgesio." },
+    { "type": "text", "id": "oda_word", "label": "Big word", "default": "Oda" },
+    { "type": "image_picker", "id": "oda_image", "label": "Photo" },
+    { "type": "text", "id": "oda_alt", "label": "Photo alt", "default": "Juoda lygios odos moka" },
+    { "type": "text", "id": "oda_cap_1", "label": "Caption left", "default": "Lygi veršio oda" },
+    { "type": "text", "id": "oda_cap_2", "label": "Caption right", "default": "Bespalvis balzamas" },
+    { "type": "header", "content": "Suede tutorial" },
+    { "type": "text", "id": "zomsa_eyebrow", "label": "Eyebrow", "default": "02 · Zomša ir nubukas" },
+    { "type": "text", "id": "zomsa_title_light", "label": "Title (light)", "default": "Zomšos priežiūra" },
+    { "type": "text", "id": "zomsa_title", "label": "Title (bold)", "default": "— sausas metodas." },
+    { "type": "textarea", "id": "zomsa_sub", "label": "Sub", "default": "Zomša valoma sausai. Jokio vandens, jokio kremo, jokio vaško — tik šepetys, garas ir teisingas impregnantas." },
+    { "type": "text", "id": "zomsa_word", "label": "Big word", "default": "Zomša" },
+    { "type": "image_picker", "id": "zomsa_image", "label": "Photo" },
+    { "type": "text", "id": "zomsa_alt", "label": "Photo alt", "default": "Rudos zomšos batelis su sagtimi" },
+    { "type": "text", "id": "zomsa_cap_1", "label": "Caption left", "default": "Ruda zomša" },
+    { "type": "text", "id": "zomsa_cap_2", "label": "Caption right", "default": "Šepetys ir impregnantas" },
+    { "type": "header", "content": "Storage section" },
+    { "type": "text", "id": "store_eyebrow", "label": "Eyebrow", "default": "03 · Sandėliavimas" },
+    { "type": "text", "id": "store_title_light", "label": "Title (light)", "default": "Kaip laikyti" },
+    { "type": "text", "id": "store_title", "label": "Title (bold)", "default": "tarp sezonų." },
+    { "type": "textarea", "id": "store_sub", "label": "Sub", "default": "Oda gyva medžiaga — jai reikia kvėpuoti. Teisingas laikymas apsaugo formą ir spalvą tiek pat, kiek valymas." },
+    { "type": "header", "content": "Troubleshooting section" },
+    { "type": "text", "id": "fix_eyebrow", "label": "Eyebrow", "default": "04 · Dažnos bėdos" },
+    { "type": "text", "id": "fix_title_light", "label": "Title (light)", "default": "Kai kažkas" },
+    { "type": "text", "id": "fix_title", "label": "Title (bold)", "default": "nutinka." },
+    { "type": "textarea", "id": "fix_sub", "label": "Sub", "default": "Greiti, patikrinti sprendimai. Jei abejojate ar pažeidimas gilus — parašykite mums prieš imdamiesi patys." },
+    { "type": "header", "content": "Kit section" },
+    { "type": "text", "id": "kit_eyebrow", "label": "Eyebrow", "default": "05 · Priemonės" },
+    { "type": "text", "id": "kit_title_light", "label": "Title (light)", "default": "Viskas telpa" },
+    { "type": "text", "id": "kit_title", "label": "Title (bold)", "default": "į vieną dėžutę." },
+    { "type": "textarea", "id": "kit_sub", "label": "Sub", "default": "Nereikia dešimties buteliukų. Septyni daiktai padengia visą odos ir zomšos priežiūrą metų metus." },
+    { "type": "header", "content": "Closing" },
+    { "type": "text", "id": "close_eyebrow", "label": "Eyebrow", "default": "Reikia daugiau?" },
+    { "type": "text", "id": "close_title", "label": "Title", "default": "Kai kurie darbai — meistrui." },
+    { "type": "textarea", "id": "close_text", "label": "Text", "default": "Padų keitimas, persiuvimas ir gilus atnaujinimas atliekami ateljė. Parašykite ar užsukite — pasakysime, ką dar galima išgelbėti." },
+    { "type": "text", "id": "close_cta_label", "label": "Primary button label", "default": "Susisiekti" },
+    { "type": "url", "id": "close_cta_link", "label": "Primary button link" },
+    { "type": "text", "id": "close_cta2_label", "label": "Secondary button label", "default": "DUK" },
+    { "type": "url", "id": "close_cta2_link", "label": "Secondary button link" },
+    { "type": "header", "content": "Text size & colour" },
+    { "type": "range", "id": "title_scale", "label": "Heading size", "min": 60, "max": 130, "step": 5, "unit": "%", "default": 100 },
+    { "type": "color", "id": "text_color", "label": "Text colour", "info": "Recolours this section's text. Leave empty for the default near-black." }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Head stat",
+      "settings": [
+        { "type": "text", "id": "k", "label": "Label" },
+        { "type": "text", "id": "v", "label": "Value" },
+        { "type": "checkbox", "id": "tabular", "label": "Tabular numerals", "default": false }
+      ]
+    },
+    {
+      "type": "chip",
+      "name": "Subnav chip",
+      "settings": [
+        { "type": "text", "id": "n", "label": "Number" },
+        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "text", "id": "anchor", "label": "Anchor (kasdien / oda / zomsa / sandelis / bedos / priemones)" }
+      ]
+    },
+    {
+      "type": "habit",
+      "name": "Daily habit",
+      "settings": [
+        { "type": "text", "id": "k", "label": "Kicker" },
+        { "type": "text", "id": "t", "label": "Title" },
+        { "type": "textarea", "id": "b", "label": "Body" }
+      ]
+    },
+    {
+      "type": "tstep",
+      "name": "Tutorial step",
+      "settings": [
+        {
+          "type": "select", "id": "group", "label": "Tutorial",
+          "options": [
+            { "value": "oda", "label": "Oda (leather)" },
+            { "value": "zomsa", "label": "Zomša (suede)" }
+          ],
+          "default": "oda"
+        },
+        { "type": "text", "id": "n", "label": "Number" },
+        { "type": "text", "id": "t", "label": "Title" },
+        { "type": "textarea", "id": "b", "label": "Body" },
+        { "type": "text", "id": "tip_k", "label": "Tip kicker" },
+        { "type": "textarea", "id": "tip_b", "label": "Tip body (empty hides the tip)" },
+        { "type": "checkbox", "id": "tip_warn", "label": "Warning style", "default": false }
+      ]
+    },
+    {
+      "type": "store_row",
+      "name": "Storage row",
+      "settings": [
+        { "type": "text", "id": "n", "label": "Number" },
+        { "type": "text", "id": "t", "label": "Title" },
+        { "type": "textarea", "id": "d", "label": "Body" }
+      ]
+    },
+    {
+      "type": "fix",
+      "name": "Troubleshooting card",
+      "settings": [
+        { "type": "text", "id": "tag", "label": "Tag" },
+        { "type": "text", "id": "q", "label": "Problem" },
+        { "type": "textarea", "id": "f", "label": "Fix" }
+      ]
+    },
+    {
+      "type": "kit_item",
+      "name": "Kit item",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Name" },
+        { "type": "text", "id": "small", "label": "Sub-text" },
+        { "type": "text", "id": "for", "label": "For (Oda / Zomša / Abi)" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Avalynės priežiūra" }]
+}
+{% endschema %}

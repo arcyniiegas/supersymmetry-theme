@@ -1,0 +1,55 @@
+{{ 'section-customers.css' | asset_url | stylesheet_tag }}
+{% render 'section-appearance', section: section %}
+
+<div class="acct acct--narrow">
+  <div class="acct__head">
+    <div class="eyebrow-rule">{{ section.settings.eyebrow | default: 'Paskyra · <b>registracija</b>' }}</div>
+    <h1 class="acct__title"><span class="light">{{ section.settings.title_light | default: 'Sukurti' }}</span> {{ section.settings.title | default: 'paskyrą.' }}</h1>
+    <p class="acct__sub">{{ section.settings.sub | default: 'Viena paskyra — užsakymų istorija, išsaugoti adresai ir greitesnis atsiskaitymas.' }}</p>
+  </div>
+
+  {% form 'create_customer', class: 'form' %}
+    {%- if form.errors -%}
+    <div class="acct-errors" role="alert">{{ form.errors | default_errors }}</div>
+    {%- endif -%}
+    <div class="form__row">
+      <div class="field">
+        <label for="regFirst">Vardas</label>
+        <input id="regFirst" type="text" name="customer[first_name]" autocomplete="given-name" placeholder="Vardas" />
+      </div>
+      <div class="field">
+        <label for="regLast">Pavardė</label>
+        <input id="regLast" type="text" name="customer[last_name]" autocomplete="family-name" placeholder="Pavardė" />
+      </div>
+    </div>
+    <div class="field">
+      <label for="regEmail">El. paštas</label>
+      <input id="regEmail" type="email" name="customer[email]" autocomplete="email" placeholder="vardas@pavarde.lt" required />
+    </div>
+    <div class="field">
+      <label for="regPassword">Slaptažodis</label>
+      <input id="regPassword" type="password" name="customer[password]" autocomplete="new-password" placeholder="Bent 5 simboliai" minlength="5" required />
+    </div>
+    <button class="btn btn--primary btn--lg" type="submit">{{ section.settings.submit_label | default: 'Sukurti paskyrą' }} <span class="btn__arrow">→</span></button>
+  {% endform %}
+
+  <div class="acct-alt">
+    <a href="{{ routes.account_login_url }}">{{ section.settings.login_link | default: 'Jau turi paskyrą? Prisijunk' }}</a>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Register",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Paskyra · <b>registracija</b>" },
+    { "type": "text", "id": "title_light", "label": "Title (light part)", "default": "Sukurti" },
+    { "type": "text", "id": "title", "label": "Title (bold part)", "default": "paskyrą." },
+    { "type": "textarea", "id": "sub", "label": "Sub", "default": "Viena paskyra — užsakymų istorija, išsaugoti adresai ir greitesnis atsiskaitymas." },
+    { "type": "text", "id": "submit_label", "label": "Submit button", "default": "Sukurti paskyrą" },
+    { "type": "text", "id": "login_link", "label": "Login link label", "default": "Jau turi paskyrą? Prisijunk" },
+    { "type": "header", "content": "Text" },
+    { "type": "color", "id": "text_color", "label": "Text colour", "info": "Recolours this section's text. Leave empty for the default near-black." }
+  ]
+}
+{% endschema %}

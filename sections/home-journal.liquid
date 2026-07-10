@@ -1,0 +1,59 @@
+{{ 'section-home.css' | asset_url | stylesheet_tag }}
+{% render 'section-appearance', section: section %}
+<!-- ──────────── JOURNAL ──────────── -->
+<section class="journal" style="background-color: #FFFFFF; --title-scale: {{ section.settings.title_scale | default: 100 | divided_by: 100.0 }};">
+  <div class="journal__wrap">
+    <div class="journal__head">
+      <h2 class="journal__title">{{ section.settings.title | default: 'Iš žurnalo' }} <span class="light">—</span></h2>
+      <a href="{{ blogs[section.settings.blog].url | default: routes.root_url }}" class="journal__more">
+        {{ section.settings.more_label | default: 'Visi straipsniai' }}
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7 H11 M7 3 L11 7 L7 11"></path></svg>
+      </a>
+    </div>
+
+    <div class="journal__grid">
+{%- comment -%} Prefer the configured blog; fall back to the real "zurnalas"
+  blog, never to fabricated placeholder articles. {%- endcomment -%}
+{%- assign jblog = blogs[section.settings.blog] -%}
+{%- if jblog == blank or jblog.articles.size == 0 -%}{%- assign jblog = blogs.zurnalas -%}{%- endif -%}
+{%- if jblog != blank and jblog.articles.size > 0 -%}
+{%- for article in jblog.articles limit: 3 -%}
+      <a class="article" href="{{ article.url }}">
+        <div class="article__cover">
+          <span class="article__tag"><span class="dot"></span>{{ article.tags.first | default: 'Žurnalas' }}</span>
+          {%- if article.image -%}
+          <img src="{{ article.image | image_url: width: 800 }}" srcset="{{ article.image | image_url: width: 400 }} 400w, {{ article.image | image_url: width: 800 }} 800w" sizes="(max-width: 720px) 90vw, 33vw" width="{{ article.image.width }}" height="{{ article.image.height }}" alt="{{ article.image.alt | escape }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          {%- endif -%}
+        </div>
+        <div class="article__meta">
+          <span>{{ article.published_at | date: '%m·%d·%Y' }}</span>
+          <span>{%- if article.metafields.custom.read_time != blank -%}{{ article.metafields.custom.read_time }} min skaitymo{%- else -%}4 min skaitymo{%- endif -%}</span>
+        </div>
+        <h3 class="article__title">{{ article.title }}</h3>
+        <p class="article__excerpt">{%- if article.excerpt != blank -%}{{ article.excerpt | strip_html }}{%- else -%}{{ article.content | strip_html | truncatewords: 24 }}{%- endif -%}</p>
+        <span class="article__read">Skaityti →</span>
+      </a>
+{%- endfor -%}
+{%- else -%}
+      <div class="journal__empty">
+        <p>Žurnalas netrukus. <a href="{{ blogs.zurnalas.url | default: routes.root_url }}" class="uline">Užsukite vėliau →</a></p>
+      </div>
+{%- endif -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Home — Journal",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "Iš žurnalo" },
+    { "type": "blog", "id": "blog", "label": "Tinklaraštis" },
+    { "type": "text", "id": "more_label", "label": "More link label", "default": "Visi straipsniai" },
+    { "type": "header", "content": "Text size" },
+    { "type": "range", "id": "title_scale", "label": "Heading size", "min": 60, "max": 130, "step": 5, "unit": "%", "default": 100 },
+    { "type": "header", "content": "Text colour" },
+    { "type": "color", "id": "text_color", "label": "Text colour", "info": "Recolours this section's text. Leave empty for the default near-black." }
+  ],
+  "presets": [{ "name": "Home — Journal" }]
+}
+{% endschema %}

@@ -1,0 +1,61 @@
+{{ 'section-home.css' | asset_url | stylesheet_tag }}
+{{ 'section-home-visit.css' | asset_url | stylesheet_tag }}
+{% render 'section-appearance', section: section %}
+<!-- ──────────── FIT REASSURANCE ──────────── -->
+<section class="homefit" style="background-color: #F5F5F5; --title-scale: {{ section.settings.title_scale | default: 100 | divided_by: 100.0 }};">
+  <div>
+    <div class="homefit__eyebrow">{{ section.settings.eyebrow }}</div>
+    <h2 class="homefit__title"><span class="light">{{ section.settings.title_light }}</span> {{ section.settings.title }}</h2>
+    <p class="homefit__sub">{{ section.settings.sub }}</p>
+    <div class="homefit__cta">
+      <a href="{{ section.settings.cta_primary_link | default: pages['dydziu-lentele'].url | default: routes.root_url }}" class="btn btn--primary">{{ section.settings.cta_primary_label }}<span class="btn__arrow">→</span></a>
+      <a href="{{ section.settings.cta_secondary_link | default: pages.grazinimai.url | default: routes.root_url }}" class="btn btn--secondary">{{ section.settings.cta_secondary_label }}</a>
+    </div>
+  </div>
+  <div class="homefit__facts">
+    {%- for block in section.blocks -%}
+      <div class="homefit__fact" {{ block.shopify_attributes }}><span class="k">{{ block.settings.label }}</span><span class="v">{{ block.settings.value }}</span></div>
+    {%- endfor -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Home — Fit",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Dydis ir tinkamumas" },
+    { "type": "text", "id": "title_light", "label": "Title (light part)", "default": "Tinka —" },
+    { "type": "text", "id": "title", "label": "Title", "default": "arba pakeičiame." },
+    { "type": "textarea", "id": "sub", "label": "Subtitle", "default": "Kiekviena pora siuvama ant to paties kurpalio, tad dydis nuoseklus tarp modelių. Nesate tikri? Pamatuokite pėdą centimetrais — o jei nepataikysite, keitimas ir grąžinimas nemokamas." },
+    { "type": "text", "id": "cta_primary_label", "label": "Primary button label", "default": "Dydžių lentelė" },
+    { "type": "url", "id": "cta_primary_link", "label": "Primary button link" },
+    { "type": "text", "id": "cta_secondary_label", "label": "Secondary button label", "default": "Grąžinimų sąlygos" },
+    { "type": "url", "id": "cta_secondary_link", "label": "Secondary button link" },
+    { "type": "header", "content": "Text size" },
+    { "type": "range", "id": "title_scale", "label": "Heading size", "min": 60, "max": 130, "step": 5, "unit": "%", "default": 100 },
+    { "type": "header", "content": "Text colour" },
+    { "type": "color", "id": "text_color", "label": "Text colour", "info": "Recolours this section's text. Leave empty for the default near-black." }
+  ],
+  "blocks": [
+    {
+      "type": "fact",
+      "name": "Fact",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "text", "id": "value", "label": "Value" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home — Fit",
+      "blocks": [
+        { "type": "fact", "settings": { "label": "Dydžių ruožas · visi modeliai", "value": "EU 36—43" } },
+        { "type": "fact", "settings": { "label": "Keitimas ir grąžinimas", "value": "14 dienų" } },
+        { "type": "fact", "settings": { "label": "Siunta keičiant · Lietuva", "value": "Nemokama" } },
+        { "type": "fact", "settings": { "label": "Matavimas pagal pėdos ilgį", "value": "cm" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

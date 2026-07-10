@@ -1,0 +1,45 @@
+{
+  "general": {
+    "brand": "Supersymmetry"
+  },
+  "nav": {
+    "home": "Pradžia",
+    "shoes": "Avalynė",
+    "accessories": "Aksesuarai",
+    "journal": "Žurnalas",
+    "archive": "Archyvas",
+    "all_collections": "Visos kolekcijos",
+    "gift_cards": "Dovanų kuponai",
+    "size_chart": "Dydžių lentelė",
+    "returns": "Grąžinimai",
+    "about": "Apie mus",
+    "faq": "DUK",
+    "contact": "Susisiekti",
+    "account": "Paskyra",
+    "menu": "Meniu"
+  },
+  "cart": {
+    "title": "Krepšelis"
+  },
+  "search": {
+    "title": "Paieška",
+    "eyebrow_html": "Paieška · <b>visa kolekcija</b>",
+    "placeholder": "Ko ieškai?",
+    "close": "Uždaryti",
+    "clear": "Išvalyti",
+    "popular": "Populiaru",
+    "empty_eyebrow": "Nieko nerasta"
+  },
+  "newsletter": {
+    "heading": "Laiškas iš ateljės",
+    "text": "Vienas laiškas per mėnesį — naujos poros, taisymo istorijos, jokio marketingo.",
+    "placeholder": "Jūsų el. paštas",
+    "button": "Prenumeruoti"
+  },
+  "footer": {
+    "buy": "Pirkti",
+    "services": "Paslaugos",
+    "about": "Apie ateljė",
+    "legal_right": "Privatumas · Sąlygos · Rekvizitai"
+  }
+}

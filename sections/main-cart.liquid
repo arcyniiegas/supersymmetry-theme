@@ -1,0 +1,361 @@
+{{ 'section-cart.css' | asset_url | stylesheet_tag }}
+{% render 'section-appearance', section: section %}
+
+{%- comment -%} Free-shipping threshold: global setting is in EUR major units (e.g. 100 = €100); cart money is minor units. {%- endcomment -%}
+{%- assign free_threshold = settings.free_shipping_threshold | default: 100 | times: 100 -%}
+
+<div id="cart-root" data-section-id="{{ section.id }}">
+
+<form action="{{ routes.cart_url }}" method="post" id="cart">
+
+<!-- ──────────── BREADCRUMBS ──────────── -->
+<nav class="crumbs" aria-label="Breadcrumb">
+  <a href="{{ routes.root_url }}">Pradžia</a>
+  <span class="sep">/</span>
+  <b>Krepšelis</b>
+</nav>
+
+<!-- ──────────── CART HEAD ──────────── -->
+<div class="carthead">
+  <div>
+    <h1 class="carthead__title"><span class="light">{{ section.settings.title_light | default: 'Tavo' }}</span> {{ section.settings.title | default: 'krepšelis.' }}</h1>
+  </div>
+  {%- unless cart.item_count == 0 -%}
+  <div class="carthead__meta">
+    <button type="button" class="uline" id="clearBtn">{{ section.settings.clear_label | default: 'Išvalyti krepšelį' }}</button>
+  </div>
+  {%- endunless -%}
+</div>
+
+{%- if cart.item_count == 0 -%}
+
+<!-- ══════════════ EMPTY STATE ══════════════ -->
+<section class="empty" style="display:block">
+  <div class="empty__wrap">
+    <div>
+      <div class="eyebrow-rule">{{ section.settings.empty_eyebrow | default: 'Krepšelis · <b>0 prekių</b>' }}</div>
+      <h2 class="empty__big">{{ section.settings.empty_title | default: 'Krepšelis kol kas <b>tuščias.</b>' }}</h2>
+      <p class="empty__lede">{{ section.settings.empty_lede | default: 'Kiekviena pora gaminama ranka, ribota partija. Pradėk nuo šio sezono — arba grįžk ten, kur buvai.' }}</p>
+      <div class="empty__ctas">
+        <a href="{{ section.settings.empty_cta_link | default: routes.all_products_collection_url }}" class="btn btn--primary btn--lg">{{ section.settings.empty_cta_label | default: 'Į kolekciją' }} <span class="btn__arrow">→</span></a>
+        {%- assign ghost_label = section.settings.empty_ghost_label | default: 'Kolekcijos' -%}
+        {%- if ghost_label != blank -%}
+        <a href="{{ section.settings.empty_ghost_link | default: routes.collections_url }}" class="btn btn--ghost btn--lg">{{ ghost_label }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+    <div class="empty__side">
+      <h6>{{ section.settings.empty_side_heading | default: 'Iš kolekcijos' }}</h6>
+      {%- comment -%} Product-picker blocks; blocks with no product chosen are
+        skipped, and when none are valid the previous literals render unchanged. {%- endcomment -%}
+      {%- assign eside_valid = 0 -%}
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'eside' and block.settings.product != blank -%}{%- assign eside_valid = eside_valid | plus: 1 -%}{%- endif -%}
+      {%- endfor -%}
+      {%- if eside_valid > 0 -%}
+        {%- for block in section.blocks -%}
+          {%- assign p = block.settings.product -%}
+          {%- if block.type == 'eside' and p != blank -%}
+      <a class="eside" href="{{ p.url }}" {{ block.shopify_attributes }}>
+        <div class="eside__media">{% if p.featured_image %}<img src="{{ p.featured_image | image_url: width: 200 }}" sizes="64px" alt="{{ p.title | escape }}" width="{{ p.featured_image.width }}" height="{{ p.featured_image.height }}" />{% endif %}</div>
+        <div>
+          <div class="eside__name">{{ p.title }}</div>
+          {%- if block.settings.meta != blank -%}<div class="eside__meta">{{ block.settings.meta }}</div>{%- endif -%}
+        </div>
+        <div class="eside__price">{{ p.price | money | remove: '€' | remove: ',00' }}</div>
+      </a>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- else -%}
+      {%- comment -%} No products picked → fall back to real catalog items,
+        never invented ones. {%- endcomment -%}
+      {%- for p in collections.all.products limit: 3 -%}
+      <a class="eside" href="{{ p.url }}">
+        <div class="eside__media">{% if p.featured_image %}<img src="{{ p.featured_image | image_url: width: 200 }}" sizes="64px" alt="{{ p.title | escape }}" width="{{ p.featured_image.width }}" height="{{ p.featured_image.height }}" />{% endif %}</div>
+        <div>
+          <div class="eside__name">{{ p.title }}</div>
+        </div>
+        <div class="eside__price">{{ p.price | money | remove: '€' | remove: ',00' }}</div>
+      </a>
+      {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{%- else -%}
+
+<!-- ════════════════════════════════════════════════════════════
+     SHELL
+     ════════════════════════════════════════════════════════════ -->
+<section class="shell">
+
+  <!-- ITEMS -->
+  <div>
+    <!-- shipping note · honest static statement (shipping speed, not a fabricated per-country ETA) -->
+    <div class="estimator">
+      <span class="estimator__ico" aria-hidden="true">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 4.5h9v9h-9zM10.5 7.5h3.2l2.8 3v3h-6"/><circle cx="5" cy="15" r="1.6"/><circle cx="13.5" cy="15" r="1.6"/></svg>
+      </span>
+      <div class="estimator__body">
+        <span class="estimator__label">{{ section.settings.ship_note | default: 'Išsiunčiame per 1—2 darbo dienas iš Vilniaus.' }}</span>
+      </div>
+      <div class="estimator__result">
+        <span class="estimator__cost">{{ section.settings.ship_cost_note | default: 'Pristatymas skaičiuojamas apmokant' }}</span>
+      </div>
+    </div>
+
+    <div class="items" id="items">
+
+      {%- for item in cart.items -%}
+      <!-- LINE {{ forloop.index }} -->
+      <article class="line" data-key="{{ item.key }}" data-qty="{{ item.quantity }}">
+        <a class="line__media" href="{{ item.url }}">
+          {%- if item.image -%}
+          <img src="{{ item.image | image_url: width: 200 }}" srcset="{{ item.image | image_url: width: 200 }} 200w, {{ item.image | image_url: width: 400 }} 400w" sizes="120px" alt="{{ item.title | escape }}" width="{{ item.image.width }}" height="{{ item.image.height }}" />
+          {%- else -%}
+          <img src="{{ 'Nr1.webp' | asset_url }}" alt="{{ item.title | escape }}" width="1400" height="1400" />
+          {%- endif -%}
+          <span class="line__index">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>
+        </a>
+        <div class="line__body">
+          <div class="line__top">
+            <div class="line__name"><a href="{{ item.url }}">{{ item.product.title }}</a></div>
+            <button type="button" class="line__remove" aria-label="Pašalinti">
+              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 3l8 8M11 3l-8 8"/></svg>
+            </button>
+          </div>
+          <div class="tags">
+            {%- if item.product.metafields.glance.material != blank -%}
+            <span class="tag tag--mat"><i></i>{{ item.product.metafields.glance.material }}</span>
+            {%- endif -%}
+            {%- if item.variant.title and item.variant.title != 'Default Title' -%}
+            <span class="tag tag--size"><i></i>{{ item.variant.title }}</span>
+            {%- endif -%}
+            {%- if item.original_price > item.final_price -%}
+            <span class="tag tag--sale"><i></i>−{{ item.original_price | minus: item.final_price | times: 100.0 | divided_by: item.original_price | round }} %</span>
+            {%- endif -%}
+            {%- if item.product.metafields.glance.origin != blank -%}
+            <span class="tag tag--origin"><i></i>{{ item.product.metafields.glance.origin }}</span>
+            {%- endif -%}
+          </div>
+          <div class="line__foot">
+            <div class="qty">
+              <button type="button" data-step="-1" aria-label="Mažinti">–</button>
+              <input type="text" value="{{ item.quantity }}" inputmode="numeric" aria-label="Kiekis" />
+              <button type="button" data-step="1" aria-label="Didinti">+</button>
+            </div>
+            <div class="line__price">
+              {%- if item.original_line_price > item.final_line_price -%}
+              <span class="line__was">{{ item.original_line_price | money | remove: '€' | remove: ',00' }}</span>
+              {%- endif -%}
+              <span class="line__now">{{ item.final_line_price | money | remove: '€' | remove: ',00' }}</span>
+              <span class="line__unit"></span>
+            </div>
+          </div>
+        </div>
+      </article>
+      {%- endfor -%}
+
+      <!-- gift note -->
+      <div class="giftline">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2.5" y="6.5" width="13" height="9" rx="1"/><path d="M2.5 9.5h13M9 6.5v9M9 6.5S7.5 2.5 5.5 3.5 7 6.5 9 6.5zM9 6.5s1.5-4 3.5-3-.5 3-3.5 3z"/></svg>
+        <span>{{ section.settings.gift_prefix | default: 'Dovana?' }} <a href="{{ section.settings.gift_link | default: pages.kontaktai.url | default: routes.root_url }}" class="uline">{{ section.settings.gift_link_label | default: 'Pridėk ranka rašytą kortelę' }}</a> {{ section.settings.gift_suffix | default: 'ir įvyniojimą — nemokamai.' }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <aside class="summary">
+    <div class="summary__card">
+      <div class="summary__h">{{ section.settings.summary_title | default: 'Suvestinė' }}</div>
+      <div class="srow"><span class="k">{{ section.settings.label_subtotal | default: 'Tarpinė suma' }}</span><span class="v" id="sumSubtotal">{{ cart.items_subtotal_price | money | remove: '€' | remove: ',00' }}</span></div>
+      {%- for d in cart.cart_level_discount_applications -%}
+      <div class="srow"><span class="k">{{ d.title }}</span><span class="v" id="sumDiscount">−{{ d.total_allocated_amount | money | remove: '€' | remove: ',00' }}</span></div>
+      {%- endfor -%}
+      {%- if cart.total_price >= free_threshold -%}
+      <div class="srow srow--free"><span class="k">{{ section.settings.label_shipping | default: 'Pristatymas' }}</span><span class="v" id="sumShipping">{{ section.settings.label_shipping_free | default: 'Nemokamas' }}</span></div>
+      {%- else -%}
+      <div class="srow"><span class="k">{{ section.settings.label_shipping | default: 'Pristatymas' }}</span><span class="v" id="sumShipping">{{ section.settings.label_shipping_calc | default: 'Skaičiuojama apmokant' }}</span></div>
+      {%- endif -%}
+
+      <!-- promo -->
+      <div class="promo" id="promo">
+        <input type="text" id="promoInput" placeholder="{{ section.settings.promo_placeholder | default: 'Nuolaidos kodas' | escape }}" aria-label="Nuolaidos kodas" />
+        <button type="button" id="promoBtn">{{ section.settings.promo_apply | default: 'Taikyti' }}</button>
+      </div>
+      {%- for d in cart.cart_level_discount_applications -%}
+      <div class="promo__applied is-on" id="promoApplied">
+        <span>{{ d.title }} · −{{ d.total_allocated_amount | money | remove: '€' | remove: ',00' }}</span>
+        {%- comment -%} Discount codes are managed at checkout; removal isn't supported via Cart AJAX. {# TODO: promo removal #} {%- endcomment -%}
+        <button type="button" id="promoRemove">Pašalinti</button>
+      </div>
+      {%- endfor -%}
+
+      <div class="srow srow--total">
+        <span class="k">{{ section.settings.label_total | default: 'Iš viso' }}</span>
+        <span>
+          <span class="v" id="sumTotal">{{ cart.total_price | money | remove: '€' | remove: ',00' }}</span>
+          {%- comment -%} PVM shown as the 21% VAT included in the tax-inclusive total. {%- endcomment -%}
+          <span class="vat">{{ section.settings.vat_prefix | default: 'su PVM' }} · {{ cart.total_price | times: 21 | divided_by: 121 | money | remove: '€' | remove: ',00' }}</span>
+        </span>
+      </div>
+
+      <button type="submit" name="checkout" class="btn btn--orange btn--lg checkout">
+        {{ section.settings.checkout_label | default: 'Apmokėti' }} <span class="btn__arrow">→</span>
+      </button>
+
+      <div class="summary__pays">
+        {%- assign pays = section.settings.pay_methods | default: 'VISA, MC, AMEX, APPLE PAY, PAYPAL' | split: ',' -%}
+        {%- for pay in pays -%}
+        <span class="pay">{{ pay | strip }}</span>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <div class="summary__trust">
+      <div class="trust">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M8 1.5l5.5 2.2v3.6c0 3.4-2.3 5.7-5.5 7.2-3.2-1.5-5.5-3.8-5.5-7.2V3.7L8 1.5z"/><path d="M5.8 8l1.6 1.6L10.4 6.6"/></svg>
+        <span>{{ section.settings.trust_1 | default: '<b>14 dienų grąžinimas <span style="color: rgb(107, 107, 107); letter-spacing: -0.065px;">· nemokamas keitimas.</span></b>' }}</span>
+      </div>
+      <div class="trust">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1.5" y="4" width="13" height="8.5" rx="1.5"/><path d="M1.5 6.8h13"/></svg>
+        <span>{{ section.settings.trust_2 | default: 'Saugus mokėjimas · šifruota <b>SSL</b> jungtimi.' }}</span>
+      </div>
+      <div class="trust">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M1.5 11V5.5h9V11M10.5 7.5h2.2l1.8 2V11h-4M4.2 13a1.3 1.3 0 100-2.6 1.3 1.3 0 000 2.6zM11.6 13a1.3 1.3 0 100-2.6 1.3 1.3 0 000 2.6z"/></svg>
+        <span>{{ section.settings.trust_3 | default: 'Išsiunčiame per <b>1–2 darbo dienas</b> iš Vilniaus.' }}</span>
+      </div>
+    </div>
+  </aside>
+</section>
+
+<!-- ──────────── UPSELL ──────────── -->
+<section class="upsell" id="upsell">
+  <div class="upsell__head">
+    <h2 class="upsell__title"><span class="light">{{ section.settings.upsell_title_light | default: 'Galbūt' }}</span> {{ section.settings.upsell_title | default: 'praleidai' }}</h2>
+    <a href="{{ section.settings.upsell_more_link | default: routes.all_products_collection_url }}" class="uline mono" style="font-size:12px;color:var(--mid)">{{ section.settings.upsell_more_label | default: 'Visa kolekcija →' }}</a>
+  </div>
+  <div class="upsell__grid">
+    {%- comment -%} Product-picker blocks; empty pickers are skipped, and when
+      none are valid the previous literals render unchanged. {%- endcomment -%}
+    {%- assign mini_valid = 0 -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'mini' and block.settings.product != blank -%}{%- assign mini_valid = mini_valid | plus: 1 -%}{%- endif -%}
+    {%- endfor -%}
+    {%- if mini_valid > 0 -%}
+      {%- for block in section.blocks -%}
+        {%- assign p = block.settings.product -%}
+        {%- if block.type == 'mini' and p != blank -%}
+    <a class="mini" href="{{ p.url }}" {{ block.shopify_attributes }}>
+      <div class="mini__media">{% if p.featured_image %}<img src="{{ p.featured_image | image_url: width: 400 }}" sizes="84px" alt="{{ p.title | escape }}" width="{{ p.featured_image.width }}" height="{{ p.featured_image.height }}" />{% endif %}</div>
+      <div>
+        <div class="mini__name">{{ p.title }}</div>
+        {%- if block.settings.meta != blank -%}<div class="mini__meta">{{ block.settings.meta }}</div>{%- endif -%}
+        <div class="mini__price">{{ p.price | money | remove: '€' | remove: ',00' }}</div>
+      </div>
+      <span class="mini__go" aria-hidden="true">→</span>
+    </a>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- else -%}
+    {%- comment -%} No products picked → fall back to real catalog items,
+      never invented ones. {%- endcomment -%}
+    {%- for p in collections.all.products limit: 3 -%}
+    <a class="mini" href="{{ p.url }}">
+      <div class="mini__media">{% if p.featured_image %}<img src="{{ p.featured_image | image_url: width: 400 }}" sizes="84px" alt="{{ p.title | escape }}" width="{{ p.featured_image.width }}" height="{{ p.featured_image.height }}" />{% endif %}</div>
+      <div>
+        <div class="mini__name">{{ p.title }}</div>
+        <div class="mini__price">{{ p.price | money | remove: '€' | remove: ',00' }}</div>
+      </div>
+      <span class="mini__go" aria-hidden="true">→</span>
+    </a>
+    {%- endfor -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{%- endif -%}
+
+</form>
+
+</div>
+
+{%- comment -%} removed: react tweaks panel (mount was #tweaks-root) — not part of the real cart {%- endcomment -%}
+
+<!-- toast -->
+<div class="toast" id="toast"><span class="brand-dot"></span><span id="toastMsg">Pridėta į krepšelį</span></div>
+
+<script src="{{ 'cart.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Cart",
+  "settings": [
+    { "type": "header", "content": "Head" },
+    { "type": "text", "id": "title_light", "label": "Title (light part)", "default": "Tavo" },
+    { "type": "text", "id": "title", "label": "Title (bold part)", "default": "krepšelis." },
+    { "type": "text", "id": "clear_label", "label": "Clear-cart label", "default": "Išvalyti krepšelį" },
+    { "type": "header", "content": "Empty state" },
+    { "type": "text", "id": "empty_eyebrow", "label": "Eyebrow", "default": "Krepšelis · <b>0 prekių</b>" },
+    { "type": "text", "id": "empty_title", "label": "Title", "default": "Krepšelis kol kas <b>tuščias.</b>" },
+    { "type": "textarea", "id": "empty_lede", "label": "Lede", "default": "Kiekviena pora gaminama ranka, ribota partija. Pradėk nuo šio sezono — arba grįžk ten, kur buvai." },
+    { "type": "text", "id": "empty_cta_label", "label": "Primary button label", "default": "Į kolekciją" },
+    { "type": "url", "id": "empty_cta_link", "label": "Primary button link" },
+    { "type": "text", "id": "empty_ghost_label", "label": "Secondary button label", "info": "Leave empty to hide.", "default": "Kolekcijos" },
+    { "type": "url", "id": "empty_ghost_link", "label": "Secondary button link" },
+    { "type": "text", "id": "empty_side_heading", "label": "Side rail heading", "default": "Iš kolekcijos" },
+    { "type": "header", "content": "Shipping note" },
+    { "type": "text", "id": "ship_note", "label": "Note", "default": "Išsiunčiame per 1—2 darbo dienas iš Vilniaus." },
+    { "type": "text", "id": "ship_cost_note", "label": "Cost note", "default": "Pristatymas skaičiuojamas apmokant" },
+    { "type": "header", "content": "Gift line" },
+    { "type": "text", "id": "gift_prefix", "label": "Prefix", "default": "Dovana?" },
+    { "type": "text", "id": "gift_link_label", "label": "Link label", "default": "Pridėk ranka rašytą kortelę" },
+    { "type": "url", "id": "gift_link", "label": "Link" },
+    { "type": "text", "id": "gift_suffix", "label": "Suffix", "default": "ir įvyniojimą — nemokamai." },
+    { "type": "header", "content": "Summary" },
+    { "type": "text", "id": "summary_title", "label": "Title", "default": "Suvestinė" },
+    { "type": "text", "id": "label_subtotal", "label": "Subtotal label", "default": "Tarpinė suma" },
+    { "type": "text", "id": "label_shipping", "label": "Shipping label", "default": "Pristatymas" },
+    { "type": "text", "id": "label_shipping_free", "label": "Shipping — free", "default": "Nemokamas" },
+    { "type": "text", "id": "label_shipping_calc", "label": "Shipping — calculated", "default": "Skaičiuojama apmokant" },
+    { "type": "text", "id": "promo_placeholder", "label": "Promo placeholder", "default": "Nuolaidos kodas" },
+    { "type": "text", "id": "promo_apply", "label": "Promo apply label", "default": "Taikyti" },
+    { "type": "text", "id": "label_total", "label": "Total label", "default": "Iš viso" },
+    { "type": "text", "id": "vat_prefix", "label": "VAT prefix", "default": "su PVM" },
+    { "type": "text", "id": "checkout_label", "label": "Checkout button", "default": "Apmokėti" },
+    { "type": "text", "id": "pay_methods", "label": "Payment badges (comma-separated)", "default": "VISA, MC, AMEX, APPLE PAY, PAYPAL" },
+    { "type": "header", "content": "Trust rows" },
+    { "type": "text", "id": "trust_1", "label": "Row 1", "default": "<b>14 dienų grąžinimas <span style=\"color: rgb(107, 107, 107); letter-spacing: -0.065px;\">· nemokamas keitimas.</span></b>" },
+    { "type": "text", "id": "trust_2", "label": "Row 2", "default": "Saugus mokėjimas · šifruota <b>SSL</b> jungtimi." },
+    { "type": "text", "id": "trust_3", "label": "Row 3", "default": "Išsiunčiame per <b>1–2 darbo dienas</b> iš Vilniaus." },
+    { "type": "header", "content": "Upsell" },
+    { "type": "text", "id": "upsell_title_light", "label": "Title (light part)", "default": "Galbūt" },
+    { "type": "text", "id": "upsell_title", "label": "Title (bold part)", "default": "praleidai" },
+    { "type": "text", "id": "upsell_more_label", "label": "More link label", "default": "Visa kolekcija →" },
+    { "type": "url", "id": "upsell_more_link", "label": "More link" },
+    { "type": "header", "content": "Text size & colour" },
+    { "type": "range", "id": "title_scale", "label": "Heading size", "min": 60, "max": 130, "step": 5, "unit": "%", "default": 100 },
+    { "type": "color", "id": "text_color", "label": "Text colour", "info": "Recolours this section's text. Leave empty for the default near-black." }
+  ],
+  "blocks": [
+    {
+      "type": "eside",
+      "name": "Empty-cart product",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product", "info": "Shown in the empty-cart side rail. While no product is chosen, the built-in examples render instead." },
+        { "type": "text", "id": "meta", "label": "Meta line (e.g. size range)" }
+      ]
+    },
+    {
+      "type": "mini",
+      "name": "Upsell product",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product", "info": "Shown under the cart. While no product is chosen, the built-in examples render instead." },
+        { "type": "text", "id": "meta", "label": "Meta line" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Cart" }]
+}
+{% endschema %}

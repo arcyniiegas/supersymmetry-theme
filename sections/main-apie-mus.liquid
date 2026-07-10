@@ -1,0 +1,109 @@
+{{ 'section-apie-mus.css' | asset_url | stylesheet_tag }}
+{% render 'section-appearance', section: section %}
+<!-- ──────────── BREADCRUMBS ──────────── -->
+<nav class="crumbs" aria-label="Breadcrumb">
+  <a href="{{ routes.root_url }}">Pradžia</a>
+  <span class="sep">/</span>
+  <b>{{ page.title | default: 'Apie mus' }}</b>
+</nav>
+
+<!-- ──────────── PAGE HEAD ──────────── -->
+<section class="phead">
+  <div>
+    <h1 class="phead__title">
+      <span class="light">{{ section.settings.title_light }}</span>
+      {{ section.settings.title }}
+    </h1>
+  </div>
+  <div class="phead__aside">
+    <p class="phead__intro">{{ section.settings.intro }}</p>
+    <div class="phead__stats">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'stat' -%}
+      <div class="phead__stat" {{ block.shopify_attributes }}>
+        <span class="k">{{ block.settings.label }}</span>
+        <span class="v tabular">{{ block.settings.value }}</span>
+      </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<!-- ──────────── STORY ──────────── -->
+<section class="story">
+  <figure class="story__media">
+    {%- if section.settings.image -%}
+      <img src="{{ section.settings.image | image_url: width: 900 }}" srcset="{{ section.settings.image | image_url: width: 500 }} 500w, {{ section.settings.image | image_url: width: 900 }} 900w" sizes="(max-width: 960px) 100vw, 50vw" width="{{ section.settings.image.width }}" height="{{ section.settings.image.height }}" alt="{{ section.settings.image.alt | escape }}" />
+    {%- else -%}
+      <img src="{{ 'Screenshot_2024-07-30_at_11.10.47_600x600.jpg' | asset_url }}" width="600" height="451" alt="Supersymmetry įkūrėjai" />
+    {%- endif -%}
+    <span class="badge">{{ section.settings.badge }}</span>
+    <span class="chip">{{ section.settings.chip }}</span>
+  </figure>
+
+  <div class="story__col">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'story' -%}
+    <div class="story__block" {{ block.shopify_attributes }}>
+      <div class="eyebrow-rule">{{ block.settings.eyebrow }}</div>
+      {%- if block.settings.lede != blank -%}<p class="lede">{{ block.settings.lede }}</p>{%- endif -%}
+      {{ block.settings.body }}
+    </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+<!-- ──────────── NOTE ──────────── -->
+<section class="note">
+  <div class="note__plate">
+    <div class="note__eyebrow">{{ section.settings.note_eyebrow }}</div>
+    <p class="note__quote">{{ section.settings.note_quote }}</p>
+    <div class="note__meta">
+      <span>{{ section.settings.note_meta_left }}</span>
+      <span class="sep">·</span>
+      <span>{{ section.settings.note_meta_right }}</span>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Apie mus",
+  "settings": [
+    { "type": "text", "id": "title_light", "label": "Title (light part)", "default": "Batai gali" },
+    { "type": "text", "id": "title", "label": "Title", "default": "būti geresni." },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Supersymmetry prasidėjo ne nuo verslo plano, o nuo nuomonės. Kad nereikia rinktis tarp to, kaip atrodyti, ir to, kaip jaustis. Kad <b>Vilnius nusipelno parduotuvės</b>, kurioje kiekviena pora yra ten ne atsitiktinai." },
+    { "type": "image_picker", "id": "image", "label": "Story image" },
+    { "type": "text", "id": "badge", "label": "Image badge", "default": "Nuo 2019 · Vilnius" },
+    { "type": "text", "id": "chip", "label": "Image chip", "default": "Marius · Renata · Ervinas" },
+    { "type": "text", "id": "note_eyebrow", "label": "Note eyebrow", "default": "Vienas filtras kiekvienai porai" },
+    { "type": "text", "id": "note_quote", "label": "Note quote", "default": "Jei atsakymas nėra aiškus „taip\" — <span class=\"light\">jo čia nėra.</span>" },
+    { "type": "text", "id": "note_meta_left", "label": "Note meta (left)", "default": "Marius · Renata · Ervinas" },
+    { "type": "text", "id": "note_meta_right", "label": "Note meta (right)", "default": "Supersymmetry · nuo 2019" },
+    { "type": "header", "content": "Text" },
+    { "type": "range", "id": "title_scale", "label": "Heading size", "min": 60, "max": 130, "step": 5, "unit": "%", "default": 100 },
+    { "type": "color", "id": "text_color", "label": "Text colour", "info": "Recolours this section's text. Leave empty for the default near-black." }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Head stat",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "text", "id": "value", "label": "Value" }
+      ]
+    },
+    {
+      "type": "story",
+      "name": "Story block",
+      "settings": [
+        { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+        { "type": "textarea", "id": "lede", "label": "Lede (optional)" },
+        { "type": "richtext", "id": "body", "label": "Body" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Apie mus" }]
+}
+{% endschema %}

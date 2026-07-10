@@ -1,0 +1,58 @@
+{%- liquid
+  assign is_home = false
+  assign is_coll = false
+  assign is_journal = false
+  if request.page_type == 'index'
+    assign is_home = true
+  endif
+  if request.page_type == 'collection' or request.page_type == 'collections' or request.page_type == 'product' or request.page_type == 'list-collections'
+    assign is_coll = true
+  endif
+  if request.page_type == 'blog' or request.page_type == 'article'
+    assign is_journal = true
+  endif
+-%}
+<div class="mobilemenu" id="ssMenu" role="dialog" aria-modal="true" aria-label="Meniu">
+  <div class="mobilemenu__top">
+    <a href="{{ routes.root_url }}" class="mobilemenu__brand">{{ settings.brand_name | default: 'Supersymmetry' }}<span class="brand-dot" aria-hidden="true"></span></a>
+    <button type="button" class="mobilemenu__close" data-menu-close aria-label="Uždaryti meniu">✕</button>
+  </div>
+  {%- liquid
+    assign nav_menu = settings.menu_main
+    if nav_menu.links == blank
+      assign nav_menu = linklists['supersymmetry-main']
+    endif
+  -%}
+  <nav class="mobilemenu__nav" aria-label="Pagrindinė">
+    <a href="{{ routes.root_url }}"{% if is_home %} aria-current="page"{% endif %}>Pradžia<span aria-hidden="true">→</span></a>
+    {%- if nav_menu.links != blank -%}
+      {%- for link in nav_menu.links -%}
+        <a href="{{ link.url }}"{% if link.active %} aria-current="page"{% endif %}>{{ link.title }}<span aria-hidden="true">→</span></a>
+      {%- endfor -%}
+    {%- else -%}
+      <a href="{{ collections.all.url | default: routes.collections_url }}"{% if is_coll %} aria-current="page"{% endif %}>Avalynė<span aria-hidden="true">→</span></a>
+      <a href="{{ collections.aksesuarai.url | default: routes.collections_url }}">Aksesuarai<span aria-hidden="true">→</span></a>
+      <a href="{{ blog.url | default: routes.root_url }}"{% if is_journal %} aria-current="page"{% endif %}>Žurnalas<span aria-hidden="true">→</span></a>
+    {%- endif -%}
+  </nav>
+  <div class="mobilemenu__sec">
+    {%- if settings.menu_secondary.links != blank -%}
+      {%- for link in settings.menu_secondary.links -%}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {%- endfor -%}
+    {%- else -%}
+      <a href="{{ routes.collections_url }}">Visos kolekcijos</a>
+      <a href="/products/dovanu-kuponas">Dovanų kuponai</a>
+      <a href="{{ pages['dydziu-lentele'].url | default: '#' }}">Dydžių lentelė</a>
+      <a href="{{ pages.grazinimai.url | default: '#' }}">Grąžinimai</a>
+      <a href="{{ pages['apie-mus'].url | default: '#' }}">Apie mus</a>
+      <a href="{{ pages.duk.url | default: '#' }}">DUK</a>
+      <a href="{{ pages.kontaktai.url | default: '#' }}">Susisiekti</a>
+    {%- endif -%}
+    <a href="{{ routes.account_url }}">Paskyra</a>
+  </div>
+  <div class="mobilemenu__foot">
+    <span>{{ settings.atelier_address }} · {{ settings.atelier_city }}</span>
+    <span>{{ settings.utility_right_message | default: 'LT · EN' }}</span>
+  </div>
+</div>

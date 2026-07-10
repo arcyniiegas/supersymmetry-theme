@@ -1,0 +1,114 @@
+{{ 'section-home.css' | asset_url | stylesheet_tag }}
+{% render 'section-appearance', section: section %}
+<!-- ──────────── MANIFESTO BENTO ──────────── -->
+<section class="manifesto" style="--title-scale: {{ section.settings.title_scale | default: 100 | divided_by: 100.0 }};">
+  <div class="manifesto__wrap">
+    <div class="manifesto__head">
+      <div class="manifesto__intro">
+        <div class="manifesto__eyebrow">{{ section.settings.eyebrow }}</div>
+        <h2 class="manifesto__title">{{ section.settings.title }} <span class="light">{{ section.settings.title_light }}</span></h2>
+      </div>
+      <p class="manifesto__sub">{{ section.settings.sub }}</p>
+    </div>
+
+    <div class="mfbento">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign cell = 'mf m-' | append: forloop.index
+          comment
+            'orange' (Charcoal accent) duplicated 'dark' since --orange == --ink;
+            removed from the schema, but map any legacy saved blocks to dark.
+          endcomment
+          if block.settings.style == 'dark' or block.settings.style == 'orange'
+            assign cell = cell | append: ' mf--dark'
+          endif
+          assign valcls = 'mf__value'
+          if block.settings.value_big
+            assign valcls = valcls | append: ' mf__value--big'
+          endif
+          if block.settings.value_mono
+            assign valcls = valcls | append: ' mf__value--mono'
+          endif
+        -%}
+        <div class="{{ cell }}" {{ block.shopify_attributes }}>
+          <div class="mf__label">{{ block.settings.label }}</div>
+          <div>
+            <div class="{{ valcls }}">{{ block.settings.value }}</div>
+            {%- if block.settings.sub != blank -%}
+              <div class="mf__sub" style="margin-top: 8px;">{{ block.settings.sub }}</div>
+            {%- endif -%}
+          </div>
+          {%- case block.settings.motif -%}
+            {%- when 'origin' -%}
+              <div class="mf__bg" aria-hidden="true">
+                <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="100" cy="100" r="80"></circle><circle cx="100" cy="100" r="40"></circle><line x1="20" y1="100" x2="180" y2="100"></line><line x1="100" y1="20" x2="100" y2="180"></line></svg>
+              </div>
+            {%- when 'sole' -%}
+              <div class="mf__bg" aria-hidden="true">
+                <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M40 140 Q40 110 60 100 L140 80 Q170 75 180 100 Q186 130 160 140 L60 140 Z"></path></svg>
+              </div>
+          {%- endcase -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Home — Manifesto",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Iš ko sukurta" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Maža ateljė," },
+    { "type": "text", "id": "title_light", "label": "Title (light part)", "default": "trumpa grandinė." },
+    { "type": "textarea", "id": "sub", "label": "Subtitle", "default": "Žinome, iš kur ateina kiekvienas odos lopinėlis ir kas siuvo kiekvieną siūlę." },
+    { "type": "header", "content": "Text size" },
+    { "type": "range", "id": "title_scale", "label": "Heading size", "min": 60, "max": 130, "step": 5, "unit": "%", "default": 100 },
+    { "type": "header", "content": "Text colour" },
+    { "type": "color", "id": "text_color", "label": "Text colour", "info": "Recolours this section's text. Leave empty for the default near-black." }
+  ],
+  "blocks": [
+    {
+      "type": "cell",
+      "name": "Bento cell",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "text", "id": "value", "label": "Value" },
+        { "type": "textarea", "id": "sub", "label": "Sub-text" },
+        {
+          "type": "select", "id": "style", "label": "Style",
+          "options": [
+            { "value": "default", "label": "Light" },
+            { "value": "dark", "label": "Dark" }
+          ],
+          "default": "default"
+        },
+        { "type": "checkbox", "id": "value_big", "label": "Large value", "default": false },
+        { "type": "checkbox", "id": "value_mono", "label": "Mono value", "default": false },
+        {
+          "type": "select", "id": "motif", "label": "Background motif",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "origin", "label": "Compass" },
+            { "value": "sole", "label": "Sole" }
+          ],
+          "default": "none"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home — Manifesto",
+      "blocks": [
+        { "type": "cell", "settings": { "label": "Kilmė", "value": "Felgueiras, PT", "sub": "Surinkta nedidelėje šeimos siuvykloje, kurioje dirba 12 batsiuvių.", "motif": "origin" } },
+        { "type": "cell", "settings": { "label": "Oda", "value": "Augaliniu būdu rauginta", "sub": "Toskaniškas LWG sertifikuotas raugykla. Be chromo, su laiku įgauna patiną." } },
+        { "type": "cell", "settings": { "label": "Partija", "value": "500", "sub": "porų vienoje partijoje, sunumeruotos rankomis. Niekada nepapildome.", "style": "orange", "value_big": true, "value_mono": true } },
+        { "type": "cell", "settings": { "label": "Padų keitimas", "value": "Visam laikui · vienoda kaina", "sub": "Grąžinkite porą po dvejų ar dvidešimties metų — pakeisime padus už fiksuotą kainą.", "style": "dark", "motif": "sole" } },
+        { "type": "cell", "settings": { "label": "Ateljė", "value": "Vilnius · nuo 2019", "sub": "Trakų g. 16, Vilniaus senamiestyje. Užsukite darbo valandomis." } },
+        { "type": "cell", "settings": { "label": "Grąžinimas", "value": "14 d.", "sub": "Nemokamas, jei dydis neatitiko.", "value_mono": true } }
+      ]
+    }
+  ]
+}
+{% endschema %}

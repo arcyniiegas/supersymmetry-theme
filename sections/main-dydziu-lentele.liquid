@@ -1,0 +1,172 @@
+{{ 'section-dydziu-lentele.css' | asset_url | stylesheet_tag }}
+{% render 'section-appearance', section: section %}
+<!-- ──────────── BREADCRUMBS ──────────── -->
+<nav class="crumbs" aria-label="Breadcrumb">
+  <a href="{{ routes.root_url }}">Pradžia</a>
+  <span class="sep">/</span>
+  <a href="{{ pages.duk.url | default: routes.root_url }}">{{ section.settings.crumb_parent | default: 'Paslaugos' }}</a>
+  <span class="sep">/</span>
+  <b>{{ section.settings.crumb_current | default: 'Dydžių lentelė' }}</b>
+</nav>
+
+<!-- ──────────── PAGE HEAD ──────────── -->
+<section class="phead">
+  <div>
+    <h1 class="phead__title">
+      <span class="light">{{ section.settings.title_light | default: 'Dydžių' }}</span>
+      {{ section.settings.title | default: 'lentelė.' }}
+    </h1>
+  </div>
+  <div class="phead__aside">
+    <p class="phead__intro">{{ section.settings.intro | default: 'Visos poros siuvamos ant tų pačių kurpalių, todėl lentelė galioja <b>kiekvienam modeliui</b>. Svarbiausias skaičius — pėdos ilgis centimetrais; EU, UK ir US dydžiai čia tik orientyras.' }}</p>
+    {%- assign stat_blocks = section.blocks | where: 'type', 'stat' -%}
+    {%- if stat_blocks.size > 0 -%}
+    <div class="phead__stats">
+      {%- for block in stat_blocks -%}
+      <div class="phead__stat" {{ block.shopify_attributes }}>
+        <span class="k">{{ block.settings.k }}</span>
+        <span class="v{% if block.settings.tabular %} tabular{% endif %}">{{ block.settings.v }}</span>
+      </div>
+      {%- endfor -%}
+    </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<!-- ──────────── SIZES ──────────── -->
+<section class="sizes">
+
+  <div class="sizetable">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">{{ section.settings.th_1 | default: 'EU' }}</th>
+          <th scope="col">{{ section.settings.th_2 | default: 'Pėdos ilgis' }}</th>
+          <th scope="col">{{ section.settings.th_3 | default: 'UK' }}</th>
+          <th scope="col">{{ section.settings.th_4 | default: 'US' }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {%- assign row_blocks = section.blocks | where: 'type', 'row' -%}
+        {%- if row_blocks.size > 0 -%}
+          {%- for block in row_blocks -%}
+        <tr {{ block.shopify_attributes }}><td class="eu">{{ block.settings.eu }}</td><td>{{ block.settings.cm }}</td><td>{{ block.settings.uk }}</td><td>{{ block.settings.us }}</td></tr>
+          {%- endfor -%}
+        {%- else -%}
+        <tr><td class="eu">36</td><td>22,8 cm</td><td>3,5</td><td>5,5</td></tr>
+        <tr><td class="eu">37</td><td>23,5 cm</td><td>4</td><td>6,5</td></tr>
+        <tr><td class="eu">38</td><td>24,1 cm</td><td>5</td><td>7,5</td></tr>
+        <tr><td class="eu">39</td><td>24,8 cm</td><td>6</td><td>8,5</td></tr>
+        <tr><td class="eu">40</td><td>25,4 cm</td><td>6,5</td><td>9</td></tr>
+        <tr><td class="eu">41</td><td>26,0 cm</td><td>7</td><td>9,5</td></tr>
+        <tr><td class="eu">42</td><td>26,7 cm</td><td>8</td><td>10,5</td></tr>
+        <tr><td class="eu">43</td><td>27,3 cm</td><td>9</td><td>11,5</td></tr>
+        {%- endif -%}
+      </tbody>
+    </table>
+    <p class="sizetable__note">{{ section.settings.table_note | default: 'Pėdos ilgis — atstumas nuo kulno iki ilgiausio piršto, su <b>5 mm laisvumo</b> jau įskaičiuota. Jei jūsų matmuo tarp dviejų dydžių — rinkitės didesnį: oda prisitaikys per plotį, bet ne per ilgį.' }}</p>
+  </div>
+
+  <div class="measure">
+    <div class="measure__panel">
+      <div class="eyebrow-rule">{{ section.settings.measure_eyebrow | default: 'Kaip išmatuoti pėdą' }}</div>
+      {%- assign mstep_blocks = section.blocks | where: 'type', 'mstep' -%}
+      {%- if mstep_blocks.size > 0 -%}
+        {%- for block in mstep_blocks -%}
+      <div class="step" {{ block.shopify_attributes }}>
+        <span class="step__num">{{ block.settings.n }}</span>
+        <div class="step__body">
+          <h3>{{ block.settings.t }}</h3>
+          <p>{{ block.settings.b }}</p>
+        </div>
+      </div>
+        {%- endfor -%}
+      {%- else -%}
+      <div class="step">
+        <span class="step__num">01</span>
+        <div class="step__body">
+          <h3>Matuokite vakare</h3>
+          <p>Pėda dienos pabaigoje būna ilgiausia. Atsistokite ant popieriaus lapo prie sienos, kulnas — prie pat sienos.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step__num">02</span>
+        <div class="step__body">
+          <h3>Apibrėžkite pėdą</h3>
+          <p>Pieštuką laikykite vertikaliai ir pažymėkite ilgiausio piršto tašką. Kartokite su kita pėda — jos beveik visada skiriasi.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step__num">03</span>
+        <div class="step__body">
+          <h3>Išmatuokite ilgį</h3>
+          <p>Atstumas nuo lapo krašto iki žymos — jūsų pėdos ilgis. Lentelėje rinkitės pagal ilgesnę pėdą.</p>
+        </div>
+      </div>
+      {%- endif -%}
+    </div>
+
+    <div class="measure__tip">
+      <span class="k">{{ section.settings.tip_k | default: 'Nesate tikra?' }}</span>
+      <p>{{ section.settings.tip_b | default: 'Parašykite mums pėdos ilgį centimetrais — atsakysime, kuris dydis tiks konkrečiam modeliui.' }}</p>
+    </div>
+  </div>
+
+</section>
+{% schema %}
+{
+  "name": "Dydžių lentelė",
+  "settings": [
+    { "type": "header", "content": "Head" },
+    { "type": "text", "id": "crumb_parent", "label": "Breadcrumb parent", "default": "Paslaugos" },
+    { "type": "text", "id": "crumb_current", "label": "Breadcrumb current", "default": "Dydžių lentelė" },
+    { "type": "text", "id": "title_light", "label": "Title (light part)", "default": "Dydžių" },
+    { "type": "text", "id": "title", "label": "Title (bold part)", "default": "lentelė." },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Visos poros siuvamos ant tų pačių kurpalių, todėl lentelė galioja <b>kiekvienam modeliui</b>. Svarbiausias skaičius — pėdos ilgis centimetrais; EU, UK ir US dydžiai čia tik orientyras." },
+    { "type": "header", "content": "Table" },
+    { "type": "text", "id": "th_1", "label": "Column 1 header", "default": "EU" },
+    { "type": "text", "id": "th_2", "label": "Column 2 header", "default": "Pėdos ilgis" },
+    { "type": "text", "id": "th_3", "label": "Column 3 header", "default": "UK" },
+    { "type": "text", "id": "th_4", "label": "Column 4 header", "default": "US" },
+    { "type": "textarea", "id": "table_note", "label": "Table note", "default": "Pėdos ilgis — atstumas nuo kulno iki ilgiausio piršto, su <b>5 mm laisvumo</b> jau įskaičiuota. Jei jūsų matmuo tarp dviejų dydžių — rinkitės didesnį: oda prisitaikys per plotį, bet ne per ilgį." },
+    { "type": "header", "content": "Measuring" },
+    { "type": "text", "id": "measure_eyebrow", "label": "Eyebrow", "default": "Kaip išmatuoti pėdą" },
+    { "type": "text", "id": "tip_k", "label": "Tip kicker", "default": "Nesate tikra?" },
+    { "type": "textarea", "id": "tip_b", "label": "Tip body", "default": "Parašykite mums pėdos ilgį centimetrais — atsakysime, kuris dydis tiks konkrečiam modeliui." },
+    { "type": "header", "content": "Text size & colour" },
+    { "type": "range", "id": "title_scale", "label": "Heading size", "min": 60, "max": 130, "step": 5, "unit": "%", "default": 100 },
+    { "type": "color", "id": "text_color", "label": "Text colour", "info": "Recolours this section's text. Leave empty for the default near-black." }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Head stat",
+      "settings": [
+        { "type": "text", "id": "k", "label": "Label" },
+        { "type": "text", "id": "v", "label": "Value" },
+        { "type": "checkbox", "id": "tabular", "label": "Tabular numerals", "default": false }
+      ]
+    },
+    {
+      "type": "row",
+      "name": "Size row",
+      "settings": [
+        { "type": "text", "id": "eu", "label": "EU" },
+        { "type": "text", "id": "cm", "label": "Pėdos ilgis" },
+        { "type": "text", "id": "uk", "label": "UK" },
+        { "type": "text", "id": "us", "label": "US" }
+      ]
+    },
+    {
+      "type": "mstep",
+      "name": "Measuring step",
+      "settings": [
+        { "type": "text", "id": "n", "label": "Number" },
+        { "type": "text", "id": "t", "label": "Title" },
+        { "type": "textarea", "id": "b", "label": "Body" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Dydžių lentelė" }]
+}
+{% endschema %}

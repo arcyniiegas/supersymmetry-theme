@@ -1,0 +1,67 @@
+{{ 'section-home.css' | asset_url | stylesheet_tag }}
+{% render 'section-appearance', section: section %}
+<!-- ──────────── HERO — full-bleed ──────────── -->
+<section class="hero">
+  {%- if section.settings.image -%}
+    <img class="hero__img" src="{{ section.settings.image | image_url: width: 2000 }}"
+         srcset="{{ section.settings.image | image_url: width: 1000 }} 1000w, {{ section.settings.image | image_url: width: 1600 }} 1600w, {{ section.settings.image | image_url: width: 2000 }} 2000w, {{ section.settings.image | image_url: width: 2600 }} 2600w"
+         sizes="100vw"
+         width="{{ section.settings.image.width }}" height="{{ section.settings.image.height }}"
+         alt="{{ section.settings.image.alt | default: section.settings.headline_bold | escape }}"
+         fetchpriority="high">
+  {%- else -%}
+    <img class="hero__img" src="{{ 'Nr1-0c6678ce.webp' | asset_url }}" width="1400" height="1400" alt="de Boxe — šoninis profilis" fetchpriority="high">
+  {%- endif -%}
+  <div class="hero__scrim" aria-hidden="true"></div>
+  <div class="hero__overlay">
+    {%- if section.settings.tag_label != blank -%}
+      <span class="hero__tag">
+        <span class="hero__tag-dot"></span>
+        {{ section.settings.tag_label }}
+      </span>
+    {%- endif -%}
+    {%- if section.settings.eyebrow != blank -%}
+      <div class="hero__eyebrow">{{ section.settings.eyebrow }}</div>
+    {%- endif -%}
+    <h1 class="hero__headline">
+      <span class="light">{{ section.settings.headline_light }}</span>
+      <span>{{ section.settings.headline_bold }}</span>
+    </h1>
+    {%- if section.settings.intro != blank -%}
+      <p class="hero__intro">{{ section.settings.intro }}</p>
+    {%- endif -%}
+    <div class="hero__actions">
+      <a href="{{ section.settings.cta_primary_link | default: routes.all_products_collection_url }}" class="btn btn--primary">
+        {{ section.settings.cta_primary_label }}
+        <span class="btn__arrow">→</span>
+      </a>
+      {%- if section.settings.cta_secondary_label != blank -%}
+        <a href="{{ section.settings.cta_secondary_link | default: pages['apie-mus'].url | default: routes.root_url }}" class="btn btn--secondary">{{ section.settings.cta_secondary_label }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Home — Hero",
+  "class": "section-hero",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Pavasaris / Vasara <b>2026</b>" },
+    { "type": "text", "id": "headline_light", "label": "Headline (light part)", "default": "Pagaminta" },
+    { "type": "text", "id": "headline_bold", "label": "Headline (bold part)", "default": "vieną kartą." },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Maža Vilniaus ateljė. Augaliniu būdu rauginta oda, surinkta Portugalijoje — ribotomis partijomis." },
+    { "type": "text", "id": "cta_primary_label", "label": "Primary button label", "default": "Apžiūrėti kolekciją" },
+    { "type": "url", "id": "cta_primary_link", "label": "Primary button link" },
+    { "type": "text", "id": "cta_secondary_label", "label": "Secondary button label", "default": "Mūsų istorija" },
+    { "type": "url", "id": "cta_secondary_link", "label": "Secondary button link" },
+    { "type": "image_picker", "id": "image", "label": "Hero image" },
+    { "type": "text", "id": "tag_label", "label": "Floating tag label", "default": "Naujiena" },
+    { "type": "header", "content": "Text size" },
+    { "type": "range", "id": "headline_scale", "label": "Headline size", "min": 60, "max": 130, "step": 5, "unit": "%", "default": 100, "info": "Scales the big headline. Stays responsive across screen sizes." },
+    { "type": "range", "id": "intro_scale", "label": "Intro text size", "min": 85, "max": 130, "step": 5, "unit": "%", "default": 100 },
+    { "type": "header", "content": "Text colour" },
+    { "type": "color", "id": "text_color", "label": "Text colour", "info": "Recolours the hero text. Leave empty for white over the image." }
+  ],
+  "presets": [{ "name": "Home — Hero" }]
+}
+{% endschema %}

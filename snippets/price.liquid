@@ -1,0 +1,37 @@
+{%- comment -%}
+  price — PDP price block. Matches the prototype .price markup exactly.
+  Usage:
+    {% render 'price', product: product %}
+    {% render 'price', price: 28900, compare_at: 34000 %}
+  Fallback (no product / no price given) renders the prototype literals:
+    €289 · €340 · –15%.
+{%- endcomment -%}
+{%- liquid
+  assign p_price = price
+  assign p_compare = compare_at
+  if product
+    assign p_price = product.price
+    assign p_compare = product.compare_at_price
+  endif
+-%}
+{%- if p_price == nil -%}
+<div class="price">
+  <div class="price__main">
+    <div class="price__current tabular">€289</div>
+    <div class="price__strike tabular">€340</div>
+  </div>
+  <span class="price__chip">–15%</span>
+</div>
+{%- else -%}
+<div class="price">
+  <div class="price__main">
+    <div class="price__current tabular">{{ p_price | money | remove: '€' | remove: ',00' }}</div>
+    {%- if p_compare and p_compare > p_price -%}
+    <div class="price__strike tabular">{{ p_compare | money | remove: '€' | remove: ',00' }}</div>
+    {%- endif -%}
+  </div>
+  {%- if p_compare and p_compare > p_price -%}
+  <span class="price__chip">–{{ p_compare | minus: p_price | times: 100.0 | divided_by: p_compare | round }}%</span>
+  {%- endif -%}
+</div>
+{%- endif -%}

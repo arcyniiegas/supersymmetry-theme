@@ -1,0 +1,173 @@
+{{ 'section-search.css' | asset_url | stylesheet_tag }}
+{% render 'section-appearance', section: section %}
+
+{%- comment -%} Lithuanian plural for the results count label {%- endcomment -%}
+{%- assign rc = search.results_count -%}
+{%- assign rc_d = rc | modulo: 10 -%}
+{%- assign rc_dd = rc | modulo: 100 -%}
+{%- if rc == 1 -%}{%- assign rc_label = 'rezultatas' -%}
+{%- elsif rc_d >= 2 and rc_d <= 9 and rc_dd >= 12 and rc_dd <= 19 -%}{%- assign rc_label = 'rezultatų' -%}
+{%- elsif rc_d >= 2 and rc_d <= 9 -%}{%- assign rc_label = 'rezultatai' -%}
+{%- else -%}{%- assign rc_label = 'rezultatų' -%}
+{%- endif -%}
+
+<!-- ──────────── SEARCH HEAD ──────────── -->
+<div class="shead">
+  <div class="eyebrow-rule shead__eyebrow">{{ section.settings.eyebrow | default: 'Paieška · <b>visa kolekcija ir žurnalas</b>' }}</div>
+  <form action="{{ routes.search_url }}" method="get" role="search">
+  <div class="searchbox">
+    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><path d="M18 18l6 6"/></svg>
+    <input type="text" id="q" name="q" value="{{ search.terms | escape }}" placeholder="{{ section.settings.placeholder | default: 'Ko ieškai?' | escape }}" autocomplete="off" aria-label="Paieška" />
+    <button type="button" class="searchbox__clear" id="clear" aria-label="Išvalyti" onclick="var i=document.getElementById('q');if(i.value){window.location='{{ routes.search_url }}';}else{i.focus();}">✕</button>
+  </div>
+  <input type="hidden" name="options[prefix]" value="last">
+  </form>
+</div>
+
+<!-- suggestions -->
+<div class="suggest">
+  <span class="suggest__label">{{ section.settings.suggest_label | default: 'Populiaru' }}</span>
+  {%- comment -%} Same "term|count" comma format as the global search_chips
+    setting; counts after | are optional and should reflect real data. {%- endcomment -%}
+  {%- assign chip_src = section.settings.chips | default: 'bateliai, basutės, aulinukai, rankinės, šalikai, kepurės' -%}
+  {%- assign chips = chip_src | split: ',' -%}
+  {%- for chip in chips -%}
+    {%- assign parts = chip | strip | split: '|' -%}
+    {%- assign term = parts[0] | strip -%}
+    {%- if term != blank -%}
+  <a class="schip" href="{{ routes.search_url }}?q={{ term | url_encode }}">{{ term }}{% if parts[1] %} <span class="n">·{{ parts[1] | strip }}</span>{% endif %}</a>
+    {%- endif -%}
+  {%- endfor -%}
+</div>
+
+{%- if search.performed and search.results_count > 0 -%}
+
+<!-- ──────────── RESULTS BAR ──────────── -->
+<div class="resbar">
+  <div class="resbar__count" id="count">Rasta <b>{{ search.results_count }}</b> {{ rc_label }} · <em>„{{ search.terms | escape }}“</em></div>
+  <form class="resbar__sort" action="{{ routes.search_url }}" method="get" role="search">
+    <input type="hidden" name="q" value="{{ search.terms | escape }}">
+    <input type="hidden" name="options[prefix]" value="last">
+    <span>Rikiuoti</span>
+    <select aria-label="Rikiuoti" name="sort_by" onchange="this.form.submit()">
+      <option value="relevance"{% if search.sort_by == 'relevance' %} selected{% endif %}>Pagal aktualumą</option>
+      <option value="created-descending"{% if search.sort_by == 'created-descending' %} selected{% endif %}>Naujausi</option>
+      <option value="price-ascending"{% if search.sort_by == 'price-ascending' %} selected{% endif %}>Kaina ↑</option>
+      <option value="price-descending"{% if search.sort_by == 'price-descending' %} selected{% endif %}>Kaina ↓</option>
+    </select>
+  </form>
+</div>
+
+<!-- ──────────── RESULTS GRID ──────────── -->
+<section class="grid" id="grid">
+  {%- for item in search.results -%}
+    {%- if item.object_type == 'product' -%}
+    {% render 'product-card', product: item %}
+    {%- elsif item.object_type == 'article' -%}
+    <a class="card" href="{{ item.url }}">
+      <div class="card__media{% unless item.image %} card--light{% endunless %}">
+        {%- if item.image -%}
+        <img src="{{ item.image | image_url: width: 800 }}" srcset="{{ item.image | image_url: width: 400 }} 400w, {{ item.image | image_url: width: 800 }} 800w" sizes="(max-width: 520px) 100vw, (max-width: 960px) 50vw, 33vw" width="{{ item.image.width }}" height="{{ item.image.height }}" alt="{{ item.image.alt | escape }}" loading="lazy" />
+        {%- endif -%}
+        <span class="card__chip">Žurnalas</span>
+      </div>
+      <div class="card__body">
+        <div>
+          <div class="card__name">{{ item.title }}</div>
+          <span class="card__sub">{{ item.excerpt_or_content | strip_html | truncatewords: 10 }}</span>
+        </div>
+      </div>
+    </a>
+    {%- elsif item.object_type == 'page' -%}
+    <a class="card card--light" href="{{ item.url }}">
+      <div class="card__media">
+        <span class="card__chip">Puslapis</span>
+      </div>
+      <div class="card__body">
+        <div>
+          <div class="card__name">{{ item.title }}</div>
+          <span class="card__sub">{{ item.content | strip_html | truncatewords: 10 }}</span>
+        </div>
+      </div>
+    </a>
+    {%- endif -%}
+  {%- endfor -%}
+</section>
+
+{%- elsif search.performed -%}
+
+<!-- ══════════════ NO RESULTS ══════════════ -->
+<section class="noresults" style="display:block">
+  <div class="noresults__wrap">
+    <div class="noresults__top">
+      <div>
+        <div class="eyebrow-rule">{{ section.settings.nr_eyebrow | default: 'Nieko nerasta' }}</div>
+        <h2 class="noresults__big">{{ section.settings.nr_prefix | default: 'Pagal' }} <span class="q" id="emptyQ">„{{ search.terms | escape }}“</span> {{ section.settings.nr_suffix | default: 'kol kas <b>nieko.</b>' }}</h2>
+        <p class="noresults__lede">{{ section.settings.nr_lede | default: 'Galbūt ši pora dar archyve arba ruošiama kitai partijai. Pabandyk plačiau — arba pradėk nuo viso sezono.' }}</p>
+      </div>
+      <div class="noresults__tips">
+        <h6>{{ section.settings.tips_title | default: 'Pabandyk' }}</h6>
+        <div class="tip"><span class="tip__mark" aria-hidden="true"></span><span>{{ section.settings.tip_1 | default: 'Patikrink rašybą — pvz. <b>„basutės“</b>, <b>„aulinukai“</b>.' }}</span></div>
+        <div class="tip"><span class="tip__mark" aria-hidden="true"></span><span>{{ section.settings.tip_2 | default: 'Ieškok plačiau — pagal <b>spalvą</b> ar <b>modelį</b>.' }}</span></div>
+        <div class="tip"><span class="tip__mark" aria-hidden="true"></span><span>{{ section.settings.tip_3_prefix | default: 'Parašyk mums —' }} <b>{{ settings.phone | default: '+370 5 250 7700' }}</b>{{ section.settings.tip_3_suffix | default: ', surasime ranka.' }}</span></div>
+      </div>
+    </div>
+
+    <div class="popular">
+      <div class="popular__head">
+        <h3 class="popular__title"><span class="light">{{ section.settings.popular_title_light | default: 'Šį mėnesį' }}</span> {{ section.settings.popular_title | default: 'populiaru' }}</h3>
+        <a href="{{ routes.all_products_collection_url }}" class="uline mono" style="font-size:12px;color:var(--mid)">{{ section.settings.popular_more_label | default: 'Visa kolekcija →' }}</a>
+      </div>
+      <div class="popular__grid">
+        {%- for product in collections.all.products limit: 4 -%}
+          {% render 'product-card', product: product %}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{%- else -%}
+
+<!-- ──────────── LANDING — popular pairs ──────────── -->
+<div class="resbar">
+  <div class="resbar__count" id="count">{{ section.settings.landing_label | default: 'Šį mėnesį <b>populiaru</b>' }}</div>
+</div>
+
+<section class="grid" id="grid">
+  {%- for product in collections.all.products limit: 8 -%}
+    {% render 'product-card', product: product %}
+  {%- endfor -%}
+</section>
+
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Search",
+  "settings": [
+    { "type": "header", "content": "Head" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Paieška · <b>visa kolekcija ir žurnalas</b>" },
+    { "type": "text", "id": "placeholder", "label": "Input placeholder", "default": "Ko ieškai?" },
+    { "type": "text", "id": "suggest_label", "label": "Suggestions label", "default": "Populiaru" },
+    { "type": "text", "id": "chips", "label": "Suggestion chips (comma-separated, optional |count)", "info": "Counts after | should reflect real data — remove them if unsure.", "default": "bateliai, basutės, aulinukai, rankinės, šalikai, kepurės" },
+    { "type": "header", "content": "No results" },
+    { "type": "text", "id": "nr_eyebrow", "label": "Eyebrow", "default": "Nieko nerasta" },
+    { "type": "text", "id": "nr_prefix", "label": "Headline prefix", "default": "Pagal" },
+    { "type": "text", "id": "nr_suffix", "label": "Headline suffix", "default": "kol kas <b>nieko.</b>" },
+    { "type": "textarea", "id": "nr_lede", "label": "Lede", "default": "Galbūt ši pora dar archyve arba ruošiama kitai partijai. Pabandyk plačiau — arba pradėk nuo viso sezono." },
+    { "type": "text", "id": "tips_title", "label": "Tips title", "default": "Pabandyk" },
+    { "type": "text", "id": "tip_1", "label": "Tip 1", "default": "Patikrink rašybą — pvz. <b>„basutės“</b>, <b>„aulinukai“</b>." },
+    { "type": "text", "id": "tip_2", "label": "Tip 2", "default": "Ieškok plačiau — pagal <b>spalvą</b> ar <b>modelį</b>." },
+    { "type": "text", "id": "tip_3_prefix", "label": "Tip 3 prefix (phone from Theme settings is appended)", "default": "Parašyk mums —" },
+    { "type": "text", "id": "tip_3_suffix", "label": "Tip 3 suffix", "default": ", surasime ranka." },
+    { "type": "header", "content": "Popular" },
+    { "type": "text", "id": "popular_title_light", "label": "Title (light part)", "default": "Šį mėnesį" },
+    { "type": "text", "id": "popular_title", "label": "Title (bold part)", "default": "populiaru" },
+    { "type": "text", "id": "popular_more_label", "label": "More link label", "default": "Visa kolekcija →" },
+    { "type": "text", "id": "landing_label", "label": "Landing results-bar label", "default": "Šį mėnesį <b>populiaru</b>" },
+    { "type": "header", "content": "Text" },
+    { "type": "color", "id": "text_color", "label": "Text colour", "info": "Recolours this section's text. Leave empty for the default near-black." }
+  ]
+}
+{% endschema %}

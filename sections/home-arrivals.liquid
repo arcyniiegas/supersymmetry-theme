@@ -1,0 +1,80 @@
+{{ 'section-home.css' | asset_url | stylesheet_tag }}
+{% render 'section-appearance', section: section %}
+<!-- ──────────── NEW ARRIVALS ──────────── -->
+<section class="arrivals" style="--title-scale: {{ section.settings.title_scale | default: 100 | divided_by: 100.0 }};">
+  <div class="arrivals__head">
+    <h2 class="arrivals__title">{{ section.settings.title | default: 'Naujausios poros' }} <span class="light">—</span></h2>
+    <a href="{{ section.settings.more_link | default: routes.all_products_collection_url }}" class="arrivals__more">
+      {{ section.settings.more_label | default: 'Visa avalynė' }}
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7 H11 M7 3 L11 7 L7 11"></path></svg>
+    </a>
+  </div>
+
+  <div class="arrivals__grid">
+{%- comment -%} Prefer the configured collection; fall back to the real catalog
+  (collections.all), never to fabricated placeholder products. {%- endcomment -%}
+{%- assign arrivals = collections[section.settings.collection] -%}
+{%- if arrivals == blank or arrivals.products.size == 0 -%}{%- assign arrivals = collections.all -%}{%- endif -%}
+{%- if arrivals.products.size > 0 -%}
+{%- for product in arrivals.products limit: 4 -%}
+    <a class="prod" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
+      <div class="prod__media">
+        {%- if product.featured_image -%}
+        <img src="{{ product.featured_image | image_url: width: 800 }}" srcset="{{ product.featured_image | image_url: width: 400 }} 400w, {{ product.featured_image | image_url: width: 800 }} 800w" sizes="(max-width: 720px) 80vw, 33vw" width="{{ product.featured_image.width }}" height="{{ product.featured_image.height }}" alt="{{ product.featured_image.alt | escape }}">
+        {%- endif -%}
+        {%- if product.compare_at_price > product.price -%}
+        <span class="prod__tag">–{{ product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round }}%</span>
+        {%- elsif product.tags contains 'Naujiena' or product.tags contains 'new' -%}
+        <span class="prod__tag">Naujiena</span>
+        {%- endif -%}
+      </div>
+      <div class="prod__body">
+        <span class="prod__price">{{ product.price | money | remove: '€' | remove: ',00' }}</span>
+      </div>
+    </a>
+{%- endfor -%}
+{%- else -%}
+    <div class="arrivals__empty">
+      <p>Kolekcija ruošiama. <a href="{{ routes.all_products_collection_url }}" class="uline">Peržiūrėkite visą asortimentą →</a></p>
+    </div>
+{%- endif -%}
+  </div>
+
+{%- if section.settings.trust_1 != blank or section.settings.trust_2 != blank or section.settings.trust_3 != blank -%}
+  <div class="trustline">
+    {%- assign trust_shown = 0 -%}
+    {%- if section.settings.trust_1 != blank -%}
+      <span>{{ section.settings.trust_1 }}</span>
+      {%- assign trust_shown = trust_shown | plus: 1 -%}
+    {%- endif -%}
+    {%- if section.settings.trust_2 != blank -%}
+      {%- if trust_shown > 0 -%}<span class="sep" aria-hidden="true"></span>{%- endif -%}
+      <span>{{ section.settings.trust_2 }}</span>
+      {%- assign trust_shown = trust_shown | plus: 1 -%}
+    {%- endif -%}
+    {%- if section.settings.trust_3 != blank -%}
+      {%- if trust_shown > 0 -%}<span class="sep" aria-hidden="true"></span>{%- endif -%}
+      <span>{{ section.settings.trust_3 }}</span>
+    {%- endif -%}
+  </div>
+{%- endif -%}
+</section>
+{% schema %}
+{
+  "name": "Home — New arrivals",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "Naujausios poros" },
+    { "type": "collection", "id": "collection", "label": "Kolekcija" },
+    { "type": "text", "id": "more_label", "label": "More link label", "default": "Visa avalynė" },
+    { "type": "url", "id": "more_link", "label": "More link" },
+    { "type": "text", "id": "trust_1", "label": "Trust line 1", "default": "<b>14 dienų</b> grąžinimas" },
+    { "type": "text", "id": "trust_2", "label": "Trust line 2", "default": "Atsiėmimas Vilniuje <b>per 2 val.</b>" },
+    { "type": "text", "id": "trust_3", "label": "Trust line 3", "default": "Kiekviena pora <b>sunumeruota</b>" },
+    { "type": "header", "content": "Text size" },
+    { "type": "range", "id": "title_scale", "label": "Heading size", "min": 60, "max": 130, "step": 5, "unit": "%", "default": 100 },
+    { "type": "header", "content": "Text colour" },
+    { "type": "color", "id": "text_color", "label": "Text colour", "info": "Recolours this section's text. Leave empty for the default near-black." }
+  ],
+  "presets": [{ "name": "Home — New arrivals" }]
+}
+{% endschema %}

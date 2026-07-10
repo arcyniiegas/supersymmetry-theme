@@ -1,0 +1,45 @@
+{
+  "general": {
+    "brand": "Supersymmetry"
+  },
+  "nav": {
+    "home": "Home",
+    "shoes": "Footwear",
+    "accessories": "Accessories",
+    "journal": "Journal",
+    "archive": "Archive",
+    "all_collections": "All collections",
+    "gift_cards": "Gift cards",
+    "size_chart": "Size chart",
+    "returns": "Returns",
+    "about": "About us",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "account": "Account",
+    "menu": "Menu"
+  },
+  "cart": {
+    "title": "Cart"
+  },
+  "search": {
+    "title": "Search",
+    "eyebrow_html": "Search · <b>whole collection</b>",
+    "placeholder": "What are you looking for?",
+    "close": "Close",
+    "clear": "Clear",
+    "popular": "Popular",
+    "empty_eyebrow": "Nothing found"
+  },
+  "newsletter": {
+    "heading": "Letter from the atelier",
+    "text": "One letter a month — new pairs, repair stories, no marketing.",
+    "placeholder": "Your email",
+    "button": "Subscribe"
+  },
+  "footer": {
+    "buy": "Shop",
+    "services": "Services",
+    "about": "About the atelier",
+    "legal_right": "Privacy · Terms · Details"
+  }
+}

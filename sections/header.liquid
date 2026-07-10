@@ -1,0 +1,38 @@
+<header class="header">
+  <a href="{{ routes.root_url }}" class="header__brand">{{ settings.brand_name | default: 'Supersymmetry' }}<span class="brand-dot" aria-hidden="true"></span></a>
+  {%- liquid
+    assign nav_menu = settings.menu_main
+    if nav_menu.links == blank
+      assign nav_menu = linklists['supersymmetry-main']
+    endif
+  -%}
+  <nav class="header__nav" aria-label="Pagrindinė navigacija">
+    {%- if nav_menu.links != blank -%}
+      {%- for link in nav_menu.links -%}
+        <a href="{{ link.url }}"{% if link.active %} aria-current="page"{% endif %}>{{ link.title }}</a>
+      {%- endfor -%}
+    {%- else -%}
+      <a href="{{ routes.root_url }}"{% if request.page_type == 'index' %} aria-current="page"{% endif %}>Pradžia</a>
+      <a href="{{ routes.collections_url }}"{% if request.page_type == 'collection' or request.page_type == 'product' %} aria-current="page"{% endif %}>Avalynė</a>
+      <a href="{{ routes.collections_url }}">Aksesuarai</a>
+      <a href="{{ blog.url | default: routes.root_url }}"{% if request.page_type == 'blog' or request.page_type == 'article' %} aria-current="page"{% endif %}>Žurnalas</a>
+    {%- endif -%}
+  </nav>
+  <div class="header__tools">
+    <a href="{{ routes.search_url }}"{% if request.page_type == 'search' %} aria-current="page"{% endif %} class="header__tool header__tool-search" aria-label="Paieška" data-search-open>
+      <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="9" cy="9" r="5.2"/><path d="M12.8 12.8 L16.6 16.6"/></svg></a>
+    <a href="{{ routes.account_url }}" class="header__tool header__tool-account" aria-label="Paskyra">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="6.8" r="3.2"/><path d="M4.2 16.4 C4.2 12.9 6.8 11.2 10 11.2 C13.2 11.2 15.8 12.9 15.8 16.4"/></svg></a>
+    <a href="{{ routes.cart_url }}"{% if request.page_type == 'cart' %} aria-current="page"{% endif %} class="header__tool header__tool-cart" aria-label="Krepšelis">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6 6.4 H14 L14.8 15.8 A0.7 0.7 0 0 1 14.1 16.6 H5.9 A0.7 0.7 0 0 1 5.2 15.8 Z M7.8 6.4 V5.6 A2.2 2.2 0 0 1 12.2 5.6 V6.4"/></svg>
+      <span class="bag-count" data-bag-count{% if cart.item_count == 0 %} style="display:none"{% endif %}>{{ cart.item_count }}</span></a>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "section-header",
+  "settings": []
+}
+{% endschema %}

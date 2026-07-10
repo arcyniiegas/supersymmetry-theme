@@ -1,0 +1,156 @@
+
+/* ════════════════════════════════════════════════════════════
+   AKCIJŲ SĄLYGOS — Apple composition:
+   one idea per band · one centered axis · 17/21px ramp ·
+   display 1.05 / −0.025em · generous equal rhythm
+   ════════════════════════════════════════════════════════════ */
+
+/* ── house phead: open display values for diacritics ── */
+.phead__title{ line-height: 1.02; letter-spacing: -0.035em; font-kerning: normal; }
+.phead__title .light{ letter-spacing: -0.035em; }
+
+.seam{ max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+.seam::after{ content:''; display: block; border-top: 1px solid var(--line); }
+
+/* ── clauses ── */
+.tbody{
+  max-width: 640px;
+  margin: 0 auto;
+  padding: var(--sp-16) var(--gutter);
+  display: grid;
+  gap: var(--sp-14, 56px);
+}
+.tsec{ display: grid; gap: var(--sp-5); }
+.tsec__k{
+  font: 500 12px/1 var(--font-mono);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-muted);
+  font-feature-settings: 'tnum';
+}
+.tsec h2{
+  margin: 0;
+  font: 600 clamp(24px, 2.6vw, 32px)/1.15 var(--font-sans);
+  letter-spacing: -0.02em;
+  font-kerning: normal;
+  text-wrap: balance;
+}
+.tsec p{
+  margin: 0;
+  font: 400 17px/1.55 var(--font-sans);
+  letter-spacing: -0.01em;
+  color: var(--text-muted);
+  text-wrap: pretty;
+}
+.tsec p b, .tsec li b{ color: var(--text); font-weight: 500; }
+.tsec ul{
+  margin: 0; padding: 0; list-style: none;
+  display: grid; gap: 0;
+}
+.tsec li{
+  position: relative;
+  padding: 14px 0 14px 32px;
+  border-bottom: 1px solid var(--line);
+  font: 400 16px/1.5 var(--font-sans);
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+.tsec li:first-child{ border-top: 1px solid var(--line); }
+.tsec li::before{ content:'—'; color: var(--soft); position: absolute; left: 0; top: 14px; }
+.tsec a{ color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+.tsec a:hover{ color: var(--text-muted); }
+
+/* callout — surface plate, house rhythm */
+.tnote{
+  background: var(--surface);
+  border-radius: var(--r-lg);
+  padding: var(--sp-8);
+  margin-top: var(--sp-3);
+  display: grid; gap: var(--sp-4);
+}
+.tnote__k{
+  font: 500 11px/1 var(--font-mono);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-muted);
+  display: flex; align-items: center; gap: 14px;
+}
+.tnote__k::before{ content:''; width: 28px; height: 1px; background: var(--ink); }
+.tnote p{ font-size: 16px; line-height: 1.6; }
+
+/* worked example — dark plate receipt */
+.treceipt{
+  background: var(--plate);
+  color: #FFFFFF;
+  border-radius: var(--r-lg);
+  padding: var(--sp-8);
+  margin-top: var(--sp-2);
+}
+.treceipt__k{
+  display: block;
+  font: 500 11px/1 var(--font-mono);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: var(--sp-5);
+}
+.treceipt__row{
+  display: flex; justify-content: space-between; align-items: baseline;
+  gap: var(--sp-5);
+  padding: 13px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.14);
+}
+.treceipt__row .l{
+  font: 400 15px/1.4 var(--font-sans);
+  letter-spacing: -0.01em;
+  color: rgba(255,255,255,0.8);
+}
+.treceipt__row .l small{
+  display: block;
+  font-size: 12px;
+  color: rgba(255,255,255,0.45);
+  margin-top: 2px;
+}
+.treceipt__row .v{
+  font: 500 15px/1 var(--font-mono);
+  letter-spacing: 0.01em;
+  font-feature-settings: 'tnum';
+  color: #FFFFFF;
+  white-space: nowrap;
+}
+.treceipt__row--muted .v{ color: rgba(255,255,255,0.5); }
+.treceipt__row--total{
+  border-bottom: 0;
+  border-top: 1px solid rgba(255,255,255,0.4);
+  margin-top: 4px;
+  padding-top: var(--sp-5);
+}
+.treceipt__row--total .l{ color: #FFFFFF; font-weight: 500; }
+.treceipt__row--total .v{ font-size: 17px; }
+
+/* ── footer of the document ── */
+.tmeta{
+  max-width: 640px;
+  margin: 0 auto;
+  padding: var(--sp-12) var(--gutter) var(--sp-16);
+  text-align: center;
+  display: grid; justify-items: center; gap: var(--sp-8);
+}
+.tmeta__cta{
+  display: grid; justify-items: center; gap: var(--sp-6);
+}
+.tmeta__cta p{
+  margin: 0;
+  font: 400 17px/1.5 var(--font-sans);
+  letter-spacing: -0.01em;
+  color: var(--text-muted);
+  max-width: 40ch;
+  text-wrap: balance;
+}
+.tmeta__cta p b{ color: var(--text); font-weight: 500; }
+.tmeta__line{
+  display: flex; flex-wrap: wrap; justify-content: center;
+  column-gap: 12px; row-gap: 6px;
+  font: 500 12px/1 var(--font-mono);
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--soft);
+}
+.tmeta__line span{ white-space: nowrap; }
+.tmeta__line .sep{ color: var(--soft); }

@@ -1,0 +1,44 @@
+{{ 'section-customers.css' | asset_url | stylesheet_tag }}
+{% render 'section-appearance', section: section %}
+
+<div class="acct acct--narrow">
+  <div class="acct__head">
+    <div class="eyebrow-rule">{{ section.settings.eyebrow | default: 'Paskyra · <b>aktyvavimas</b>' }}</div>
+    <h1 class="acct__title"><span class="light">{{ section.settings.title_light | default: 'Aktyvuok' }}</span> {{ section.settings.title | default: 'paskyrą.' }}</h1>
+    <p class="acct__sub">{{ section.settings.sub | default: 'Susikurk slaptažodį — ir paskyra paruošta.' }}</p>
+  </div>
+
+  {% form 'activate_customer_password', class: 'form' %}
+    {%- if form.errors -%}
+    <div class="acct-errors" role="alert">{{ form.errors | default_errors }}</div>
+    {%- endif -%}
+    <div class="field">
+      <label for="activatePassword">Slaptažodis</label>
+      <input id="activatePassword" type="password" name="customer[password]" autocomplete="new-password" placeholder="Bent 5 simboliai" minlength="5" required />
+    </div>
+    <div class="field">
+      <label for="activatePasswordConfirm">Pakartok slaptažodį</label>
+      <input id="activatePasswordConfirm" type="password" name="customer[password_confirmation]" autocomplete="new-password" placeholder="••••••••" minlength="5" required />
+    </div>
+    <div class="addr-form__foot" style="margin-top:0">
+      <button class="btn btn--primary btn--lg" type="submit">{{ section.settings.submit_label | default: 'Aktyvuoti paskyrą' }} <span class="btn__arrow">→</span></button>
+      <button class="btn btn--ghost btn--lg" type="submit" name="decline">{{ section.settings.decline_label | default: 'Atsisakyti' }}</button>
+    </div>
+  {% endform %}
+</div>
+
+{% schema %}
+{
+  "name": "Activate account",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Paskyra · <b>aktyvavimas</b>" },
+    { "type": "text", "id": "title_light", "label": "Title (light part)", "default": "Aktyvuok" },
+    { "type": "text", "id": "title", "label": "Title (bold part)", "default": "paskyrą." },
+    { "type": "text", "id": "sub", "label": "Sub", "default": "Susikurk slaptažodį — ir paskyra paruošta." },
+    { "type": "text", "id": "submit_label", "label": "Submit button", "default": "Aktyvuoti paskyrą" },
+    { "type": "text", "id": "decline_label", "label": "Decline button", "default": "Atsisakyti" },
+    { "type": "header", "content": "Text" },
+    { "type": "color", "id": "text_color", "label": "Text colour", "info": "Recolours this section's text. Leave empty for the default near-black." }
+  ]
+}
+{% endschema %}

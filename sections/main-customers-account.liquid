@@ -1,0 +1,97 @@
+{{ 'section-customers.css' | asset_url | stylesheet_tag }}
+{% render 'section-appearance', section: section %}
+
+<div class="acct">
+  <div class="acct__head">
+    <div class="eyebrow-rule">{{ section.settings.eyebrow | default: 'Paskyra · <b>apžvalga</b>' }}</div>
+    <h1 class="acct__title"><span class="light">{{ section.settings.title_light | default: 'Labas,' }}</span> {{ customer.first_name | default: customer.email }}.</h1>
+    <div class="acct-alt" style="border-top:0;padding-top:0;margin-top:var(--sp-4)">
+      <a href="{{ routes.account_addresses_url }}">{{ section.settings.addresses_link | default: 'Adresai' }}</a>
+      <a href="{{ routes.account_logout_url }}">{{ section.settings.logout_link | default: 'Atsijungti' }}</a>
+    </div>
+  </div>
+
+  <div class="acct-grid">
+    <!-- ──────────── ORDERS ──────────── -->
+    <div>
+      <h2 class="acct-sec__title">{{ section.settings.orders_title | default: 'Užsakymai' }}</h2>
+
+      {%- paginate customer.orders by 20 -%}
+      {%- if customer.orders.size > 0 -%}
+      <table class="orders">
+        <thead>
+          <tr>
+            <th>Užsakymas</th>
+            <th>Data</th>
+            <th>Būsena</th>
+            <th>Suma</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%- for order in customer.orders -%}
+          <tr>
+            <td><a href="{{ order.customer_url }}" class="mono">{{ order.name }}</a></td>
+            <td class="mono">{{ order.created_at | date: '%Y·%m·%d' }}</td>
+            <td>
+              <span class="ostatus{% if order.fulfillment_status == 'fulfilled' %} ostatus--done{% endif %}">{{ order.fulfillment_status_label }}</span>
+            </td>
+            <td class="mono">{{ order.total_price | money | remove: '€' | remove: ',00' }}</td>
+          </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+      {%- if paginate.pages > 1 -%}
+      <div class="acct-alt">
+        {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}">← Ankstesni</a>{%- endif -%}
+        {%- if paginate.next -%}<a href="{{ paginate.next.url }}">Kiti →</a>{%- endif -%}
+      </div>
+      {%- endif -%}
+      {%- else -%}
+      <div class="acct-empty">
+        <p>{{ section.settings.empty_text | default: 'Užsakymų kol kas nėra — pirmoji pora dar laukia.' }}</p>
+        <a class="btn btn--primary" href="{{ routes.all_products_collection_url }}">{{ section.settings.empty_cta | default: 'Žiūrėti kolekciją' }} <span class="btn__arrow">→</span></a>
+      </div>
+      {%- endif -%}
+      {%- endpaginate -%}
+    </div>
+
+    <!-- ──────────── DEFAULT ADDRESS ──────────── -->
+    <div>
+      <h2 class="acct-sec__title">{{ section.settings.address_title | default: 'Pagrindinis adresas' }}</h2>
+      <div class="addr-card">
+        {%- if customer.default_address -%}
+        <address>
+          {{ customer.default_address.first_name }} {{ customer.default_address.last_name }}<br>
+          {%- if customer.default_address.address1 != blank -%}{{ customer.default_address.address1 }}<br>{%- endif -%}
+          {%- if customer.default_address.address2 != blank -%}{{ customer.default_address.address2 }}<br>{%- endif -%}
+          {%- if customer.default_address.zip != blank or customer.default_address.city != blank -%}{{ customer.default_address.zip }} {{ customer.default_address.city }}<br>{%- endif -%}
+          {{ customer.default_address.country }}
+        </address>
+        {%- else -%}
+        <address>{{ section.settings.no_address | default: 'Adreso dar nėra — pridėk, kad atsiskaitymas būtų greitesnis.' }}</address>
+        {%- endif -%}
+        <a class="uline mono" style="font-size:12px;letter-spacing:0.04em;text-transform:uppercase" href="{{ routes.account_addresses_url }}">{{ section.settings.manage_addresses | default: 'Tvarkyti adresus →' }}</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Account",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Paskyra · <b>apžvalga</b>" },
+    { "type": "text", "id": "title_light", "label": "Greeting (before the name)", "default": "Labas," },
+    { "type": "text", "id": "orders_title", "label": "Orders title", "default": "Užsakymai" },
+    { "type": "text", "id": "empty_text", "label": "No-orders text", "default": "Užsakymų kol kas nėra — pirmoji pora dar laukia." },
+    { "type": "text", "id": "empty_cta", "label": "No-orders button", "default": "Žiūrėti kolekciją" },
+    { "type": "text", "id": "address_title", "label": "Address title", "default": "Pagrindinis adresas" },
+    { "type": "text", "id": "no_address", "label": "No-address text", "default": "Adreso dar nėra — pridėk, kad atsiskaitymas būtų greitesnis." },
+    { "type": "text", "id": "manage_addresses", "label": "Manage addresses link", "default": "Tvarkyti adresus →" },
+    { "type": "text", "id": "addresses_link", "label": "Addresses link", "default": "Adresai" },
+    { "type": "text", "id": "logout_link", "label": "Logout link", "default": "Atsijungti" },
+    { "type": "header", "content": "Text" },
+    { "type": "color", "id": "text_color", "label": "Text colour", "info": "Recolours this section's text. Leave empty for the default near-black." }
+  ]
+}
+{% endschema %}

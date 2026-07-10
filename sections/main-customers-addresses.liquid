@@ -1,0 +1,104 @@
+{{ 'section-customers.css' | asset_url | stylesheet_tag }}
+{% render 'section-appearance', section: section %}
+
+<div class="acct" style="max-width:960px">
+  <div class="acct__head">
+    <div class="eyebrow-rule">{{ section.settings.eyebrow | default: 'Paskyra · <b>adresai</b>' }}</div>
+    <h1 class="acct__title"><span class="light">{{ section.settings.title_light | default: 'Tavo' }}</span> {{ section.settings.title | default: 'adresai.' }}</h1>
+  </div>
+
+  {%- paginate customer.addresses by 12 -%}
+
+  <!-- ──────────── EXISTING ADDRESSES ──────────── -->
+  {%- if customer.addresses.size > 0 -%}
+  <div class="addr-list">
+    {%- for address in customer.addresses -%}
+    <div class="addr-card">
+      {%- if address == customer.default_address -%}
+      <span class="addr-card__tag">{{ section.settings.default_tag | default: 'Pagrindinis' }}</span>
+      {%- endif -%}
+      <address>
+        {{ address.first_name }} {{ address.last_name }}<br>
+        {%- if address.company != blank -%}{{ address.company }}<br>{%- endif -%}
+        {%- if address.address1 != blank -%}{{ address.address1 }}<br>{%- endif -%}
+        {%- if address.address2 != blank -%}{{ address.address2 }}<br>{%- endif -%}
+        {{ address.zip }} {{ address.city }}<br>
+        {{ address.country }}{% if address.phone != blank %}<br>{{ address.phone }}{% endif %}
+      </address>
+      <div class="addr-card__actions">
+        <button type="button" data-addr-edit="{{ address.id }}">Redaguoti</button>
+        <form method="post" action="{{ routes.account_addresses_url }}/{{ address.id }}" onsubmit="return confirm('{{ section.settings.delete_confirm | default: 'Ištrinti šį adresą?' | escape }}');" style="display:inline">
+          <input type="hidden" name="_method" value="delete">
+          <button type="submit">Ištrinti</button>
+        </form>
+      </div>
+    </div>
+    {%- endfor -%}
+  </div>
+  {%- else -%}
+  <div class="acct-empty" style="margin-bottom:var(--sp-10)">
+    <p>{{ section.settings.empty_text | default: 'Adresų dar nėra — pridėk pirmą, kad atsiskaitymas būtų greitesnis.' }}</p>
+  </div>
+  {%- endif -%}
+
+  <button class="btn btn--primary" type="button" data-addr-new>{{ section.settings.add_label | default: 'Pridėti adresą' }} <span class="btn__arrow">→</span></button>
+
+  <!-- ──────────── NEW ADDRESS FORM ──────────── -->
+  <div class="addr-form" id="addrFormNew" hidden>
+    <h3>{{ section.settings.new_title | default: 'Naujas adresas' }}</h3>
+    {% form 'customer_address', customer.new_address, class: 'form' %}
+      {% render 'customer-address-fields', form: form %}
+      <div class="addr-form__foot">
+        <button class="btn btn--primary" type="submit">Išsaugoti <span class="btn__arrow">→</span></button>
+        <button class="btn btn--ghost" type="button" data-addr-cancel>Atšaukti</button>
+      </div>
+    {% endform %}
+  </div>
+
+  <!-- ──────────── EDIT FORMS ──────────── -->
+  {%- for address in customer.addresses -%}
+  <div class="addr-form" id="addrFormEdit-{{ address.id }}" hidden>
+    <h3>{{ section.settings.edit_title | default: 'Redaguoti adresą' }}</h3>
+    {% form 'customer_address', address, class: 'form' %}
+      {% render 'customer-address-fields', form: form %}
+      <div class="addr-form__foot">
+        <button class="btn btn--primary" type="submit">Išsaugoti <span class="btn__arrow">→</span></button>
+        <button class="btn btn--ghost" type="button" data-addr-cancel>Atšaukti</button>
+      </div>
+    {% endform %}
+  </div>
+  {%- endfor -%}
+
+  {%- if paginate.pages > 1 -%}
+  <div class="acct-alt">
+    {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}">← Ankstesni</a>{%- endif -%}
+    {%- if paginate.next -%}<a href="{{ paginate.next.url }}">Kiti →</a>{%- endif -%}
+  </div>
+  {%- endif -%}
+  {%- endpaginate -%}
+
+  <div class="acct-alt">
+    <a href="{{ routes.account_url }}">← Grįžti į paskyrą</a>
+  </div>
+</div>
+
+<script src="{{ 'customers.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Addresses",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Paskyra · <b>adresai</b>" },
+    { "type": "text", "id": "title_light", "label": "Title (light part)", "default": "Tavo" },
+    { "type": "text", "id": "title", "label": "Title (bold part)", "default": "adresai." },
+    { "type": "text", "id": "default_tag", "label": "Default-address tag", "default": "Pagrindinis" },
+    { "type": "text", "id": "add_label", "label": "Add button", "default": "Pridėti adresą" },
+    { "type": "text", "id": "new_title", "label": "New form title", "default": "Naujas adresas" },
+    { "type": "text", "id": "edit_title", "label": "Edit form title", "default": "Redaguoti adresą" },
+    { "type": "text", "id": "delete_confirm", "label": "Delete confirmation", "default": "Ištrinti šį adresą?" },
+    { "type": "text", "id": "empty_text", "label": "Empty state text", "default": "Adresų dar nėra — pridėk pirmą, kad atsiskaitymas būtų greitesnis." },
+    { "type": "header", "content": "Text" },
+    { "type": "color", "id": "text_color", "label": "Text colour", "info": "Recolours this section's text. Leave empty for the default near-black." }
+  ]
+}
+{% endschema %}

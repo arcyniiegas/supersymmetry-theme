@@ -1,0 +1,125 @@
+
+/* ════════════════════════════════════════════════════════════
+   TITLE — local optical fixes: „Dydžių" carries an ogonek and
+   „lentelė." dotted accents; the shared 0.88 line-height and
+   -0.05em tracking collide them. Open both up to the system's
+   canonical display values.
+   ════════════════════════════════════════════════════════════ */
+.phead__title{
+  font-size: clamp(52px, 7.2vw, 118px);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  font-kerning: normal;
+}
+.phead__title .light{ letter-spacing: -0.035em; }
+
+/* ════════════════════════════════════════════════════════════
+   SIZES — table + how-to-measure, house editorial grid
+   ════════════════════════════════════════════════════════════ */
+.sizes{
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: var(--sp-16) var(--gutter);
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: var(--sp-12);
+  align-items: start;
+}
+@media (max-width: 900px){
+  .sizes{ grid-template-columns: 1fr; gap: var(--sp-10); padding: var(--sp-10) var(--gutter); }
+}
+
+/* ── table ── */
+.sizetable{ display: grid; gap: var(--sp-5); }
+.sizetable table{
+  width: 100%;
+  border-collapse: collapse;
+}
+.sizetable th{
+  text-align: left;
+  padding: 0 var(--sp-4) var(--sp-4);
+  font: 500 10px/1 var(--font-mono);
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--ink);
+}
+.sizetable td{
+  padding: var(--sp-4);
+  font: 500 15px/1 var(--font-mono);
+  letter-spacing: -0.01em;
+  font-feature-settings: 'tnum';
+  border-bottom: 1px solid var(--line);
+  color: var(--text);
+}
+.sizetable th:first-child, .sizetable td:first-child{ padding-left: 2px; }
+.sizetable th:last-child, .sizetable td:last-child{ text-align: right; padding-right: 2px; }
+.sizetable td:last-child{ color: var(--text-muted); }
+.sizetable tbody tr{ transition: background var(--tx-fast) var(--ease); }
+.sizetable tbody tr:hover{ background: var(--surface); }
+.sizetable .eu{ font-weight: 600; }
+.sizetable__note{
+  font: 400 13px/1.6 var(--font-sans);
+  color: var(--text-muted);
+  letter-spacing: -0.005em;
+  max-width: 52ch;
+}
+.sizetable__note b{ color: var(--text); font-weight: 500; }
+
+/* ── measuring steps ── */
+.measure{ display: grid; gap: var(--sp-8); position: sticky; top: var(--sp-8); }
+@media (max-width: 900px){ .measure{ position: static; } }
+.measure__panel{
+  background: var(--surface);
+  border-radius: var(--r-lg);
+  padding: var(--sp-8);
+  display: grid; gap: var(--sp-6);
+}
+.measure__panel .eyebrow-rule{ margin-bottom: var(--sp-2); }
+.step{
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: var(--sp-5);
+  align-items: start;
+}
+.step__num{
+  font: 500 12px/1 var(--font-mono);
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  padding-top: 3px;
+}
+.step__body h3{
+  margin: 0 0 6px;
+  font: 500 16px/1.25 var(--font-sans);
+  letter-spacing: -0.015em;
+}
+.step__body p{
+  margin: 0;
+  font: 400 14px/1.6 var(--font-sans);
+  color: var(--text-muted);
+  letter-spacing: -0.005em;
+  text-wrap: pretty;
+}
+.measure__tip{
+  border-radius: var(--r-md);
+  background: var(--plate);
+  color: #FFFFFF;
+  padding: var(--sp-6);
+  display: grid; gap: var(--sp-3);
+}
+.measure__tip .k{
+  font: 500 10px/1 var(--font-mono);
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+}
+.measure__tip p{
+  margin: 0;
+  font: 400 15px/1.55 var(--font-sans);
+  letter-spacing: -0.005em;
+  color: rgba(255,255,255,0.9);
+}
+.measure__tip a{
+  color: #FFFFFF;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.measure__tip a:hover{ opacity: 0.75; }

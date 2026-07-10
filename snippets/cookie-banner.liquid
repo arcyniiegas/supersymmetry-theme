@@ -1,0 +1,21 @@
+{%- comment -%}
+  cookie-banner — GDPR consent prompt driven by Shopify's Customer Privacy
+  API. consent.js loads the consent-tracking-api feature and only reveals
+  the banner when Shopify says a banner is required for the visitor's
+  region and no choice has been stored yet. Disable via Theme settings →
+  Cookie consent.
+{%- endcomment -%}
+{%- if settings.consent_enabled -%}
+{{ 'consent.css' | asset_url | stylesheet_tag }}
+<div class="consent-banner" id="consentBanner" role="dialog" aria-live="polite" aria-label="Slapukų sutikimas" hidden>
+  <p class="consent-banner__text">
+    {{ settings.consent_text | default: 'Naudojame slapukus parduotuvės veikimui ir anoniminei statistikai. Rinktis gali pats —' }}
+    <a class="uline" href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}">{{ settings.consent_policy_label | default: 'privatumo politika' }}</a>.
+  </p>
+  <div class="consent-banner__actions">
+    <button class="btn btn--primary" type="button" data-consent-accept>{{ settings.consent_accept_label | default: 'Sutinku' }}</button>
+    <button class="btn btn--ghost" type="button" data-consent-decline>{{ settings.consent_decline_label | default: 'Tik būtini' }}</button>
+  </div>
+</div>
+<script src="{{ 'consent.js' | asset_url }}" defer></script>
+{%- endif -%}

@@ -1,0 +1,135 @@
+{{ 'section-akciju-salygos.css' | asset_url | stylesheet_tag }}
+{% render 'section-appearance', section: section %}
+<!-- ──────────── PAGE HEAD ──────────── -->
+<section class="phead">
+  <div>
+    <div class="eyebrow-rule">{{ section.settings.eyebrow | default: 'Akcija · <b>1+1 Vasara</b>' }}</div>
+    <h1 class="phead__title">
+      <span class="light">{{ section.settings.title_light | default: 'Akcijų' }}</span>
+      {{ section.settings.title | default: 'sąlygos.' }}
+    </h1>
+  </div>
+  <div class="phead__aside">
+    <p class="phead__intro">{{ section.settings.intro | default: 'Akcijos <b>„1+1 Vasara“</b> — antra pora nemokamai — vykdymo ir grąžinimo tvarka. Perkant dvi vasaros kolekcijos prekes, pigesnei automatiškai pritaikoma <b>100% nuolaida</b>.' }}</p>
+    {%- assign stat_blocks = section.blocks | where: 'type', 'stat' -%}
+    {%- if stat_blocks.size > 0 -%}
+    <div class="phead__stats">
+      {%- for block in stat_blocks -%}
+      <div class="phead__stat" {{ block.shopify_attributes }}>
+        <span class="k">{{ block.settings.k }}</span>
+        <span class="v{% if block.settings.tabular %} tabular{% endif %}">{{ block.settings.v }}</span>
+      </div>
+      {%- endfor -%}
+    </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<!-- ──────────── CLAUSES ──────────── -->
+<section class="tbody">
+  {%- for block in section.blocks -%}
+    {%- if block.type == 'clause' -%}
+  <div class="tsec" {{ block.shopify_attributes }}>
+    <span class="tsec__k">{{ block.settings.k }}</span>
+    <h2>{{ block.settings.t }}</h2>
+    {{ block.settings.body_html }}
+    {%- if block.settings.note_b != blank -%}
+    <div class="tnote">
+      <span class="tnote__k">{{ block.settings.note_k }}</span>
+      <p>{{ block.settings.note_b }}</p>
+    </div>
+    {%- endif -%}
+    {%- if block.settings.show_receipt -%}
+    <div class="treceipt">
+      <span class="treceipt__k">{{ section.settings.receipt_title | default: 'Skaičiavimo pavyzdys' }}</span>
+      {%- for b in section.blocks -%}
+        {%- if b.type == 'receipt_row' -%}
+      <div class="treceipt__row{% if b.settings.style == 'muted' %} treceipt__row--muted{% elsif b.settings.style == 'total' %} treceipt__row--total{% endif %}"><span class="l">{{ b.settings.l }}{% if b.settings.small != blank %}<small>{{ b.settings.small }}</small>{% endif %}</span><span class="v">{{ b.settings.v }}</span></div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+    {%- endif -%}
+  </div>
+    {%- endif -%}
+  {%- endfor -%}
+</section>
+
+<div class="seam"></div>
+
+<!-- ──────────── META + CTA ──────────── -->
+<section class="tmeta">
+  <div class="tmeta__cta">
+    <p>{{ section.settings.cta_text | default: 'Neaišku dėl perskaičiavimo? Parašykite — <b>Saulius ir Aistė</b> paskaičiuos jūsų grąžinimą.' }}</p>
+    <a href="{{ section.settings.cta_link | default: pages.kontaktai.url | default: '/pages/kontaktai' }}" class="btn btn--primary">{{ section.settings.cta_label | default: 'Susisiekti' }}<span class="btn__arrow">→</span></a>
+  </div>
+  <div class="tmeta__line">
+    <span>{{ section.settings.meta_left | default: 'Atnaujinta 2026-06' }}</span>
+    <span class="sep">·</span>
+    <span>{{ section.settings.meta_right | default: 'Supersymmetry UAB' }}</span>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Akcijų sąlygos",
+  "settings": [
+    { "type": "header", "content": "Head" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Akcija · <b>1+1 Vasara</b>" },
+    { "type": "text", "id": "title_light", "label": "Title (light part)", "default": "Akcijų" },
+    { "type": "text", "id": "title", "label": "Title (bold part)", "default": "sąlygos." },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Akcijos <b>„1+1 Vasara“</b> — antra pora nemokamai — vykdymo ir grąžinimo tvarka. Perkant dvi vasaros kolekcijos prekes, pigesnei automatiškai pritaikoma <b>100% nuolaida</b>." },
+    { "type": "header", "content": "Receipt example" },
+    { "type": "text", "id": "receipt_title", "label": "Receipt title", "default": "Skaičiavimo pavyzdys" },
+    { "type": "header", "content": "Footer" },
+    { "type": "textarea", "id": "cta_text", "label": "CTA text", "default": "Neaišku dėl perskaičiavimo? Parašykite — <b>Saulius ir Aistė</b> paskaičiuos jūsų grąžinimą." },
+    { "type": "text", "id": "cta_label", "label": "CTA button label", "default": "Susisiekti" },
+    { "type": "url", "id": "cta_link", "label": "CTA button link" },
+    { "type": "text", "id": "meta_left", "label": "Meta left", "default": "Atnaujinta 2026-06" },
+    { "type": "text", "id": "meta_right", "label": "Meta right", "default": "Supersymmetry UAB" },
+    { "type": "header", "content": "Text size & colour" },
+    { "type": "range", "id": "title_scale", "label": "Heading size", "min": 60, "max": 130, "step": 5, "unit": "%", "default": 100 },
+    { "type": "color", "id": "text_color", "label": "Text colour", "info": "Recolours this section's text. Leave empty for the default near-black." }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Head stat",
+      "settings": [
+        { "type": "text", "id": "k", "label": "Label" },
+        { "type": "text", "id": "v", "label": "Value" },
+        { "type": "checkbox", "id": "tabular", "label": "Tabular numerals", "default": false }
+      ]
+    },
+    {
+      "type": "clause",
+      "name": "Terms clause",
+      "settings": [
+        { "type": "text", "id": "k", "label": "Kicker (e.g. 01 · Galiojimas)" },
+        { "type": "text", "id": "t", "label": "Title" },
+        { "type": "textarea", "id": "body_html", "label": "Body (HTML: <p>, <ul><li>…)" },
+        { "type": "text", "id": "note_k", "label": "Note kicker (optional)" },
+        { "type": "textarea", "id": "note_b", "label": "Note body (empty hides the note)" },
+        { "type": "checkbox", "id": "show_receipt", "label": "Show the receipt example here", "default": false }
+      ]
+    },
+    {
+      "type": "receipt_row",
+      "name": "Receipt row",
+      "settings": [
+        { "type": "text", "id": "l", "label": "Label" },
+        { "type": "text", "id": "small", "label": "Sub-label (optional)" },
+        { "type": "text", "id": "v", "label": "Value" },
+        {
+          "type": "select", "id": "style", "label": "Style",
+          "options": [
+            { "value": "normal", "label": "Normal" },
+            { "value": "muted", "label": "Muted" },
+            { "value": "total", "label": "Total" }
+          ],
+          "default": "normal"
+        }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Akcijų sąlygos" }]
+}
+{% endschema %}

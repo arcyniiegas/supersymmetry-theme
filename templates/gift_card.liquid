@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#0A0A0A" />
+<title>Supersymmetry — Dovanų kuponas · {{ gift_card.initial_value | money }}</title>
+
+{{ 'geist-latin.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2' }}
+{{ 'geistmono-latin.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2' }}
+{{ 'base.css' | asset_url | stylesheet_tag }}
+{{ 'section-gift-card.css' | asset_url | stylesheet_tag }}
+{{ content_for_header }}
+</head>
+<body>
+
+<main class="gc">
+
+  <!-- top bar -->
+  <div class="gc__bar">
+    <div class="gc__brand">Supersymmetry<span class="brand-dot" aria-hidden="true"></span></div>
+    <div class="gc__barmeta">Dovanų kuponas · skaitmeninis</div>
+  </div>
+
+  <!-- stage -->
+  <div class="gc__stage">
+    <div class="gc__inner">
+
+      <!-- card -->
+      <div class="card3d" role="img" aria-label="Supersymmetry dovanų kuponas, 150 eurų">
+        <div class="card3d__top">
+          <div class="card3d__brand">Supersymmetry<span class="brand-dot" aria-hidden="true"></span></div>
+          <div class="card3d__type">Dovanų kuponas<br />Partija · ∞</div>
+        </div>
+        <div class="card3d__amount"><b>{{ gift_card.initial_value | money }}</b></div>
+        <div class="card3d__bottom">
+          <div class="card3d__code">
+            <span class="card3d__codelabel">Kodas</span>
+            <span class="card3d__codeval">{{ gift_card.code | format_code }}</span>
+          </div>
+          {# TODO: wire to gift_card.* — decorative pseudo-QR, no clean gift_card equivalent #}
+          <div class="qr" id="qr" aria-hidden="true"></div>
+        </div>
+      </div>
+
+      <!-- redeem -->
+      <div class="redeem">
+        <div class="redeem__eyebrow">Dovanų kuponas · <b>Supersymmetry</b></div>
+        <h1 class="redeem__title"><span class="light">Dovana</span><br />tikrai porai.</h1>
+        <p class="redeem__msg">Išsirinkite porą iš kolekcijos — kuponas galioja visai avalynei ir aksesuarams.</p>
+
+        <div class="redeem__facts">
+          <div class="fact"><div class="k">Likutis</div><div class="v">{{ gift_card.balance | money }}</div></div>
+          <div class="fact"><div class="k">Galioja iki</div><div class="v small">{% if gift_card.expires_on %}{{ gift_card.expires_on | date: '%Y · %m · %d' }}{% else %}∞{% endif %}</div></div>
+        </div>
+
+        <div class="copyfield">
+          <code id="code">{{ gift_card.code | format_code }}</code>
+          <button type="button" id="copy">Kopijuoti kodą</button>
+        </div>
+
+        <a href="{{ routes.all_products_collection_url }}" class="btn btn--orange btn--lg redeem__cta">
+          Išleisti kuponą <span class="btn__arrow">→</span>
+        </a>
+
+        <p class="redeem__fine">Kuponą galima naudoti dalimis · taikomas visai kolekcijai ir aksesuarams · negrąžinamas į pinigus. Klausimai? <a href="/pages/kontaktai">Susisiek su ateljė</a>.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- how-to -->
+  <div class="gc__how">
+    <div class="gc__howwrap">
+      <div class="howstep">
+        <div class="howstep__n">01</div>
+        <div class="howstep__t">Išsirink porą</div>
+        <div class="howstep__d">Naršyk kolekciją ir įsidėk patikusią porą į krepšelį.</div>
+      </div>
+      <div class="howstep">
+        <div class="howstep__n">02</div>
+        <div class="howstep__t">Įvesk kodą</div>
+        <div class="howstep__d">Atsiskaitymo lange įklijuok kupono kodą į nuolaidų lauką.</div>
+      </div>
+      <div class="howstep">
+        <div class="howstep__n">03</div>
+        <div class="howstep__t">Likutis išlieka</div>
+        <div class="howstep__d">Nepanaudota suma lieka kupone kitam kartui — iki galiojimo pabaigos.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- legal -->
+  <div class="gc__legal">
+    <span>© Supersymmetry UAB · Vilnius</span>
+    <span>Kuponas № {{ gift_card.code | format_code | slice: -4, 4 }} · {{ gift_card.initial_value | money }}</span>
+  </div>
+
+</main>
+
+<script src="{{ 'gift-card.js' | asset_url }}" defer></script>
+
+</body>
+</html>

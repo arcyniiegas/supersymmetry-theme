@@ -1,0 +1,102 @@
+{{ 'section-customers.css' | asset_url | stylesheet_tag }}
+{% render 'section-appearance', section: section %}
+
+<div class="acct acct--narrow" style="max-width:760px">
+  <div class="acct__head">
+    <div class="eyebrow-rule">{{ section.settings.eyebrow | default: 'Paskyra · <b>užsakymas</b>' }}</div>
+    <h1 class="acct__title"><span class="light">{{ section.settings.title_light | default: 'Užsakymas' }}</span> <span class="mono">{{ order.name }}</span></h1>
+    <div class="order-meta">
+      <span>{{ order.created_at | date: '%Y·%m·%d' }}</span>
+      <span>{{ order.financial_status_label }}</span>
+      <span>{{ order.fulfillment_status_label }}</span>
+      {%- if order.cancelled -%}<span>Atšauktas {{ order.cancelled_at | date: '%Y·%m·%d' }}</span>{%- endif -%}
+    </div>
+  </div>
+
+  <!-- ──────────── LINE ITEMS ──────────── -->
+  <div>
+    {%- for line_item in order.line_items -%}
+    <div class="oline">
+      <div class="oline__img">
+        {%- if line_item.image -%}
+        <img
+          src="{{ line_item.image | image_url: width: 144 }}"
+          srcset="{{ line_item.image | image_url: width: 144 }} 144w, {{ line_item.image | image_url: width: 288 }} 288w"
+          sizes="72px"
+          width="{{ line_item.image.width }}" height="{{ line_item.image.height }}"
+          alt="{{ line_item.image.alt | escape }}" loading="lazy" />
+        {%- endif -%}
+      </div>
+      <div>
+        <div class="oline__name">{%- if line_item.product.url -%}<a href="{{ line_item.product.url }}">{{ line_item.title }}</a>{%- else -%}{{ line_item.title }}{%- endif -%}</div>
+        <div class="oline__meta">{% unless line_item.variant.title == 'Default Title' %}{{ line_item.variant.title }} · {% endunless %}{{ line_item.quantity }} vnt.</div>
+        {%- if line_item.fulfillment and line_item.fulfillment.tracking_number -%}
+        <div class="oline__meta">
+          Siunta: {% if line_item.fulfillment.tracking_url %}<a class="uline" href="{{ line_item.fulfillment.tracking_url }}" target="_blank" rel="noopener">{{ line_item.fulfillment.tracking_number }}</a>{% else %}{{ line_item.fulfillment.tracking_number }}{% endif %}
+        </div>
+        {%- endif -%}
+      </div>
+      <div class="oline__price">{{ line_item.final_line_price | money | remove: '€' | remove: ',00' }}</div>
+    </div>
+    {%- endfor -%}
+  </div>
+
+  <!-- ──────────── TOTALS ──────────── -->
+  <div class="ototals">
+    <div class="row"><span>Tarpinė suma</span><span class="v">{{ order.line_items_subtotal_price | money | remove: '€' | remove: ',00' }}</span></div>
+    {%- for discount_application in order.cart_level_discount_applications -%}
+    <div class="row"><span>{{ discount_application.title }}</span><span class="v">−{{ discount_application.total_allocated_amount | money | remove: '€' | remove: ',00' }}</span></div>
+    {%- endfor -%}
+    {%- for shipping_method in order.shipping_methods -%}
+    <div class="row"><span>Pristatymas · {{ shipping_method.title }}</span><span class="v">{{ shipping_method.price | money | remove: '€' | remove: ',00' }}</span></div>
+    {%- endfor -%}
+    {%- for tax_line in order.tax_lines -%}
+    <div class="row"><span>{{ tax_line.title }} {{ tax_line.rate | times: 100 | round }}%</span><span class="v">{{ tax_line.price | money | remove: '€' | remove: ',00' }}</span></div>
+    {%- endfor -%}
+    <div class="row row--total"><span>Iš viso</span><span class="v">{{ order.total_price | money | remove: '€' | remove: ',00' }}</span></div>
+  </div>
+
+  <!-- ──────────── ADDRESSES ──────────── -->
+  <div class="order-addr">
+    {%- if order.shipping_address -%}
+    <div>
+      <h2 class="acct-sec__title">Pristatymo adresas</h2>
+      <address>
+        {{ order.shipping_address.first_name }} {{ order.shipping_address.last_name }}<br>
+        {%- if order.shipping_address.address1 != blank -%}{{ order.shipping_address.address1 }}<br>{%- endif -%}
+        {%- if order.shipping_address.address2 != blank -%}{{ order.shipping_address.address2 }}<br>{%- endif -%}
+        {{ order.shipping_address.zip }} {{ order.shipping_address.city }}<br>
+        {{ order.shipping_address.country }}
+      </address>
+    </div>
+    {%- endif -%}
+    {%- if order.billing_address -%}
+    <div>
+      <h2 class="acct-sec__title">Mokėtojo adresas</h2>
+      <address>
+        {{ order.billing_address.first_name }} {{ order.billing_address.last_name }}<br>
+        {%- if order.billing_address.address1 != blank -%}{{ order.billing_address.address1 }}<br>{%- endif -%}
+        {%- if order.billing_address.address2 != blank -%}{{ order.billing_address.address2 }}<br>{%- endif -%}
+        {{ order.billing_address.zip }} {{ order.billing_address.city }}<br>
+        {{ order.billing_address.country }}
+      </address>
+    </div>
+    {%- endif -%}
+  </div>
+
+  <div class="acct-alt">
+    <a href="{{ routes.account_url }}">← Grįžti į paskyrą</a>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Order",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Paskyra · <b>užsakymas</b>" },
+    { "type": "text", "id": "title_light", "label": "Title (light part)", "default": "Užsakymas" },
+    { "type": "header", "content": "Text" },
+    { "type": "color", "id": "text_color", "label": "Text colour", "info": "Recolours this section's text. Leave empty for the default near-black." }
+  ]
+}
+{% endschema %}

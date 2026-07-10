@@ -1,0 +1,117 @@
+<footer class="foot">
+  <div class="foot__head">
+    <div class="foot__mark">{{ settings.brand_name | default: 'Supersymmetry' }}<span class="brand-dot" aria-hidden="true"></span></div>
+    <div class="foot__tag">{{ section.settings.tagline }}</div>
+  </div>
+  <div class="foot__cols">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'menu' -%}
+        <div class="foot__col" {{ block.shopify_attributes }}>
+          <h6>{{ block.settings.heading }}</h6>
+          <ul>
+            {%- for link in block.settings.menu.links -%}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+    <div class="foot__col foot__newsletter">
+      <h6>{{ section.settings.newsletter_heading }}</h6>
+      <p>{{ section.settings.newsletter_text }}</p>
+      {% form 'customer' %}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <input type="email" name="contact[email]" placeholder="{{ section.settings.newsletter_placeholder }}" aria-label="El. paštas" />
+        <button type="submit">{{ section.settings.newsletter_button }}</button>
+      {% endform %}
+    </div>
+  </div>
+  <div class="foot__legal">
+    <span>{{ section.settings.legal_left }}<span class="u-desktop"> · {{ section.settings.legal_left_desktop }}</span></span>
+    <span>{{ section.settings.legal_right }}</span>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "Maža ateljė Vilniuje, gaminanti po vieną sportbatį, vieną batą, vieną krepšį — nuo 2019 metų."
+    },
+    {
+      "type": "text",
+      "id": "newsletter_heading",
+      "label": "Newsletter heading",
+      "default": "Laiškas iš ateljės"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_text",
+      "label": "Newsletter text",
+      "default": "Vienas laiškas per mėnesį — naujos poros, taisymo istorijos, jokio marketingo."
+    },
+    {
+      "type": "text",
+      "id": "newsletter_placeholder",
+      "label": "Newsletter placeholder",
+      "default": "Jūsų el. paštas"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_button",
+      "label": "Newsletter button",
+      "default": "Prenumeruoti"
+    },
+    {
+      "type": "text",
+      "id": "legal_left",
+      "label": "Legal left",
+      "default": "© Supersymmetry UAB · 2026"
+    },
+    {
+      "type": "text",
+      "id": "legal_left_desktop",
+      "label": "Legal left (desktop suffix)",
+      "default": "PVM LT100012345678"
+    },
+    {
+      "type": "text",
+      "id": "legal_right",
+      "label": "Legal right",
+      "default": "Privatumas · Sąlygos · Rekvizitai"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu column",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer",
+      "blocks": [
+        { "type": "menu", "settings": { "heading": "Pirkti" } },
+        { "type": "menu", "settings": { "heading": "Paslaugos" } },
+        { "type": "menu", "settings": { "heading": "Apie ateljė" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

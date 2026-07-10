@@ -1,0 +1,55 @@
+{{ 'section-home.css' | asset_url | stylesheet_tag }}
+{% render 'section-appearance', section: section %}
+<!-- ──────────── LETTER FROM THE ATELIER ──────────── -->
+<section class="letter" style="--title-scale: {{ section.settings.title_scale | default: 100 | divided_by: 100.0 }};">
+  <div class="letter__copy">
+    <div class="letter__eyebrow">{{ section.settings.eyebrow }}</div>
+    <h2 class="letter__title">{{ section.settings.title }} <span class="light">{{ section.settings.title_light }}</span></h2>
+    <p class="letter__sub">{{ section.settings.sub }}</p>
+    {%- form 'customer', style: 'display: contents;' -%}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      <div class="letter__form">
+        <input type="email" name="contact[email]" placeholder="{{ section.settings.placeholder }}" aria-label="El. paštas">
+        <button type="submit">{{ section.settings.button_label }}</button>
+      </div>
+      {%- if form.posted_successfully? -%}
+        <span class="letter__note" style="color: var(--ink);"><span class="dot"></span>{{ section.settings.success_note }}</span>
+      {%- else -%}
+        <span class="letter__note"><span class="dot"></span>{{ section.settings.note }}</span>
+      {%- endif -%}
+    {%- endform -%}
+  </div>
+
+  <div class="letter__visual">
+    <div class="letter__card">
+      <div class="letter__kicker">{{ section.settings.card_heading }}</div>
+      <p>{{ section.settings.card_quote }}</p>
+      <div class="sign">
+        <span>{{ section.settings.card_sign }}</span>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Home — Newsletter",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Laiškas iš ateljės" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Vienas laiškas" },
+    { "type": "text", "id": "title_light", "label": "Title (light part)", "default": "per mėnesį." },
+    { "type": "textarea", "id": "sub", "label": "Subtitle", "default": "Naujos partijos, taisymo istorijos, kvietimai į ateljė. Jokio marketingo, jokių „paskubėk“ pranešimų — tik tai, ką patys norėtume gauti." },
+    { "type": "text", "id": "placeholder", "label": "Email placeholder", "default": "Jūsų el. paštas" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Užsiprenumeruoti →" },
+    { "type": "text", "id": "note", "label": "Note", "default": "Atsisakyti galite bet kada." },
+    { "type": "text", "id": "success_note", "label": "Success note", "default": "Ačiū — patvirtinimą atsiuntėme el. paštu." },
+    { "type": "text", "id": "card_heading", "label": "Card heading", "default": "Laiškas iš ateljės" },
+    { "type": "textarea", "id": "card_quote", "label": "Card quote", "default": "„Šįmet pradėjome dirbti su pelkėje raugintu pakraščiu — gausite porą prieš oficialų pristatymą.“" },
+    { "type": "text", "id": "card_sign", "label": "Card signature", "default": "S. Amant, ateljės vadovas" },
+    { "type": "header", "content": "Text size" },
+    { "type": "range", "id": "title_scale", "label": "Heading size", "min": 60, "max": 130, "step": 5, "unit": "%", "default": 100 },
+    { "type": "header", "content": "Text colour" },
+    { "type": "color", "id": "text_color", "label": "Text colour", "info": "Recolours this section's text. Leave empty for the default near-black." }
+  ],
+  "presets": [{ "name": "Home — Newsletter" }]
+}
+{% endschema %}

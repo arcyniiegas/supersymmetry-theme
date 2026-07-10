@@ -1,0 +1,61 @@
+{%- comment -%}
+  Shared field set for the customer_address form (new + edit).
+  Country/province selects are wired by customers.js via data-address-country /
+  data-address-province; data-default carries the saved value for re-selection.
+  Accepts: form (the customer_address form object)
+{%- endcomment -%}
+{%- if form.errors -%}
+<div class="acct-errors" role="alert">{{ form.errors | default_errors }}</div>
+{%- endif -%}
+<div class="form__row">
+  <div class="field">
+    <label for="addrFirst-{{ form.id }}">Vardas</label>
+    <input id="addrFirst-{{ form.id }}" type="text" name="address[first_name]" value="{{ form.first_name }}" autocomplete="given-name" />
+  </div>
+  <div class="field">
+    <label for="addrLast-{{ form.id }}">Pavardė</label>
+    <input id="addrLast-{{ form.id }}" type="text" name="address[last_name]" value="{{ form.last_name }}" autocomplete="family-name" />
+  </div>
+</div>
+<div class="field">
+  <label for="addrCompany-{{ form.id }}">Įmonė <span class="opt">(nebūtina)</span></label>
+  <input id="addrCompany-{{ form.id }}" type="text" name="address[company]" value="{{ form.company }}" autocomplete="organization" />
+</div>
+<div class="field">
+  <label for="addrAddress1-{{ form.id }}">Adresas</label>
+  <input id="addrAddress1-{{ form.id }}" type="text" name="address[address1]" value="{{ form.address1 }}" autocomplete="address-line1" />
+</div>
+<div class="field">
+  <label for="addrAddress2-{{ form.id }}">Butas, aukštas <span class="opt">(nebūtina)</span></label>
+  <input id="addrAddress2-{{ form.id }}" type="text" name="address[address2]" value="{{ form.address2 }}" autocomplete="address-line2" />
+</div>
+<div class="form__row">
+  <div class="field">
+    <label for="addrCity-{{ form.id }}">Miestas</label>
+    <input id="addrCity-{{ form.id }}" type="text" name="address[city]" value="{{ form.city }}" autocomplete="address-level2" />
+  </div>
+  <div class="field">
+    <label for="addrZip-{{ form.id }}">Pašto kodas</label>
+    <input id="addrZip-{{ form.id }}" type="text" name="address[zip]" value="{{ form.zip }}" autocomplete="postal-code" />
+  </div>
+</div>
+<div class="form__row">
+  <div class="field">
+    <label for="addrCountry-{{ form.id }}">Šalis</label>
+    <select id="addrCountry-{{ form.id }}" name="address[country]" data-address-country data-default="{{ form.country }}" autocomplete="country">
+      {{ all_country_option_tags }}
+    </select>
+  </div>
+  <div class="field" data-province-wrap hidden>
+    <label for="addrProvince-{{ form.id }}">Regionas</label>
+    <select id="addrProvince-{{ form.id }}" name="address[province]" data-address-province data-default="{{ form.province }}" autocomplete="address-level1"></select>
+  </div>
+</div>
+<div class="field">
+  <label for="addrPhone-{{ form.id }}">Telefonas <span class="opt">(nebūtina)</span></label>
+  <input id="addrPhone-{{ form.id }}" type="tel" name="address[phone]" value="{{ form.phone }}" autocomplete="tel" />
+</div>
+<label class="consent">
+  <input type="checkbox" name="address[default]" value="1"{% if form.default %} checked{% endif %}>
+  <span>Naudoti kaip pagrindinį adresą</span>
+</label>

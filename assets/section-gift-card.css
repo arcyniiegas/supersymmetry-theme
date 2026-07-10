@@ -1,0 +1,142 @@
+body{ background: var(--surface); }
+
+.gc{
+  min-height: 100vh;
+  display: grid; grid-template-rows: auto 1fr auto;
+}
+
+/* slim top bar */
+.gc__bar{
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px clamp(20px, 4vw, 40px);
+  background: var(--bg); border-bottom: 1px solid var(--line);
+}
+.gc__brand{ font: 600 20px/1 var(--font-sans); letter-spacing: -0.025em; display: inline-flex; align-items: center; gap: 8px; }
+.gc__brand .brand-dot{ width: 8px; height: 8px; }
+.gc__barmeta{ font: 500 11px/1 var(--font-mono); letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-muted); }
+
+/* center stage */
+.gc__stage{
+  display: grid; place-items: center;
+  padding: clamp(28px, 5vw, 64px) clamp(20px, 4vw, 40px);
+}
+.gc__inner{
+  width: 100%; max-width: 920px;
+  display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(28px, 4vw, 56px);
+  align-items: center;
+}
+@media (max-width: 760px){ .gc__inner{ grid-template-columns: 1fr; gap: var(--sp-10); } }
+
+/* ── the card object ── */
+.card3d{
+  position: relative;
+  aspect-ratio: 1.586/1;
+  background: var(--ink); color: #FFFFFF;
+  border-radius: 18px;
+  padding: clamp(20px, 3vw, 30px);
+  display: grid; grid-template-rows: auto 1fr auto;
+  box-shadow: 0 30px 60px -24px rgba(10,10,10,0.45), 0 2px 0 rgba(255,255,255,0.04) inset;
+  overflow: hidden;
+}
+.card3d::before{
+  content:''; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(120% 80% at 85% 0%, rgba(255,255,255,0.10), transparent 55%);
+}
+.card3d__top{
+  position: relative; z-index: 1;
+  display: flex; align-items: flex-start; justify-content: space-between;
+}
+.card3d__brand{ font: 600 17px/1 var(--font-sans); letter-spacing: -0.02em; display: inline-flex; align-items: center; gap: 7px; }
+.card3d__brand .brand-dot{ width: 7px; height: 7px; top: 0; }
+.card3d__type{
+  font: 500 9px/1.4 var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(255,255,255,0.55); text-align: right;
+}
+.card3d__amount{
+  position: relative; z-index: 1; align-self: center;
+  font: 300 clamp(48px, 8vw, 76px)/1 var(--font-sans); letter-spacing: -0.035em; font-kerning: normal;
+}
+.card3d__amount b{ font-weight: 500; }
+.card3d__bottom{
+  position: relative; z-index: 1;
+  display: flex; align-items: flex-end; justify-content: space-between; gap: var(--sp-4);
+}
+.card3d__code{ display: grid; gap: 5px; }
+.card3d__codelabel{ font: 500 8px/1 var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+.card3d__codeval{ font: 500 15px/1 var(--font-mono); letter-spacing: 0.08em; }
+/* mini qr (squares only) */
+.qr{
+  width: 56px; height: 56px; background: #FFFFFF; border-radius: 6px; padding: 5px;
+  display: grid; grid-template-columns: repeat(7, 1fr); grid-template-rows: repeat(7, 1fr); gap: 1px;
+}
+.qr i{ background: transparent; }
+.qr i.on{ background: var(--ink); }
+
+/* ── redeem panel ── */
+.redeem{ display: grid; gap: var(--sp-6); }
+.redeem__eyebrow{ font: 500 12px/1.4 var(--font-mono); letter-spacing: 0.04em; color: var(--text-muted); display: flex; align-items: center; gap: 14px; }
+.redeem__eyebrow::before{ content:''; width: 28px; height: 1px; background: var(--ink); }
+.redeem__eyebrow b{ color: var(--text); font-weight: 500; }
+.redeem__title{
+  font: 500 clamp(28px, 4vw, 42px)/1.0 var(--font-sans); letter-spacing: -0.035em; margin: 0; text-wrap: balance;
+}
+.redeem__title .light{ font-weight: 300; color: var(--text-muted); }
+.redeem__msg{
+  font: 400 16px/1.6 var(--font-sans); color: var(--text-muted); letter-spacing: -0.005em; max-width: 42ch;
+}
+.redeem__msg b{ color: var(--text); font-weight: 500; }
+
+/* balance + code row */
+.redeem__facts{
+  display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4);
+  border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline);
+  padding: var(--sp-5) 0;
+}
+.fact .k{ font: 500 10px/1 var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); }
+.fact .v{ font: 500 22px/1 var(--font-mono); letter-spacing: -0.02em; margin-top: 8px; }
+.fact .v.small{ font-size: 15px; letter-spacing: 0.04em; }
+
+/* copy code field */
+.copyfield{
+  display: flex; align-items: center; gap: 6px;
+  background: var(--bg); border: 1px solid var(--hairline); border-radius: 999px;
+  padding: 5px 5px 5px 18px;
+}
+.copyfield code{ flex: 1; font: 500 15px/1 var(--font-mono); letter-spacing: 0.08em; color: var(--text); }
+.copyfield button{
+  background: var(--ink); color: var(--bg); padding: 11px 18px; border-radius: 999px;
+  font: 500 12px/1 var(--font-sans); display: inline-flex; align-items: center; gap: 7px;
+  transition: background var(--tx-fast) var(--ease);
+}
+.copyfield button:hover{ background: #2A2A2A; }
+.copyfield button.is-done{ background: var(--orange); color: #FFFFFF; }
+
+.redeem__cta{ width: 100%; }
+.redeem__fine{ font: 400 12px/1.6 var(--font-sans); color: var(--soft); letter-spacing: -0.005em; }
+.redeem__fine a{ color: var(--text-muted); text-decoration: underline; text-underline-offset: 2px; }
+
+/* how-to strip */
+.gc__how{
+  background: var(--bg); border-top: 1px solid var(--line);
+  padding: var(--sp-10) clamp(20px, 4vw, 40px);
+}
+.gc__howwrap{ max-width: 920px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-8); }
+@media (max-width: 680px){ .gc__howwrap{ grid-template-columns: 1fr; gap: var(--sp-6); } }
+.howstep{ display: grid; gap: 8px; }
+.howstep__n{ font: 500 11px/1 var(--font-mono); color: var(--orange); letter-spacing: 0.04em; }
+.howstep__t{ font: 500 15px/1.2 var(--font-sans); letter-spacing: -0.01em; }
+.howstep__d{ font: 400 13px/1.5 var(--font-sans); color: var(--text-muted); letter-spacing: -0.005em; }
+
+/* legal footer */
+.gc__legal{
+  padding: var(--sp-6) clamp(20px, 4vw, 40px);
+  display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4); flex-wrap: wrap;
+  font: 500 11px/1.5 var(--font-mono); letter-spacing: 0.02em; color: var(--soft);
+  border-top: 1px solid var(--line);
+}
+
+@media print{
+  body{ background: #FFFFFF; }
+  .gc__bar, .gc__how, .gc__legal, .redeem__cta{ display: none; }
+  .card3d{ box-shadow: none; border: 1px solid #000; }
+}

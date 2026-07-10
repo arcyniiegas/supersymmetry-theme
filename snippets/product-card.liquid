@@ -1,0 +1,43 @@
+{%- comment -%}
+  product-card — one collection grid card, matching the prototype .card markup.
+  Usage: {% render 'product-card', product: product %}
+        {% render 'product-card', product: product, show_name: true %}
+  show_name: renders the product title + type on the card (collection grid).
+  Omitted/false: price-only card (search, related, arrivals) — the title
+  still reaches an aria-label so the link's accessible name is never bare.
+{%- endcomment -%}
+<a class="card" href="{{ product.url | default: '#' }}"{% unless show_name %} aria-label="{{ product.title | escape }}"{% endunless %}>
+  <div class="card__media">
+    {%- unless product.available -%}
+    <div class="card__sold"><span>Išparduota</span></div>
+    {%- endunless -%}
+    {%- if product.featured_image -%}
+    <img
+      src="{{ product.featured_image | image_url: width: 800 }}"
+      srcset="{{ product.featured_image | image_url: width: 400 }} 400w, {{ product.featured_image | image_url: width: 800 }} 800w, {{ product.featured_image | image_url: width: 1200 }} 1200w"
+      sizes="(max-width: 520px) 100vw, (max-width: 960px) 50vw, 33vw"
+      width="{{ product.featured_image.width }}"
+      height="{{ product.featured_image.height }}"
+      alt="{{ product.featured_image.alt | escape }}"
+      loading="lazy">
+    {%- endif -%}
+    {%- if product.compare_at_price > product.price -%}
+    <span class="card__tag card__tag--orange">–{{ product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round }}%</span>
+    {%- elsif product.tags contains 'naujiena' or product.tags contains 'Naujiena' or product.tags contains 'new' or product.tags contains 'New' -%}
+    <span class="card__tag card__tag--white">Naujiena</span>
+    {%- endif -%}
+  </div>
+  <div class="card__body{% if show_name %} card__body--named{% endif %}">
+    {%- if show_name -%}
+    <span class="card__name">{{ product.title }}</span>
+    <span class="card__dot" aria-hidden="true">·</span>
+    {%- endif -%}
+    <div class="card__price">
+      <span{% unless product.available %} style="color:var(--mid);"{% endunless %}>{{ product.price | money | remove: '€' | remove: ',00' }}</span>
+      {%- if product.compare_at_price > product.price -%}
+      <span class="strike">{{ product.compare_at_price | money | remove: '€' | remove: ',00' }}</span>
+      {%- endif -%}
+    </div>
+    {%- if show_name and product.type != blank -%}<span class="card__sub">{{ product.type }}</span>{%- endif -%}
+  </div>
+</a>
