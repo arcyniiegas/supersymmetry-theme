@@ -23,7 +23,7 @@
     {%- if stat_blocks.size > 0 -%}
     <div class="phead__stats">
       {%- for block in stat_blocks -%}
-      {% render 'stat', k: block.settings.k, v: block.settings.v, tabular: block.settings.tabular, attrs: block.shopify_attributes %}
+      {% render 'stat', k: block.settings.label, v: block.settings.value, tabular: block.settings.tabular, attrs: block.shopify_attributes %}
       {%- endfor -%}
     </div>
     {%- endif -%}
@@ -134,8 +134,8 @@
       "type": "stat",
       "name": "Head stat",
       "settings": [
-        { "type": "text", "id": "k", "label": "Label" },
-        { "type": "text", "id": "v", "label": "Value" },
+        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "text", "id": "value", "label": "Value" },
         { "type": "checkbox", "id": "tabular", "label": "Tabular numerals", "default": false }
       ]
     },
