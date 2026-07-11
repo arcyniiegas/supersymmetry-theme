@@ -247,16 +247,15 @@ The high‑value, high‑complexity surfaces, onto the shared kit last.
 - Locale coverage: audit for strings still hardcoded in Liquid. **Done for
   always-rendered chrome** — header nav aria-labels + no-menu fallback nav, and
   the recurring breadcrumb "Pradžia"/duk crumbs, moved to locale keys (exact
-  match, verified live). **Boundary:** the remaining ~215 hardcoded LT strings
-  are *empty-state / demo fallbacks* (`faq-fallback` 78, `main-article` demo
-  body, `main-blog`/`main-list-collections` empty-state cards, `product-gallery`
-  no-media alts). Each sits behind a real dynamic path (`article.content`,
-  `blog.articles`, configured `accordion_item` blocks) that production uses.
-  Mechanically localizing demo copy is the wrong fix — track as a **fallback
-  simplification** content task (replace elaborate hardcoded empty states with a
-  generic localized empty-state, or seed real content), not as i18n.
-  `templates/gift_card.liquid` (legacy, 14 strings) localizes when it's
-  converted off the legacy `.liquid` template.
+  match, verified live). **Demo fallbacks — DONE (launch fix):** the elaborate
+  hardcoded seed content in empty-state branches (which was showing fake blog
+  posts live) is replaced with localized empty states — `main-blog`
+  (`blog.empty_*`), `main-article` (`article.empty_text` + real excerpt + no
+  fabricated tags + related hidden unless real), `main-list-collections`
+  (`collection.list_empty`), `faq-fallback` (`faq.empty_*`, 78 lines → empty
+  state). Populated pages byte-identical; verified live (blog empty, DUK/
+  collections still render real content). `templates/gift_card.liquid` (legacy,
+  14 strings) localizes when it's converted off the legacy `.liquid` template.
 - JS strings → locales via `window.theme.strings` + `theme.t()` (injected in
   `theme.liquid`). **Done:** `product.js`, `cart.js`, `duk.js` (FAQ search — 2-form
   plural), `predictive-search.js` (search overlay — full **3-form** LT plural
