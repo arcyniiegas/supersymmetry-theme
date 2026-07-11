@@ -1,67 +1,8 @@
-/* ════════════════════════════════════════════════════════════
-   TOKENS — verbatim from Home / PDP
-   ════════════════════════════════════════════════════════════ */
-:root{
-  --bg:        #FFFFFF;
-  --surface:   #F5F5F5;
-  --plate:     #111111;
-  --ink:       #0A0A0A;
-  --mid:       #6B6B6B;
-  --soft:      #767676;
-  --line:      #EEEEEE;
-  --hairline:  #DCDCDC;
-
-  --orange:    #0A0A0A;
-  --orange-hi: #2A2A2A;
-
-  --font-sans: 'Geist', system-ui, sans-serif;
-  --font-mono: 'Geist Mono', ui-monospace, monospace;
-
-  --t-eyebrow:  11px;
-  --t-body:     15px;
-  --t-lead:     17px;
-  --t-display:  clamp(40px, 5vw, 72px);
-  --t-section:  clamp(28px, 2.6vw, 40px);
-  --t-hero:     clamp(56px, 8vw, 132px);
-
-  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
-  --sp-5: 20px; --sp-6: 24px; --sp-8: 32px; --sp-10: 40px;
-  --sp-12: 48px; --sp-16: 64px; --sp-20: 80px; --sp-24: 96px;
-
-  --r-sm:  4px;
-  --r-md:  12px;
-  --r-lg:  16px;
-
-  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
-  --tx-fast: 180ms;
-  --tx-base: 280ms;
-
-  --max:    1440px;
-  --gutter: 32px;
-}
-@media (max-width: 720px){
-  :root{ --gutter: 20px; }
-}
-
-*,*::before,*::after{ box-sizing:border-box; }
-html{ -webkit-text-size-adjust:100%; scroll-behavior: smooth; }
-body{
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font: 400 var(--t-body)/1.55 var(--font-sans);
-  font-feature-settings: 'ss01', 'cv11';
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
-body::before{
-  content:''; position: fixed; inset: 0; pointer-events: none; z-index: 100;
-  opacity: 0.045;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-  mix-blend-mode: multiply;
-}
-/* img/button/a/input resets and .eyebrow/.mono/.tabular/.muted/:focus-visible/
-   .brand-dot are global (base.css, loaded in <head>) — identical copies removed. */
+/* Tokens (palette, spacing, the type ramp WITH the --type-scale multiplier, radius,
+   motion, responsive gutter) come from tokens.css; the reset (*, html, body, grain
+   overlay, img/button/a/input) and utilities (.eyebrow/.mono/.tabular/.muted/
+   :focus-visible/.brand-dot) from base.css — both loaded first in <head>. The stale
+   copy that opened this file (frozen type ramp, no type-scale) is removed. */
 
 /* Buttons: the shared glass component — see component-button.css. */
 
