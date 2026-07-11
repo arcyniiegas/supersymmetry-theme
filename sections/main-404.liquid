@@ -17,11 +17,11 @@
 
     <form class="e404__search" onsubmit="event.preventDefault(); var v=this.querySelector('input').value.trim(); window.location.href='/search?q='+encodeURIComponent(v);">
       <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9.5" cy="9.5" r="6.5"/><path d="M14.5 14.5l5 5"/></svg>
-      <input type="text" placeholder="{{ section.settings.search_placeholder | default: 'Ieškoti kolekcijoje…' | escape }}" aria-label="Paieška" />
+      <input type="text" placeholder="{{ section.settings.search_placeholder | default: 'Ieškoti kolekcijoje…' | escape }}" aria-label="{{ 'search.title' | t }}" />
       <button type="submit">{{ section.settings.search_button | default: 'Ieškoti' }}</button>
     </form>
 
-    <nav class="routes" aria-label="Greitos nuorodos">
+    <nav class="routes" aria-label="{{ 'accessibility.quick_links' | t }}">
       {%- assign route_blocks = section.blocks | where: 'type', 'route' -%}
       {%- if route_blocks.size > 0 -%}
         {%- for block in route_blocks -%}
@@ -32,7 +32,7 @@
         {%- endfor -%}
       {%- else -%}
       <a class="route" href="{{ routes.root_url }}">
-        <span class="route__name">Pradžia</span>
+        <span class="route__name">{{ 'nav.home' | t }}</span>
         <span style="display:flex;align-items:baseline;gap:12px"><span class="route__meta">00</span><span class="route__arrow">→</span></span>
       </a>
       <a class="route" href="{{ routes.all_products_collection_url }}">
