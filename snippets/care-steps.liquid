@@ -11,10 +11,10 @@
   {%- for block in section.blocks -%}
     {%- if block.type == 'tstep' and block.settings.group == group -%}
   <div class="tstep" {{ block.shopify_attributes }}>
-    <div class="tstep__n">{{ block.settings.n }}</div>
+    <div class="tstep__n">{{ block.settings.num }}</div>
     <div>
-      <h3 class="tstep__t">{{ block.settings.t }}</h3>
-      <p class="tstep__b">{{ block.settings.b }}</p>
+      <h3 class="tstep__t">{{ block.settings.title }}</h3>
+      <p class="tstep__b">{{ block.settings.body }}</p>
       {%- if block.settings.tip_b != blank -%}
       <div class="tip{% if block.settings.tip_warn %} tip--warn{% endif %}">
         <span class="tip__k">{{ block.settings.tip_k }}</span>

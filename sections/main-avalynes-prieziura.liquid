@@ -24,7 +24,7 @@
     {%- if stat_blocks.size > 0 -%}
     <div class="phead__stats">
       {%- for block in stat_blocks -%}
-      {% render 'stat', k: block.settings.k, v: block.settings.v, tabular: block.settings.tabular, attrs: block.shopify_attributes %}
+      {% render 'stat', k: block.settings.label, v: block.settings.value, tabular: block.settings.tabular, attrs: block.shopify_attributes %}
       {%- endfor -%}
     </div>
     {%- endif -%}
@@ -37,7 +37,7 @@
 <scroll-spy class="subnav" role="navigation" aria-label="Skyriai">
   <div class="subnav__wrap">
     {%- for block in chip_blocks -%}
-    <a class="subnav__chip" href="#{{ block.settings.anchor }}"{% if forloop.first %} aria-current="true"{% endif %} {{ block.shopify_attributes }}><span class="n">{{ block.settings.n }}</span> {{ block.settings.label }}</a>
+    <a class="subnav__chip" href="#{{ block.settings.anchor }}"{% if forloop.first %} aria-current="true"{% endif %} {{ block.shopify_attributes }}><span class="n">{{ block.settings.num }}</span> {{ block.settings.label }}</a>
     {%- endfor -%}
   </div>
 </scroll-spy>
@@ -145,8 +145,8 @@
       "type": "stat",
       "name": "Head stat",
       "settings": [
-        { "type": "text", "id": "k", "label": "Label" },
-        { "type": "text", "id": "v", "label": "Value" },
+        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "text", "id": "value", "label": "Value" },
         { "type": "checkbox", "id": "tabular", "label": "Tabular numerals", "default": false }
       ]
     },
@@ -154,7 +154,7 @@
       "type": "chip",
       "name": "Subnav chip",
       "settings": [
-        { "type": "text", "id": "n", "label": "Number" },
+        { "type": "text", "id": "num", "label": "Number" },
         { "type": "text", "id": "label", "label": "Label" },
         { "type": "text", "id": "anchor", "label": "Anchor (kasdien / oda / zomsa / sandelis / bedos / priemones)" }
       ]
@@ -163,9 +163,9 @@
       "type": "habit",
       "name": "Daily habit",
       "settings": [
-        { "type": "text", "id": "k", "label": "Kicker" },
-        { "type": "text", "id": "t", "label": "Title" },
-        { "type": "textarea", "id": "b", "label": "Body" }
+        { "type": "text", "id": "eyebrow", "label": "Kicker" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "body", "label": "Body" }
       ]
     },
     {
@@ -180,9 +180,9 @@
           ],
           "default": "oda"
         },
-        { "type": "text", "id": "n", "label": "Number" },
-        { "type": "text", "id": "t", "label": "Title" },
-        { "type": "textarea", "id": "b", "label": "Body" },
+        { "type": "text", "id": "num", "label": "Number" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "body", "label": "Body" },
         { "type": "text", "id": "tip_k", "label": "Tip kicker" },
         { "type": "textarea", "id": "tip_b", "label": "Tip body (empty hides the tip)" },
         { "type": "checkbox", "id": "tip_warn", "label": "Warning style", "default": false }
@@ -202,8 +202,8 @@
       "name": "Troubleshooting card",
       "settings": [
         { "type": "text", "id": "tag", "label": "Tag" },
-        { "type": "text", "id": "q", "label": "Problem" },
-        { "type": "textarea", "id": "f", "label": "Fix" }
+        { "type": "text", "id": "question", "label": "Problem" },
+        { "type": "textarea", "id": "answer", "label": "Fix" }
       ]
     },
     {

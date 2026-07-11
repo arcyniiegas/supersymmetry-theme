@@ -12,9 +12,9 @@
   <div class="habits">
     {%- for block in habit_blocks -%}
     <div class="habit" {{ block.shopify_attributes }}>
-      <span class="habit__k">{{ block.settings.k }}</span>
-      <h3 class="habit__t">{{ block.settings.t }}</h3>
-      <p class="habit__b">{{ block.settings.b }}</p>
+      <span class="habit__k">{{ block.settings.eyebrow }}</span>
+      <h3 class="habit__t">{{ block.settings.title }}</h3>
+      <p class="habit__b">{{ block.settings.body }}</p>
     </div>
     {%- endfor -%}
   </div>
