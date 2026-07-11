@@ -1,24 +1,8 @@
-
-/* rail scroll-spy */
-const railLinks = document.querySelectorAll('.rail a[href^="#"]');
-const groups = [...document.querySelectorAll('.group')];
-railLinks.forEach(l => l.addEventListener('click', () => {
-  railLinks.forEach(x => x.removeAttribute('aria-current'));
-  l.setAttribute('aria-current','true');
-}));
-const railFor = id => document.querySelector(`.rail a[href="#${id}"]`);
-const spy = new IntersectionObserver(es => {
-  es.forEach(e => {
-    if (e.isIntersecting){
-      railLinks.forEach(x => x.removeAttribute('aria-current'));
-      const l = railFor(e.target.id);
-      if (l) l.setAttribute('aria-current','true');
-    }
-  });
-}, { rootMargin: '-20% 0px -70% 0px' });
-groups.forEach(g => spy.observe(g));
+/* Rail scroll-spy is the shared <scroll-spy> Custom Element
+   (component-scroll-spy.js); this file only owns the live search filter. */
 
 /* live search filter */
+const groups = [...document.querySelectorAll('.group')];
 const q = document.getElementById('faq-q') || { addEventListener: function(){}, value: '', focus: function(){} };
 const stat = document.getElementById('faq-stat');
 const noresults = document.getElementById('noresults');

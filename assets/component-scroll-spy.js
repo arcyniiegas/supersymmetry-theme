@@ -7,14 +7,18 @@
    own chips, so multiple instances on a page don't collide.
 
    Markup: <scroll-spy class="subnav" role="navigation" aria-label="…"
-             [data-spy-margin="-45% 0px -50% 0px"]>
+             [data-spy-links=".subnav__chip"] [data-spy-margin="-45% 0px -50% 0px"]>
              <div class="subnav__wrap"><a class="subnav__chip" href="#anchor">…</a>…</div>
            </scroll-spy>
+   data-spy-links overrides the link selector (default .subnav__chip) so the
+   same element can drive a different nav shape — e.g. the DUK category rail
+   passes data-spy-links='a[href^="#"]'.
    ════════════════════════════════════════════════════════════ */
 if (!customElements.get('scroll-spy')) {
   class ScrollSpy extends HTMLElement {
     connectedCallback() {
-      const chips = Array.from(this.querySelectorAll('.subnav__chip'));
+      const linkSel = this.dataset.spyLinks || '.subnav__chip';
+      const chips = Array.from(this.querySelectorAll(linkSel));
       if (!chips.length) return;
       const setActive = (chip) => {
         chips.forEach((c) => c.setAttribute('aria-current', 'false'));
@@ -23,7 +27,7 @@ if (!customElements.get('scroll-spy')) {
 
       /* instant feedback on click, before the smooth-scroll settles */
       this._onClick = (e) => {
-        const chip = e.target.closest('.subnav__chip');
+        const chip = e.target.closest(linkSel);
         if (chip && this.contains(chip)) setActive(chip);
       };
       this.addEventListener('click', this._onClick);

@@ -124,6 +124,9 @@ Extract shared behaviour into `assets/component-*.js`; retire page scripts.
 - [x] `Drawer` (`<theme-drawer>`) — filter drawer + mobile menu + search overlay
       unified into one Custom Element; drawer JS pulled out of `chrome.js` (119→66)
       and `collection.js`. Verified live.
+- [x] `scroll-spy` generalised (`data-spy-links` selector) + adopted on the DUK
+      category rail — the hand-rolled rail spy is gone from `duk.js` (which now owns
+      only the live search filter). 3 sections, 1 component. Verified live.
 - [ ] `Modal` — size chart / dialogs.
 - [ ] `Carousel`, `Reveal`, `Tabs`, `Sticky`, `Video`, `ScrollObserver`.
 - [ ] Retire remaining page scripts as their behaviour lands in components.

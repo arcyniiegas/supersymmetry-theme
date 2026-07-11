@@ -36,8 +36,9 @@
 <div class="shell">
 {%- if section.blocks.size > 0 -%}
 
-  <!-- category rail (block-driven) -->
-  <aside class="rail" aria-label="Kategorijos">
+  <!-- category rail (block-driven) — scroll-spy Custom Element highlights the
+       active category as you scroll (shared with grąžinimai/avalynės) -->
+  <scroll-spy class="rail" role="complementary" aria-label="Kategorijos" data-spy-links='a[href^="#"]' data-spy-margin="-20% 0px -70% 0px">
     {%- for block in section.blocks -%}
       {%- if block.type == 'group' -%}
         {%- assign cnt = 0 -%}
@@ -53,7 +54,7 @@
       <p>{{ section.settings.rail_help | default: 'Neradote atsakymo? Parašykite — atsakome per dieną.' }}</p>
       <a href="{{ pages.kontaktai.url | default: routes.root_url }}" class="lnk">{{ section.settings.rail_help_label | default: 'Susisiekti →' }}</a>
     </div>
-  </aside>
+  </scroll-spy>
 
   <!-- accordion column (block-driven) -->
   <div class="qcol">
@@ -106,6 +107,7 @@
     </div>
   </div>
 </section>
+<script src="{{ 'component-scroll-spy.js' | asset_url }}" defer></script>
 <script src="{{ 'duk.js' | asset_url }}" defer></script>
 {% schema %}
 {
