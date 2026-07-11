@@ -7,7 +7,7 @@ const q = document.getElementById('faq-q') || { addEventListener: function(){}, 
 const stat = document.getElementById('faq-stat');
 const noresults = document.getElementById('noresults');
 const nrTerm = document.getElementById('nr-term');
-const allQA = [...document.querySelectorAll('.qa')];
+const allQA = [...document.querySelectorAll('.accordion, .qa')];
 const totalQ = allQA.length;
 
 q.addEventListener('input', () => {
@@ -22,7 +22,7 @@ q.addEventListener('input', () => {
   let shown = 0;
   groups.forEach(g => {
     let groupHas = false;
-    g.querySelectorAll('.qa').forEach(d => {
+    g.querySelectorAll('.accordion, .qa').forEach(d => {
       const txt = d.textContent.toLowerCase();
       const match = txt.includes(term);
       d.style.display = match ? '' : 'none';
