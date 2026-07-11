@@ -16,7 +16,7 @@
 <section class="phead">
   <div>
     {%- if section.settings.show_eyebrow -%}
-    <div class="phead__eyebrow">{{ section.settings.eyebrow_prefix | default: 'Kolekcija' }} · <b>{{ collection.products_count }}</b> {{ 'collection.models' | t }}</div>
+    <div class="eyebrow-rule phead__eyebrow">{{ section.settings.eyebrow_prefix | default: 'Kolekcija' }} · <b>{{ collection.products_count }}</b> {{ 'collection.models' | t }}</div>
     {%- endif -%}
     <h1 class="phead__title">
       {%- if collection.title != blank -%}

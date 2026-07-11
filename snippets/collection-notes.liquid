@@ -2,7 +2,7 @@
 <section class="notes">
   <div class="notes__wrap">
     <div class="notes__lede">
-      <div class="notes__eyebrow">{{ section.settings.notes_eyebrow | default: 'Apie kolekciją' }}</div>
+      <div class="eyebrow eyebrow--rule">{{ section.settings.notes_eyebrow | default: 'Apie kolekciją' }}</div>
       <h2 class="notes__title">{{ section.settings.notes_title | default: 'Kaip mąstome' }} <span class="light">{{ section.settings.notes_title_light | default: 'apie partijas.' }}</span></h2>
       <p>{{ section.settings.notes_text | default: 'Kiekvienas modelis pagaminamas tik vieną kartą — 500 porų partija, sunumeruota nuo 001 iki 500. Kai partija baigiasi, modelio nebeatkartojame. Tai vieninteliai mūsų „naujienos“ — todėl ir patikrinkite šį puslapį prieš sezoną.' }}</p>
       {%- if section.settings.notes_cta_label != blank -%}

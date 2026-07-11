@@ -2,8 +2,8 @@
 /* ── FIT REASSURANCE ── */
 .homefit{ max-width: var(--max); margin: 0 auto; padding: var(--sp-16) var(--gutter) var(--sp-12); border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-12); align-items: center; }
 @media (max-width: 900px){ .homefit{ grid-template-columns: 1fr; gap: var(--sp-8); padding: var(--sp-12) var(--gutter); } }
-.homefit__eyebrow{ font: 500 12px/1.4 var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); display: flex; align-items: center; gap: 14px; }
-.homefit__eyebrow::before{ content:''; width: 28px; height: 1px; background: var(--ink); }
+.homefit__eyebrow, .homevisit__eyebrow{ font: 500 12px/1.4 var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); display: flex; align-items: center; gap: 14px; }
+.homefit__eyebrow::before, .homevisit__eyebrow::before{ content:''; width: 28px; height: 1px; background: var(--ink); }
 .homefit__title{ margin: var(--sp-5) 0 0; font: 500 calc(var(--t-section) * var(--title-scale, 1))/1.05 var(--font-sans); letter-spacing: -0.03em; text-wrap: balance; }
 .homefit__title .light{ color: var(--text-muted); font-weight: 300; }
 .homefit__sub{ margin: var(--sp-4) 0 0; font: 400 16px/1.6 var(--font-sans); color: var(--text-muted); max-width: 46ch; letter-spacing: -0.005em; }
@@ -17,8 +17,7 @@
 .homevisit{ background: var(--surface); padding: var(--sp-12) 0 var(--sp-20); }
 .homevisit__wrap{ max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); display: grid; grid-template-columns: 1fr 1.1fr; gap: var(--sp-12); align-items: center; }
 @media (max-width: 900px){ .homevisit__wrap{ grid-template-columns: 1fr; gap: var(--sp-10); } .homevisit{ padding: var(--sp-12) 0; } }
-.homevisit__eyebrow{ font: 500 12px/1.4 var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); display: flex; align-items: center; gap: 14px; }
-.homevisit__eyebrow::before{ content:''; width: 28px; height: 1px; background: var(--ink); }
+/* .homevisit__eyebrow shares the .homefit__eyebrow rule above */
 .homevisit h2{ margin: var(--sp-5) 0 0; font: 500 calc(var(--t-section) * var(--title-scale, 1))/1.05 var(--font-sans); letter-spacing: -0.03em; text-wrap: balance; }
 .homevisit p{ margin: var(--sp-4) 0 0; font: 400 16px/1.6 var(--font-sans); color: var(--text-muted); max-width: 40ch; letter-spacing: -0.005em; }
 .homevisit__hours{ margin: var(--sp-6) 0 0; max-width: 320px; }

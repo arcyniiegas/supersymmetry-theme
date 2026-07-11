@@ -14,7 +14,7 @@
   display: grid;
   justify-items: center;
 }
-.khero__eyebrow{
+.khero__eyebrow, .visit__eyebrow{
   font: 500 12px/1 var(--font-mono);
   letter-spacing: 0.08em; text-transform: uppercase;
   color: var(--orange);
@@ -181,11 +181,7 @@
   gap: var(--sp-12); align-items: center;
 }
 @media (max-width: 900px){ .visit__wrap{ grid-template-columns: 1fr; gap: var(--sp-10); } }
-.visit__eyebrow{
-  font: 500 12px/1 var(--font-mono);
-  letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--orange);
-}
+/* .visit__eyebrow shares the .khero__eyebrow rule above */
 .visit h2{
   margin: var(--sp-5) 0 0;
   font: 600 clamp(28px, 3.2vw, 40px)/1.1 var(--font-sans);

@@ -104,6 +104,12 @@ input, textarea{ min-width:0; max-width:100%; }
 }
 .eyebrow-rule b{ color: var(--text); font-weight: 500; }
 
+/* modifier: adds a 24px leading rule to the caps .eyebrow label.
+   NB distinct from .eyebrow-rule above (that is the 12px non-caps
+   standalone variant). Compose in markup: class="eyebrow eyebrow--rule". */
+.eyebrow--rule{ display: flex; align-items: center; gap: 12px; }
+.eyebrow--rule::before{ content:''; width: 24px; height: 1px; background: var(--ink); display: inline-block; }
+
 /* underline link */
 .uline{
   position: relative;

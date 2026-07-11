@@ -3,7 +3,7 @@
 <!-- ──────────── LETTER FROM THE ATELIER ──────────── -->
 <section class="letter" style="--title-scale: {{ section.settings.title_scale | default: 100 | divided_by: 100.0 }};">
   <div class="letter__copy">
-    <div class="letter__eyebrow">{{ section.settings.eyebrow }}</div>
+    <div class="eyebrow eyebrow--rule">{{ section.settings.eyebrow }}</div>
     <h2 class="letter__title">{{ section.settings.title }} <span class="light">{{ section.settings.title_light }}</span></h2>
     <p class="letter__sub">{{ section.settings.sub }}</p>
     {%- form 'customer', style: 'display: contents;' -%}

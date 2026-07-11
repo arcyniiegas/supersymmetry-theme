@@ -74,9 +74,7 @@ body{ background: var(--surface); }
 
 /* ── redeem panel ── */
 .redeem{ display: grid; gap: var(--sp-6); }
-.redeem__eyebrow{ font: 500 12px/1.4 var(--font-mono); letter-spacing: 0.04em; color: var(--text-muted); display: flex; align-items: center; gap: 14px; }
-.redeem__eyebrow::before{ content:''; width: 28px; height: 1px; background: var(--ink); }
-.redeem__eyebrow b{ color: var(--text); font-weight: 500; }
+/* eyebrow: .eyebrow-rule (base.css) */
 .redeem__title{
   font: 500 clamp(28px, 4vw, 42px)/1.0 var(--font-sans); letter-spacing: -0.035em; margin: 0; text-wrap: balance;
 }
