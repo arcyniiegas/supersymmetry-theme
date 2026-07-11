@@ -1,0 +1,163 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "blocks": {
+        "note-1": {
+          "type": "note_row",
+          "settings": {
+            "index": "01",
+            "label": "Sezoninės kolekcijos",
+            "sub": "Du kartus per metus — pavasaris/vasara ir ruduo/žiema.",
+            "value": "01 ir 07 mėn."
+          }
+        },
+        "note-2": {
+          "type": "note_row",
+          "settings": {
+            "index": "02",
+            "label": "Gamyba",
+            "sub": "Kiekvienas modelis gaminamas 1-1.5 mėneso, todėl turime itin ribotas partijas.",
+            "value": "30-45 d."
+          }
+        },
+        "note-3": {
+          "type": "note_row",
+          "settings": {
+            "index": "03",
+            "label": "Išankstiniai užsakymai",
+            "sub": "Išparduotos partijos negrįžta į gamybą, nebent yra surenkamas pakankamas kiekis užsakymui kartoti.",
+            "value": "∅ restock"
+          }
+        },
+        "note-4": {
+          "type": "note_row",
+          "settings": {
+            "index": "04",
+            "label": "Individualus požiūris",
+            "sub": "Dauguma užsakomų modelių yra individualūs - mes parenkame odos tipą, spalvą, apdailos detales bei padą.",
+            "value": ""
+          }
+        }
+      },
+      "block_order": [
+        "note-1",
+        "note-2",
+        "note-3",
+        "note-4"
+      ],
+      "disabled": true,
+      "settings": {
+        "show_eyebrow": true,
+        "eyebrow_prefix": "Kolekcija",
+        "meta_label": "Pavasaris–Vasara 2026",
+        "default_title_light": "Visa",
+        "default_title": "kolekcija.",
+        "products_per_page": 24,
+        "empty_eyebrow": "Kolekcija ruošiama",
+        "empty_title_light": "Poros",
+        "empty_title": "grįžta netrukus.",
+        "empty_text": "Ši kolekcija dar pildoma — užsukite po kelių dienų arba peržiūrėkite visą asortimentą.",
+        "show_notes": true,
+        "notes_eyebrow": "",
+        "notes_title": "Kaip mąstome",
+        "notes_title_light": "apie kolekcijas.",
+        "notes_text": "Kiekvienas modelis gaminamas tik vieną kartą. Kiekvieno modelio užsakome tik 8 vienetus. Kai modelis baigiasi, jo nebekartojame.",
+        "notes_cta_label": "Mūsų istorija",
+        "notes_cta_link": "",
+        "title_scale": 100,
+        "card_name_scale": 70,
+        "color_scheme": "",
+        "text_color": ""
+      }
+    },
+    "main_list_collections_RGxP6J": {
+      "type": "main-list-collections",
+      "blocks": {
+        "collection_GD3W9h": {
+          "type": "collection",
+          "settings": {
+            "collection": "basutes",
+            "badge": "",
+            "count_word": "poros"
+          }
+        },
+        "collection_WWbDtm": {
+          "type": "collection",
+          "settings": {
+            "collection": "bateliai",
+            "badge": "",
+            "count_word": "poros"
+          }
+        },
+        "collection_9hTLNA": {
+          "type": "collection",
+          "settings": {
+            "collection": "laisvalaikio-batai",
+            "badge": "",
+            "count_word": "poros"
+          }
+        },
+        "collection_Hcpqdd": {
+          "type": "collection",
+          "settings": {
+            "collection": "aulinukai",
+            "badge": "",
+            "count_word": "poros"
+          }
+        },
+        "collection_M9BR36": {
+          "type": "collection",
+          "settings": {
+            "collection": "slepetes",
+            "badge": "",
+            "count_word": "poros"
+          }
+        },
+        "collection_JQjxUW": {
+          "type": "collection",
+          "settings": {
+            "collection": "aukstakulniai",
+            "badge": "",
+            "count_word": "poros"
+          }
+        }
+      },
+      "block_order": [
+        "collection_GD3W9h",
+        "collection_WWbDtm",
+        "collection_9hTLNA",
+        "collection_Hcpqdd",
+        "collection_M9BR36",
+        "collection_JQjxUW"
+      ],
+      "name": "List collections",
+      "settings": {
+        "color_scheme": "",
+        "text_color": "",
+        "eyebrow": "",
+        "title_light": "Visos",
+        "title": "kolekcijos.",
+        "intro": "Kiekvienas rinkinys — atskira partija, ribotas porų skaičius, <b>vienas modelis, daug niuansų</b>. Rinkis pagal nuotaiką arba pagal sezoną.",
+        "season": "SS·26",
+        "band_eyebrow": "Kaip skaityti partijas",
+        "band_title_light": "Vienas modelis.",
+        "band_title": "Daug partijų.",
+        "band_text": "Negaminame visko iš karto. Kas kelis mėnesius išleidžiame naują partiją — ribotą, sunumeruotą, dažnai šiek tiek kitokią. Kai partija išparduota, ji keliauja į archyvą. Štai kodėl kiekviena pora turi savo numerį."
+      }
+    }
+  },
+  "order": [
+    "main",
+    "main_list_collections_RGxP6J"
+  ]
+}
