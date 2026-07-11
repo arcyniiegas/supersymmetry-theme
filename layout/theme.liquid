@@ -17,6 +17,8 @@
   {{ 'component-header.css' | asset_url | stylesheet_tag }}
   {{ 'component-footer.css' | asset_url | stylesheet_tag }}
   {{ 'component-form.css' | asset_url | stylesheet_tag }}
+  {{ 'component-cart.css' | asset_url | stylesheet_tag }}
+  {{ 'component-cart-drawer.css' | asset_url | stylesheet_tag }}
   <style>{% render 'color-schemes' %}</style>
   {{ content_for_header }}
   {%- assign brand = settings.brand_name | default: shop.name -%}
@@ -31,6 +33,7 @@
   {% render 'dock' %}
   {% render 'mobile-menu' %}
   {% render 'search-overlay' %}
+  {% section 'cart-drawer' %}
   {% render 'cookie-banner' %}
   {%- comment -%} JS string registry: customer-facing copy used by scripts, sourced
     from locales so translators reach it. theme.t(key, {var}) fills {var} tokens. {%- endcomment -%}
@@ -68,6 +71,7 @@
   </script>
   <script src="{{ 'cart-store.js' | asset_url }}" defer></script>
   <script src="{{ 'component-drawer.js' | asset_url }}" defer></script>
+  <script src="{{ 'component-cart.js' | asset_url }}" defer></script>
   <script src="{{ 'chrome.js' | asset_url }}" defer></script>
   <script src="{{ 'predictive-search.js' | asset_url }}" defer></script>
 </body>

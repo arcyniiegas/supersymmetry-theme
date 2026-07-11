@@ -1,0 +1,58 @@
+{%- comment -%}
+  Cart line item — one row. Shared by the cart page (main-cart) and the cart
+  drawer (cart-drawer) so the two never diverge.
+
+  Params:
+    item  {line_item}  required — an entry from cart.items
+    index {number}     optional — 1-based position; renders the NN media badge
+                        (page only; the drawer omits it)
+
+  Classes here are the contract for component-cart.js: the row carries
+  data-key, the stepper is .qty with [data-step] buttons, remove is .line__remove.
+  Money is always Liquid-computed — never faked client-side.
+{%- endcomment -%}
+<article class="line" data-key="{{ item.key }}" data-qty="{{ item.quantity }}">
+  <a class="line__media" href="{{ item.url }}">
+    {%- if item.image -%}
+    <img src="{{ item.image | image_url: width: 200 }}" srcset="{{ item.image | image_url: width: 200 }} 200w, {{ item.image | image_url: width: 400 }} 400w" sizes="120px" alt="{{ item.title | escape }}" width="{{ item.image.width }}" height="{{ item.image.height }}" loading="lazy" />
+    {%- else -%}
+    <img src="{{ 'Nr1.webp' | asset_url }}" alt="{{ item.title | escape }}" width="1400" height="1400" loading="lazy" />
+    {%- endif -%}
+    {%- if index -%}<span class="line__index">{% if index < 10 %}0{% endif %}{{ index }}</span>{%- endif -%}
+  </a>
+  <div class="line__body">
+    <div class="line__top">
+      <div class="line__name"><a href="{{ item.url }}">{{ item.product.title }}</a></div>
+      <button type="button" class="line__remove" aria-label="{{ 'cart.remove' | t }}">
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 3l8 8M11 3l-8 8"/></svg>
+      </button>
+    </div>
+    <div class="tags">
+      {%- if item.product.metafields.glance.material != blank -%}
+      <span class="tag tag--mat"><i></i>{{ item.product.metafields.glance.material }}</span>
+      {%- endif -%}
+      {%- if item.variant.title and item.variant.title != 'Default Title' -%}
+      <span class="tag tag--size"><i></i>{{ item.variant.title }}</span>
+      {%- endif -%}
+      {%- if item.original_price > item.final_price -%}
+      <span class="tag tag--sale"><i></i>−{{ item.original_price | minus: item.final_price | times: 100.0 | divided_by: item.original_price | round }} %</span>
+      {%- endif -%}
+      {%- if item.product.metafields.glance.origin != blank -%}
+      <span class="tag tag--origin"><i></i>{{ item.product.metafields.glance.origin }}</span>
+      {%- endif -%}
+    </div>
+    <div class="line__foot">
+      <div class="qty">
+        <button type="button" data-step="-1" aria-label="{{ 'cart.decrease' | t }}">–</button>
+        <input type="text" value="{{ item.quantity }}" inputmode="numeric" aria-label="{{ 'cart.quantity' | t }}" />
+        <button type="button" data-step="1" aria-label="{{ 'cart.increase' | t }}">+</button>
+      </div>
+      <div class="line__price">
+        {%- if item.original_line_price > item.final_line_price -%}
+        <span class="line__was">{{ item.original_line_price | money | remove: '€' | remove: ',00' }}</span>
+        {%- endif -%}
+        <span class="line__now">{{ item.final_line_price | money | remove: '€' | remove: ',00' }}</span>
+      </div>
+    </div>
+  </div>
+</article>

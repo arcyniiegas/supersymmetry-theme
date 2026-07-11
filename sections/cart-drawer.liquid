@@ -1,0 +1,74 @@
+{%- comment -%}
+  Cart drawer — the primary cart interface (ARCHITECTURE_CART: "The Cart Drawer
+  is the primary cart interface"). Included once, globally, from theme.liquid.
+
+  Reuses the shared <theme-drawer> component (component-drawer.js) for all
+  mechanics: open/close, focus trap, Esc, scroll-lock, focus return. The
+  #cart-drawer-inner element is the swap target: after every cart mutation,
+  component-cart.js replaces it with freshly Liquid-rendered HTML delivered via
+  the Section Rendering API, so all money/totals/free-ship state stay
+  authoritative. Line rows and the free-ship meter are the same shared snippets
+  the cart page uses.
+{%- endcomment -%}
+<theme-drawer id="cartDrawer" class="cart-drawer" data-body-class="cart-open" data-open-class="is-open" data-portal data-focus=".cart-drawer__close">
+  <div class="cart-drawer__scrim" data-drawer-close></div>
+  <aside class="cart-drawer__panel" role="dialog" aria-modal="true" aria-label="{{ 'cart.title' | t }}">
+    <div class="cart-drawer__inner" id="cart-drawer-inner">
+
+      <header class="cart-drawer__head">
+        <div class="cart-drawer__title">
+          {{ 'cart.title' | t }}
+          <span class="cart-drawer__count" data-bag-count{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</span>
+        </div>
+        <button type="button" class="cart-drawer__close" data-drawer-close aria-label="{{ 'general.close' | t }}">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg>
+        </button>
+      </header>
+
+      {%- if cart.item_count == 0 -%}
+
+      <div class="cart-drawer__empty">
+        <p class="cart-drawer__empty-title">{{ 'cart.empty_short' | t }}</p>
+        {% render 'button', label: 'cart.empty_cta' | t, href: routes.all_products_collection_url, style: 'primary', size: 'lg', arrow: true %}
+      </div>
+
+      {%- else -%}
+
+      {% render 'free-shipping-bar' %}
+
+      <div class="cart-drawer__items items">
+        {%- for item in cart.items -%}
+          {% render 'cart-line', item: item %}
+        {%- endfor -%}
+      </div>
+
+      <footer class="cart-drawer__foot">
+        <div class="cart-drawer__row">
+          <span class="cart-drawer__row-k">{{ 'cart.subtotal' | t }}</span>
+          <span class="cart-drawer__row-v">{{ cart.items_subtotal_price | money | remove: '€' | remove: ',00' }}</span>
+        </div>
+        <p class="cart-drawer__note">{{ 'cart.checkout_note' | t }}</p>
+        <form action="{{ routes.cart_url }}" method="post">
+          <button type="submit" name="checkout" class="btn btn--orange btn--lg cart-drawer__checkout">
+            {{ 'cart.checkout' | t }} <span class="btn__arrow">→</span>
+          </button>
+        </form>
+        <a href="{{ routes.cart_url }}" class="cart-drawer__viewcart uline">{{ 'cart.view_cart' | t }}</a>
+      </footer>
+
+      {%- endif -%}
+
+    </div>
+  </aside>
+
+  {%- comment -%} One global toast, used by component-cart.js on every page.
+    Lives outside #cart-drawer-inner so it survives section swaps. {%- endcomment -%}
+  <div class="toast" id="toast" role="status" aria-live="polite"><span class="brand-dot"></span><span id="toastMsg"></span></div>
+</theme-drawer>
+
+{% schema %}
+{
+  "name": "Cart drawer",
+  "settings": []
+}
+{% endschema %}

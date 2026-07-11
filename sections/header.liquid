@@ -23,7 +23,7 @@
       <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="9" cy="9" r="5.2"/><path d="M12.8 12.8 L16.6 16.6"/></svg></a>
     <a href="{{ routes.account_url }}" class="header__tool header__tool-account" aria-label="{{ 'nav.account' | t }}">
       <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="6.8" r="3.2"/><path d="M4.2 16.4 C4.2 12.9 6.8 11.2 10 11.2 C13.2 11.2 15.8 12.9 15.8 16.4"/></svg></a>
-    <a href="{{ routes.cart_url }}"{% if request.page_type == 'cart' %} aria-current="page"{% endif %} class="header__tool header__tool-cart" aria-label="{{ 'cart.title' | t }}">
+    <a href="{{ routes.cart_url }}"{% if request.page_type == 'cart' %} aria-current="page"{% else %} data-drawer-open="cartDrawer"{% endif %} class="header__tool header__tool-cart" aria-label="{{ 'cart.title' | t }}">
       <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6 6.4 H14 L14.8 15.8 A0.7 0.7 0 0 1 14.1 16.6 H5.9 A0.7 0.7 0 0 1 5.2 15.8 Z M7.8 6.4 V5.6 A2.2 2.2 0 0 1 12.2 5.6 V6.4"/></svg>
       <span class="bag-count" data-bag-count{% if cart.item_count == 0 %} style="display:none"{% endif %}>{{ cart.item_count }}</span></a>
   </div>

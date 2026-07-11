@@ -24,7 +24,7 @@
     <a class="dock__item" href="{{ routes.search_url }}"{% if request.page_type == 'search' %} aria-current="page"{% endif %} aria-label="{{ l_search | escape }}" data-search-open>
       <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="9" cy="9" r="5.2"/><path d="M12.8 12.8 L16.6 16.6"/></svg>
       <span class="dock__label">{{ l_search }}</span></a>
-    <a class="dock__item" href="{{ routes.cart_url }}"{% if request.page_type == 'cart' %} aria-current="page"{% endif %} aria-label="{{ l_cart | escape }}">
+    <a class="dock__item" href="{{ routes.cart_url }}"{% if request.page_type == 'cart' %} aria-current="page"{% else %} data-drawer-open="cartDrawer"{% endif %} aria-label="{{ l_cart | escape }}">
       <span class="dock__badge" data-bag-count{% if cart.item_count == 0 %} style="display:none"{% endif %}>{{ cart.item_count }}</span>
       <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6 6.4 H14 L14.8 15.8 A0.7 0.7 0 0 1 14.1 16.6 H5.9 A0.7 0.7 0 0 1 5.2 15.8 Z M7.8 6.4 V5.6 A2.2 2.2 0 0 1 12.2 5.6 V6.4"/></svg>
       <span class="dock__label">{{ l_cart }}</span></a>

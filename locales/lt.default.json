@@ -28,7 +28,15 @@
     "promo_code": "Nuolaidos kodas",
     "added": "Pridėta į krepšelį",
     "removed": "Pašalinta iš krepšelio",
-    "update_error": "Nepavyko atnaujinti — bandykite dar kartą."
+    "update_error": "Nepavyko atnaujinti — bandykite dar kartą.",
+    "subtotal": "Tarpinė suma",
+    "checkout": "Apmokėti",
+    "checkout_note": "Pristatymas ir mokesčiai skaičiuojami apmokant.",
+    "view_cart": "Peržiūrėti krepšelį",
+    "empty_short": "Krepšelis tuščias",
+    "empty_cta": "Į kolekciją",
+    "free_ship_reached": "Nemokamas pristatymas ✓",
+    "free_ship_remaining_html": "Dar <b>{{ amount }}</b> iki nemokamo pristatymo"
   },
   "collection": {
     "list_empty": "Kolekcijos ruošiamos — netrukus jos pasirodys čia.",
