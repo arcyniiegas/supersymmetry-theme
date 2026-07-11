@@ -217,9 +217,17 @@ The high‑value, high‑complexity surfaces, onto the shared kit last.
       `v`→`value`, `k`(Kicker)→`eyebrow`, `t`→`title`, `b`→`body`, `n`→`num`,
       `q`→`question`, `f`→`answer`, `d`(Detail)→`text`. **No single-letter setting
       id remains anywhere.** (Dev-facing — merchants already saw the human labels.)
-      Remaining schema work: banned word-ids (`headline_light/_bold` stays until
-      home-hero refactor, §1 note), grouping `header` audit, presets for any
-      reusable content sections that still lack one.
+      **Presets audit — DONE:** all 17 reusable content sections have presets; the
+      18 without (all `main-*` template sections + `header`/`utility-bar`) are
+      template-/group-bound and correctly preset-less (matches Dawn). **Grouping
+      `header` audit — DONE for live content sections:** `footer` (Newsletter/
+      Legal), `main-kontaktai` (Intro/Facts/Form/Visit/Appearance, reordered
+      content-first), `main-apie-mus` (Intro/Story image/Note) grouped; display-
+      only, IDs unchanged. Remaining: banned word-ids (`headline_light/_bold` stays
+      until home-hero refactor, §1) and grouping the 5 customer-account sections
+      (login/register/activate/reset/addresses) — lower priority, they run on
+      Shopify-hosted new customer accounts so their theme schema is out of the
+      live editor flow.
 - [ ] Full `theme-check` pass; accessibility + Lighthouse sweep.
 
 ---
