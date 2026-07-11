@@ -48,6 +48,20 @@
     "sold_out": "Sold out",
     "new": "New"
   },
+  "contact": {
+    "sent": "Thanks — your message was sent.",
+    "name": "Name",
+    "name_placeholder": "Full name",
+    "email": "Email",
+    "order_number": "Order number",
+    "order_optional": "(if you have one)",
+    "country": "Country",
+    "message": "Message",
+    "message_placeholder": "Tell us how we can help. For sizing questions, include your foot length in centimetres.",
+    "consent_html": "I agree that my data may be used to respond to this enquiry per the {{ policy }}.",
+    "privacy_policy": "privacy policy",
+    "send": "Send message"
+  },
   "search": {
     "title": "Search",
     "eyebrow_html": "Search · <b>whole collection</b>",

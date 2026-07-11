@@ -48,6 +48,20 @@
     "sold_out": "Išparduota",
     "new": "Naujiena"
   },
+  "contact": {
+    "sent": "Ačiū — žinutė išsiųsta.",
+    "name": "Vardas",
+    "name_placeholder": "Vardas Pavardė",
+    "email": "El. paštas",
+    "order_number": "Užsakymo numeris",
+    "order_optional": "(jei turite)",
+    "country": "Šalis",
+    "message": "Žinutė",
+    "message_placeholder": "Papasakokite, kuo galime padėti. Jei klausimas apie dydį — pridėkite pėdos ilgį centimetrais.",
+    "consent_html": "Sutinku, kad mano duomenys būtų naudojami atsakyti į šią užklausą pagal {{ policy }}.",
+    "privacy_policy": "privatumo politiką",
+    "send": "Siųsti žinutę"
+  },
   "search": {
     "title": "Paieška",
     "eyebrow_html": "Paieška · <b>visa kolekcija</b>",
