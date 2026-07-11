@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ request.locale.iso_code }}"{% unless settings.glass_enabled %} data-glass="off"{% endunless %} style="--glass-blur: {{ settings.glass_blur | default: 12 }}px">
+<html lang="{{ request.locale.iso_code }}"{% unless settings.glass_enabled %} data-glass="off"{% endunless %} style="--glass-blur: {{ settings.glass_blur | default: 12 }}px; --type-scale: {{ settings.type_scale | default: 100 | divided_by: 100.0 }}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">

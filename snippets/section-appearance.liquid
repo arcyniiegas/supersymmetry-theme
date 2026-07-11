@@ -1,33 +1,53 @@
 {%- comment -%}
-  section-appearance — per-section Text colour + heading-size overrides.
+  section-appearance — per-section Colour scheme + Text colour + heading-size overrides.
 
   Emits a {% style %} block scoped to this section's own #shopify-section
   wrapper, so it only affects this section. Reads whichever of these
   settings the calling section declares (all optional):
 
-    text_color      → --text              (recolours body + heading text)
+    color_scheme    → recolours the whole section (background + text + surface
+                      + lines) by remapping the palette tokens on this wrapper.
+                      Uses Shopify's color_scheme setting; scheme-1 equals the
+                      default tokens exactly, so the default is a visual no-op.
+    text_color      → --text              (recolours body + heading text only)
     title_scale     → --title-scale        (heading size, %)
     headline_scale  → --hero-scale         (hero headline size, %)
     intro_scale     → --hero-intro-scale   (hero intro size, %)
 
-  Text colour works because every text `color:` in the theme reads
-  var(--text) / var(--text-muted); decorative ink (fills, borders, dark
-  cards) keeps using --ink, so backgrounds are untouched.
+  Colour scheme works because the theme is semantic: every text `color:` reads
+  var(--text)/var(--text-muted); raised panels read var(--surface); borders read
+  var(--line); and inverted fills (buttons, chips) read var(--ink) on var(--bg).
+  Remapping all of these to the scheme keeps buttons correctly inverted, so a
+  dark scheme paints a dark section with light, legible controls. text_color is
+  applied AFTER the scheme so a merchant can still fine-tune just the words.
 
   Usage (near the top of a section): {% render 'section-appearance', section: section %}
 {%- endcomment -%}
 {%- liquid
+  assign scheme = section.settings.color_scheme
   assign c = section.settings.text_color
   assign ts = section.settings.title_scale
   assign hs = section.settings.headline_scale
   assign is = section.settings.intro_scale
+  assign has_scheme = false
+  if scheme != blank and scheme.settings.background != blank
+    assign has_scheme = true
+  endif
 -%}
-{%- if c != blank or ts != blank or hs != blank or is != blank -%}
+{%- if has_scheme or c != blank or ts != blank or hs != blank or is != blank -%}
 {% style %}
 #shopify-section-{{ section.id }}{
-{%- comment -%} Primary text takes the picked colour; muted/secondary text takes a
-  softened blend of it toward the background so the section stays harmonised.
-  color-mix degrades gracefully — unsupported browsers keep the default greys. {%- endcomment -%}
+{%- if has_scheme -%}
+{%- assign s_bg = scheme.settings.background -%}
+{%- assign s_text = scheme.settings.text -%}
+{%- assign s_surface = scheme.settings.surface -%}
+{%- assign s_line = scheme.settings.line -%}
+ --bg: {{ s_bg }}; --surface: {{ s_surface }}; --surface-hover: color-mix(in srgb, {{ s_surface }} 88%, {{ s_text }});
+ --line: {{ s_line }}; --hairline: {{ s_line }};
+ --text: {{ s_text }}; --ink: {{ s_text }}; --orange: {{ s_text }}; --orange-hi: color-mix(in srgb, {{ s_text }} 82%, {{ s_bg }});
+ --mid: color-mix(in srgb, {{ s_text }} 62%, {{ s_bg }}); --soft: color-mix(in srgb, {{ s_text }} 62%, {{ s_bg }}); --text-muted: color-mix(in srgb, {{ s_text }} 68%, {{ s_bg }});
+ background: {{ s_bg }}; color: {{ s_text }};
+{%- endif -%}
 {%- if c != blank %} --text: {{ c }}; --text-muted: color-mix(in srgb, {{ c }} 68%, var(--bg)); color: {{ c }};{% endif %}
 {%- if ts != blank %} --title-scale: {{ ts | divided_by: 100.0 }};{% endif %}
 {%- if hs != blank %} --hero-scale: {{ hs | divided_by: 100.0 }};{% endif %}

@@ -39,12 +39,17 @@
   --glass-line:      rgba(255,255,255,0.22);
   --glass-line-top:  rgba(255,255,255,0.60);
 
+  /* Global heading scale — one knob (Typography theme setting) scales the whole
+     editorial heading ramp at once. Body & eyebrow stay fixed as readability
+     anchors. Default 1 = identity (pixel parity). Per-section --title-scale /
+     --hero-scale multiply on top of this, so global × per-section compose. */
+  --type-scale: 1;
   --t-eyebrow:  11px;
   --t-body:     15px;
   --t-lead:     17px;
-  --t-display:  clamp(40px, 5vw, 72px);
-  --t-section:  clamp(28px, 2.6vw, 40px);
-  --t-hero:     clamp(56px, 8vw, 132px);
+  --t-display:  calc(clamp(40px, 5vw, 72px) * var(--type-scale));
+  --t-section:  calc(clamp(28px, 2.6vw, 40px) * var(--type-scale));
+  --t-hero:     calc(clamp(56px, 8vw, 132px) * var(--type-scale));
 
   --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
   --sp-5: 20px; --sp-6: 24px; --sp-8: 32px; --sp-10: 40px;
