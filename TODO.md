@@ -4,15 +4,20 @@ The live plan for turning this theme into the framework described in
 [ARCHITECTURE.md](ARCHITECTURE.md). Work top to bottom; each phase is
 behaviour‑preserving and verified before the next begins.
 
-**Status:** 21 commits, Theme-Check green, live-verified on `shopify theme dev`.
+**Status:** branch `refactor/framework-foundations` — this session: collection fix ·
+colour-scheme + type-scale (both **complete**) · shared block vocabulary + canonical
+renames · **i18n** (commerce/search/404/contact/customer-auth chrome, `collection`/
+`product`/`cart`/`contact`/`customer` namespaces) · foundations confirmed done · docs
+synced. Theme-Check green (0 errors), live-verified on `shopify theme dev`.
 `base.css` 42.7 → **10.6 KB (−75%)**, 8 `component-*.css` files; `button` primitive
 (13 CTAs); chrome i18n (22 `t`); **colour-scheme system live** (caught + fixed a
 theme-breaking role bug via the preview). **All 5 mega-sections split under 300:**
 `main-product` 578→297, `main-duk` 446→161, `main-avalynes` 404→223, `main-cart`
 361→268, `main-collection` 358→192 (`main-grazinimai` 298 already under). 28
-snippets (was 10). **Per-section `color_scheme` shipped** via `section-appearance`
-(full palette remap + bg/text paint; adopted in 19 content sections; scheme-1
-default = pixel parity, verified live incl. a dark-scheme proof). **Global heading
+snippets (was 10). **Per-section `color_scheme` complete** via `section-appearance`
+(full palette remap + bg/text paint; adopted in **all 31** section-appearance
+sections — content + commerce + account; scheme-1 default = pixel parity, verified
+live incl. a dark-scheme proof). **Global heading
 type-scale shipped** (Typography setting → `--type-scale` multiplies the heading
 ramp; default 100% = parity; Geist stays locked by design). **`/blocks` introduced
 — `hours` shipped as the first `@theme` block** (unifies `home-visit` + `main-kontaktai`;
@@ -57,10 +62,12 @@ committed as a small, self‑describing change.
       default applied on `<body>`.
 - [x] Add a **Typography** group → global `type_scale` (`--type-scale`) scaling the
       heading ramp in `tokens.css`; default 100% = parity. Font family stays Geist.
-- [ ] Slim `base.css` to resets + primitives; adopt the `component-*.css/js`
-      asset naming (assets/ is flat); create `blocks/` with a README.
-- [ ] Establish the section wrapper convention (`padding_top`/`padding_bottom`,
-      `color_scheme`) and a shared section CSS baseline.
+- [x] Slim `base.css` (42.7→10.6 KB — resets + shared primitives); `component-*.css`
+      naming adopted (8 files); `blocks/` created. (No `blocks/README.md` — theme-check
+      rejects non-Liquid files there; the block vocabulary lives in COMPONENTS.md.)
+- [~] Section wrapper convention: **`color_scheme` done** — picker on all 31
+      section-appearance sections (scheme-1 = parity). Pending: `padding_top`/
+      `padding_bottom` settings + a shared section CSS baseline (feature-scale).
 
 ## Phase 1 — Primitive snippet library
 
@@ -73,18 +80,25 @@ Build and adopt the missing primitives (see [COMPONENTS.md](COMPONENTS.md) §1).
 - [ ] Adopt `price` inside `product-card`; move card price logic out of the card.
 - [ ] `heading.liquid`, `section-header.liquid`, `container.liquid`.
 - [ ] `image.liquid` (responsive), `badge.liquid`, `icon.liquid` (SVG sprite).
-- [ ] Move `product-card` strings (`Išparduota`, `Naujiena`) to `locales/*`.
+- [x] Move `product-card` strings (`Išparduota`, `Naujiena`) to `locales/*` (`product` ns).
 
 ## Phase 2 — Shared block vocabulary
 
 Replace per‑page one‑offs with `@theme` blocks (see COMPONENTS.md §2, migration map).
 
-- [ ] `blocks/accordion-item.liquid` ← `qa`.
-- [ ] `blocks/stat.liquid` ← the two incompatible `stat` blocks (one schema).
-- [ ] `blocks/step.liquid` ← `habit` / `tstep` / `fix` / `store_row`.
-- [ ] `blocks/rich-text.liquid`, `blocks/heading.liquid`, `blocks/button.liquid`,
-      `blocks/image.liquid`.
-- [ ] `blocks/divider.liquid`, `blocks/spacer.liquid`.
+> **Note (docs-confirmed):** dynamic `@theme` blocks (`content_for "blocks"`) suit
+> single-block-type sections only; region-grouped sections keep section-local blocks +
+> a shared **snippet**. So the collapses below are snippet + canonical-rename, except
+> `hours` which is a true `@theme` block.
+
+- [x] `blocks/hours.liquid` — first `@theme` block (home-visit + kontaktai).
+- [x] `qa` + `faq` → **`accordion_item`** (shared `accordion-item` snippet + rename,
+      template data migrated, count-verified).
+- [x] `stat` unified via the shared `stat` snippet (5 sections).
+- [x] `store_row` + `mstep` → **`step`** (shared `step` snippet + rename). `habit` /
+      `tstep` / `fix` left section-local (distinct designs; `tstep` deduped via `care-steps`).
+- [ ] Remaining primitives (`rich_text`, `heading`, `image`, `divider`, `spacer`);
+      the genuinely distinct-design blocks stay section-local by design.
 
 ## Phase 3 — Reusable content sections + template remap
 
