@@ -84,15 +84,20 @@ inherits the store palette and both glass and solid surfaces stay coherent:
 ```
 
 The `color_scheme_group` is defined in `settings_schema.json` (`scheme-1` = the
-current light palette mirrored exactly; `scheme-2` surface; `scheme-3` ink) and
-rendered by `snippets/color-schemes.liquid`, which maps each scheme onto the
-theme tokens (`--bg` / `--text` / `--surface` / `--line`). The default scheme is
-applied on `<body>`. A section opts into per-section colours by adding the
-`color_scheme` setting above **and** `class="… color-{{ section.settings.color_scheme }}"`
-on its root. Because a scheme rule sets only those four tokens, a section that
-reads them recolours; `scheme-1` equals the current values, so the default is a
-computed no-op. (This is the successor to the per-section `text_color` picker in
-`section-appearance`.)
+current light palette mirrored exactly; `scheme-2` surface; `scheme-3` ink). The
+store default is applied on `<body>` via `snippets/color-schemes.liquid`.
+
+A section opts into per-section colours by **just adding the `color_scheme`
+setting above** — the shared `section-appearance` snippet (already rendered near
+the top of every content section) reads it and emits a scoped `{% style %}` on
+`#shopify-section-{id}` that remaps the full palette (`--bg` / `--surface` /
+`--line` / `--text` / `--ink` / muted greys) **and paints `background` + `color`**,
+so the scheme actually recolours the whole section — dark schemes included, with
+buttons/chips correctly inverting (they read `--ink` on `--bg`). `scheme-1` equals
+the current values, so the default is a computed no-op (pixel parity). Prefer this
+over hand-adding a `class="color-…"` to each root; the behaviour lives in one
+snippet. This is the successor to the per-section `text_color` picker, which still
+works and layers on top of the scheme for fine-tuning just the words.
 
 ## 4. Blocks vs settings
 

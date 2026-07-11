@@ -23,7 +23,7 @@ Render with named args and a documented `{% comment %}` header:
 |---------|---------|-----|--------|
 | `product-card` | Collection/grid product card | `product` (req), `show_name` (bool) | **Needs work** — inlines price instead of using `price`; hardcoded LT strings (`Išparduota`, `Naujiena`); fragile tag matching |
 | `price` | Price block (current + compare + % chip) | `product:` **or** `price:` + `compare_at:` | **Needs work** — hardcoded `€289/€340/–15%` fallback literals; `money \| remove:'€'` breaks multi‑currency |
-| `section-appearance` | Per‑section text‑colour + type‑scale overrides via scoped `{% style %}` | `section` (req) | **Stable** — folds into `color_scheme` + tokens over time |
+| `section-appearance` | Per‑section **colour scheme** + text‑colour + type‑scale overrides via scoped `{% style %}` | `section` (req) | **Stable** — applies `color_scheme` (full palette remap + bg/text paint) then `text_color`/scales. Adopted in 19 content sections; `scheme-1` default = pixel parity |
 | `meta-social` | Open Graph / Twitter meta tags | reads globals | **Stable** |
 | `structured-data-product` | Product JSON‑LD | `product` | **Stable** |
 | `dock` | Mobile bottom navigation | reads settings | **Stable** |
@@ -38,6 +38,9 @@ Render with named args and a documented `{% comment %}` header:
 | `product-docs` | PDP doc sections (spec/story/care) | `section`, `product` | ✅ verified live |
 | `faq-fallback` | DUK/FAQ hardcoded empty-state (rail + 6 groups) | — | Stable (split from `main-duk`) |
 | `care-*` (daily/leather/suede/storage/fixes/kit) | Shoe-care page thematic sections | `section` | Stable (split from `main-avalynes-prieziura`) |
+| `care-steps` | Numbered tutorial-step list for one care `group` | `section`, `group` | Stable — de-duplicates the identical `tstep` markup shared by `care-leather` + `care-suede` |
+| `accordion-item` | One `<details>` FAQ/disclosure row (+ optional index) | `question`, `answer`, `index`, `open`, `attrs` | Stable — unifies `main-duk`'s `qa` + `main-grazinimai`'s `faq` markup onto canonical `.accordion` classes; each section keeps its look. Verified live |
+| `step` | One numbered step (number + title + body) | `num`, `title`, `body`, `attrs` | Stable — shared by `main-dydziu-lentele` + `main-avalynes-prieziura` (storage); canonical `.step*` classes, per-section styling. Verified pixel-identical |
 | `cart-empty` / `cart-upsell` | Cart empty-state + upsell | `section` | Stable (split from `main-cart`) |
 | `collection-filter-drawer` | Off-canvas filters (swatch case) | `section`, `collection`, `paginate` | Stable — clean compile |
 | `collection-notes` | Collection notes (`note_row`) | `section` | Stable (split from `main-collection`) |
@@ -64,6 +67,23 @@ Render with named args and a documented `{% comment %}` header:
 Target: a small **shared** vocabulary (theme blocks in `/blocks`, opted into with
 `"blocks": [{ "type": "@theme" }]`), replacing today's per‑page one‑offs.
 
+### Shipped `@theme` blocks
+
+| Block | Purpose | Settings | Used by | Status |
+|-------|---------|----------|---------|--------|
+| `hours` | One opening‑hours row (day + time, closed/today) | `day`, `time`, `closed`, `highlight` | `home-visit`, `main-kontaktai` | ✅ **First `@theme` block** — verified live |
+
+**The pattern (proven with `hours`):** move the row markup into
+`/blocks/<type>.liquid` with a stable BEM class; the section declares
+`"blocks": [{ "type": "<type>" }]` and renders `{% content_for "blocks" %}`; **keep
+the block type name** so existing template data is untouched; move each section's
+styling onto the shared class, scoped under the section's own wrapper — so sections
+that intentionally differ (e.g. `hours` is 14px on the homepage, 15px on contact)
+stay pixel‑identical. Fits **single‑block‑type** sections; region‑grouped sections
+(`main-product`, `main-avalynes-prieziura`, `main-grazinimai`, `main-akciju-salygos`,
+`main-dydziu-lentele`) place heterogeneous blocks in different regions and need
+per‑block `{% content_for "block", type, id %}` or stay section‑local for now.
+
 ### Target vocabulary
 
 | Block | Content shape |
@@ -88,12 +108,12 @@ Target: a small **shared** vocabulary (theme blocks in `/blocks`, opted into wit
 
 | Current one‑off block | Section(s) | Becomes |
 |-----------------------|-----------|---------|
-| `qa` | `main-duk` (FAQ) | `accordion_item` |
+| ✅ `qa` + `faq` | `main-duk` + `main-grazinimai` | **`accordion_item`** (done — type renamed, settings canonicalised, shared `accordion-item` snippet, count-verified) |
 | `group` | `main-duk` | `heading` (group header) or accordion group |
 | `story` | `main-apie-mus` | `rich_text` (+ `eyebrow`) |
 | `stat` (`label`/`value`) | `main-apie-mus` | `stat` |
 | `stat` (`k`/`v`/`tabular`) | `main-avalynes-prieziura` | `stat` — **same block, one schema** |
-| `habit`, `tstep`, `fix`, `store_row` | `main-avalynes-prieziura` | `step` |
+| `habit`, `tstep`, `fix`, ✅ `store_row`, `mstep` | `main-avalynes-prieziura`, `main-dydziu-lentele` | `step` — **`store_row`+`mstep` done** (renamed to `step`, shared `step` snippet, pixel-verified); `habit`/`tstep`/`fix` are distinct designs, left section-local |
 | `kit_item` | `main-avalynes-prieziura` | `stat` / `rich_text` (list row) |
 | `chip` | `main-avalynes-prieziura` | anchor‑nav (section feature, not content) |
 

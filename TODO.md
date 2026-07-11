@@ -10,9 +10,34 @@ behaviour‑preserving and verified before the next begins.
 theme-breaking role bug via the preview). **All 5 mega-sections split under 300:**
 `main-product` 578→297, `main-duk` 446→161, `main-avalynes` 404→223, `main-cart`
 361→268, `main-collection` 358→192 (`main-grazinimai` 298 already under). 28
-snippets (was 10). Remaining: the shared-block vocabulary unification (39→~8, the
-audit's #1 finding — needs a stable preview for per-section redesign), per-section
-scheme adoption, section-level i18n, `section-*.css` cleanup.
+snippets (was 10). **Per-section `color_scheme` shipped** via `section-appearance`
+(full palette remap + bg/text paint; adopted in 19 content sections; scheme-1
+default = pixel parity, verified live incl. a dark-scheme proof). **Global heading
+type-scale shipped** (Typography setting → `--type-scale` multiplies the heading
+ramp; default 100% = parity; Geist stays locked by design). **`/blocks` introduced
+— `hours` shipped as the first `@theme` block** (unifies `home-visit` + `main-kontaktai`;
+`content_for "blocks"` confirmed supported; each section keeps its own look via
+scoped CSS on shared `.hours__row` markup; verified live). **Block-markup
+de-duplication continued:** `care-steps` (shared `tstep` list) and `accordion-item`
+(FAQ markup for duk + grąžinimai). **Canonical block-type renames (count-verified
+template migrations):** `qa`+`faq` → **`accordion_item`** (26+6 blocks), and
+`store_row`+`mstep` → **`step`** (4+3 blocks) via a shared `step` snippet — all
+verified pixel-identical live, merchant content preserved (before/after block-count
+assertions). Distinct vocab types now ~33 (was 36).
+
+> **Architecture note (docs-confirmed):** dynamic theme blocks render only via
+> `{% content_for "blocks" %}` (all blocks, one reorderable container), so
+> **region-grouped** sections (product, avalynės, grąžinimai, akcijų-sąlygos,
+> dydžių-lentelė) must keep section-local blocks + the `{% for %}` loop. For them,
+> the win is a **shared snippet** (markup once) + canonical classes, not a
+> `/blocks` block. Most remaining "one-offs" are genuinely distinct *designs*
+> (e.g. home `card` vs list `collection`); merging those trades duplication for
+> per-section CSS overrides — worth it only where markup is truly shared.
+
+Remaining: shared snippets for the other genuine markup dups (`step` num/title/body
+family; `stat` fold of `fact`/`cell`); optional type-renames to shrink the vocab
+count (needs template-data migration); scheme adoption for commerce/account
+sections; section-level i18n; `section-*.css` cleanup.
 
 **Every task's definition of done:** storefront pixel‑identical to the committed
 baseline · Theme Editor add/reorder/remove still works · `theme-check` clean ·
@@ -29,7 +54,9 @@ committed as a small, self‑describing change.
       out of `base.css` (values unchanged — 43 tokens moved, loaded first).
 - [x] Add a **color‑scheme group** (3 schemes; scheme-1 = current palette) to
       `config/settings_schema.json`, rendered by `color-schemes.liquid` → tokens,
-      default applied on `<body>`. Typography settings still pending.
+      default applied on `<body>`.
+- [x] Add a **Typography** group → global `type_scale` (`--type-scale`) scaling the
+      heading ramp in `tokens.css`; default 100% = parity. Font family stays Geist.
 - [ ] Slim `base.css` to resets + primitives; adopt the `component-*.css/js`
       asset naming (assets/ is flat); create `blocks/` with a README.
 - [ ] Establish the section wrapper convention (`padding_top`/`padding_bottom`,
@@ -112,7 +139,10 @@ The high‑value, high‑complexity surfaces, onto the shared kit last.
 
 - Two‑part hero headline (`headline_light` + `headline_bold`) → converge on
   `heading` + styling.
-- `section-appearance` per‑section `text_color` → migrate to `color_scheme`.
+- ~~`section-appearance` per‑section `text_color` → migrate to `color_scheme`.~~
+  **Done** — `section-appearance` now applies `color_scheme` (full palette remap +
+  bg/text paint); `text_color` kept as an on-top fine-tune. Adopted in 19 content
+  sections; commerce/account sections still to opt in (per-layout verification).
 - Confirm `gift_card.liquid` is the only legacy `.liquid` template; leave unless
   it blocks something.
 - Locale coverage: audit for strings still hardcoded in Liquid.

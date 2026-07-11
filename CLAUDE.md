@@ -82,7 +82,7 @@ The litmus test for any decision:
 | `templates/`  | JSON page templates (+ `gift_card.liquid` legacy) | Compose sections; **merchant content lives here** |
 | `sections/`   | 38 sections + `header-group` / `footer-group`     | Orchestrate layout; today they also define bespoke blocks |
 | `snippets/`   | 10 partials                                       | Reusable UI — thin today, must grow |
-| `blocks/`     | _(to be created)_                                 | Shared `@theme` blocks — the block vocabulary |
+| `blocks/`     | 1 shared block (`hours`); more to come            | Shared `@theme` blocks — the block vocabulary |
 | `assets/`     | CSS, JS, fonts, images                            | Today: page‑scoped CSS/JS. Target: `tokens.css` + `component-*.css` |
 | `config/`     | `settings_schema.json`, `settings_data.json`      | Global theme settings |
 | `locales/`    | `lt.default.json`, `en.json`                      | **All** customer‑facing strings |
