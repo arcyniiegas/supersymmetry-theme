@@ -6,46 +6,9 @@
 (function(){
   var grid = document.querySelector('.grid');
 
-  /* ── filter drawer: open/close, Esc, scrim click, focus trap, scroll lock ── */
-  var drawer = document.getElementById('filterDrawer');
-  var filterOpen = document.getElementById('filterOpen');
-  if (drawer && filterOpen){
-    /* portal: mount at body level so position:fixed resolves against the real
-       viewport, exactly like the dock / mobile menu / search overlay */
-    document.body.appendChild(drawer);
-    var openDrawer = function(){
-      drawer.classList.add('is-open');
-      document.body.classList.add('fdrawer-open');
-      filterOpen.setAttribute('aria-expanded', 'true');
-      var c = drawer.querySelector('.fdrawer__close');
-      if (c) c.focus();
-    };
-    var closeDrawer = function(){
-      drawer.classList.remove('is-open');
-      document.body.classList.remove('fdrawer-open');
-      filterOpen.setAttribute('aria-expanded', 'false');
-      filterOpen.focus(); /* return focus to the trigger (WCAG 2.4.3) */
-    };
-    filterOpen.addEventListener('click', openDrawer);
-    Array.prototype.forEach.call(drawer.querySelectorAll('[data-drawer-close]'), function(el){
-      el.addEventListener('click', closeDrawer);
-    });
-    document.addEventListener('keydown', function(e){
-      if (!drawer.classList.contains('is-open')) return;
-      if (e.key === 'Escape'){ closeDrawer(); return; }
-      /* focus trap: keep Tab within the dialog */
-      if (e.key === 'Tab'){
-        var f = Array.prototype.filter.call(
-          drawer.querySelectorAll('a[href], button:not([disabled]), input, select, [tabindex]:not([tabindex="-1"])'),
-          function(el){ return el.offsetParent !== null; }
-        );
-        if (!f.length) return;
-        var first = f[0], last = f[f.length - 1];
-        if (e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
-        else if (!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
-      }
-    });
-  }
+  /* Filter drawer open/close, Esc, scrim, focus-trap, scroll-lock and focus
+     return are now the shared <theme-drawer> Custom Element (component-drawer.js).
+     The drawer wires itself from its data-* attributes; nothing to do here. */
 
   /* ── view toggle: grid / dense / list ── */
   var viewBtns = Array.prototype.slice.call(document.querySelectorAll('.viewtog button'));

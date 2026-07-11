@@ -1,5 +1,5 @@
 {%- comment -%} Collection — off-canvas filter drawer. Rendered by main-collection inside the paginate block; paginate is passed in for paginate.items. {%- endcomment -%}
-  <div class="fdrawer" id="filterDrawer" role="dialog" aria-modal="true" aria-label="{{ 'collection.filters' | t }}">
+  <theme-drawer class="fdrawer" id="filterDrawer" role="dialog" aria-modal="true" aria-label="{{ 'collection.filters' | t }}" data-body-class="fdrawer-open" data-portal data-focus=".fdrawer__close">
     <div class="fdrawer__scrim" data-drawer-close></div>
     <aside class="fdrawer__panel">
       <div class="fdrawer__head">
@@ -108,4 +108,4 @@
         <button class="btn btn--primary" type="button" data-drawer-close>{{ 'collection.show_html' | t: count: paginate.items }}</button>
       </div>
     </aside>
-  </div><!-- /.fdrawer -->
+  </theme-drawer><!-- /.fdrawer -->
