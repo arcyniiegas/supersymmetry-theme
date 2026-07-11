@@ -42,10 +42,21 @@ assets/                 (flat — Shopify forbids subdirectories; namespace by p
 - **Never `!important`** except to override third‑party/injected styles, with a
   comment saying why.
 
-**Loading.** `base.css` (which `@import`s / includes tokens) loads once in
-`layout/theme.liquid`. Component and section CSS load only where used, via
+**Loading.** `tokens.css` then `base.css` load once, first, in `layout/theme.liquid`
+(`<head>`). Component and section CSS load only where used, via
 `{{ 'file.css' | asset_url | stylesheet_tag }}` (Shopify de‑duplicates by URL).
 Prefer merging shared rules into components over shipping another page stylesheet.
+
+> **A section file must never re-declare `:root` tokens or the base reset.** Every
+> `section-*.css` used to open with a stale copy of `tokens.css` + `base.css`
+> (a pre-extraction leftover); those are removed. A section may keep a **minimal
+> `:root`** *only* for tokens genuinely unique to it (e.g. `section-product`'s
+> `--t-name`/`--t-num`, `section-home`'s larger `--t-hero`, `section-cart`'s
+> `--c-*` chip colours) — never a copy of a global token. **Duplicating a global
+> token is a bug:** the stale copies froze the heading ramp without the
+> `* var(--type-scale)` multiplier, silently breaking the Typography setting on
+> those pages. The type ramp composes as `--t-x: calc(clamp(…) * var(--type-scale))`
+> — any new display token must follow that form so the setting reaches it.
 
 ## 2. Design tokens
 

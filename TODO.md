@@ -30,6 +30,19 @@ template migrations):** `qa`+`faq` → **`accordion_item`** (26+6 blocks), and
 verified pixel-identical live, merchant content preserved (before/after block-count
 assertions). Distinct vocab types now ~33 (was 36).
 
+**Later this session:** JS layer unified — `<theme-drawer>` + `scroll-spy` Custom
+Elements and a shared `window.theme.cart` store (bag badge + `add()` + `cart:updated`
+pub-sub) folded duplicated behaviour out of `chrome.js`/`collection.js`/`product.js`/
+`accessories.js`/`cart.js`. **JS-string i18n** primitive (`window.theme.strings` +
+`theme.t`) moved hardcoded LT copy (commerce + FAQ search) into locales. **Buttons +
+cards single-sourced** onto `component-button.css` / `component-card.css` (gratuitous
+per-page overrides removed; justified context kept). **tokens/base dedup:** every
+`section-*.css`'s stale copy of `tokens.css` (`:root`) + the `base.css` reset removed
+— **fixing the Typography type-scale setting** the stale `:root`s had silently broken
+on product/collection/home (pixel-identical at 100%). Also fixed a **FAQ-search
+regression** (`duk.js` matched the pre-rename `.qa` class → 0 results) and removed the
+**orphaned `main-accessories`** section + assets. All verified live; theme-check green.
+
 > **Architecture note (docs-confirmed):** dynamic theme blocks render only via
 > `{% content_for "blocks" %}` (all blocks, one reorderable container), so
 > **region-grouped** sections (product, avalynės, grąžinimai, akcijų-sąlygos,
@@ -157,8 +170,26 @@ The high‑value, high‑complexity surfaces, onto the shared kit last.
 
 ## Phase 6 — Consolidation
 
-- [ ] Fold every remaining page stylesheet into `component-*.css` + thin `section-*.css`;
-      delete `section-*.css` monoliths.
+- [x] **Kill the tokens/base duplication.** Every `section-*.css` opened with a
+      pre-extraction copy of `tokens.css` (`:root`) + the `base.css` reset +
+      utilities. Removed them all — sections now resolve tokens/reset/utilities
+      from the global `tokens.css` + `base.css`. The only remaining `:root`s are
+      **minimal + section-specific**: `section-product` (3 PDP display tokens),
+      `section-home` (4, incl. the larger home `--t-hero`), `section-cart` (10
+      `--c-*` chip colours). Everything else left in section files is legitimate
+      context/page override, not duplication. Verified live per page.
+      → **Fixed a latent bug:** the stale `:root`s froze the type ramp
+      (`clamp()` with no `* var(--type-scale)`), so the **Typography type-scale
+      setting silently never scaled section pages**. It now works on product /
+      collection / home — pixel-identical at the default 100%.
+- [x] **Button + card CSS single-sourced.** `component-button.css` owns the one
+      glass button (gratuitous per-page redefinitions removed; justified context
+      kept — see COMPONENTS.md); `component-card.css` owns the product card (PDP
+      related-card duplication + dead rules removed, `.card__price-chip` folded in).
+- [ ] Fold the remaining bespoke `section-*.css` design into `component-*.css` +
+      thin `section-*.css`. NB: the *duplication* is now gone; what remains is
+      genuinely per-section design, so further merging trades against pixel-parity
+      (same case-by-case calls as the button unification).
 - [ ] Prune unused CSS/JS/assets; dedupe images (`Nr1.webp` vs
       `Nr1-0c6678ce.webp`, etc.).
 - [ ] Normalise all schema IDs to the [SCHEMA_GUIDE.md](SCHEMA_GUIDE.md) standard.
