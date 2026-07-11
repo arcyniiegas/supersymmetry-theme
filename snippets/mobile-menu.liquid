@@ -12,10 +12,10 @@
     assign is_journal = true
   endif
 -%}
-<div class="mobilemenu" id="ssMenu" role="dialog" aria-modal="true" aria-label="{{ 'nav.menu' | t }}">
+<theme-drawer class="mobilemenu" id="ssMenu" role="dialog" aria-modal="true" aria-label="{{ 'nav.menu' | t }}" data-body-class="menu-open" data-focus=".mobilemenu__close">
   <div class="mobilemenu__top">
     <a href="{{ routes.root_url }}" class="mobilemenu__brand">{{ settings.brand_name | default: 'Supersymmetry' }}<span class="brand-dot" aria-hidden="true"></span></a>
-    <button type="button" class="mobilemenu__close" data-menu-close aria-label="{{ 'accessibility.close_menu' | t }}">✕</button>
+    <button type="button" class="mobilemenu__close" data-drawer-close aria-label="{{ 'accessibility.close_menu' | t }}">✕</button>
   </div>
   {%- liquid
     assign nav_menu = settings.menu_main
@@ -55,4 +55,4 @@
     <span>{{ settings.atelier_address }} · {{ settings.atelier_city }}</span>
     <span>{{ settings.utility_right_message | default: 'LT · EN' }}</span>
   </div>
-</div>
+</theme-drawer>

@@ -24,30 +24,9 @@
     else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
   }
 
-  /* ── full-screen Meniu overlay ── */
-  var menu = document.getElementById('ssMenu');
-  if (menu) {
-    var menuTrigger = null;
-    var openMenu = function (e) {
-      menuTrigger = (e && e.currentTarget) || document.activeElement;
-      menu.classList.add('is-open'); document.body.classList.add('menu-open');
-      /* move focus into the dialog so Tab is trapped from the first press */
-      var mClose = menu.querySelector('[data-menu-close]');
-      if (mClose) setTimeout(function () { mClose.focus(); }, 60);
-    };
-    var closeMenu = function () {
-      menu.classList.remove('is-open'); document.body.classList.remove('menu-open');
-      /* return focus to whatever opened the menu (WCAG 2.4.3) */
-      if (menuTrigger && typeof menuTrigger.focus === 'function') { menuTrigger.focus(); }
-    };
-    on(document.querySelectorAll('[data-menu-open]'), 'click', openMenu);
-    on(document.querySelectorAll('[data-menu-close]'), 'click', closeMenu);
-    document.addEventListener('keydown', function (e) {
-      if (!menu.classList.contains('is-open')) return;
-      if (e.key === 'Escape') { closeMenu(); return; }
-      trapTab(menu, e);
-    });
-  }
+  /* The full-screen mobile menu (#ssMenu) is now the shared <theme-drawer>
+     Custom Element (component-drawer.js) — it wires open/close/Esc/trap/
+     scroll-lock/focus-return itself. The search overlay migrates next. */
 
   /* ── in-page search overlay ── */
   var sOverlay = document.getElementById('ssSearch');
