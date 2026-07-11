@@ -29,7 +29,7 @@
 </div>
 
 <!-- ──────────── PRODUCT — sticky split ──────────── -->
-<main class="product"
+<div class="product"
   data-product-title="{{ product.title | escape }}"
   data-price="{{ buybar_price | escape }}"
   data-compare="{{ buybar_compare | escape }}"
@@ -184,7 +184,7 @@
     </div>
 
   </aside>
-</main>
+</div>
 
 {%- for block in section.blocks -%}
   {%- case block.type -%}

@@ -1,7 +1,7 @@
 {{ 'section-404.css' | asset_url | stylesheet_tag }}
 {% render 'section-appearance', section: section %}
 <!-- ──────────── 404 ──────────── -->
-<main class="e404">
+<div class="e404">
   <div>
     <h1 class="e404__code"><b>4</b><span class="dot" aria-hidden="true"></span><b>4</b></h1>
     <div class="e404__stamp">
@@ -50,7 +50,7 @@
       {%- endif -%}
     </nav>
   </div>
-</main>
+</div>
 {% schema %}
 {
   "name": "404",
