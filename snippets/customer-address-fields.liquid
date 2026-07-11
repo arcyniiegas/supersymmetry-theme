@@ -9,53 +9,53 @@
 {%- endif -%}
 <div class="form__row">
   <div class="field">
-    <label for="addrFirst-{{ form.id }}">Vardas</label>
+    <label for="addrFirst-{{ form.id }}">{{ 'customer.first_name' | t }}</label>
     <input id="addrFirst-{{ form.id }}" type="text" name="address[first_name]" value="{{ form.first_name }}" autocomplete="given-name" />
   </div>
   <div class="field">
-    <label for="addrLast-{{ form.id }}">Pavardė</label>
+    <label for="addrLast-{{ form.id }}">{{ 'customer.last_name' | t }}</label>
     <input id="addrLast-{{ form.id }}" type="text" name="address[last_name]" value="{{ form.last_name }}" autocomplete="family-name" />
   </div>
 </div>
 <div class="field">
-  <label for="addrCompany-{{ form.id }}">Įmonė <span class="opt">(nebūtina)</span></label>
+  <label for="addrCompany-{{ form.id }}">{{ 'customer.company' | t }} <span class="opt">{{ 'customer.optional' | t }}</span></label>
   <input id="addrCompany-{{ form.id }}" type="text" name="address[company]" value="{{ form.company }}" autocomplete="organization" />
 </div>
 <div class="field">
-  <label for="addrAddress1-{{ form.id }}">Adresas</label>
+  <label for="addrAddress1-{{ form.id }}">{{ 'customer.address' | t }}</label>
   <input id="addrAddress1-{{ form.id }}" type="text" name="address[address1]" value="{{ form.address1 }}" autocomplete="address-line1" />
 </div>
 <div class="field">
-  <label for="addrAddress2-{{ form.id }}">Butas, aukštas <span class="opt">(nebūtina)</span></label>
+  <label for="addrAddress2-{{ form.id }}">{{ 'customer.apartment' | t }} <span class="opt">{{ 'customer.optional' | t }}</span></label>
   <input id="addrAddress2-{{ form.id }}" type="text" name="address[address2]" value="{{ form.address2 }}" autocomplete="address-line2" />
 </div>
 <div class="form__row">
   <div class="field">
-    <label for="addrCity-{{ form.id }}">Miestas</label>
+    <label for="addrCity-{{ form.id }}">{{ 'customer.city' | t }}</label>
     <input id="addrCity-{{ form.id }}" type="text" name="address[city]" value="{{ form.city }}" autocomplete="address-level2" />
   </div>
   <div class="field">
-    <label for="addrZip-{{ form.id }}">Pašto kodas</label>
+    <label for="addrZip-{{ form.id }}">{{ 'customer.postal_code' | t }}</label>
     <input id="addrZip-{{ form.id }}" type="text" name="address[zip]" value="{{ form.zip }}" autocomplete="postal-code" />
   </div>
 </div>
 <div class="form__row">
   <div class="field">
-    <label for="addrCountry-{{ form.id }}">Šalis</label>
+    <label for="addrCountry-{{ form.id }}">{{ 'customer.country' | t }}</label>
     <select id="addrCountry-{{ form.id }}" name="address[country]" data-address-country data-default="{{ form.country }}" autocomplete="country">
       {{ all_country_option_tags }}
     </select>
   </div>
   <div class="field" data-province-wrap hidden>
-    <label for="addrProvince-{{ form.id }}">Regionas</label>
+    <label for="addrProvince-{{ form.id }}">{{ 'customer.region' | t }}</label>
     <select id="addrProvince-{{ form.id }}" name="address[province]" data-address-province data-default="{{ form.province }}" autocomplete="address-level1"></select>
   </div>
 </div>
 <div class="field">
-  <label for="addrPhone-{{ form.id }}">Telefonas <span class="opt">(nebūtina)</span></label>
+  <label for="addrPhone-{{ form.id }}">{{ 'customer.phone' | t }} <span class="opt">{{ 'customer.optional' | t }}</span></label>
   <input id="addrPhone-{{ form.id }}" type="tel" name="address[phone]" value="{{ form.phone }}" autocomplete="tel" />
 </div>
 <label class="consent">
   <input type="checkbox" name="address[default]" value="1"{% if form.default %} checked{% endif %}>
-  <span>Naudoti kaip pagrindinį adresą</span>
+  <span>{{ 'customer.default_address' | t }}</span>
 </label>
