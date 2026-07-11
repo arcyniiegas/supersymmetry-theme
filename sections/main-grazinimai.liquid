@@ -24,7 +24,7 @@
     {%- if stat_blocks.size > 0 -%}
     <div class="phead__stats">
       {%- for block in stat_blocks -%}
-      {% render 'stat', k: block.settings.k, v: block.settings.v, tabular: block.settings.tabular, accent: block.settings.accent, attrs: block.shopify_attributes %}
+      {% render 'stat', k: block.settings.label, v: block.settings.value, tabular: block.settings.tabular, accent: block.settings.accent, attrs: block.shopify_attributes %}
       {%- endfor -%}
     </div>
     {%- endif -%}
@@ -59,8 +59,8 @@
     {%- for block in step_blocks -%}
     <div class="step" {{ block.shopify_attributes }}>
       <div class="step__num"><span class="idx">{{ block.settings.idx }}</span>{{ block.settings.kicker }}</div>
-      <h3 class="step__title">{{ block.settings.t }} <span class="light">{{ block.settings.t_light }}</span></h3>
-      <p class="step__body">{{ block.settings.b }}</p>
+      <h3 class="step__title">{{ block.settings.title }} <span class="light">{{ block.settings.t_light }}</span></h3>
+      <p class="step__body">{{ block.settings.body }}</p>
       <span class="step__meta"><span class="dot"></span>{{ block.settings.meta }}</span>
     </div>
     {%- endfor -%}
@@ -87,7 +87,7 @@
             {%- if block.type == 'elig' and block.settings.col == 'yes' -%}
           <li {{ block.shopify_attributes }}>
             <span class="ico" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M2 6.5 L5 9.5 L10 3"></path></svg></span>
-            <span class="c"><b>{{ block.settings.t }}</b><span>{{ block.settings.d }}</span></span>
+            <span class="c"><b>{{ block.settings.title }}</b><span>{{ block.settings.text }}</span></span>
           </li>
             {%- endif -%}
           {%- endfor -%}
@@ -101,7 +101,7 @@
             {%- if block.type == 'elig' and block.settings.col == 'no' -%}
           <li {{ block.shopify_attributes }}>
             <span class="ico" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M3 3 L9 9 M9 3 L3 9"></path></svg></span>
-            <span class="c"><b>{{ block.settings.t }}</b><span>{{ block.settings.d }}</span></span>
+            <span class="c"><b>{{ block.settings.title }}</b><span>{{ block.settings.text }}</span></span>
           </li>
             {%- endif -%}
           {%- endfor -%}
@@ -127,8 +127,8 @@
         {%- if block.type == 'swap_card' -%}
       <div class="swap__card {% if block.settings.dark %}bg-orange{% else %}bg-surface{% endif %}" {{ block.shopify_attributes }}>
         <div class="swap__num"><span class="idx">{{ block.settings.idx }}</span>{{ block.settings.kicker }}</div>
-        <h3 class="swap__title"><span class="light">{{ block.settings.t_light }}</span>{{ block.settings.t }}</h3>
-        <p class="swap__body">{{ block.settings.b }}</p>
+        <h3 class="swap__title"><span class="light">{{ block.settings.t_light }}</span>{{ block.settings.title }}</h3>
+        <p class="swap__body">{{ block.settings.body }}</p>
         <ul class="swap__list">
           <li><span class="k">{{ block.settings.li1_k }}</span><span>{{ block.settings.li1_v }}</span></li>
           <li><span class="k">{{ block.settings.li2_k }}</span><span>{{ block.settings.li2_v }}</span></li>
@@ -209,8 +209,8 @@
       "type": "stat",
       "name": "Head stat",
       "settings": [
-        { "type": "text", "id": "k", "label": "Label" },
-        { "type": "text", "id": "v", "label": "Value" },
+        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "text", "id": "value", "label": "Value" },
         { "type": "checkbox", "id": "tabular", "label": "Tabular numerals", "default": false },
         { "type": "checkbox", "id": "accent", "label": "Ink accent", "default": false }
       ]
@@ -229,9 +229,9 @@
       "settings": [
         { "type": "text", "id": "idx", "label": "Number" },
         { "type": "text", "id": "kicker", "label": "Kicker" },
-        { "type": "text", "id": "t", "label": "Title (bold)" },
+        { "type": "text", "id": "title", "label": "Title (bold)" },
         { "type": "text", "id": "t_light", "label": "Title (light)" },
-        { "type": "textarea", "id": "b", "label": "Body" },
+        { "type": "textarea", "id": "body", "label": "Body" },
         { "type": "text", "id": "meta", "label": "Meta" }
       ]
     },
@@ -247,8 +247,8 @@
           ],
           "default": "yes"
         },
-        { "type": "text", "id": "t", "label": "Title" },
-        { "type": "textarea", "id": "d", "label": "Detail" }
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "text", "label": "Detail" }
       ]
     },
     {
@@ -258,8 +258,8 @@
         { "type": "text", "id": "idx", "label": "Index letter" },
         { "type": "text", "id": "kicker", "label": "Kicker" },
         { "type": "text", "id": "t_light", "label": "Title (light)" },
-        { "type": "text", "id": "t", "label": "Title (bold)" },
-        { "type": "textarea", "id": "b", "label": "Body" },
+        { "type": "text", "id": "title", "label": "Title (bold)" },
+        { "type": "textarea", "id": "body", "label": "Body" },
         { "type": "text", "id": "li1_k", "label": "Row 1 label" },
         { "type": "text", "id": "li1_v", "label": "Row 1 value" },
         { "type": "text", "id": "li2_k", "label": "Row 2 label" },
