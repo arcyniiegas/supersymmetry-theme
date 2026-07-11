@@ -1,7 +1,7 @@
 {%- comment -%} Product — related products grid. Rendered by main-product for the `related` block. {%- endcomment -%}
 <section class="related" {{ block.shopify_attributes }}>
   <div class="related__head">
-    <h3 class="related__title">{{ block.settings.title }}</h3>
+    <h2 class="related__title">{{ block.settings.title }}</h2>
     <a href="{{ block.settings.more_link | default: routes.collections_url }}" class="related__more">
       {{ block.settings.more_label }}
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 7 H11 M7 3 L11 7 L7 11"/></svg>
