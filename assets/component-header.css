@@ -30,6 +30,15 @@
   font: 500 14px/1 var(--font-sans);
   letter-spacing: -0.005em;
 }
+/* Mobile: the dock + full-screen menu are the navigation; the header keeps
+   only brand + bag. These rules MUST live in this file — the component owns
+   its responsive behaviour, so stylesheet order can't override it. */
+@media (max-width: 960px){
+  .header{ grid-template-columns: 1fr auto; gap: 12px; padding: 12px var(--gutter); }
+  .header__nav{ display: none; }
+  .header__tools a.header__tool-search,
+  .header__tools a.header__tool-account{ display: none; } /* these live in the menu */
+}
 .header__nav a{ padding: 6px 0; color: var(--text-muted); transition: color var(--tx-fast) var(--ease); }
 .header__nav a:hover, .header__nav a[aria-current="page"]{ color: var(--text); }
 .header__tools{

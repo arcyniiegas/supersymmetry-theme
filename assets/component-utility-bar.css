@@ -21,3 +21,12 @@
 }
 .utility b{ color: #FFFFFF; font-weight: 500; }
 
+/* progressive disclosure on small screens */
+.u-mobile{ display: none; }
+@media (max-width: 768px){
+  .utility{ padding: 9px 16px; font-size: 10px; gap: 12px; overflow: hidden; }
+  .utility__left, .utility__right{ gap: 14px; }
+  .u-desktop{ display: none; }
+  .u-mobile{ display: inline; }
+}
+

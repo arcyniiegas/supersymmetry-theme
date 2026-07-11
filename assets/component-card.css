@@ -171,6 +171,12 @@
 .post:hover .post__title{ color: var(--orange); }
 .post__excerpt{ font: 400 14px/1.5 var(--font-sans); color: var(--text-muted); letter-spacing: -0.005em; }
 
+/* Reduced motion: no hover-zoom easing on card/post media. Lives with the
+   transitions it neutralises (was stranded in component-dock.css). */
+@media (prefers-reduced-motion: reduce){
+  .card__media img, .post__media img{ transition: none; }
+}
+
 /* ════════════════════════════════════════════════════════════
    LIQUID GLASS — the system's one material (over depth only)
    ════════════════════════════════════════════════════════════ */

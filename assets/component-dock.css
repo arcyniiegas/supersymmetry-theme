@@ -74,11 +74,10 @@
   .dock__label{ display: none; }
   .dock__item{ padding: 8px; min-width: 48px; }
 }
-/* keep the footer's legal row clear of the floating dock (mobile only) */
-@media (max-width: 960px){
-  .foot__legal{ padding-bottom: 64px; }
-}
+/* .foot__legal dock clearance → component-footer.css (footer owns its box
+   model; cross-file overrides are order-dependent and break silently).
+   .post__media/.card__media reduced-motion → component-card.css, same rule. */
 @media (prefers-reduced-motion: reduce){
-  .dock__item, .post__media img, .card__media img{ transition: none; }
+  .dock__item{ transition: none; }
 }
 
