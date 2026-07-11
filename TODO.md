@@ -127,11 +127,12 @@ Extract shared behaviour into `assets/component-*.js`; retire page scripts.
 - [x] `scroll-spy` generalised (`data-spy-links` selector) + adopted on the DUK
       category rail — the hand-rolled rail spy is gone from `duk.js` (which now owns
       only the live search filter). 3 sections, 1 component. Verified live.
-- [x] `cart-store.js` (`window.theme.cart`) — shared cart-count store + `cart:updated`
-      pub-sub; folded the triplicated bag-badge updater out of `product.js` /
-      `accessories.js` / `cart.js`. Verified live (real ATC: badge 0→1, real `/cart.js`).
-      Next: fold the duplicated `/cart/add.js` POST core (product + accessories) behind
-      `theme.cart.add()`, preserving each page's distinct success/error UI.
+- [x] `cart-store.js` (`window.theme.cart`) — shared cart store: `setCount`/`refresh`
+      (bag badge + `cart:updated` pub-sub) **and** `add(items)` (the `/cart/add.js`
+      POST + 422 error surfacing). Folded the triplicated badge updater and the
+      duplicated add POST out of `product.js` / `accessories.js` / `cart.js`; each page
+      keeps its own success/error UI. Verified live (real PDP ATC through
+      `theme.cart.add()`: badge 0→1, success message intact, real `/cart.js`).
 - [ ] `Modal` — size chart / dialogs.
 - [ ] `Carousel`, `Reveal`, `Tabs`, `Sticky`, `Video`, `ScrollObserver`.
 - [ ] Retire remaining page scripts as their behaviour lands in components.

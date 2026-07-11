@@ -30,5 +30,28 @@ window.theme.cart = (function () {
       .catch(function () {});
   }
 
-  return { setCount: setCount, refresh: refresh };
+  /* add line items, then refresh the badges; resolves with the add response.
+     On a non-2xx (e.g. sold out) rejects with an Error whose .userMessage
+     carries Shopify's description when present, so callers can surface it.
+     Each page keeps its own success/error UI around this. */
+  function add(items) {
+    return fetch('/cart/add.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ items: items })
+    })
+      .then(function (r) {
+        if (!r.ok) {
+          return r.json().catch(function () { return {}; }).then(function (err) {
+            var e = new Error('cart-add-failed');
+            e.userMessage = (err && err.description) || null;
+            throw e;
+          });
+        }
+        return r.json();
+      })
+      .then(function (added) { return refresh().then(function () { return added; }); });
+  }
+
+  return { setCount: setCount, refresh: refresh, add: add };
 })();

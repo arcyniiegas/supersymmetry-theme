@@ -144,14 +144,18 @@ re‑initialises them on section load. Sections initialise; nothing page‑speci
 pattern but keep them as the shared core, not page scripts.
 
 **✅ `cart-store.js` (shipped — shared cart state).** `window.theme.cart` is the
-one client-side mirror of the cart's `item_count`: `setCount(cart)` paints every
-`[data-bag-count]` badge (header + dock) and broadcasts a `cart:updated`
-`CustomEvent` (`detail.cart`); `refresh()` fetches the authoritative `/cart.js`
-and repaints. Loaded globally (`theme.liquid`, `defer`). Replaced three hand-rolled
-badge updaters (`product.js` + `accessories.js` `refreshBag`, `cart.js` `updateBag`).
-Shopify stays authoritative for all money — this only reflects the count. The
-`cart:updated` event is the pub-sub seam any future surface (mini-cart, add
-animation, analytics) subscribes to instead of re-fetching.
+one client-side mirror of the cart: `setCount(cart)` paints every `[data-bag-count]`
+badge (header + dock) and broadcasts a `cart:updated` `CustomEvent` (`detail.cart`);
+`refresh()` fetches the authoritative `/cart.js` and repaints; `add(items)` POSTs
+`/cart/add.js`, refreshes, resolves with the add response, and on a non-2xx rejects
+with an `Error` whose `.userMessage` carries Shopify's `description` so each page can
+surface it. Loaded globally (`theme.liquid`, `defer`). Replaced three hand-rolled
+badge updaters (`product.js` + `accessories.js` `refreshBag`, `cart.js` `updateBag`)
+and the duplicated add POST (`product.js` + `accessories.js`) — each page keeps its
+own success/error UI around `theme.cart.add()`. Shopify stays authoritative for all
+money — this only reflects the count. The `cart:updated` event is the pub-sub seam
+any future surface (mini-cart, add animation, analytics) subscribes to instead of
+re-fetching.
 
 **Page scripts to retire** as their behaviour moves into components:
 `kontaktai.js`, `grazinimai.js`, `avalynes-prieziura.js`, `accessories.js`,

@@ -26,16 +26,10 @@
     }, 1400);
   }
 
-  /* real Shopify Cart AJAX add */
+  /* real Shopify Cart AJAX add (POST + badge refresh live in the shared store) */
   function addToCart(variantId, btn) {
     if (!variantId) return;
-    fetch('/cart/add.js', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ items: [{ id: variantId, quantity: 1 }] })
-    })
-      .then(function (r) { if (!r.ok) { throw new Error('add failed'); } return r.json(); })
-      .then(function () { return theme.cart.refresh(); })
+    theme.cart.add([{ id: variantId, quantity: 1 }])
       .then(function () { added(btn); })
       .catch(function () {});
   }

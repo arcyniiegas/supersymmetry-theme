@@ -118,23 +118,7 @@
     if (btn) btn.disabled = true;
     atcStatus.textContent = '';
     atcStatus.classList.remove('is-error');
-    fetch('/cart/add.js', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ items: [{ id: id, quantity: 1 }] })
-    })
-      .then(function (r) {
-        if (!r.ok) {
-          /* Shopify returns a JSON description on 422 (e.g. sold out) — surface it */
-          return r.json().catch(function () { return {}; }).then(function (err) {
-            var e = new Error('add-failed');
-            e.userMessage = (err && err.description) || null;
-            throw e;
-          });
-        }
-        return r.json();
-      })
-      .then(function () { return theme.cart.refresh(); })
+    theme.cart.add([{ id: id, quantity: 1 }])
       .then(function () {
         added(btn);
         atcStatus.textContent = 'Pridėta į krepšelį.';
