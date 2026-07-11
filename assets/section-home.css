@@ -1,50 +1,15 @@
 
-/* ════════════════════════════════════════════════════════════
-   TOKENS — same vocabulary as PDP, do not deviate
-   ════════════════════════════════════════════════════════════ */
+/* Home-specific display tokens only: the hero is deliberately larger than the
+   default (--t-hero here is 64/9.5vw/168 vs tokens.css's 56/8vw/132), plus the
+   --t-num/--t-name/--sp-32 display sizes. Everything else — palette, spacing, the
+   scalable type ramp (--t-display/-section with the --type-scale multiplier),
+   radius, motion, gutter — comes from tokens.css, loaded first in <head>. The
+   stale full copy that opened this file is removed. */
 :root{
-  --bg:        #FFFFFF;
-  --surface:   #F5F5F5;
-  --plate:     #111111;
-  --ink:       #0A0A0A;
-  --mid:       #6B6B6B;
-  --soft:      #767676;
-  --line:      #EEEEEE;
-  --hairline:  #DCDCDC;
-
-  --orange:    #0A0A0A;
-  --orange-hi: #2A2A2A;
-
-  --font-sans: 'Geist', system-ui, sans-serif;
-  --font-mono: 'Geist Mono', ui-monospace, monospace;
-
-  --t-eyebrow:  11px;
-  --t-body:     15px;
-  --t-lead:     17px;
-  --t-num:      clamp(38px, 4vw, 56px);
-  --t-name:     clamp(56px, 7.5vw, 116px);
-  --t-display:  clamp(40px, 5vw, 72px);
-  --t-section:  clamp(28px, 2.6vw, 40px);
-  --t-hero:     clamp(64px, 9.5vw, 168px);
-
-  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
-  --sp-5: 20px; --sp-6: 24px; --sp-8: 32px; --sp-10: 40px;
-  --sp-12: 48px; --sp-16: 64px; --sp-20: 80px; --sp-24: 96px;
-  --sp-32: 128px;
-
-  --r-sm:  4px;
-  --r-md:  12px;
-  --r-lg:  16px;
-
-  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
-  --tx-fast: 180ms;
-  --tx-base: 280ms;
-
-  --max:    1440px;
-  --gutter: 32px;
-}
-@media (max-width: 720px){
-  :root{ --gutter: 20px; }
+  --t-num:  clamp(38px, 4vw, 56px);
+  --t-name: clamp(56px, 7.5vw, 116px);
+  --t-hero: clamp(64px, 9.5vw, 168px);
+  --sp-32:  128px;
 }
 
 /* Base reset, grain, utilities, chrome (utility bar / header / mobile menu),
