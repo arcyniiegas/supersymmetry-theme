@@ -44,6 +44,18 @@
   z-index: 2;
 }
 .card--light .card__chip{ background: rgba(255,255,255,0.62); color: var(--text); }
+/* Price-chip variant — price laid over the media (related-products cards). */
+.card__price-chip{
+  position: absolute; top: var(--sp-4); right: var(--sp-4);
+  padding: 6px 10px;
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  border-radius: 99px;
+  font: 500 11px/1 var(--font-mono);
+  color: var(--text);
+  border: 1px solid var(--line);
+  z-index: 2;
+}
 .card__tag{
   position: absolute; bottom: var(--sp-4); left: var(--sp-4);
   padding: 6px 10px;
