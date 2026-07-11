@@ -8,58 +8,26 @@
     Array.prototype.forEach.call(els, function (el) { el.addEventListener(ev, fn); });
   }
 
-  /* Focusable-element selector shared by the modal focus traps below. */
-  var FOCUSABLE = 'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';
-
-  /* Trap Tab within an open modal dialog (WCAG 2.4.3 — keyboard stays inside). */
-  function trapTab(container, e) {
-    if (e.key !== 'Tab') return;
-    var f = Array.prototype.filter.call(
-      container.querySelectorAll(FOCUSABLE),
-      function (el) { return el.offsetParent !== null; }
-    );
-    if (!f.length) return;
-    var first = f[0], last = f[f.length - 1];
-    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-  }
-
   /* The full-screen mobile menu (#ssMenu) is now the shared <theme-drawer>
      Custom Element (component-drawer.js) — it wires open/close/Esc/trap/
      scroll-lock/focus-return itself. The search overlay migrates next. */
 
   /* ── in-page search overlay ── */
+  /* #ssSearch is a <theme-drawer>: it owns close / Esc / focus-trap /
+     scroll-lock / focus-return. Two search-specific bits stay here — opening
+     the overlay from search links (predictive UX instead of navigating) and
+     clearing the input. Chip clicks are owned by predictive-search.js. */
   var sOverlay = document.getElementById('ssSearch');
   if (sOverlay) {
     var sInput = document.getElementById('ssSearchInput');
     var sClear = document.getElementById('ssSearchClear');
-    var lastTrigger = null;
-    var openSearch = function (e) {
-      if (e) e.preventDefault();
-      lastTrigger = (e && e.currentTarget) || document.activeElement;
-      sOverlay.classList.add('is-open');
-      document.body.classList.add('ss-search-open');
-      if (sInput) setTimeout(function () { sInput.focus(); }, 60);
-    };
-    var closeSearch = function () {
-      sOverlay.classList.remove('is-open');
-      document.body.classList.remove('ss-search-open');
-      /* return focus to whatever opened the overlay (WCAG 2.4.3) */
-      if (lastTrigger && typeof lastTrigger.focus === 'function') { lastTrigger.focus(); }
-    };
-    on(document.querySelectorAll('[data-search-open]'), 'click', openSearch);
-    on(document.querySelectorAll('a[href$="/search"]'), 'click', openSearch);
-    on(document.querySelectorAll('[data-search-close]'), 'click', closeSearch);
+    on(document.querySelectorAll('[data-search-open], a[href$="/search"]'), 'click', function (e) {
+      e.preventDefault();
+      sOverlay.open(this);
+    });
     if (sClear && sInput) {
       sClear.addEventListener('click', function () { sInput.value = ''; sInput.focus(); });
     }
-    /* chip clicks are owned by predictive-search.js (it sets the value AND fires
-       the search); no duplicate listener here. */
-    document.addEventListener('keydown', function (e) {
-      if (!sOverlay.classList.contains('is-open')) return;
-      if (e.key === 'Escape') { closeSearch(); return; }
-      trapTab(sOverlay, e);
-    });
   }
 
   /* ── full-bleed hero offset ──

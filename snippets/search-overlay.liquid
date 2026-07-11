@@ -1,8 +1,8 @@
-<div class="ss-search" id="ssSearch" role="dialog" aria-modal="true" aria-label="{{ 'search.title' | t }}">
+<theme-drawer class="ss-search" id="ssSearch" role="dialog" aria-modal="true" aria-label="{{ 'search.title' | t }}" data-body-class="ss-search-open" data-focus="#ssSearchInput">
   <div class="ss-search__inner">
     <div class="ss-search__bar">
       <span class="ss-search__eyebrow">{{ settings.search_eyebrow | default: 'Paieška · <b>visa kolekcija</b>' }}</span>
-      <button type="button" class="ss-search__close" data-search-close aria-label="{{ 'accessibility.close_search' | t }}"><span class="x" aria-hidden="true">✕</span> {{ 'search.close' | t }}</button>
+      <button type="button" class="ss-search__close" data-drawer-close aria-label="{{ 'accessibility.close_search' | t }}"><span class="x" aria-hidden="true">✕</span> {{ 'search.close' | t }}</button>
     </div>
     <form class="ss-search__box" action="{{ routes.search_url }}" method="get" role="search">
       <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><path d="M18 18l6 6"/></svg>
@@ -29,4 +29,4 @@
       <p class="ss-search__empty-lede">{{ settings.search_empty_lede | default: 'Galbūt ši pora dar archyve arba ruošiama kitai partijai. Pabandyk plačiau — pagal spalvą ar modelį.' }}</p>
     </div>
   </div>
-</div>
+</theme-drawer>
