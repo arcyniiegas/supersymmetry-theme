@@ -50,7 +50,14 @@
       'faq.result_one': {{ 'faq.result_one' | t | json }},
       'faq.result_other': {{ 'faq.result_other' | t | json }},
       'faq.no_results': {{ 'faq.no_results' | t | json }},
-      'faq.quoted_term': {{ 'faq.quoted_term' | t | json }}
+      'faq.quoted_term': {{ 'faq.quoted_term' | t | json }},
+      'search.found': {{ 'search.found' | t | json }},
+      'search.result_one': {{ 'search.result_one' | t | json }},
+      'search.result_few': {{ 'search.result_few' | t | json }},
+      'search.result_many': {{ 'search.result_many' | t | json }},
+      'search.all_results': {{ 'search.all_results' | t | json }},
+      'search.result_collection': {{ 'search.result_collection' | t | json }},
+      'search.result_article': {{ 'search.result_article' | t | json }}
     };
     window.theme.t = function (key, vars) {
       var s = (window.theme.strings && window.theme.strings[key]) || '';

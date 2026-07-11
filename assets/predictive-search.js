@@ -22,10 +22,10 @@
 
   /* Lithuanian plural for the results count (mirrors the prototype) */
   function plural(n) {
-    if (n === 1) return 'rezultatas';
+    if (n === 1) return theme.t('search.result_one');
     var d = n % 10, dd = n % 100;
-    if (d >= 2 && d <= 9 && !(dd >= 12 && dd <= 19)) return 'rezultatai';
-    return 'rezultatų';
+    if (d >= 2 && d <= 9 && !(dd >= 12 && dd <= 19)) return theme.t('search.result_few');
+    return theme.t('search.result_many');
   }
 
   function esc(s) {
@@ -94,13 +94,13 @@
     overlay.classList.remove('is-empty');
     var html = '';
     products.forEach(function (p) { html += productCard(p); });
-    collections.forEach(function (c) { html += simpleCard(c, 'Kolekcija'); });
-    articles.forEach(function (a) { html += simpleCard(a, 'Žurnalas'); });
+    collections.forEach(function (c) { html += simpleCard(c, theme.t('search.result_collection')); });
+    articles.forEach(function (a) { html += simpleCard(a, theme.t('search.result_article')); });
     grid.innerHTML = html;
-    count.innerHTML = 'Rasta <b>' + total + '</b> ' + plural(total) +
+    count.innerHTML = theme.t('search.found') + ' <b>' + total + '</b> ' + plural(total) +
       ' · <em>„' + esc(q) + '“</em>' +
       ' <a class="ss-search__all" href="/search?q=' + encodeURIComponent(q) +
-      '&options[prefix]=last">Visi rezultatai →</a>';
+      '&options[prefix]=last">' + theme.t('search.all_results') + '</a>';
   }
 
   function reset() {

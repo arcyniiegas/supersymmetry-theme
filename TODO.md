@@ -209,9 +209,11 @@ The high‑value, high‑complexity surfaces, onto the shared kit last.
   it blocks something.
 - Locale coverage: audit for strings still hardcoded in Liquid.
 - JS strings → locales via `window.theme.strings` + `theme.t()` (injected in
-  `theme.liquid`). **Done:** `product.js`, `cart.js`, `duk.js` (search filter —
-  plural `rezultatas`/`rezultatai` + interpolation, `faq` namespace).
-  **Remaining:** `predictive-search.js`, `customers.js`, `collection.js`.
+  `theme.liquid`). **Done:** `product.js`, `cart.js`, `duk.js` (FAQ search — 2-form
+  plural), `predictive-search.js` (search overlay — full **3-form** LT plural
+  `rezultatas`/`rezultatai`/`rezultatų`, `Rasta`/`Visi rezultatai →`, Kolekcija/
+  Žurnalas labels, `search` namespace). `customers.js` + `collection.js` audited —
+  **no hardcoded strings** (pure behaviour). **JS-string i18n complete.**
 
 ## How to keep this file
 

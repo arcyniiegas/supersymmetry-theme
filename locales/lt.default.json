@@ -125,7 +125,14 @@
     "close": "Uždaryti",
     "clear": "Išvalyti",
     "popular": "Populiaru",
-    "empty_eyebrow": "Nieko nerasta"
+    "empty_eyebrow": "Nieko nerasta",
+    "found": "Rasta",
+    "result_one": "rezultatas",
+    "result_few": "rezultatai",
+    "result_many": "rezultatų",
+    "all_results": "Visi rezultatai →",
+    "result_collection": "Kolekcija",
+    "result_article": "Žurnalas"
   },
   "newsletter": {
     "heading": "Laiškas iš ateljės",

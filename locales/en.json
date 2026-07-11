@@ -125,7 +125,14 @@
     "close": "Close",
     "clear": "Clear",
     "popular": "Popular",
-    "empty_eyebrow": "Nothing found"
+    "empty_eyebrow": "Nothing found",
+    "found": "Found",
+    "result_one": "result",
+    "result_few": "results",
+    "result_many": "results",
+    "all_results": "All results →",
+    "result_collection": "Collection",
+    "result_article": "Journal"
   },
   "newsletter": {
     "heading": "Letter from the atelier",
