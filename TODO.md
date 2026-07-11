@@ -234,7 +234,19 @@ The high‑value, high‑complexity surfaces, onto the shared kit last.
   sections; commerce/account sections still to opt in (per-layout verification).
 - Confirm `gift_card.liquid` is the only legacy `.liquid` template; leave unless
   it blocks something.
-- Locale coverage: audit for strings still hardcoded in Liquid.
+- Locale coverage: audit for strings still hardcoded in Liquid. **Done for
+  always-rendered chrome** — header nav aria-labels + no-menu fallback nav, and
+  the recurring breadcrumb "Pradžia"/duk crumbs, moved to locale keys (exact
+  match, verified live). **Boundary:** the remaining ~215 hardcoded LT strings
+  are *empty-state / demo fallbacks* (`faq-fallback` 78, `main-article` demo
+  body, `main-blog`/`main-list-collections` empty-state cards, `product-gallery`
+  no-media alts). Each sits behind a real dynamic path (`article.content`,
+  `blog.articles`, configured `accordion_item` blocks) that production uses.
+  Mechanically localizing demo copy is the wrong fix — track as a **fallback
+  simplification** content task (replace elaborate hardcoded empty states with a
+  generic localized empty-state, or seed real content), not as i18n.
+  `templates/gift_card.liquid` (legacy, 14 strings) localizes when it's
+  converted off the legacy `.liquid` template.
 - JS strings → locales via `window.theme.strings` + `theme.t()` (injected in
   `theme.liquid`). **Done:** `product.js`, `cart.js`, `duk.js` (FAQ search — 2-form
   plural), `predictive-search.js` (search overlay — full **3-form** LT plural
