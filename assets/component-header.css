@@ -1,66 +1,146 @@
-/* Header component · sections/header.liquid · loaded in <head>. */
+/* Header component · sections/header.liquid · loaded in <head>.
 
-/* ════════════════════════════════════════════════════════════
-   HEADER
-   Sticky lives on the Shopify section wrapper (.section-header,
-   set via schema "class") — the wrapper is exactly as tall as the
-   header, so sticky on .header itself has zero travel and dies.
-   ════════════════════════════════════════════════════════════ */
-.section-header{ position: sticky; top: 0; z-index: 30; }
-.header{
+   A floating glass card. The Shopify section wrapper (.section-header, set via
+   schema "class") stays sticky at the very top; an inset wrapper pushes the
+   card down and in, so it hovers with a margin all around. The card fuses an
+   optional looping announcement marquee (top) with the main bar
+   (nav · logo · tools). On the homepage the full-bleed hero rides up beneath
+   the card via --chrome-h (measured on .section-header in chrome.js), so the
+   glass blurs real imagery. Mobile: nav collapses to the Whisper dock. */
+
+/* ── positioning: full-width sticky wrapper, click-through everywhere but the card ── */
+.section-header{
   position: sticky; top: 0; z-index: 30;
-  background: color-mix(in oklab, var(--bg) 52%, transparent);
-  backdrop-filter: blur(26px) saturate(1.7);
-  -webkit-backdrop-filter: blur(26px) saturate(1.7);
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  padding: 18px var(--gutter);
-  gap: 24px;
+  pointer-events: none;
 }
-.header__brand{
-  font: 600 22px/1 var(--font-sans);
-  letter-spacing: -0.025em;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+.header-inset{
+  padding: var(--sp-4) var(--gutter) 0;
+  pointer-events: none;
+}
+/* Centres the card + anchors the absolutely-positioned mega panel below it. */
+.header-shell{
+  position: relative;
+  max-width: 1480px; margin: 0 auto;
+  pointer-events: none;
+}
+
+/* ── the card: one rounded pane of glass, legible over white *and* imagery ── */
+.header{
+  pointer-events: auto;
+  width: 100%;
+  border-radius: var(--r-lg);
+  overflow: hidden; isolation: isolate;
+  border: 1px solid var(--glass-line);
+  /* Top sheen over a white-dominant fill — the fill keeps ink text/icons
+     readable when the card floats over a dark hero image. */
+  background:
+    linear-gradient(180deg, color-mix(in oklab, #ffffff 22%, transparent), transparent 42%),
+    color-mix(in oklab, var(--bg) 52%, transparent);
+  backdrop-filter: blur(21px) saturate(1.7);
+  -webkit-backdrop-filter: blur(21px) saturate(1.7);
+  box-shadow:
+    inset 0 1px 0 var(--glass-line-top),
+    0 2px 2px rgba(10, 10, 10, 0.06),
+    0 18px 40px -24px rgba(10, 10, 10, 0.28);
+}
+
+/* ── announcement marquee ── */
+.header__marquee{
+  position: relative; height: 30px;
+  display: flex; align-items: center; overflow: hidden;
+  border-bottom: 1px solid color-mix(in oklab, var(--ink) 8%, transparent);
+  background: color-mix(in oklab, #ffffff 16%, transparent);
+}
+.header__marquee-track{
+  display: flex; flex: none; width: max-content;
+  will-change: transform;
+  animation: header-marquee var(--marquee-duration, 40s) linear infinite;
+}
+.header__marquee-item{
+  padding: 0 40px; white-space: nowrap;
+  font: 500 11px/1 var(--font-mono);
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--text-muted);
+}
+@keyframes header-marquee{
+  from{ transform: translateX(0); }
+  to{ transform: translateX(-50%); }
+}
+/* real text for assistive tech — the visual track is aria-hidden */
+.header__sr{
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+
+/* ── main bar: nav · logo · tools ── */
+.header__bar{
+  display: grid; grid-template-columns: 3fr 1fr 3fr;
+  align-items: center; gap: 16px;
+  height: 56px; padding: 0 20px;
 }
 .header__nav{
-  display:flex; gap: var(--sp-8); justify-content: center;
-  font: 500 14px/1 var(--font-sans);
-  letter-spacing: -0.005em;
+  display: flex; align-items: center; justify-content: flex-start;
+  gap: var(--sp-6);
+  font: 500 13px/1 var(--font-sans); letter-spacing: -0.005em;
 }
-/* Mobile: the dock + full-screen menu are the navigation; the header keeps
-   only brand + bag. These rules MUST live in this file — the component owns
-   its responsive behaviour, so stylesheet order can't override it. */
-@media (max-width: 960px){
-  .header{ grid-template-columns: 1fr auto; gap: 12px; padding: 12px var(--gutter); }
-  .header__nav{ display: none; }
-  .header__tools a.header__tool-search,
-  .header__tools a.header__tool-account{ display: none; } /* these live in the menu */
-}
-.header__nav a{ padding: 6px 0; color: var(--text-muted); transition: color var(--tx-fast) var(--ease); }
+.header__nav a{ color: var(--text-muted); transition: color var(--tx-fast) var(--ease); }
 .header__nav a:hover, .header__nav a[aria-current="page"]{ color: var(--text); }
-.header__tools{
-  display:flex; gap: var(--sp-6); justify-content:flex-end; align-items:center;
-  font: 500 14px/1 var(--font-sans);
+/* Shop trigger — styled as a nav link, with a caret that flips when open */
+.header__nav-trigger{
+  display: inline-flex; align-items: center; gap: 5px;
+  font: inherit; color: var(--text-muted);
+  transition: color var(--tx-fast) var(--ease);
 }
-.header__tools a{ display: inline-flex; align-items: center; gap: 8px; padding: 8px 0; }
-.header__tool{ position: relative; color: var(--text); }
+.header__nav-trigger:hover, .header__nav-trigger[aria-expanded="true"]{ color: var(--text); }
+.header__nav-caret{
+  width: 9px; height: 9px; fill: none; stroke: currentColor;
+  stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+  transition: transform var(--tx-base) var(--ease-snap);
+}
+.header__nav-trigger[aria-expanded="true"] .header__nav-caret{ transform: rotate(180deg); }
+
+.header__logo{ justify-self: center; display: inline-flex; align-items: center; }
+.header__logo-img{ height: var(--logo-h, 24px); width: auto; display: block; }
+.header__wordmark{
+  display: inline-flex; align-items: center; gap: 7px;
+  font: 600 20px/1 var(--font-sans); letter-spacing: -0.025em;
+  color: var(--text);
+}
+
+.header__tools{
+  justify-self: end; display: flex; align-items: center;
+  gap: var(--sp-5);
+}
+.header__tool{ position: relative; display: inline-flex; align-items: center; color: var(--text); }
 .header__tool svg{ width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; display: block; }
 .header__tool:hover{ color: var(--text-muted); }
 .header__tool[aria-current="page"]{ color: var(--text); }
-.header__tool-cart .bag-count{ position: absolute; top: -4px; right: -9px; }
+.header__tool-cart .bag-count{ position: absolute; top: -5px; right: -9px; }
 .bag-count{
-  display:inline-grid; place-items:center;
-  min-width:22px; height:22px; padding: 0 7px;
+  display: inline-grid; place-items: center;
+  min-width: 20px; height: 20px; padding: 0 6px;
   background: var(--ink); color: var(--bg);
   font: 500 11px/1 var(--font-mono);
   border-radius: 99px;
 }
 
-/* ── Button component ───────────────────────────────────────
-   .btn / .btn--* / .btn__arrow relocated to component-button.css
-   (loaded after base.css in layout/theme.liquid).
-   ──────────────────────────────────────────────────────────── */
-
+/* ── Mobile: the dock + full-screen menu are the navigation; the header keeps
+   logo + bag. These rules MUST live in this file — the component owns its
+   responsive behaviour, so stylesheet order can't override it. ── */
+@media (max-width: 960px){
+  .header-inset{ padding: 10px var(--gutter) 0; }
+  /* Dock + full-screen menu own navigation, so there's no hamburger to
+     balance a centred logo against — fall back to the conventional
+     brand-left · bag-right layout. */
+  .header__bar{ grid-template-columns: 1fr auto; height: 52px; padding: 0 16px; gap: 10px; }
+  .header__nav{ display: none; }
+  .header__logo{ justify-self: start; }
+  .header__tools .header__tool-search,
+  .header__tools .header__tool-account{ display: none; } /* these live in the menu */
+}
+@media (max-width: 768px){
+  .header__marquee-item{ padding: 0 28px; }
+}
+@media (prefers-reduced-motion: reduce){
+  .header__marquee-track{ animation: none; }
+}

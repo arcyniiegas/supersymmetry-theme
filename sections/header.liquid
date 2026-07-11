@@ -1,38 +1,264 @@
-<header class="header">
-  <a href="{{ routes.root_url }}" class="header__brand">{{ settings.brand_name | default: 'Supersymmetry' }}<span class="brand-dot" aria-hidden="true"></span></a>
-  {%- liquid
-    assign nav_menu = settings.menu_main
-    if nav_menu.links == blank
-      assign nav_menu = linklists['supersymmetry-main']
-    endif
-  -%}
-  <nav class="header__nav" aria-label="{{ 'accessibility.main_nav' | t }}">
-    {%- if nav_menu.links != blank -%}
-      {%- for link in nav_menu.links -%}
-        <a href="{{ link.url }}"{% if link.active %} aria-current="page"{% endif %}>{{ link.title }}</a>
-      {%- endfor -%}
-    {%- else -%}
-      <a href="{{ routes.root_url }}"{% if request.page_type == 'index' %} aria-current="page"{% endif %}>{{ 'nav.home' | t }}</a>
-      <a href="{{ routes.collections_url }}"{% if request.page_type == 'collection' or request.page_type == 'product' %} aria-current="page"{% endif %}>{{ 'nav.shoes' | t }}</a>
-      <a href="{{ routes.collections_url }}">{{ 'nav.accessories' | t }}</a>
-      <a href="{{ blog.url | default: routes.root_url }}"{% if request.page_type == 'blog' or request.page_type == 'article' %} aria-current="page"{% endif %}>{{ 'nav.journal' | t }}</a>
+{%- liquid
+  assign nav_menu = settings.menu_main
+  if nav_menu.links == blank
+    assign nav_menu = linklists['supersymmetry-main']
+  endif
+  assign ann = section.settings.announcement_text
+  assign has_mega = false
+  if section.settings.mega_enabled and section.blocks.size > 0
+    assign has_mega = true
+  endif
+-%}
+{%- comment -%}
+  Floating glass header — one rounded card fusing an optional looping
+  announcement marquee (top) with the main bar (nav · logo · tools). A dedicated
+  "Shop" trigger opens a full-width mega panel composed from Theme-Editor blocks
+  (menu columns · featured tiles · a collections carousel). The panel is a
+  SIBLING of the card, not a child — the card's overflow:hidden clips the
+  marquee, so a dropped panel would be clipped inside it. Mobile keeps the header
+  minimal — the Whisper dock and full-screen menu own navigation.
+{%- endcomment -%}
+<div class="header-inset">
+  <div class="header-shell">
+    <header class="header">
+      {%- if section.settings.announcement_show and ann != blank -%}
+        <div class="header__marquee" style="--marquee-duration: {{ section.settings.announcement_speed }}s;">
+          <span class="header__sr">{{ ann }}</span>
+          <div class="header__marquee-track" aria-hidden="true">
+            {%- for i in (1..8) -%}<span class="header__marquee-item">{{ ann }}</span>{%- endfor -%}
+          </div>
+        </div>
+      {%- endif -%}
+
+      <div class="header__bar">
+        <nav class="header__nav" aria-label="{{ 'accessibility.main_nav' | t }}">
+          {%- if has_mega -%}
+            <button type="button" class="header__nav-trigger" aria-expanded="false" aria-controls="megaPanel" aria-haspopup="true" data-mega-toggle>
+              {{- section.settings.shop_label -}}
+              <svg class="header__nav-caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1 L5 5 L9 1"/></svg>
+            </button>
+          {%- endif -%}
+          {%- if nav_menu.links != blank -%}
+            {%- for link in nav_menu.links -%}
+              <a href="{{ link.url }}"{% if link.active %} aria-current="page"{% endif %}>{{ link.title }}</a>
+            {%- endfor -%}
+          {%- else -%}
+            <a href="{{ routes.root_url }}"{% if request.page_type == 'index' %} aria-current="page"{% endif %}>{{ 'nav.home' | t }}</a>
+            <a href="{{ routes.collections_url }}"{% if request.page_type == 'collection' or request.page_type == 'product' %} aria-current="page"{% endif %}>{{ 'nav.shoes' | t }}</a>
+            <a href="{{ routes.collections_url }}">{{ 'nav.accessories' | t }}</a>
+            <a href="{{ blog.url | default: routes.root_url }}"{% if request.page_type == 'blog' or request.page_type == 'article' %} aria-current="page"{% endif %}>{{ 'nav.journal' | t }}</a>
+          {%- endif -%}
+        </nav>
+
+        <a href="{{ routes.root_url }}" class="header__logo" style="--logo-h: {{ section.settings.logo_height }}px;" aria-label="{{ settings.brand_name | default: shop.name }}">
+          {%- if section.settings.logo != blank -%}
+            {{ section.settings.logo | image_url: width: 480 | image_tag: class: 'header__logo-img', widths: '120,160,200,240,320,400,480', sizes: '(max-width: 960px) 160px, 240px', alt: settings.brand_name | default: shop.name, loading: 'eager', fetchpriority: 'high' }}
+          {%- else -%}
+            <span class="header__wordmark">{{ settings.brand_name | default: 'Supersymmetry' }}<span class="brand-dot" aria-hidden="true"></span></span>
+          {%- endif -%}
+        </a>
+
+        <div class="header__tools">
+          <a href="{{ routes.search_url }}"{% if request.page_type == 'search' %} aria-current="page"{% endif %} class="header__tool header__tool-search" aria-label="{{ 'search.title' | t }}" data-search-open>
+            <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="9" cy="9" r="5.2"/><path d="M12.8 12.8 L16.6 16.6"/></svg></a>
+          <a href="{{ routes.account_url }}" class="header__tool header__tool-account" aria-label="{{ 'nav.account' | t }}">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="6.8" r="3.2"/><path d="M4.2 16.4 C4.2 12.9 6.8 11.2 10 11.2 C13.2 11.2 15.8 12.9 15.8 16.4"/></svg></a>
+          <a href="{{ routes.cart_url }}"{% if request.page_type == 'cart' %} aria-current="page"{% else %} data-drawer-open="cartDrawer"{% endif %} class="header__tool header__tool-cart" aria-label="{{ 'cart.title' | t }}">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6 6.4 H14 L14.8 15.8 A0.7 0.7 0 0 1 14.1 16.6 H5.9 A0.7 0.7 0 0 1 5.2 15.8 Z M7.8 6.4 V5.6 A2.2 2.2 0 0 1 12.2 5.6 V6.4"/></svg>
+            <span class="bag-count" data-bag-count{% if cart.item_count == 0 %} style="display:none"{% endif %}>{{ cart.item_count }}</span></a>
+        </div>
+      </div>
+    </header>
+
+    {%- if has_mega -%}
+      {%- assign col_blocks = section.blocks | where: 'type', 'menu_column' -%}
+      {%- assign tile_blocks = section.blocks | where: 'type', 'featured_tile' -%}
+      <div class="mega" id="megaPanel" data-mega-panel>
+        {%- if col_blocks.size > 0 or tile_blocks.size > 0 -%}
+        <div class="mega__inner">
+          {%- if col_blocks.size > 0 -%}
+            <div class="mega__cols">
+              {%- for block in col_blocks -%}
+                <div class="mega__col" {{ block.shopify_attributes }}>
+                  {%- if block.settings.heading != blank -%}<p class="mega__col-title">{{ block.settings.heading }}</p>{%- endif -%}
+                  {%- if block.settings.menu.links != blank -%}
+                    <ul class="mega__col-list">
+                      {%- for link in block.settings.menu.links -%}
+                        <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                      {%- endfor -%}
+                    </ul>
+                  {%- endif -%}
+                </div>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+          {%- if tile_blocks.size > 0 -%}
+            <div class="mega__featured">
+              {%- for block in tile_blocks -%}
+                <a class="mega__tile" href="{{ block.settings.link | default: routes.root_url }}" {{ block.shopify_attributes }}>
+                  {%- if block.settings.image != blank -%}
+                    {{ block.settings.image | image_url: width: 640 | image_tag: class: 'mega__tile-img', widths: '320,440,560,640', sizes: '(max-width: 1200px) 30vw, 320px', alt: block.settings.heading, loading: 'lazy' }}
+                  {%- endif -%}
+                  {%- if block.settings.heading != blank -%}<span class="mega__tile-label">{{ block.settings.heading }}</span>{%- endif -%}
+                </a>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        </div>
+        {%- endif -%}
+
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'collection_strip' and block.settings.collections != blank -%}
+            <div class="mega__strip" {{ block.shopify_attributes }}>
+              {%- if block.settings.heading != blank -%}<p class="mega__strip-title">{{ block.settings.heading }}</p>{%- endif -%}
+              <ul class="mega__carousel">
+                {%- for coll in block.settings.collections -%}
+                  <li class="mega__card">
+                    <a href="{{ coll.url }}">
+                      <span class="mega__card-media">
+                        {%- if coll.featured_image -%}
+                          {{ coll.featured_image | image_url: width: 400 | image_tag: class: 'mega__card-img', widths: '180,270,360,440', sizes: '180px', alt: coll.title, loading: 'lazy' }}
+                        {%- endif -%}
+                      </span>
+                      <span class="mega__card-title">{{ coll.title }}</span>
+                    </a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
     {%- endif -%}
-  </nav>
-  <div class="header__tools">
-    <a href="{{ routes.search_url }}"{% if request.page_type == 'search' %} aria-current="page"{% endif %} class="header__tool header__tool-search" aria-label="{{ 'search.title' | t }}" data-search-open>
-      <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="9" cy="9" r="5.2"/><path d="M12.8 12.8 L16.6 16.6"/></svg></a>
-    <a href="{{ routes.account_url }}" class="header__tool header__tool-account" aria-label="{{ 'nav.account' | t }}">
-      <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="6.8" r="3.2"/><path d="M4.2 16.4 C4.2 12.9 6.8 11.2 10 11.2 C13.2 11.2 15.8 12.9 15.8 16.4"/></svg></a>
-    <a href="{{ routes.cart_url }}"{% if request.page_type == 'cart' %} aria-current="page"{% else %} data-drawer-open="cartDrawer"{% endif %} class="header__tool header__tool-cart" aria-label="{{ 'cart.title' | t }}">
-      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6 6.4 H14 L14.8 15.8 A0.7 0.7 0 0 1 14.1 16.6 H5.9 A0.7 0.7 0 0 1 5.2 15.8 Z M7.8 6.4 V5.6 A2.2 2.2 0 0 1 12.2 5.6 V6.4"/></svg>
-      <span class="bag-count" data-bag-count{% if cart.item_count == 0 %} style="display:none"{% endif %}>{{ cart.item_count }}</span></a>
   </div>
-</header>
+</div>
 
 {% schema %}
 {
   "name": "Header",
   "class": "section-header",
-  "settings": []
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image",
+      "info": "Falls back to the text wordmark when empty."
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "min": 16,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Logo height",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Announcement marquee"
+    },
+    {
+      "type": "checkbox",
+      "id": "announcement_show",
+      "label": "Show announcement marquee",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Announcement text",
+      "default": "Siunčiame iš Vilniaus · Nemokamas pristatymas nuo 100€ · Rankų darbo oda"
+    },
+    {
+      "type": "range",
+      "id": "announcement_speed",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "s",
+      "label": "Marquee loop duration",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Shop mega menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "mega_enabled",
+      "label": "Enable Shop dropdown",
+      "info": "Shows a Shop trigger in the nav that opens the mega panel built from the blocks below.",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "shop_label",
+      "label": "Shop trigger label",
+      "default": "Parduotuvė"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu_column",
+      "name": "Menu column",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu"
+        }
+      ]
+    },
+    {
+      "type": "featured_tile",
+      "name": "Featured tile",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Label"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "type": "collection_strip",
+      "name": "Collections carousel",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading"
+        },
+        {
+          "type": "collection_list",
+          "id": "collections",
+          "label": "Collections",
+          "limit": 16
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12
 }
 {% endschema %}

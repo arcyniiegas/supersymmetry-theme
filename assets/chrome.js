@@ -31,17 +31,16 @@
   }
 
   /* ── full-bleed hero offset ──
-     Measure the chrome (utility bar + sticky header) and publish it as
-     --chrome-h so a full-bleed hero can slide up beneath the glass header
-     (the glass then blurs real imagery instead of collapsing to white).
-     Measured from the elements directly so the hero's own negative margin
-     can never feed back into the value. */
+     Measure the sticky header wrapper (.section-header — the inset gap + the
+     floating glass card) and publish it as --chrome-h so a full-bleed hero can
+     slide up beneath the card (the glass then blurs real imagery instead of
+     collapsing to white). Measured from the wrapper directly so the hero's own
+     negative margin can never feed back into the value. */
   (function () {
     var root = document.documentElement;
     function setChromeH() {
-      var util = document.querySelector('.utility');
-      var header = document.querySelector('.header');
-      var h = (util ? util.offsetHeight : 0) + (header ? header.offsetHeight : 0);
+      var wrap = document.querySelector('.section-header');
+      var h = wrap ? wrap.offsetHeight : 0;
       if (h > 0) root.style.setProperty('--chrome-h', h + 'px');
     }
     setChromeH();
@@ -50,17 +49,8 @@
     if (document.fonts && document.fonts.ready) { document.fonts.ready.then(setChromeH); }
     if (window.ResizeObserver) {
       var ro = new ResizeObserver(setChromeH);
-      ['.utility', '.header'].forEach(function (s) {
-        var el = document.querySelector(s);
-        if (el) ro.observe(el);
-      });
+      var el = document.querySelector('.section-header');
+      if (el) ro.observe(el);
     }
   })();
-
-  /* ── mobile utility-bar disclosure (if present) ── */
-  on(document.querySelectorAll('[data-utility-toggle]'), 'click', function () {
-    var t = this.getAttribute('data-utility-toggle');
-    var panel = t ? document.getElementById(t) : null;
-    if (panel) panel.classList.toggle('is-open');
-  });
 })();

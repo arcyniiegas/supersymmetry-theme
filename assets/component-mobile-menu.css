@@ -1,6 +1,6 @@
 /* Mobile menu component · snippets/mobile-menu.liquid (opened from the dock) · loaded in <head>.
-   Owns ONLY .mobilemenu — header and utility-bar responsive rules live in
-   their components' own files, so <head> load order can never flip them. */
+   Owns ONLY .mobilemenu — header responsive rules live in the header
+   component's own file, so <head> load order can never flip them. */
 
 /* ── full-screen mobile menu ── */
 body.menu-open{ overflow: hidden; }

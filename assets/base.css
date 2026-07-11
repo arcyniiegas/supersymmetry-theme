@@ -126,9 +126,8 @@ input, textarea{ min-width:0; max-width:100%; }
   background: var(--orange);
 }
 
-/* ── Utility bar + header components ─────────────────────────
-   Relocated to component-utility-bar.css / component-header.css
-   (loaded in <head>). Their glass-off overrides win by specificity.
+/* ── Header component ────────────────────────────────────────
+   Relocated to component-header.css (loaded in <head>).
    ──────────────────────────────────────────────────────────── */
 /* ════════════════════════════════════════════════════════════
    BREADCRUMBS

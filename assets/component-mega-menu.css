@@ -1,0 +1,128 @@
+/* Mega menu component · sections/header.liquid (Shop trigger) · component-mega-menu.js
+   Loaded in <head>.
+
+   A full-width glass panel that drops below the floating header card. It is a
+   SIBLING of the card inside .header-shell (the card's overflow:hidden would
+   otherwise clip it), absolutely positioned just below it. Composed from
+   Theme-Editor blocks: menu columns · featured tiles · a collections carousel.
+   Desktop-only — on mobile the dock + full-screen menu own navigation. */
+
+.mega{
+  position: absolute; left: 0; right: 0; top: 100%;
+  margin-top: 8px; z-index: 5;
+  pointer-events: none;
+  opacity: 0; visibility: hidden;
+  transform: translateY(-8px);
+  transition:
+    opacity var(--tx-base) var(--ease),
+    transform var(--tx-base) var(--ease-snap),
+    visibility 0s linear var(--tx-base);
+  /* same glass as the card, but a denser fill — this is a reading surface */
+  border-radius: var(--r-lg);
+  border: 1px solid var(--glass-line);
+  background:
+    linear-gradient(180deg, color-mix(in oklab, #ffffff 20%, transparent), transparent 30%),
+    color-mix(in oklab, var(--bg) 82%, transparent);
+  backdrop-filter: blur(24px) saturate(1.7);
+  -webkit-backdrop-filter: blur(24px) saturate(1.7);
+  box-shadow:
+    inset 0 1px 0 var(--glass-line-top),
+    0 2px 2px rgba(10, 10, 10, 0.06),
+    0 30px 60px -30px rgba(10, 10, 10, 0.36);
+}
+/* .is-open is set on .header-shell by component-mega-menu.js */
+.header-shell.is-open .mega{
+  pointer-events: auto;
+  opacity: 1; visibility: visible; transform: none;
+  transition:
+    opacity var(--tx-base) var(--ease),
+    transform var(--tx-base) var(--ease-snap),
+    visibility 0s;
+}
+
+/* ── columns + featured tiles row ── */
+.mega__inner{
+  display: grid; grid-template-columns: 1fr auto;
+  gap: var(--sp-12); align-items: start;
+  padding: var(--sp-8) var(--sp-10);
+}
+.mega__cols{
+  display: flex; flex-wrap: wrap; gap: var(--sp-12);
+}
+.mega__col{ min-width: 12rem; }
+.mega__col-title{
+  font: 500 11px/1 var(--font-mono);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: var(--sp-4);
+}
+.mega__col-list{ display: flex; flex-direction: column; gap: var(--sp-3); list-style: none; }
+.mega__col-list a{
+  font: 500 15px/1 var(--font-sans); letter-spacing: -0.01em;
+  color: var(--text); transition: color var(--tx-fast) var(--ease);
+}
+.mega__col-list a:hover{ color: var(--text-muted); }
+
+.mega__featured{ display: flex; gap: var(--sp-4); }
+.mega__tile{
+  position: relative; display: block;
+  width: 15rem; aspect-ratio: 0.82;
+  border-radius: var(--r-md); overflow: hidden;
+  background: var(--surface);
+}
+.mega__tile-img{
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform var(--tx-base) var(--ease-snap);
+}
+.mega__tile:hover .mega__tile-img{ transform: scale(1.04); }
+.mega__tile-label{
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: var(--sp-4);
+  font: 600 16px/1.1 var(--font-sans); letter-spacing: -0.02em;
+  color: #ffffff;
+  background: linear-gradient(0deg, rgba(10,10,10,0.55), transparent);
+}
+
+/* ── collections carousel (CSS scroll-snap, no JS) ── */
+.mega__strip{
+  border-top: 1px solid color-mix(in oklab, var(--ink) 8%, transparent);
+  padding: var(--sp-6) var(--sp-10) var(--sp-8);
+}
+.mega__strip-title{
+  font: 500 11px/1 var(--font-mono);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: var(--sp-4);
+}
+.mega__carousel{
+  display: flex; gap: var(--sp-4);
+  overflow-x: auto; scroll-snap-type: x mandatory;
+  scrollbar-width: none; -ms-overflow-style: none;
+  padding-bottom: 2px;
+}
+.mega__carousel::-webkit-scrollbar{ display: none; }
+.mega__card{
+  flex: 0 0 auto; width: 11.5rem; scroll-snap-align: start;
+}
+.mega__card-media{
+  display: block; aspect-ratio: 0.82; overflow: hidden;
+  border-radius: var(--r-md); background: var(--surface);
+}
+.mega__card-img{
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform var(--tx-base) var(--ease-snap);
+}
+.mega__card:hover .mega__card-img{ transform: scale(1.04); }
+.mega__card-title{
+  display: block; margin-top: var(--sp-2);
+  font: 500 14px/1.2 var(--font-sans); letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+/* ── mobile: the dock + full-screen menu own navigation ── */
+@media (max-width: 960px){
+  .mega{ display: none; }
+}
+@media (prefers-reduced-motion: reduce){
+  .mega{ transition: opacity var(--tx-base) linear, visibility 0s linear var(--tx-base); transform: none; }
+  .header-shell.is-open .mega{ transform: none; }
+  .mega__tile-img, .mega__card-img{ transition: none; }
+}
