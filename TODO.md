@@ -192,7 +192,21 @@ The high‑value, high‑complexity surfaces, onto the shared kit last.
       (same case-by-case calls as the button unification).
 - [ ] Prune unused CSS/JS/assets; dedupe images (`Nr1.webp` vs
       `Nr1-0c6678ce.webp`, etc.).
-- [ ] Normalise all schema IDs to the [SCHEMA_GUIDE.md](SCHEMA_GUIDE.md) standard.
+- [~] Normalise all schema IDs to the [SCHEMA_GUIDE.md](SCHEMA_GUIDE.md) standard.
+      **Single-letter setting-id sweep** (banned by §1) — pattern proven on
+      `main-dydziu-lentele` (`stat` `k`/`v` → `label`/`value`, schema + render +
+      count-verified template migration, live-verified). NB: dev-facing only
+      (merchants already see the human `label`s). Remaining, **block-type-aware**
+      (same letter ≠ same concept — must migrate template data per block type):
+      - `stat` (akciju/avalynes/grąžinimai): `k`→`label`, `v`→`value`
+      - `clause`/`habit` `k` (Kicker) → `eyebrow`; `t`→`title`; `b`→`body`
+      - `receipt_row` `l`→`label`, `v`→`value`
+      - `chip`/`tstep` `n` (Number) → `num`
+      - `fix` `q`→`question`, `f`→`answer`
+      - `elig` `t`→`title`, `d` (Detail) → `text`; `step`/`swap_card` `t`→`title`, `b`→`body`
+      Reads vary (snippet args vs nested-loop `b.settings.*`), so each section
+      needs its schema + reads + template migrated together, one at a time.
+      Two-part hero `headline_light/_bold` stays until home-hero is refactored (§1 note).
 - [ ] Full `theme-check` pass; accessibility + Lighthouse sweep.
 
 ---
