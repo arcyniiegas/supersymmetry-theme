@@ -186,12 +186,27 @@ The high‑value, high‑complexity surfaces, onto the shared kit last.
       glass button (gratuitous per-page redefinitions removed; justified context
       kept — see COMPONENTS.md); `component-card.css` owns the product card (PDP
       related-card duplication + dead rules removed, `.card__price-chip` folded in).
+- [x] **Eyebrow-with-rule primitive consolidated.** The label was re-declared
+      ~10× under bespoke BEM names. Now: `.eyebrow-rule` (base) absorbs phead/
+      redeem/lock (Cluster A); new `.eyebrow--rule` modifier absorbs manifesto/
+      letter/notes/glance (Cluster B, `class="eyebrow eyebrow--rule"`); homefit/
+      homevisit and khero/visit deduped in-file (C/D). Sections keep only spacing/
+      dark-surface hooks. Genuine one-offs (`.hero__` currentColor, `.note__`
+      white) left. Verified pixel-identical live.
+- [x] **`.field` form primitive → `component-form.css`.** The label+input/select/
+      textarea group (identical in `section-customers.css` `.acct .field` and
+      `section-kontaktai.css` `.field`) now lives once, loaded globally in
+      `theme.liquid`. Sections keep only layout / char-counter / consent context.
 - [ ] Fold the remaining bespoke `section-*.css` design into `component-*.css` +
-      thin `section-*.css`. NB: the *duplication* is now gone; what remains is
-      genuinely per-section design, so further merging trades against pixel-parity
-      (same case-by-case calls as the button unification).
-- [ ] Prune unused CSS/JS/assets; dedupe images (`Nr1.webp` vs
-      `Nr1-0c6678ce.webp`, etc.).
+      thin `section-*.css`. NB: the cross-section *duplication* is now gone
+      (eyebrow, form, button, card, tokens/base all single-sourced; `chip`/`badge`/
+      `tag`/`prose` verified to be genuinely per-section designs, not dupes). What
+      remains is per-section design, so further merging trades against pixel-parity.
+- [x] **Prune unused CSS/JS/assets; dedupe images.** Dead feature blocks removed
+      from home (`.spot*`), product (`.spec-table`/`.ship-*`), grazinimai (tariff/
+      return-form/endcta, −42%). Deduped byte-identical `Nr{1,2,3}.webp` vs their
+      `-<hash>.webp` copies (−355 KB). `product-tryon.js` is orphaned (no loader,
+      no markup) — flagged for the owner rather than deleted (possible WIP).
 - [~] Normalise all schema IDs to the [SCHEMA_GUIDE.md](SCHEMA_GUIDE.md) standard.
       **Single-letter setting-id sweep (banned by §1) — DONE.** All 4 sections
       migrated block-type-aware (schema + reads + count-verified template data),

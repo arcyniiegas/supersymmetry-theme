@@ -13,8 +13,10 @@ CSS is **component‑based**, not page‑based. Files map to the layer model:
 assets/                 (flat — Shopify forbids subdirectories; namespace by prefix)
   tokens.css            design decisions only — CSS custom properties
   base.css              resets, element defaults, base typography, layout primitives
+                        (incl. the .eyebrow / .eyebrow-rule / .eyebrow--rule labels)
   component-button.css  .btn and its modifiers
   component-card.css    .card
+  component-form.css    .field — label + input/select/textarea group
   component-accordion.css   .accordion
   component-badge.css   .badge / .tag / .chip
   component-drawer.css  off-canvas panels
