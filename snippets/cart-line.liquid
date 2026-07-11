@@ -3,15 +3,17 @@
   drawer (cart-drawer) so the two never diverge.
 
   Params:
-    item  {line_item}  required — an entry from cart.items
-    index {number}     optional — 1-based position; renders the NN media badge
-                        (page only; the drawer omits it)
+    item    {line_item}  required — an entry from cart.items
+    index   {number}     optional — 1-based position; renders the NN media badge
+                          (page only; the drawer omits it)
+    compact {boolean}    optional — smaller media/type/controls for the
+                          drawer's narrow panel
 
   Classes here are the contract for component-cart.js: the row carries
   data-key, the stepper is .qty with [data-step] buttons, remove is .line__remove.
   Money is always Liquid-computed — never faked client-side.
 {%- endcomment -%}
-<article class="line" data-key="{{ item.key }}" data-qty="{{ item.quantity }}">
+<article class="line{% if compact %} line--compact{% endif %}" data-key="{{ item.key }}" data-qty="{{ item.quantity }}">
   <a class="line__media" href="{{ item.url }}">
     {%- if item.image -%}
     <img src="{{ item.image | image_url: width: 200 }}" srcset="{{ item.image | image_url: width: 200 }} 200w, {{ item.image | image_url: width: 400 }} 400w" sizes="120px" alt="{{ item.title | escape }}" width="{{ item.image.width }}" height="{{ item.image.height }}" loading="lazy" />

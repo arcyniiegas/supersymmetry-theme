@@ -11,34 +11,6 @@
   "sections": {
     "main": {
       "type": "main-cart",
-      "blocks": {
-        "eside-1": {
-          "type": "eside",
-          "settings": {
-            "product": "",
-            "meta": ""
-          }
-        },
-        "eside-2": {
-          "type": "eside",
-          "settings": {
-            "product": "",
-            "meta": ""
-          }
-        },
-        "eside-3": {
-          "type": "eside",
-          "settings": {
-            "product": "",
-            "meta": ""
-          }
-        }
-      },
-      "block_order": [
-        "eside-1",
-        "eside-2",
-        "eside-3"
-      ],
       "settings": {
         "title_light": "",
         "title": "",
@@ -50,7 +22,6 @@
         "empty_cta_link": "",
         "empty_ghost_label": "Kolekcijos",
         "empty_ghost_link": "",
-        "empty_side_heading": "Iš kolekcijos",
         "ship_note": "Išsiunčiame per 1—2 darbo dienas iš Vilniaus.",
         "ship_cost_note": "",
         "gift_prefix": "Dovana?",
@@ -71,10 +42,6 @@
         "trust_1": "14 dienų grąžinimas · nemokamas keitimas.",
         "trust_2": "Saugus mokėjimas · šifruota SSL jungtimi.",
         "trust_3": "Išsiunčiame per 1–2 darbo dienas iš Vilniaus.",
-        "upsell_title_light": "Galbūt",
-        "upsell_title": "praleidai",
-        "upsell_more_label": "Visa kolekcija →",
-        "upsell_more_link": "",
         "title_scale": 100,
         "color_scheme": "",
         "text_color": ""

@@ -117,6 +117,18 @@
 .line__now{ font: 500 18px/1 var(--font-mono); letter-spacing: -0.01em; }
 .line__was{ font: 500 12px/1 var(--font-mono); color: var(--soft); text-decoration: line-through; }
 
+/* ── compact variant — the drawer's narrow panel (set via cart-line param) ── */
+.line--compact{ grid-template-columns: 84px 1fr; gap: var(--sp-4); padding: var(--sp-5) 0; }
+.line--compact .line__media{ width: 84px; min-height: 104px; }
+.line--compact .line__body{ gap: var(--sp-2); }
+.line--compact .line__name{ font-size: 15px; }
+.line--compact .line__remove{ width: 36px; height: 36px; }
+.line--compact .tag{ padding: 4px 9px; }
+.line--compact .qty button{ width: 40px; height: 40px; font-size: 15px; }
+.line--compact .qty input{ width: 30px; height: 40px; font-size: 13px; }
+.line--compact .line__now{ font-size: 15px; }
+.line--compact .line__was{ font-size: 11px; }
+
 /* ── Free-shipping progress meter (drawer + page) ── */
 .free-ship{ display: grid; gap: 8px; margin-bottom: var(--sp-5); }
 .free-ship__label{

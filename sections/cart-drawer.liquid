@@ -38,7 +38,7 @@
 
       <div class="cart-drawer__items items">
         {%- for item in cart.items -%}
-          {% render 'cart-line', item: item %}
+          {% render 'cart-line', item: item, compact: true %}
         {%- endfor -%}
       </div>
 

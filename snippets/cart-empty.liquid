@@ -1,5 +1,5 @@
 {%- comment -%} Cart — empty section. Rendered by main-cart. {%- endcomment -%}
-<section class="empty" style="display:block">
+<section class="empty">
   <div class="empty__wrap">
     <div>
       <div class="eyebrow-rule">{{ section.settings.empty_eyebrow | default: 'Krepšelis · <b>0 prekių</b>' }}</div>
@@ -12,42 +12,6 @@
         {% render 'button', label: ghost_label, href: section.settings.empty_ghost_link | default: routes.collections_url, style: 'ghost', size: 'lg' %}
         {%- endif -%}
       </div>
-    </div>
-    <div class="empty__side">
-      <h6>{{ section.settings.empty_side_heading | default: 'Iš kolekcijos' }}</h6>
-      {%- comment -%} Product-picker blocks; blocks with no product chosen are
-        skipped, and when none are valid the previous literals render unchanged. {%- endcomment -%}
-      {%- assign eside_valid = 0 -%}
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'eside' and block.settings.product != blank -%}{%- assign eside_valid = eside_valid | plus: 1 -%}{%- endif -%}
-      {%- endfor -%}
-      {%- if eside_valid > 0 -%}
-        {%- for block in section.blocks -%}
-          {%- assign p = block.settings.product -%}
-          {%- if block.type == 'eside' and p != blank -%}
-      <a class="eside" href="{{ p.url }}" {{ block.shopify_attributes }}>
-        <div class="eside__media">{% if p.featured_image %}<img loading="lazy" src="{{ p.featured_image | image_url: width: 200 }}" sizes="64px" alt="{{ p.title | escape }}" width="{{ p.featured_image.width }}" height="{{ p.featured_image.height }}" />{% endif %}</div>
-        <div>
-          <div class="eside__name">{{ p.title }}</div>
-          {%- if block.settings.meta != blank -%}<div class="eside__meta">{{ block.settings.meta }}</div>{%- endif -%}
-        </div>
-        <div class="eside__price">{{ p.price | money | remove: '€' | remove: ',00' }}</div>
-      </a>
-          {%- endif -%}
-        {%- endfor -%}
-      {%- else -%}
-      {%- comment -%} No products picked → fall back to real catalog items,
-        never invented ones. {%- endcomment -%}
-      {%- for p in collections.all.products limit: 3 -%}
-      <a class="eside" href="{{ p.url }}">
-        <div class="eside__media">{% if p.featured_image %}<img loading="lazy" src="{{ p.featured_image | image_url: width: 200 }}" sizes="64px" alt="{{ p.title | escape }}" width="{{ p.featured_image.width }}" height="{{ p.featured_image.height }}" />{% endif %}</div>
-        <div>
-          <div class="eside__name">{{ p.title }}</div>
-        </div>
-        <div class="eside__price">{{ p.price | money | remove: '€' | remove: ',00' }}</div>
-      </a>
-      {%- endfor -%}
-      {%- endif -%}
     </div>
   </div>
 </section>

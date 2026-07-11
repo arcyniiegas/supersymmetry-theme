@@ -82,6 +82,11 @@
   background: var(--c-ship-bg); color: var(--c-ship-ink);
 }
 .estimator__cost.is-free{ background: var(--c-origin-bg); color: var(--c-origin-ink); }
+@media (max-width: 560px){
+  /* The label + cost pill can't share a row on narrow screens — stack them. */
+  .estimator{ flex-wrap: wrap; }
+  .estimator__result{ text-align: left; justify-items: start; }
+}
 @media (max-width: 380px){
   .estimator{ gap: var(--sp-3); padding: var(--sp-3) var(--sp-4); }
   .estimator__ico{ display: none; }
@@ -175,20 +180,13 @@
 .trust b{ color: var(--text); font-weight: 500; }
 
 /* ════════════════════════════════════════════════════════════
-   EMPTY STATE
+   EMPTY STATE — single editorial column (no product rail)
    ════════════════════════════════════════════════════════════ */
-.empty{ display: none; }
-body.is-empty .shell,
-body.is-empty .carthead__meta{ display: none; }
-body.is-empty .empty{ display: block; }
 .empty__wrap{
   max-width: var(--max);
   margin: 0 auto;
   padding: var(--sp-16) var(--gutter) var(--sp-24);
-  display: grid; grid-template-columns: 1.1fr 1fr;
-  gap: var(--sp-16); align-items: center;
 }
-@media (max-width: 880px){ .empty__wrap{ grid-template-columns: 1fr; gap: var(--sp-10); } }
 .empty__big{
   font: 300 clamp(44px, 6vw, 96px)/0.92 var(--font-sans);
   letter-spacing: -0.05em; margin: var(--sp-5) 0 var(--sp-6);
@@ -200,19 +198,3 @@ body.is-empty .empty{ display: block; }
   max-width: 42ch; margin-bottom: var(--sp-8); letter-spacing: -0.005em;
 }
 .empty__ctas{ display: flex; gap: var(--sp-3); flex-wrap: wrap; }
-.empty__side{ display: grid; gap: var(--sp-3); }
-.empty__side h6{
-  margin: 0 0 var(--sp-2); font: 500 11px/1 var(--font-mono);
-  letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted);
-}
-.eside{
-  display: grid; grid-template-columns: 64px 1fr auto; gap: var(--sp-4);
-  align-items: center; padding: var(--sp-3) 0;
-  border-bottom: 1px solid var(--line);
-}
-.eside:first-of-type{ border-top: 1px solid var(--line); }
-.eside__media{ width: 64px; height: 76px; border-radius: var(--r-sm); overflow: hidden; background: var(--surface); }
-.eside__media img{ width: 100%; height: 100%; object-fit: cover; }
-.eside__name{ font: 500 14px/1.15 var(--font-sans); letter-spacing: -0.01em; }
-.eside__meta{ font: 500 10px/1 var(--font-mono); color: var(--text-muted); margin-top: 4px; letter-spacing: 0.02em; }
-.eside__price{ font: 500 13px/1 var(--font-mono); }

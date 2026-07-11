@@ -156,7 +156,6 @@
     { "type": "url", "id": "empty_cta_link", "label": "Primary button link" },
     { "type": "text", "id": "empty_ghost_label", "label": "Secondary button label", "info": "Leave empty to hide.", "default": "Kolekcijos" },
     { "type": "url", "id": "empty_ghost_link", "label": "Secondary button link" },
-    { "type": "text", "id": "empty_side_heading", "label": "Side rail heading", "default": "Iš kolekcijos" },
     { "type": "header", "content": "Shipping note" },
     { "type": "text", "id": "ship_note", "label": "Note", "default": "Išsiunčiame per 1—2 darbo dienas iš Vilniaus." },
     { "type": "text", "id": "ship_cost_note", "label": "Cost note", "default": "Pristatymas skaičiuojamas apmokant" },
@@ -185,16 +184,6 @@
     { "type": "range", "id": "title_scale", "label": "Heading size", "min": 60, "max": 130, "step": 5, "unit": "%", "default": 100 },
     { "type": "color_scheme", "id": "color_scheme", "label": "Colour scheme", "default": "scheme-1", "info": "Recolours this whole section. The default matches the rest of the site." },
     { "type": "color", "id": "text_color", "label": "Text colour", "info": "Recolours this section's text. Leave empty for the default near-black." }
-  ],
-  "blocks": [
-    {
-      "type": "eside",
-      "name": "Empty-cart product",
-      "settings": [
-        { "type": "product", "id": "product", "label": "Product", "info": "Shown in the empty-cart side rail. While no product is chosen, the built-in examples render instead." },
-        { "type": "text", "id": "meta", "label": "Meta line (e.g. size range)" }
-      ]
-    }
   ],
   "presets": [{ "name": "Cart" }]
 }
