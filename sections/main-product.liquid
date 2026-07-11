@@ -143,38 +143,30 @@
       <div class="delivery__head">
         <span class="delivery__title">{{ block.settings.title }}</span>
       </div>
+      {%- comment -%} Dates filled by component-delivery.js (Europe/Vilnius, weekends + LT holidays). {%- endcomment -%}
       <div class="gantt">
-{%- if product.metafields.delivery.gantt != blank -%}
-{%- for row in product.metafields.delivery.gantt.value -%}
-        <div class="gantt__row{% if row.state != blank and row.state != 'future' %} {{ row.state }}{% endif %}">
-          <span class="gantt__node"></span>
-          <span class="gantt__leg">{{ row.leg }}</span>
-          <span class="gantt__date">{{ row.date }}</span>
-        </div>
-{%- endfor -%}
-{%- else -%}
         <div class="gantt__row done">
           <span class="gantt__node"></span>
-          <span class="gantt__leg">Užsakymas pateiktas</span>
-          <span class="gantt__date">Pn, 22 geg.</span>
+          <span class="gantt__leg">{{ 'product.delivery.placed' | t }}</span>
+          <span class="gantt__date"></span>
         </div>
         <div class="gantt__row now">
           <span class="gantt__node"></span>
-          <span class="gantt__leg">Užsakymas išsiunčiamas</span>
-          <span class="gantt__date">Št, 23 geg.</span>
+          <span class="gantt__leg">{{ 'product.delivery.shipped' | t }}</span>
+          <span class="gantt__date"></span>
         </div>
         <div class="gantt__row">
           <span class="gantt__node"></span>
-          <span class="gantt__leg">Užsakymas kelyje</span>
-          <span class="gantt__date">Sk, 24 geg.</span>
+          <span class="gantt__leg">{{ 'product.delivery.transit' | t }}</span>
+          <span class="gantt__date"></span>
         </div>
         <div class="gantt__row">
           <span class="gantt__node"></span>
-          <span class="gantt__leg">Pristatymas iki</span>
-          <span class="gantt__date">Pr, 25 geg.</span>
+          <span class="gantt__leg">{{ 'product.delivery.delivered' | t }}</span>
+          <span class="gantt__date"></span>
         </div>
-{%- endif -%}
       </div>
+      <script src="{{ 'component-delivery.js' | asset_url }}" defer></script>
     </div>
       {%- endcase -%}
     {%- endfor -%}

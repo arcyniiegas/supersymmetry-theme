@@ -48,6 +48,12 @@
     "show_html": "Show ({{ count }})"
   },
   "product": {
+    "delivery": {
+      "placed": "Order placed",
+      "shipped": "Order dispatched",
+      "transit": "In transit",
+      "delivered": "Delivery by"
+    },
     "sold_out": "Sold out",
     "new": "New",
     "add_to_cart": "Add to cart",

@@ -48,6 +48,12 @@
     "show_html": "Rodyti ({{ count }})"
   },
   "product": {
+    "delivery": {
+      "placed": "Užsakymas pateiktas",
+      "shipped": "Užsakymas išsiunčiamas",
+      "transit": "Užsakymas kelyje",
+      "delivered": "Pristatymas iki"
+    },
     "sold_out": "Išparduota",
     "new": "Naujiena",
     "add_to_cart": "Į krepšelį",
