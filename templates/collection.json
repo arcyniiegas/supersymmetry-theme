@@ -55,6 +55,7 @@
         "note-3",
         "note-4"
       ],
+      "disabled": true,
       "settings": {
         "show_eyebrow": true,
         "eyebrow_prefix": "Kolekcija",
@@ -78,9 +79,85 @@
         "color_scheme": "",
         "text_color": ""
       }
+    },
+    "main_list_collections_RGxP6J": {
+      "type": "main-list-collections",
+      "blocks": {
+        "collection_GD3W9h": {
+          "type": "collection",
+          "settings": {
+            "collection": "basutes",
+            "badge": "",
+            "count_word": "poros"
+          }
+        },
+        "collection_WWbDtm": {
+          "type": "collection",
+          "settings": {
+            "collection": "bateliai",
+            "badge": "",
+            "count_word": "poros"
+          }
+        },
+        "collection_9hTLNA": {
+          "type": "collection",
+          "settings": {
+            "collection": "laisvalaikio-batai",
+            "badge": "",
+            "count_word": "poros"
+          }
+        },
+        "collection_Hcpqdd": {
+          "type": "collection",
+          "settings": {
+            "collection": "aulinukai",
+            "badge": "",
+            "count_word": "poros"
+          }
+        },
+        "collection_M9BR36": {
+          "type": "collection",
+          "settings": {
+            "collection": "slepetes",
+            "badge": "",
+            "count_word": "poros"
+          }
+        },
+        "collection_JQjxUW": {
+          "type": "collection",
+          "settings": {
+            "collection": "aukstakulniai",
+            "badge": "",
+            "count_word": "poros"
+          }
+        }
+      },
+      "block_order": [
+        "collection_GD3W9h",
+        "collection_WWbDtm",
+        "collection_9hTLNA",
+        "collection_Hcpqdd",
+        "collection_M9BR36",
+        "collection_JQjxUW"
+      ],
+      "name": "List collections",
+      "settings": {
+        "color_scheme": "",
+        "text_color": "",
+        "eyebrow": "Visi rinkiniai · SS 26",
+        "title_light": "Visos",
+        "title": "kolekcijos.",
+        "intro": "Kiekvienas rinkinys — atskira partija, ribotas porų skaičius, <b>vienas modelis, daug niuansų</b>. Rinkis pagal nuotaiką arba pagal sezoną.",
+        "season": "SS·26",
+        "band_eyebrow": "Kaip skaityti partijas",
+        "band_title_light": "Vienas modelis.",
+        "band_title": "Daug partijų.",
+        "band_text": "Negaminame visko iš karto. Kas kelis mėnesius išleidžiame naują partiją — ribotą, sunumeruotą, dažnai šiek tiek kitokią. Kai partija išparduota, ji keliauja į archyvą. Štai kodėl kiekviena pora turi savo numerį."
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "main_list_collections_RGxP6J"
   ]
 }
