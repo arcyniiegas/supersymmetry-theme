@@ -193,20 +193,18 @@ The high‑value, high‑complexity surfaces, onto the shared kit last.
 - [ ] Prune unused CSS/JS/assets; dedupe images (`Nr1.webp` vs
       `Nr1-0c6678ce.webp`, etc.).
 - [~] Normalise all schema IDs to the [SCHEMA_GUIDE.md](SCHEMA_GUIDE.md) standard.
-      **Single-letter setting-id sweep** (banned by §1) — pattern proven on
-      `main-dydziu-lentele` (`stat` `k`/`v` → `label`/`value`, schema + render +
-      count-verified template migration, live-verified). NB: dev-facing only
-      (merchants already see the human `label`s). Remaining, **block-type-aware**
-      (same letter ≠ same concept — must migrate template data per block type):
-      - `stat` (akciju/avalynes/grąžinimai): `k`→`label`, `v`→`value`
-      - `clause`/`habit` `k` (Kicker) → `eyebrow`; `t`→`title`; `b`→`body`
-      - `receipt_row` `l`→`label`, `v`→`value`
-      - `chip`/`tstep` `n` (Number) → `num`
-      - `fix` `q`→`question`, `f`→`answer`
-      - `elig` `t`→`title`, `d` (Detail) → `text`; `step`/`swap_card` `t`→`title`, `b`→`body`
-      Reads vary (snippet args vs nested-loop `b.settings.*`), so each section
-      needs its schema + reads + template migrated together, one at a time.
-      Two-part hero `headline_light/_bold` stays until home-hero is refactored (§1 note).
+      **Single-letter setting-id sweep (banned by §1) — DONE.** All 4 sections
+      migrated block-type-aware (schema + reads + count-verified template data),
+      each verified: `main-dydziu-lentele` (`stat`), `main-akciju-salygos`
+      (`stat`/`clause`/`receipt_row`), `main-avalynes-prieziura` (`stat`/`chip`/
+      `habit`/`tstep`/`fix`, incl. the `care-*` snippet reads), `main-grazinimai`
+      (`stat`/`step`/`elig`/`swap_card`). Canonical map applied: `k`/`l`→`label`,
+      `v`→`value`, `k`(Kicker)→`eyebrow`, `t`→`title`, `b`→`body`, `n`→`num`,
+      `q`→`question`, `f`→`answer`, `d`(Detail)→`text`. **No single-letter setting
+      id remains anywhere.** (Dev-facing — merchants already saw the human labels.)
+      Remaining schema work: banned word-ids (`headline_light/_bold` stays until
+      home-hero refactor, §1 note), grouping `header` audit, presets for any
+      reusable content sections that still lack one.
 - [ ] Full `theme-check` pass; accessibility + Lighthouse sweep.
 
 ---
