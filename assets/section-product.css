@@ -76,36 +76,9 @@ a{ color:inherit; text-decoration:none; }
 input{ font:inherit; color:inherit; }
 
 /* utilities */
-.eyebrow{
-  font: 500 var(--t-eyebrow)/1.3 var(--font-mono);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-.mono{ font-family: var(--font-mono); font-feature-settings: 'tnum'; }
-.tabular{ font-variant-numeric: tabular-nums; }
-
-:focus-visible{
-  outline: 2px solid var(--ink);
-  outline-offset: 3px;
-  border-radius: 2px;
-}
-
-/* link with animated underline */
-.uline{
-  position: relative;
-  padding-bottom: 1px;
-}
-.uline::after{
-  content:''; position:absolute; left:0; right:0; bottom:-1px;
-  height: 1px; background: currentColor;
-  transform-origin: left;
-  transition: transform var(--tx-base) var(--ease), background var(--tx-base) var(--ease);
-}
-.uline:hover::after{
-  transform-origin: right;
-  background: var(--orange);
-}
+/* .eyebrow, .mono, .tabular, :focus-visible and .uline are global base
+   utilities (base.css, loaded in <head>) — the identical copies that lived
+   here were pre-extraction leftovers and are removed. */
 
 .crossbar{
   display:flex; justify-content: space-between; align-items: center;
