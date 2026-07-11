@@ -130,7 +130,7 @@ re‑initialises them on section load. Sections initialise; nothing page‑speci
 |-----------|-----------|------------------|
 | `Accordion` | Expand/collapse disclosure groups | `duk.js`, ad‑hoc toggles |
 | `Carousel` | Horizontal slider / scroll‑snap track | per‑section sliders |
-| `Drawer` | Off‑canvas panels (menu, cart, filters) | mobile‑menu JS in `chrome.js` |
+| ✅ `Drawer` **(shipped — `<theme-drawer>`)** | Off‑canvas/overlay: open · close · Esc · focus‑trap (WCAG 2.4.3) · scroll‑lock · scrim · focus‑return; `data-*` config + optional portal; Theme‑Editor‑aware | Unifies the **filter drawer** (was `collection.js`) + **mobile menu** + **search overlay** (were `chrome.js`) into one Custom Element; `chrome.js` 119→66 |
 | `Modal` | Focus‑trapped dialogs (size chart, quick view) | one‑off modal code |
 | `Sticky` | Sticky‑on‑scroll elements | scattered scroll handlers |
 | `Reveal` | On‑scroll enter animations | per‑page reveal scripts |

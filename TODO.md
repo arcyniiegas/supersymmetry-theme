@@ -121,7 +121,9 @@ templates; **preserve content verbatim**; delete the old section + CSS + JS.
 Extract shared behaviour into `assets/component-*.js`; retire page scripts.
 
 - [ ] `Accordion` (Custom Element) — powers `content-accordion`; retire `duk.js`.
-- [ ] `Drawer` — mobile menu + any off‑canvas; pull menu JS out of `chrome.js`.
+- [x] `Drawer` (`<theme-drawer>`) — filter drawer + mobile menu + search overlay
+      unified into one Custom Element; drawer JS pulled out of `chrome.js` (119→66)
+      and `collection.js`. Verified live.
 - [ ] `Modal` — size chart / dialogs.
 - [ ] `Carousel`, `Reveal`, `Tabs`, `Sticky`, `Video`, `ScrollObserver`.
 - [ ] Retire remaining page scripts as their behaviour lands in components.
