@@ -1,42 +1,118 @@
-/* Mobile menu component · snippets/mobile-menu.liquid (opened from the dock) · loaded in <head>.
+/* Mobile menu component · snippets/mobile-menu.liquid (opened from the header hamburger) · loaded in <head>.
    Owns ONLY .mobilemenu — header responsive rules live in the header
    component's own file, so <head> load order can never flip them. */
 
-/* ── full-screen mobile menu ── */
+/* ── full-screen mobile menu · liquid glass ──
+   A frosted panel matching the header/mega glass system: a white-dominant fill
+   (kept opaque enough that ink text reads over both white pages and the hero)
+   plus backdrop-blur. Ink text throughout; the image tiles keep white labels
+   because they sit over photography, not the glass. */
 body.menu-open{ overflow: hidden; }
 .mobilemenu{
   position: fixed; inset: 0; z-index: 70;
-  background: var(--ink); color: #FFFFFF;
+  color: var(--text);
+  /* See-through frosted fill + heavy blur so the page reads through as real
+     glass; a specular top edge sells it. Fill stays light enough that ink text
+     and muted greys hold over both white pages and the dark hero. */
+  background:
+    linear-gradient(180deg, color-mix(in oklab, #ffffff 42%, transparent), transparent 22%),
+    color-mix(in oklab, var(--bg) 64%, transparent);
+  backdrop-filter: blur(34px) saturate(1.9);
+  -webkit-backdrop-filter: blur(34px) saturate(1.9);
+  box-shadow: inset 0 1px 0 var(--glass-line-top);
   display: flex; flex-direction: column;
   padding: 16px var(--gutter) calc(env(safe-area-inset-bottom, 0px) + 28px);
+  overflow-y: auto; -webkit-overflow-scrolling: touch;
   opacity: 0; pointer-events: none;
 }
 .mobilemenu.is-open{ opacity: 1; pointer-events: auto; }
 @media (min-width: 961px){ .mobilemenu{ display: none; } }
+/* glass disabled (Theme settings) → collapse to a solid light panel */
+html[data-glass="off"] .mobilemenu{
+  backdrop-filter: none; -webkit-backdrop-filter: none;
+  background: var(--bg);
+}
 
 .mobilemenu__top{ display: flex; align-items: center; justify-content: space-between; padding: 6px 0 20px; }
-.mobilemenu__brand{ font: 600 22px/1 var(--font-sans); letter-spacing: -0.025em; color: #FFFFFF; display: inline-flex; align-items: center; gap: 8px; }
+.mobilemenu__brand{ font: 600 22px/1 var(--font-sans); letter-spacing: -0.025em; color: var(--text); display: inline-flex; align-items: center; gap: 8px; }
 .mobilemenu__brand .brand-dot{ width: 8px; height: 8px; }
-.mobilemenu__close{ width: 44px; height: 44px; display: grid; place-items: center; color: #FFFFFF; font-size: 20px; }
+.mobilemenu__close{ width: 44px; height: 44px; display: grid; place-items: center; color: var(--text); font-size: 20px; }
 
-.mobilemenu__nav{ display: flex; flex-direction: column; border-top: 1px solid rgba(255,255,255,0.14); }
+.mobilemenu__nav{ display: flex; flex-direction: column; border-top: 1px solid color-mix(in oklab, var(--ink) 12%, transparent); }
 .mobilemenu__nav a{
   display: flex; align-items: center; justify-content: space-between;
   padding: 17px 0; min-height: 44px;
-  font: 500 clamp(27px, 8vw, 34px)/1 var(--font-sans); letter-spacing: -0.035em; color: #FFFFFF;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  font: 500 clamp(27px, 8vw, 34px)/1 var(--font-sans); letter-spacing: -0.035em; color: var(--text);
+  border-bottom: 1px solid color-mix(in oklab, var(--ink) 8%, transparent);
 }
 .mobilemenu__nav a span{ color: var(--orange); font-size: 20px; opacity: 0; transform: translateX(-6px); transition: opacity .2s var(--ease), transform .2s var(--ease); }
 .mobilemenu__nav a:hover span, .mobilemenu__nav a:active span{ opacity: 1; transform: none; }
 
-.mobilemenu__sec{ display: flex; flex-wrap: wrap; gap: 0 22px; padding: 20px 0 0; }
-.mobilemenu__sec a{ padding: 12px 0; min-height: 44px; display: inline-flex; align-items: center; font: 500 12px/1 var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.6); }
-.mobilemenu__sec a:hover, .mobilemenu__sec a:active{ color: #FFFFFF; }
+.mobilemenu__sec{ display: flex; flex-wrap: wrap; gap: 0 22px; margin-top: 22px; padding-top: 16px; border-top: 1px solid color-mix(in oklab, var(--ink) 12%, transparent); }
+.mobilemenu__sec a{ padding: 12px 0; min-height: 44px; display: inline-flex; align-items: center; font: 500 12px/1 var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--mid); }
+.mobilemenu__sec a:hover, .mobilemenu__sec a:active{ color: var(--text); }
+
+/* ── accordions: a top-level entry that expands to sub-links (native <details>) ── */
+.mobilemenu__acc{ border-bottom: 1px solid color-mix(in oklab, var(--ink) 8%, transparent); }
+.mobilemenu__acc summary{
+  list-style: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 17px 0; min-height: 44px;
+  font: 500 clamp(27px, 8vw, 34px)/1 var(--font-sans); letter-spacing: -0.035em; color: var(--text);
+}
+.mobilemenu__acc summary::-webkit-details-marker{ display: none; }
+.mobilemenu__acc-caret{
+  width: 20px; height: 13px; flex-shrink: 0;
+  fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+  transition: transform var(--tx-base) var(--ease-snap);
+}
+.mobilemenu__acc[open] .mobilemenu__acc-caret{ transform: rotate(180deg); }
+.mobilemenu__acc-list{ list-style: none; padding: 0 0 14px; display: flex; flex-direction: column; gap: 2px; }
+/* scoped under .mobilemenu__nav so it outranks the big .mobilemenu__nav a rule */
+.mobilemenu__nav .mobilemenu__acc-list a{
+  padding: 9px 0; min-height: 40px; display: flex; align-items: center;
+  font: 500 17px/1 var(--font-sans); letter-spacing: -0.01em; color: var(--text-muted);
+  border-bottom: 0;
+}
+.mobilemenu__nav .mobilemenu__acc-list a:hover,
+.mobilemenu__nav .mobilemenu__acc-list a:active,
+.mobilemenu__nav .mobilemenu__acc-list a[aria-current="page"]{ color: var(--text); }
+
+/* ── featured image tiles — sharp editorial corners (product-media radius).
+   Labels stay white over a dark scrim: these sit over photography. ── */
+.mobilemenu__tiles{ display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 22px 0 4px; }
+.mobilemenu__tile{
+  position: relative; display: block; aspect-ratio: 4 / 5;
+  border-radius: var(--r-sm); overflow: hidden; background: var(--surface);
+}
+.mobilemenu__tile-img{ width: 100%; height: 100%; object-fit: cover; display: block; }
+.mobilemenu__tile-label{
+  position: absolute; left: 0; right: 0; bottom: 0; padding: 14px 14px 13px;
+  font: 500 14px/1.1 var(--font-sans); letter-spacing: -0.01em; color: #FFFFFF;
+  background: linear-gradient(0deg, rgba(10,10,10,0.62), transparent);
+}
+
+/* ── meta zone: social + colophon, one hairline-topped block pinned to the bottom ── */
+.mobilemenu__meta{
+  margin-top: auto; padding-top: 18px;
+  border-top: 1px solid color-mix(in oklab, var(--ink) 12%, transparent);
+  display: flex; flex-direction: column; gap: 10px;
+}
+.mobilemenu__social{ display: flex; flex-wrap: wrap; gap: 0 20px; }
+.mobilemenu__social a{
+  padding: 8px 0; min-height: 36px; display: inline-flex; align-items: center;
+  font: 500 11px/1 var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--soft);
+}
+.mobilemenu__social a:hover, .mobilemenu__social a:active{ color: var(--text); }
 
 .mobilemenu__foot{
-  margin-top: auto; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
-  padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.14);
-  font: 500 11px/1.4 var(--font-mono); letter-spacing: 0.04em; color: rgba(255,255,255,0.5);
+  display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  font: 500 11px/1.4 var(--font-mono); letter-spacing: 0.04em; color: var(--soft);
+}
+
+@media (prefers-reduced-motion: reduce){
+  .mobilemenu__acc-caret{ transition: none; }
 }
 
 /* ── Card component ─────────────────────────────────────────
@@ -44,4 +120,3 @@ body.menu-open{ overflow: hidden; }
    (loaded after base.css in layout/theme.liquid). Context-scoped
    card rules (.ss-search__grid .card, reduced-motion) stay below.
    ──────────────────────────────────────────────────────────── */
-
