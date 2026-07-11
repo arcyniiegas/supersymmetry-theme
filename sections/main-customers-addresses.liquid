@@ -26,10 +26,10 @@
         {{ address.country }}{% if address.phone != blank %}<br>{{ address.phone }}{% endif %}
       </address>
       <div class="addr-card__actions">
-        <button type="button" data-addr-edit="{{ address.id }}">Redaguoti</button>
+        <button type="button" data-addr-edit="{{ address.id }}">{{ 'customer.edit' | t }}</button>
         <form method="post" action="{{ routes.account_addresses_url }}/{{ address.id }}" onsubmit="return confirm('{{ section.settings.delete_confirm | default: 'Ištrinti šį adresą?' | escape }}');" style="display:inline">
           <input type="hidden" name="_method" value="delete">
-          <button type="submit">Ištrinti</button>
+          <button type="submit">{{ 'customer.delete' | t }}</button>
         </form>
       </div>
     </div>
@@ -49,8 +49,8 @@
     {% form 'customer_address', customer.new_address, class: 'form' %}
       {% render 'customer-address-fields', form: form %}
       <div class="addr-form__foot">
-        <button class="btn btn--primary" type="submit">Išsaugoti <span class="btn__arrow">→</span></button>
-        <button class="btn btn--ghost" type="button" data-addr-cancel>Atšaukti</button>
+        <button class="btn btn--primary" type="submit">{{ 'customer.save' | t }} <span class="btn__arrow">→</span></button>
+        <button class="btn btn--ghost" type="button" data-addr-cancel>{{ 'customer.cancel' | t }}</button>
       </div>
     {% endform %}
   </div>
@@ -62,8 +62,8 @@
     {% form 'customer_address', address, class: 'form' %}
       {% render 'customer-address-fields', form: form %}
       <div class="addr-form__foot">
-        <button class="btn btn--primary" type="submit">Išsaugoti <span class="btn__arrow">→</span></button>
-        <button class="btn btn--ghost" type="button" data-addr-cancel>Atšaukti</button>
+        <button class="btn btn--primary" type="submit">{{ 'customer.save' | t }} <span class="btn__arrow">→</span></button>
+        <button class="btn btn--ghost" type="button" data-addr-cancel>{{ 'customer.cancel' | t }}</button>
       </div>
     {% endform %}
   </div>
@@ -71,14 +71,14 @@
 
   {%- if paginate.pages > 1 -%}
   <div class="acct-alt">
-    {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}">← Ankstesni</a>{%- endif -%}
-    {%- if paginate.next -%}<a href="{{ paginate.next.url }}">Kiti →</a>{%- endif -%}
+    {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}">{{ 'customer.previous' | t }}</a>{%- endif -%}
+    {%- if paginate.next -%}<a href="{{ paginate.next.url }}">{{ 'customer.next' | t }}</a>{%- endif -%}
   </div>
   {%- endif -%}
   {%- endpaginate -%}
 
   <div class="acct-alt">
-    <a href="{{ routes.account_url }}">← Grįžti į paskyrą</a>
+    <a href="{{ routes.account_url }}">{{ 'customer.back_to_account' | t }}</a>
   </div>
 </div>
 

@@ -29,10 +29,10 @@
       </div>
       <div>
         <div class="oline__name">{%- if line_item.product.url -%}<a href="{{ line_item.product.url }}">{{ line_item.title }}</a>{%- else -%}{{ line_item.title }}{%- endif -%}</div>
-        <div class="oline__meta">{% unless line_item.variant.title == 'Default Title' %}{{ line_item.variant.title }} · {% endunless %}{{ line_item.quantity }} vnt.</div>
+        <div class="oline__meta">{% unless line_item.variant.title == 'Default Title' %}{{ line_item.variant.title }} · {% endunless %}{{ line_item.quantity }} {{ 'customer.units' | t }}</div>
         {%- if line_item.fulfillment and line_item.fulfillment.tracking_number -%}
         <div class="oline__meta">
-          Siunta: {% if line_item.fulfillment.tracking_url %}<a class="uline" href="{{ line_item.fulfillment.tracking_url }}" target="_blank" rel="noopener">{{ line_item.fulfillment.tracking_number }}</a>{% else %}{{ line_item.fulfillment.tracking_number }}{% endif %}
+          {{ 'customer.shipment' | t }} {% if line_item.fulfillment.tracking_url %}<a class="uline" href="{{ line_item.fulfillment.tracking_url }}" target="_blank" rel="noopener">{{ line_item.fulfillment.tracking_number }}</a>{% else %}{{ line_item.fulfillment.tracking_number }}{% endif %}
         </div>
         {%- endif -%}
       </div>
@@ -43,24 +43,24 @@
 
   <!-- ──────────── TOTALS ──────────── -->
   <div class="ototals">
-    <div class="row"><span>Tarpinė suma</span><span class="v">{{ order.line_items_subtotal_price | money | remove: '€' | remove: ',00' }}</span></div>
+    <div class="row"><span>{{ 'customer.subtotal' | t }}</span><span class="v">{{ order.line_items_subtotal_price | money | remove: '€' | remove: ',00' }}</span></div>
     {%- for discount_application in order.cart_level_discount_applications -%}
     <div class="row"><span>{{ discount_application.title }}</span><span class="v">−{{ discount_application.total_allocated_amount | money | remove: '€' | remove: ',00' }}</span></div>
     {%- endfor -%}
     {%- for shipping_method in order.shipping_methods -%}
-    <div class="row"><span>Pristatymas · {{ shipping_method.title }}</span><span class="v">{{ shipping_method.price | money | remove: '€' | remove: ',00' }}</span></div>
+    <div class="row"><span>{{ 'customer.shipping' | t }} · {{ shipping_method.title }}</span><span class="v">{{ shipping_method.price | money | remove: '€' | remove: ',00' }}</span></div>
     {%- endfor -%}
     {%- for tax_line in order.tax_lines -%}
     <div class="row"><span>{{ tax_line.title }} {{ tax_line.rate | times: 100 | round }}%</span><span class="v">{{ tax_line.price | money | remove: '€' | remove: ',00' }}</span></div>
     {%- endfor -%}
-    <div class="row row--total"><span>Iš viso</span><span class="v">{{ order.total_price | money | remove: '€' | remove: ',00' }}</span></div>
+    <div class="row row--total"><span>{{ 'customer.total' | t }}</span><span class="v">{{ order.total_price | money | remove: '€' | remove: ',00' }}</span></div>
   </div>
 
   <!-- ──────────── ADDRESSES ──────────── -->
   <div class="order-addr">
     {%- if order.shipping_address -%}
     <div>
-      <h2 class="acct-sec__title">Pristatymo adresas</h2>
+      <h2 class="acct-sec__title">{{ 'customer.shipping_address' | t }}</h2>
       <address>
         {{ order.shipping_address.first_name }} {{ order.shipping_address.last_name }}<br>
         {%- if order.shipping_address.address1 != blank -%}{{ order.shipping_address.address1 }}<br>{%- endif -%}
@@ -72,7 +72,7 @@
     {%- endif -%}
     {%- if order.billing_address -%}
     <div>
-      <h2 class="acct-sec__title">Mokėtojo adresas</h2>
+      <h2 class="acct-sec__title">{{ 'customer.billing_address' | t }}</h2>
       <address>
         {{ order.billing_address.first_name }} {{ order.billing_address.last_name }}<br>
         {%- if order.billing_address.address1 != blank -%}{{ order.billing_address.address1 }}<br>{%- endif -%}
@@ -85,7 +85,7 @@
   </div>
 
   <div class="acct-alt">
-    <a href="{{ routes.account_url }}">← Grįžti į paskyrą</a>
+    <a href="{{ routes.account_url }}">{{ 'customer.back_to_account' | t }}</a>
   </div>
 </div>
 

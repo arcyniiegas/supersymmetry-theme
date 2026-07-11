@@ -13,11 +13,11 @@
     <div class="acct-errors" role="alert">{{ form.errors | default_errors }}</div>
     {%- endif -%}
     <div class="field">
-      <label for="activatePassword">Slaptažodis</label>
-      <input id="activatePassword" type="password" name="customer[password]" autocomplete="new-password" placeholder="Bent 5 simboliai" minlength="5" required />
+      <label for="activatePassword">{{ 'customer.password' | t }}</label>
+      <input id="activatePassword" type="password" name="customer[password]" autocomplete="new-password" placeholder="{{ 'customer.password_min' | t }}" minlength="5" required />
     </div>
     <div class="field">
-      <label for="activatePasswordConfirm">Pakartok slaptažodį</label>
+      <label for="activatePasswordConfirm">{{ 'customer.password_repeat' | t }}</label>
       <input id="activatePasswordConfirm" type="password" name="customer[password_confirmation]" autocomplete="new-password" placeholder="••••••••" minlength="5" required />
     </div>
     <div class="addr-form__foot" style="margin-top:0">
