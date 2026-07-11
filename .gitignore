@@ -14,3 +14,4 @@
 
 # Node (build tooling, if introduced)
 node_modules/
+.superpowers/
