@@ -9,7 +9,7 @@
    re-render the affected sections (Bundled Section Rendering) and returns that
    Liquid HTML in event.detail.sections — this module never computes subtotals,
    discounts, tax, or free-shipping state. It only mirrors item_count into the
-   header / dock / drawer bag badges.
+   header / drawer bag badges.
 
    Event: 'cart:updated' → detail { cart, sections, source }
      cart     the authoritative cart object (or null for a bare badge repaint)
@@ -30,7 +30,7 @@ window.theme.cart = (function () {
     return ids;
   }
 
-  /* Paint every bag badge (header, dock, drawer) and broadcast the change. */
+  /* Paint every bag badge (header, drawer) and broadcast the change. */
   function badges(cart) {
     if (!cart) { return cart; }
     var show = cart.item_count > 0;

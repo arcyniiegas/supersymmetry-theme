@@ -1,7 +1,7 @@
 /* ════════════════════════════════════════════════════════════
    SUPERSYMMETRY — SHARED CHROME
-   Fonts, tokens, base reset, utility bar, header, dock,
-   mobile menu, search overlay, buttons, footer.
+   Fonts, tokens, base reset, header, mobile menu, search
+   overlay, buttons, footer.
    ════════════════════════════════════════════════════════════ */
 
 /* Self-hosted Geist (variable woff2, latin + latin-ext for LT diacritics). */
@@ -215,8 +215,8 @@ input, textarea{ min-width:0; max-width:100%; }
    Relocated to component-footer.css (loaded in <head>).
    ──────────────────────────────────────────────────────────── */
 /* ── Chrome overlay components ───────────────────────────────
-   Mobile menu, dock and search overlay relocated to
-   component-mobile-menu.css / component-dock.css / component-search.css
+   Mobile menu and search overlay relocated to
+   component-mobile-menu.css / component-search.css
    (loaded in <head> after base.css to preserve early paint). Their
    html[data-glass="off"] overrides stay below and win by specificity.
    ──────────────────────────────────────────────────────────── */
@@ -228,12 +228,6 @@ html[data-glass="off"] .header{
   backdrop-filter: none; -webkit-backdrop-filter: none;
   background: var(--bg);
   border-bottom: 1px solid var(--line);
-}
-html[data-glass="off"] .dock{
-  backdrop-filter: none; -webkit-backdrop-filter: none;
-  /* solid light surface (was dark, which made the ink item text invisible) */
-  background: rgba(255,255,255,0.97);
-  border-color: var(--line); border-top-color: var(--line);
 }
 html[data-glass="off"] .glass,
 html[data-glass="off"] .glass--dark{

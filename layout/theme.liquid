@@ -11,7 +11,6 @@
   {{ 'component-button.css' | asset_url | stylesheet_tag }}
   {{ 'component-card.css' | asset_url | stylesheet_tag }}
   {{ 'component-mobile-menu.css' | asset_url | stylesheet_tag }}
-  {{ 'component-dock.css' | asset_url | stylesheet_tag }}
   {{ 'component-search.css' | asset_url | stylesheet_tag }}
   {{ 'component-header.css' | asset_url | stylesheet_tag }}
   {{ 'component-mega-menu.css' | asset_url | stylesheet_tag }}
@@ -30,7 +29,6 @@
   {% sections 'header-group' %}
   <main id="MainContent">{{ content_for_layout }}</main>
   {% sections 'footer-group' %}
-  {% render 'dock' %}
   {% render 'mobile-menu' %}
   {% render 'search-overlay' %}
   {% section 'cart-drawer' %}

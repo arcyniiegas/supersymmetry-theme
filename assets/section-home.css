@@ -753,9 +753,9 @@
    ════════════════════════════════════════════════════════════ */
 @media (max-width: 600px){
 
-  /* ── hero: copy clears the floating dock; full-width stacked buttons ── */
+  /* ── hero: bottom-anchored copy with breathing room; stacked buttons ── */
   .hero__overlay{
-    padding-bottom: clamp(104px, 17vh, 148px);
+    padding-bottom: clamp(48px, 10vh, 88px);
     gap: var(--sp-4);
   }
   .hero__headline{

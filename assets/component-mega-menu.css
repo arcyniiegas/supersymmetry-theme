@@ -5,7 +5,7 @@
    SIBLING of the card inside .header-shell (the card's overflow:hidden would
    otherwise clip it), absolutely positioned just below it. Composed from
    Theme-Editor blocks: menu columns · featured tiles · a collections carousel.
-   Desktop-only — on mobile the dock + full-screen menu own navigation. */
+   Desktop-only — on mobile the header hamburger opens the full-screen menu. */
 
 .mega{
   position: absolute; left: 0; right: 0; top: 100%;
@@ -117,7 +117,7 @@
   color: var(--text);
 }
 
-/* ── mobile: the dock + full-screen menu own navigation ── */
+/* ── mobile: the header hamburger opens the full-screen menu ── */
 @media (max-width: 960px){
   .mega{ display: none; }
 }

@@ -15,8 +15,9 @@
   "Shop" trigger opens a full-width mega panel composed from Theme-Editor blocks
   (menu columns · featured tiles · a collections carousel). The panel is a
   SIBLING of the card, not a child — the card's overflow:hidden clips the
-  marquee, so a dropped panel would be clipped inside it. Mobile keeps the header
-  minimal — the Whisper dock and full-screen menu own navigation.
+  marquee, so a dropped panel would be clipped inside it. On mobile the bar
+  becomes hamburger · logo · search + bag; the hamburger opens the full-screen
+  menu (#ssMenu) and the mega panel is hidden.
 {%- endcomment -%}
 <div class="header-inset">
   <div class="header-shell">
@@ -31,6 +32,9 @@
       {%- endif -%}
 
       <div class="header__bar">
+        <button type="button" class="header__burger" data-drawer-open="ssMenu" aria-label="{{ 'nav.menu' | t }}" aria-haspopup="dialog">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6 H17 M3 10 H17 M3 14 H13"/></svg>
+        </button>
         <nav class="header__nav" aria-label="{{ 'accessibility.main_nav' | t }}">
           {%- if has_mega -%}
             <button type="button" class="header__nav-trigger" aria-expanded="false" aria-controls="megaPanel" aria-haspopup="true" data-mega-toggle>

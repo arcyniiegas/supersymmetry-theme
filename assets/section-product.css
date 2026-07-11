@@ -348,8 +348,7 @@
 }
 .fit__data b{ color: var(--text); font-weight: 500; }
 .fit__data-sep{ width: 3px; height: 3px; border-radius: 99px; background: var(--hairline); }
-/* sticky buy bar — slim hairline bar at the TOP; the Dock stays the only
-   floating pill at the bottom (one glass surface per view) */
+/* sticky buy bar — slim hairline bar pinned at the TOP */
 .buybar{
   position: fixed; left: 0; right: 0; top: 0; z-index: 55;
   display: flex; align-items: center; gap: var(--sp-5);

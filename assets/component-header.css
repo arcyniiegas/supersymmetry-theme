@@ -6,7 +6,8 @@
    optional looping announcement marquee (top) with the main bar
    (nav · logo · tools). On the homepage the full-bleed hero rides up beneath
    the card via --chrome-h (measured on .section-header in chrome.js), so the
-   glass blurs real imagery. Mobile: nav collapses to the Whisper dock. */
+   glass blurs real imagery. Mobile: the bar becomes hamburger · logo ·
+   search + bag, and the hamburger opens the full-screen menu (#ssMenu). */
 
 /* ── positioning: full-width sticky wrapper, click-through everywhere but the card ── */
 .section-header{
@@ -116,6 +117,14 @@
 .header__tool:hover{ color: var(--text-muted); }
 .header__tool[aria-current="page"]{ color: var(--text); }
 .header__tool-cart .bag-count{ position: absolute; top: -5px; right: -9px; }
+
+/* Hamburger — mobile only; opens the full-screen menu (#ssMenu) */
+.header__burger{
+  display: none; place-items: center;
+  width: 40px; height: 40px; margin-left: -8px;
+  color: var(--text);
+}
+.header__burger svg{ width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; display: block; }
 .bag-count{
   display: inline-grid; place-items: center;
   min-width: 20px; height: 20px; padding: 0 6px;
@@ -124,19 +133,17 @@
   border-radius: 99px;
 }
 
-/* ── Mobile: the dock + full-screen menu are the navigation; the header keeps
-   logo + bag. These rules MUST live in this file — the component owns its
-   responsive behaviour, so stylesheet order can't override it. ── */
+/* ── Mobile: the header owns all navigation — hamburger · logo · search + bag.
+   The hamburger opens the full-screen menu (#ssMenu); account moves inside it.
+   These rules MUST live in this file — the component owns its responsive
+   behaviour, so stylesheet order can't override it. ── */
 @media (max-width: 960px){
   .header-inset{ padding: 10px var(--gutter) 0; }
-  /* Dock + full-screen menu own navigation, so there's no hamburger to
-     balance a centred logo against — fall back to the conventional
-     brand-left · bag-right layout. */
-  .header__bar{ grid-template-columns: 1fr auto; height: 52px; padding: 0 16px; gap: 10px; }
-  .header__nav{ display: none; }
-  .header__logo{ justify-self: start; }
-  .header__tools .header__tool-search,
-  .header__tools .header__tool-account{ display: none; } /* these live in the menu */
+  .header__bar{ grid-template-columns: auto 1fr auto; height: 52px; padding: 0 12px; gap: 8px; }
+  .header__nav{ display: none; }               /* desktop nav + mega live here */
+  .header__burger{ display: grid; }            /* opens #ssMenu */
+  .header__logo{ justify-self: center; }
+  .header__tools .header__tool-account{ display: none; } /* account lives in the menu */
 }
 @media (max-width: 768px){
   .header__marquee-item{ padding: 0 28px; }

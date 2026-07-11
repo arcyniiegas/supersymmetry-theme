@@ -1,6 +1,6 @@
 /* ══════════════════════════════════════════════════════════════
-   COOKIE CONSENT — glass panel, bottom-left on desktop, floating
-   above the dock on mobile. Only rendered when Theme settings →
+   COOKIE CONSENT — glass panel, bottom-left on desktop, full-width
+   near the bottom edge on mobile. Only rendered when Theme settings →
    Cookie consent is on; only revealed when Shopify's Customer
    Privacy API says the visitor's region requires a banner.
    ══════════════════════════════════════════════════════════════ */
@@ -38,10 +38,10 @@ html[data-glass="off"] .consent-banner{
 .consent-banner__actions{ display: flex; gap: var(--sp-3); }
 .consent-banner__actions .btn{ padding: 10px 18px; font-size: 12px; }
 
-/* mobile: full-width card floating above the dock */
+/* mobile: full-width card pinned near the bottom edge */
 @media (max-width: 960px){
   .consent-banner{
     left: 10px; right: 10px; max-width: none;
-    bottom: calc(84px + env(safe-area-inset-bottom, 0px));
+    bottom: calc(10px + env(safe-area-inset-bottom, 0px));
   }
 }
