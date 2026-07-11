@@ -15,7 +15,7 @@
     {%- if stat_blocks.size > 0 -%}
     <div class="phead__stats">
       {%- for block in stat_blocks -%}
-      {% render 'stat', k: block.settings.k, v: block.settings.v, tabular: block.settings.tabular, attrs: block.shopify_attributes %}
+      {% render 'stat', k: block.settings.label, v: block.settings.value, tabular: block.settings.tabular, attrs: block.shopify_attributes %}
       {%- endfor -%}
     </div>
     {%- endif -%}
@@ -27,8 +27,8 @@
   {%- for block in section.blocks -%}
     {%- if block.type == 'clause' -%}
   <div class="tsec" {{ block.shopify_attributes }}>
-    <span class="tsec__k">{{ block.settings.k }}</span>
-    <h2>{{ block.settings.t }}</h2>
+    <span class="tsec__k">{{ block.settings.eyebrow }}</span>
+    <h2>{{ block.settings.title }}</h2>
     {{ block.settings.body_html }}
     {%- if block.settings.note_b != blank -%}
     <div class="tnote">
@@ -41,7 +41,7 @@
       <span class="treceipt__k">{{ section.settings.receipt_title | default: 'Skaičiavimo pavyzdys' }}</span>
       {%- for b in section.blocks -%}
         {%- if b.type == 'receipt_row' -%}
-      <div class="treceipt__row{% if b.settings.style == 'muted' %} treceipt__row--muted{% elsif b.settings.style == 'total' %} treceipt__row--total{% endif %}"><span class="l">{{ b.settings.l }}{% if b.settings.small != blank %}<small>{{ b.settings.small }}</small>{% endif %}</span><span class="v">{{ b.settings.v }}</span></div>
+      <div class="treceipt__row{% if b.settings.style == 'muted' %} treceipt__row--muted{% elsif b.settings.style == 'total' %} treceipt__row--total{% endif %}"><span class="l">{{ b.settings.label }}{% if b.settings.small != blank %}<small>{{ b.settings.small }}</small>{% endif %}</span><span class="v">{{ b.settings.value }}</span></div>
         {%- endif -%}
       {%- endfor -%}
     </div>
@@ -92,8 +92,8 @@
       "type": "stat",
       "name": "Head stat",
       "settings": [
-        { "type": "text", "id": "k", "label": "Label" },
-        { "type": "text", "id": "v", "label": "Value" },
+        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "text", "id": "value", "label": "Value" },
         { "type": "checkbox", "id": "tabular", "label": "Tabular numerals", "default": false }
       ]
     },
@@ -101,8 +101,8 @@
       "type": "clause",
       "name": "Terms clause",
       "settings": [
-        { "type": "text", "id": "k", "label": "Kicker (e.g. 01 · Galiojimas)" },
-        { "type": "text", "id": "t", "label": "Title" },
+        { "type": "text", "id": "eyebrow", "label": "Kicker (e.g. 01 · Galiojimas)" },
+        { "type": "text", "id": "title", "label": "Title" },
         { "type": "textarea", "id": "body_html", "label": "Body (HTML: <p>, <ul><li>…)" },
         { "type": "text", "id": "note_k", "label": "Note kicker (optional)" },
         { "type": "textarea", "id": "note_b", "label": "Note body (empty hides the note)" },
@@ -113,9 +113,9 @@
       "type": "receipt_row",
       "name": "Receipt row",
       "settings": [
-        { "type": "text", "id": "l", "label": "Label" },
+        { "type": "text", "id": "label", "label": "Label" },
         { "type": "text", "id": "small", "label": "Sub-label (optional)" },
-        { "type": "text", "id": "v", "label": "Value" },
+        { "type": "text", "id": "value", "label": "Value" },
         {
           "type": "select", "id": "style", "label": "Style",
           "options": [
