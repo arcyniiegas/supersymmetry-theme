@@ -50,7 +50,7 @@ Render with named args and a documented `{% comment %}` header:
 
 | Snippet | Purpose | Proposed API |
 |---------|---------|--------------|
-| ✅ `button` **(shipped M2)** | The one button, everywhere — **anchor CTAs** | `label`, `href`, `style`, `size`, `arrow`, `aria_label`, `target`, `id`, `class`. Adopted in `home-hero`/`home-fit`/`home-visit`; rollout continues. Behavioral `<button>` (submit/ATC/drawer) not yet covered. |
+| ✅ `button` **(shipped M2)** | The one button, everywhere — **anchor CTAs** | `label`, `href`, `style`, `size`, `arrow`, `aria_label`, `target`, `id`, `class`. **`component-button.css` is now the single source of truth** — the gratuitous page-wide `.btn` redefinitions in `section-collection`/`section-product` were removed (both render the glass component); only justified context overrides remain (hero photo-contrast, buy-bar/consent sizing, contactstrip contrast). Behavioral `<button>` (submit/ATC/drawer) not yet covered. |
 | `heading` | Consistent headings + level control | `text`, `level` (1–6), `size`, `eyebrow` |
 | `image` | Responsive image with sizes/loading | `image`, `sizes`, `widths`, `loading`, `fetchpriority`, `alt` |
 | `video` | Native/host video with poster | `video`, `poster`, `autoplay`, `loop`, `muted` |

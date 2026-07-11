@@ -160,7 +160,10 @@
   display: flex; flex-wrap: wrap; gap: var(--sp-3); align-items: center;
   margin-top: var(--sp-2);
 }
-/* White buttons with a soft shadow to lift their shape off the image. */
+/* White buttons with a soft shadow to lift their shape off the image.
+   Kept as legitimate context — the glass --secondary variant renders as
+   white-on-transparent over the photo and is illegible; the hero needs an
+   opaque treatment for contrast (like the compact sizing in the buy-bar). */
 .hero .btn{
   background: #FFFFFF;
   color: var(--ink);

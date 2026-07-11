@@ -73,8 +73,14 @@ committed as a small, self‑describing change.
 
 Build and adopt the missing primitives (see [COMPONENTS.md](COMPONENTS.md) §1).
 
-- [~] `button.liquid` shipped + 13 anchor CTAs adopted (M2–M3). Pending:
-      `component-button.css` (CSS still declared in 7 files) + 3 inline-`style=` anchors.
+- [x] `button.liquid` + `component-button.css` are the single source of truth.
+      Removed the **gratuitous** page-wide `.btn`/`.btn--*` redefinitions from
+      `section-collection.css` + `section-product.css` (they overrode the glass
+      component via load order → inconsistent buttons); both pages now render the
+      one glass component (verified live). Remaining `.btn` overrides are **justified
+      context** and kept by design: hero white (photo contrast — glass `--secondary`
+      is illegible white-on-transparent over the image), buy-bar + consent compact
+      sizing, contactstrip contrast, kform layout. Pending: 3 inline-`style=` anchors.
 - [ ] Harden `price.liquid`: remove `€289/€340` fallback literals, fix
       multi‑currency (`money_without_trailing_zeros`, no `remove:'€'`).
 - [ ] Adopt `price` inside `product-card`; move card price logic out of the card.
