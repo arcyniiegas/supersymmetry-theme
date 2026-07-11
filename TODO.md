@@ -205,8 +205,9 @@ The high‑value, high‑complexity surfaces, onto the shared kit last.
 - [x] **Prune unused CSS/JS/assets; dedupe images.** Dead feature blocks removed
       from home (`.spot*`), product (`.spec-table`/`.ship-*`), grazinimai (tariff/
       return-form/endcta, −42%). Deduped byte-identical `Nr{1,2,3}.webp` vs their
-      `-<hash>.webp` copies (−355 KB). `product-tryon.js` is orphaned (no loader,
-      no markup) — flagged for the owner rather than deleted (possible WIP).
+      `-<hash>.webp` copies (−355 KB). Deleted `product-tryon.js` — orphaned
+      demo-mock virtual try-on (no loader, no `#tryon` markup, present since the
+      baseline import; would throw immediately if loaded). Recoverable from git.
 - [~] Normalise all schema IDs to the [SCHEMA_GUIDE.md](SCHEMA_GUIDE.md) standard.
       **Single-letter setting-id sweep (banned by §1) — DONE.** All 4 sections
       migrated block-type-aware (schema + reads + count-verified template data),

@@ -168,9 +168,11 @@ Liquid copy (`product.*`, `cart.*`), so translators edit one place.
 
 **Page scripts to retire** as their behaviour moves into components:
 `kontaktai.js`, `duk.js`, `customers.js`, `collection.js`, `cart.js`,
-`product.js`, `product-tryon.js`, `gift-card.js`, `password.js`.
+`product.js`, `gift-card.js`, `password.js`.
 (`grazinimai.js` + `avalynes-prieziura.js` retired into `<scroll-spy>`;
-`accessories.js` deleted with the orphaned `main-accessories` section.)
+`accessories.js` deleted with the orphaned `main-accessories` section;
+`product-tryon.js` deleted — orphaned demo mock, no loader/markup since
+the baseline import.)
 
 ## 4. When to create a new part
 
