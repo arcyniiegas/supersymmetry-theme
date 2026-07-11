@@ -11,14 +11,8 @@
   var sectionId = (root && root.dataset.sectionId) || 'main';
   var busy = false;
 
-  /* ── header bag badge(s) ── */
-  function updateBag(cart) {
-    if (!cart) { return; }
-    document.querySelectorAll('[data-bag-count]').forEach(function (el) {
-      el.textContent = cart.item_count;
-      el.style.display = cart.item_count > 0 ? '' : 'none';
-    });
-  }
+  /* Header bag badge(s) are owned by the shared cart store (cart-store.js);
+     this page feeds it the authoritative cart from each mutation response. */
 
   /* ── toast ── */
   function showToast(msg) {
@@ -60,7 +54,7 @@
     })
       .then(function (r) {
         /* Guard: a non-2xx response (stock cap, bad key, etc.) returns an error
-           object with no item_count — never feed that to updateBag or the badge
+           object with no item_count — never feed that to theme.cart.setCount or the badge
            renders blank. Surface it to the user instead of failing silently. */
         if (!r.ok) {
           return r.json().catch(function () { return {}; }).then(function (err) {
@@ -71,7 +65,7 @@
         }
         return r.json();
       })
-      .then(function (cart) { updateBag(cart); return reRender(); })
+      .then(function (cart) { theme.cart.setCount(cart); return reRender(); })
       .then(function () { if (toastMsg) { showToast(toastMsg); } })
       .catch(function (err) {
         showToast((err && err.userMessage) || 'Nepavyko atnaujinti — bandykite dar kartą.');
@@ -88,7 +82,7 @@
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
     })
       .then(function (r) { return r.json(); })
-      .then(function (cart) { updateBag(cart); return reRender(); })
+      .then(function (cart) { theme.cart.setCount(cart); return reRender(); })
       .catch(function () {})
       .then(function () { busy = false; });
   }

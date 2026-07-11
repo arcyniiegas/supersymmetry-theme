@@ -14,20 +14,6 @@
     });
   });
 
-  /* refresh header cart badge(s) from the real cart */
-  function refreshBag() {
-    return fetch('/cart.js', { headers: { 'Accept': 'application/json' } })
-      .then(function (r) { return r.json(); })
-      .then(function (cart) {
-        document.querySelectorAll('[data-bag-count]').forEach(function (el) {
-          el.textContent = cart.item_count;
-          el.style.display = cart.item_count > 0 ? '' : 'none';
-        });
-        return cart;
-      })
-      .catch(function () {});
-  }
-
   /* success UI on the main quick-add button (mirrors the prototype exactly) */
   function added(btn) {
     var orig = btn.textContent;
@@ -49,7 +35,7 @@
       body: JSON.stringify({ items: [{ id: variantId, quantity: 1 }] })
     })
       .then(function (r) { if (!r.ok) { throw new Error('add failed'); } return r.json(); })
-      .then(function () { return refreshBag(); })
+      .then(function () { return theme.cart.refresh(); })
       .then(function () { added(btn); })
       .catch(function () {});
   }

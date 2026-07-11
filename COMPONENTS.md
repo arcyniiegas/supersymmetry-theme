@@ -139,9 +139,19 @@ re‑initialises them on section load. Sections initialise; nothing page‑speci
 | ✅ `scroll-spy` **(shipped — first Custom Element)** | Scroll-spy for any anchor nav; Theme-Editor-aware (`connectedCallback`), configurable link selector (`data-spy-links`, default `.subnav__chip`) + `data-spy-margin`, click-to-highlight | replaced `avalynes-prieziura.js` + `grazinimai.js` subnavs **and** the `duk.js` category-rail spy (3 sections, 1 component) |
 | `ScrollObserver` | Shared IntersectionObserver utility | duplicated observers |
 
-**Retained shared modules:** `chrome.js` (global header/dock/menu/overlay glue)
-and `predictive-search.js` — refactor toward the component pattern but keep them
-as the shared core, not page scripts.
+**Retained shared modules:** `chrome.js` (global header/dock/menu/overlay glue),
+`predictive-search.js`, and ✅ `cart-store.js` — refactor toward the component
+pattern but keep them as the shared core, not page scripts.
+
+**✅ `cart-store.js` (shipped — shared cart state).** `window.theme.cart` is the
+one client-side mirror of the cart's `item_count`: `setCount(cart)` paints every
+`[data-bag-count]` badge (header + dock) and broadcasts a `cart:updated`
+`CustomEvent` (`detail.cart`); `refresh()` fetches the authoritative `/cart.js`
+and repaints. Loaded globally (`theme.liquid`, `defer`). Replaced three hand-rolled
+badge updaters (`product.js` + `accessories.js` `refreshBag`, `cart.js` `updateBag`).
+Shopify stays authoritative for all money — this only reflects the count. The
+`cart:updated` event is the pub-sub seam any future surface (mini-cart, add
+animation, analytics) subscribes to instead of re-fetching.
 
 **Page scripts to retire** as their behaviour moves into components:
 `kontaktai.js`, `grazinimai.js`, `avalynes-prieziura.js`, `accessories.js`,

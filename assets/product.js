@@ -82,20 +82,6 @@
     });
   });
 
-  /* refresh header cart badge(s) from the real cart */
-  function refreshBag() {
-    return fetch('/cart.js', { headers: { 'Accept': 'application/json' } })
-      .then(function (r) { return r.json(); })
-      .then(function (cart) {
-        document.querySelectorAll('[data-bag-count]').forEach(function (el) {
-          el.textContent = cart.item_count;
-          el.style.display = cart.item_count > 0 ? '' : 'none';
-        });
-        return cart;
-      })
-      .catch(function () {});
-  }
-
   /* success UI on an add button */
   function added(btn) {
     if (!btn) return;
@@ -148,7 +134,7 @@
         }
         return r.json();
       })
-      .then(function () { return refreshBag(); })
+      .then(function () { return theme.cart.refresh(); })
       .then(function () {
         added(btn);
         atcStatus.textContent = 'Pridėta į krepšelį.';
