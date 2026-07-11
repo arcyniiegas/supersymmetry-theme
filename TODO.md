@@ -224,10 +224,11 @@ The high‑value, high‑complexity surfaces, onto the shared kit last.
       Legal), `main-kontaktai` (Intro/Facts/Form/Visit/Appearance, reordered
       content-first), `main-apie-mus` (Intro/Story image/Note) grouped; display-
       only, IDs unchanged. Remaining: banned word-ids (`headline_light/_bold` stays
-      until home-hero refactor, §1) and grouping the 5 customer-account sections
-      (login/register/activate/reset/addresses) — lower priority, they run on
-      Shopify-hosted new customer accounts so their theme schema is out of the
-      live editor flow.
+      until home-hero refactor, §1). **Customer-account sections grouped too**
+      (account/addresses/login/register/activate/reset/order). Also relabeled the
+      misleading `"Text"` divider → `"Appearance"` across all 13 sections that used
+      it (it grouped colour/size controls, not text). Only the parity-gated
+      word-ids (`headline_light/_bold`) remain.
 - [ ] Full `theme-check` pass; accessibility + Lighthouse sweep.
 
 ---
