@@ -31,6 +31,7 @@
     "update_error": "Couldn't update — please try again."
   },
   "collection": {
+    "list_empty": "Collections are on their way — they'll appear here soon.",
     "filters": "Filters",
     "sort": "Sort",
     "models": "models",
@@ -58,6 +59,8 @@
     "reviews_hide": "Collapse"
   },
   "faq": {
+    "empty_title": "Questions & answers are on the way.",
+    "empty_text": "You'll soon find the most common questions about sizing, leather and returns here.",
     "summary": "{count} questions · {groups} categories",
     "results": "{count} {word} for “{term}”",
     "result_one": "result",
@@ -133,6 +136,14 @@
     "all_results": "All results →",
     "result_collection": "Collection",
     "result_article": "Journal"
+  },
+  "blog": {
+    "empty_title": "The journal is on its way.",
+    "empty_text": "The first notes on leather, hands and time are coming soon."
+  },
+  "article": {
+    "empty_title": "This story is still being written.",
+    "empty_text": "The full piece will be here soon."
   },
   "newsletter": {
     "heading": "Letter from the atelier",

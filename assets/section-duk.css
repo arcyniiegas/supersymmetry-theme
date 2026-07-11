@@ -242,3 +242,13 @@
 .contactstrip__actions{ display: flex; gap: var(--sp-3); flex-wrap: wrap; }
 .contactstrip .btn--secondary{ background: rgba(255,255,255,0.12); color: #FFFFFF; }
 .contactstrip .btn--secondary:hover{ background: rgba(255,255,255,0.2); }
+
+/* empty state — shown when no FAQ blocks are configured */
+.faq-empty{
+  grid-column: 1 / -1;
+  text-align: center; place-items: center;
+  display: grid; gap: var(--sp-3);
+  padding: var(--sp-16) 0 var(--sp-20);
+}
+.faq-empty__title{ font: 500 var(--t-section)/1.05 var(--font-sans); letter-spacing: -0.02em; margin: 0; }
+.faq-empty__text{ font: 400 16px/1.6 var(--font-sans); color: var(--text-muted); max-width: 46ch; margin: 0; }

@@ -31,6 +31,7 @@
     "update_error": "Nepavyko atnaujinti — bandykite dar kartą."
   },
   "collection": {
+    "list_empty": "Kolekcijos ruošiamos — netrukus jos pasirodys čia.",
     "filters": "Filtrai",
     "sort": "Rūšiuoti",
     "models": "modelių",
@@ -58,6 +59,8 @@
     "reviews_hide": "Suskleisti"
   },
   "faq": {
+    "empty_title": "Klausimai ir atsakymai ruošiami.",
+    "empty_text": "Netrukus čia rasite dažniausius klausimus apie dydžius, odą ir grąžinimus.",
     "summary": "{count} klausimai · {groups} kategorijos",
     "results": "{count} {word} pagal „{term}“",
     "result_one": "rezultatas",
@@ -133,6 +136,14 @@
     "all_results": "Visi rezultatai →",
     "result_collection": "Kolekcija",
     "result_article": "Žurnalas"
+  },
+  "blog": {
+    "empty_title": "Žurnalas ruošiamas.",
+    "empty_text": "Pirmieji užrašai apie odą, rankas ir laiką pasirodys netrukus."
+  },
+  "article": {
+    "empty_title": "Šis tekstas dar rašomas.",
+    "empty_text": "Netrukus čia bus visa istorija."
   },
   "newsletter": {
     "heading": "Laiškas iš ateljės",

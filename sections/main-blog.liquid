@@ -78,77 +78,11 @@
 </section>
 
 {%- else -%}
-<!-- ──────────── FEATURED ──────────── -->
-<article class="feature" data-cat="dirbtuves">
-  <a href="{{ blog.url }}">
-    <div class="feature__media">
-      <img src="{{ 'Nr1.webp' | asset_url }}" width="1400" height="1400" alt="" />
-      <span class="feature__badge">Redakcijos pasirinkimas</span>
-    </div>
-    <div class="feature__body">
-      <div class="feature__meta">
-        <span class="cat">Dirbtuvės</span>
-        <span>·</span>
-        <span>2026·05·28</span>
-        <span>·</span>
-        <span>8 min.</span>
-      </div>
-      <h2 class="feature__title">Kaip gimsta viena pora: 42 žingsniai nuo odos iki dėžės</h2>
-      <p class="feature__excerpt">Sekėme „de Boxe" porą per visą gamybos kelią — nuo odos atrankos sandėlyje iki paskutinio dygsnio. Štai kodėl viena pora užtrunka tris dienas.</p>
-      <div class="feature__author">
-        <span class="feature__avatar">SA</span>
-        <span>Saulius A. <span class="muted">· meistras</span></span>
-      </div>
-    </div>
-  </a>
-</article>
-
-<!-- ──────────── ARTICLE GRID ──────────── -->
-<section class="jgrid" id="jgrid">
-
-  <a class="post" href="{{ blog.url }}" data-cat="prieziura">
-    <div class="post__media"><img src="{{ 'Glr4.webp' | asset_url }}" width="1400" height="1400" alt="" /></div>
-    <div class="post__meta"><span class="cat">Priežiūra</span><span class="sep">·</span><span>5 min.</span></div>
-    <div class="post__title">Vaškas ar kremas? Trumpas vadovas odos priežiūrai</div>
-    <p class="post__excerpt">Ką naudoti, kaip dažnai ir kodėl mažiau yra daugiau.</p>
-  </a>
-
-  <a class="post" href="{{ blog.url }}" data-cat="medziagos">
-    <div class="post__media"><img src="{{ 'Glr1.webp' | asset_url }}" width="1400" height="1400" alt="" /></div>
-    <div class="post__meta"><span class="cat">Medžiagos</span><span class="sep">·</span><span>6 min.</span></div>
-    <div class="post__title">Augalinis rauginimas: kodėl jis lėtas ir vertas to</div>
-    <p class="post__excerpt">Skirtumas tarp chromo ir augalinės odos — ne tik spalva.</p>
-  </a>
-
-  <a class="post" href="{{ blog.url }}" data-cat="dirbtuves">
-    <div class="post__media"><img src="{{ 'Glr2.webp' | asset_url }}" width="1400" height="1400" alt="" /></div>
-    <div class="post__meta"><span class="cat">Dirbtuvės</span><span class="sep">·</span><span>4 min.</span></div>
-    <div class="post__title">Kodėl numeruojame kiekvieną porą</div>
-    <p class="post__excerpt">Partija, numeris, tiražas — ką tai reiškia ir kam.</p>
-  </a>
-
-  <a class="post" href="{{ blog.url }}" data-cat="zmones">
-    <div class="post__media"><img src="{{ 'Nr2.webp' | asset_url }}" width="1400" height="1400" alt="" /></div>
-    <div class="post__meta"><span class="cat">Žmonės</span><span class="sep">·</span><span>7 min.</span></div>
-    <div class="post__title">Aistė ir adata: dvidešimt metų prie siuvimo mašinos</div>
-    <p class="post__excerpt">Pokalbis su ateljės siuvėja apie ranką ir ritmą.</p>
-  </a>
-
-  <a class="post" href="{{ blog.url }}" data-cat="prieziura">
-    <div class="post__media post--light"><img src="{{ 'Nr3.webp' | asset_url }}" width="1400" height="1400" alt="" /></div>
-    <div class="post__meta"><span class="cat">Priežiūra</span><span class="sep">·</span><span>3 min.</span></div>
-    <div class="post__title">Kaip džiovinti odą po lietaus (ir ko nedaryti)</div>
-    <p class="post__excerpt">Jokio radiatoriaus. Tik laikas ir popierius.</p>
-  </a>
-
-  <a class="post" href="{{ blog.url }}" data-cat="dirbtuves">
-    <div class="post__media"><img src="{{ 'Glr3.webp' | asset_url }}" width="1400" height="1399" alt="" /></div>
-    <div class="post__meta"><span class="cat">Dirbtuvės</span><span class="sep">·</span><span>6 min.</span></div>
-    <div class="post__title">Taisymas vietoj išmetimo: padų keitimo istorija</div>
-    <p class="post__excerpt">Pora, grįžusi po septynerių metų — ir vėl išėjusi nauja.</p>
-  </a>
-
-</section>
+<!-- ──────────── EMPTY STATE ──────────── -->
+<div class="jempty">
+  <p class="jempty__title">{{ 'blog.empty_title' | t }}</p>
+  <p class="jempty__text">{{ 'blog.empty_text' | t }}</p>
+</div>
 {%- endif -%}
 
 {% schema %}

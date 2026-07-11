@@ -76,6 +76,15 @@
 @media (max-width: 900px){ .jgrid{ grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 560px){ .jgrid{ grid-template-columns: 1fr; } }
 
+/* empty state — shown until the blog has articles */
+.jempty{
+  max-width: var(--max); margin: 0 auto;
+  padding: var(--sp-20) var(--gutter) var(--sp-24);
+  display: grid; gap: var(--sp-3); place-items: center; text-align: center;
+}
+.jempty__title{ font: 500 var(--t-section) / 1.05 var(--font-sans); letter-spacing: -0.02em; margin: 0; }
+.jempty__text{ font: 400 16px/1.6 var(--font-sans); color: var(--text-muted); max-width: 42ch; margin: 0; }
+
 /* post card system lives in chrome.css */
 
 /* hidden by filter */
