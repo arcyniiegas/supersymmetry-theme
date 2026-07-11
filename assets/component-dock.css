@@ -2,8 +2,9 @@
 
    "Whisper" — the dock recedes. An ultra-thin rail of glass, icon-only, that
    reads as a premium object floating in the interface rather than a navigation
-   bar bolted on top. The active item is revealed by ink + a soft light lozenge
-   (a whisper of elevation), never a solid pressed pill. Monochrome per the
+   bar bolted on top. The active item is revealed by ink + a soft internal glow
+   (a whisper of light — no lift, no edge), never a solid pressed pill or a
+   raised chip. Monochrome per the
    token law: emphasis is contrast, not hue. Mobile-only; desktop navigates via
    the header. Pure CSS — the active item is server-rendered (aria-current),
    so no script is needed. */
@@ -49,16 +50,15 @@
 }
 .dock__item:active svg{ transform: scale(0.88); }
 
-/* Active = full ink + a whisper of raised light behind the icon.
-   A brighter-glass lozenge, softly lifted — never the old black pill. */
+/* Active = full ink + a soft internal glow behind the icon. A feathered bloom
+   of light — no edge, no top specular, no drop shadow, no lift (that would be
+   a raised chip). The ink tone shift carries the state; the glow is a whisper. */
 .dock__item::before{
-  content: ""; position: absolute; z-index: -1; inset: 4px 5px;
-  border-radius: 11px;
-  background: linear-gradient(180deg,
-    color-mix(in oklab, #ffffff 42%, transparent),
-    color-mix(in oklab, #ffffff 18%, transparent));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 1px 3px -1px rgba(10, 10, 10, 0.16);
-  opacity: 0; transform: scale(0.82);
+  content: ""; position: absolute; z-index: -1; inset: 0;
+  border-radius: 14px;
+  background: radial-gradient(56% 74% at 50% 46%,
+    color-mix(in oklab, #ffffff 82%, transparent), transparent 72%);
+  opacity: 0; transform: scale(0.68);
   transition: opacity var(--tx-base) var(--ease), transform var(--tx-base) var(--ease-snap);
 }
 .dock__item[aria-current="page"]{ color: var(--ink); }
