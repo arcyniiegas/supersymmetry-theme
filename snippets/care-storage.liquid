@@ -8,17 +8,11 @@
       </div>
       <p class="sec__sub">{{ section.settings.store_sub | default: 'Oda gyva medžiaga — jai reikia kvėpuoti. Teisingas laikymas apsaugo formą ir spalvą tiek pat, kiek valymas.' }}</p>
     </div>
-    {%- assign store_blocks = section.blocks | where: 'type', 'store_row' -%}
+    {%- assign store_blocks = section.blocks | where: 'type', 'step' -%}
     {%- if store_blocks.size > 0 -%}
     <div class="store">
       {%- for block in store_blocks -%}
-      <div class="store__row" {{ block.shopify_attributes }}>
-        <span class="store__n">{{ block.settings.n }}</span>
-        <div>
-          <h3 class="store__t">{{ block.settings.t }}</h3>
-          <p class="store__d">{{ block.settings.d }}</p>
-        </div>
-      </div>
+      {% render 'step', num: block.settings.num, title: block.settings.title, body: block.settings.body, attrs: block.shopify_attributes %}
       {%- endfor -%}
     </div>
     {%- endif -%}

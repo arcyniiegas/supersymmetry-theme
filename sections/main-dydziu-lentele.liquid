@@ -67,16 +67,10 @@
   <div class="measure">
     <div class="measure__panel">
       <div class="eyebrow-rule">{{ section.settings.measure_eyebrow | default: 'Kaip išmatuoti pėdą' }}</div>
-      {%- assign mstep_blocks = section.blocks | where: 'type', 'mstep' -%}
+      {%- assign mstep_blocks = section.blocks | where: 'type', 'step' -%}
       {%- if mstep_blocks.size > 0 -%}
         {%- for block in mstep_blocks -%}
-      <div class="step" {{ block.shopify_attributes }}>
-        <span class="step__num">{{ block.settings.n }}</span>
-        <div class="step__body">
-          <h3>{{ block.settings.t }}</h3>
-          <p>{{ block.settings.b }}</p>
-        </div>
-      </div>
+      {% render 'step', num: block.settings.num, title: block.settings.title, body: block.settings.body, attrs: block.shopify_attributes %}
         {%- endfor -%}
       {%- else -%}
       <div class="step">
@@ -132,6 +126,7 @@
     { "type": "textarea", "id": "tip_b", "label": "Tip body", "default": "Parašykite mums pėdos ilgį centimetrais — atsakysime, kuris dydis tiks konkrečiam modeliui." },
     { "type": "header", "content": "Text size & colour" },
     { "type": "range", "id": "title_scale", "label": "Heading size", "min": 60, "max": 130, "step": 5, "unit": "%", "default": 100 },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Colour scheme", "default": "scheme-1", "info": "Recolours this whole section. The default matches the rest of the site." },
     { "type": "color", "id": "text_color", "label": "Text colour", "info": "Recolours this section's text. Leave empty for the default near-black." }
   ],
   "blocks": [
@@ -155,12 +150,12 @@
       ]
     },
     {
-      "type": "mstep",
+      "type": "step",
       "name": "Measuring step",
       "settings": [
-        { "type": "text", "id": "n", "label": "Number" },
-        { "type": "text", "id": "t", "label": "Title" },
-        { "type": "textarea", "id": "b", "label": "Body" }
+        { "type": "text", "id": "num", "label": "Number" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "body", "label": "Body" }
       ]
     }
   ],

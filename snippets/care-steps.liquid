@@ -1,0 +1,28 @@
+{%- comment -%}
+  care-steps — the numbered tutorial-step list for one care group (e.g. 'oda' or
+  'zomsa'). Renders every `tstep` block whose `group` matches, so the leather and
+  suede sections share one markup source instead of duplicating it.
+
+  Params:
+    section (req) — the host section (for section.blocks + shopify_attributes)
+    group   (req) — the tstep group to render ('oda', 'zomsa', …)
+{%- endcomment -%}
+<div class="tsteps">
+  {%- for block in section.blocks -%}
+    {%- if block.type == 'tstep' and block.settings.group == group -%}
+  <div class="tstep" {{ block.shopify_attributes }}>
+    <div class="tstep__n">{{ block.settings.n }}</div>
+    <div>
+      <h3 class="tstep__t">{{ block.settings.t }}</h3>
+      <p class="tstep__b">{{ block.settings.b }}</p>
+      {%- if block.settings.tip_b != blank -%}
+      <div class="tip{% if block.settings.tip_warn %} tip--warn{% endif %}">
+        <span class="tip__k">{{ block.settings.tip_k }}</span>
+        <p class="tip__b">{{ block.settings.tip_b }}</p>
+      </div>
+      {%- endif -%}
+    </div>
+  </div>
+    {%- endif -%}
+  {%- endfor -%}
+</div>

@@ -133,23 +133,23 @@
   color: var(--text-muted);
 }
 
-.qa{
+.accordion{
   border-bottom: 1px solid var(--hairline);
 }
-.qa summary{
+.accordion summary{
   list-style: none;
   display: flex; align-items: baseline; justify-content: space-between;
   gap: var(--sp-5);
   padding: var(--sp-5) 0;
   cursor: pointer;
 }
-.qa summary::-webkit-details-marker{ display: none; }
-.qa summary .q{
+.accordion summary::-webkit-details-marker{ display: none; }
+.accordion summary .q{
   font: 500 18px/1.4 var(--font-sans);
   letter-spacing: -0.015em;
   text-wrap: balance;
 }
-.qa summary .plus{
+.accordion summary .plus{
   flex-shrink: 0;
   width: 26px; height: 26px;
   display: inline-grid; place-items: center;
@@ -158,22 +158,22 @@
   font: 400 17px/1 var(--font-mono);
   transition: background var(--tx-fast) var(--ease), transform var(--tx-base) var(--ease);
 }
-.qa[open] summary .plus{ background: var(--ink); color: var(--bg); transform: rotate(45deg); }
-.qa:hover summary .plus{ background: var(--surface-hover); }
-.qa[open]:hover summary .plus{ background: var(--ink); }
-.qa__body{
+.accordion[open] summary .plus{ background: var(--ink); color: var(--bg); transform: rotate(45deg); }
+.accordion:hover summary .plus{ background: var(--surface-hover); }
+.accordion[open]:hover summary .plus{ background: var(--ink); }
+.accordion__body{
   padding: 0 56px var(--sp-6) 0;
   max-width: 70ch;
 }
-.qa__body p{
+.accordion__body p{
   margin: 0 0 var(--sp-3);
   font: 400 15px/1.65 var(--font-sans);
   color: var(--text-muted);
   letter-spacing: -0.005em;
 }
-.qa__body p:last-child{ margin-bottom: 0; }
-.qa__body b{ color: var(--text); font-weight: 500; }
-.qa__body .pill{
+.accordion__body p:last-child{ margin-bottom: 0; }
+.accordion__body b{ color: var(--text); font-weight: 500; }
+.accordion__body .pill{
   display: inline-flex; align-items: center; gap: 8px;
   margin-top: var(--sp-3);
   padding: 8px 14px;
@@ -182,18 +182,18 @@
   font: 500 12px/1 var(--font-sans);
   color: var(--text);
 }
-.qa__body .pill::before{
+.accordion__body .pill::before{
   content:''; width: 6px; height: 6px; border-radius: 99px; background: var(--orange);
 }
-.qa__body ul{
+.accordion__body ul{
   margin: var(--sp-3) 0; padding: 0; list-style: none;
   display: grid; gap: 8px;
 }
-.qa__body ul li{
+.accordion__body ul li{
   display: grid; grid-template-columns: 18px 1fr; gap: 10px;
   font: 400 15px/1.5 var(--font-sans); color: var(--text-muted);
 }
-.qa__body ul li::before{
+.accordion__body ul li::before{
   content:'—'; color: var(--orange); font-family: var(--font-mono);
 }
 

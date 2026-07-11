@@ -74,11 +74,8 @@
       </div>
       {%- for b in section.blocks offset: forloop.index -%}
         {%- if b.type == 'group' -%}{%- break -%}{%- endif -%}
-        {%- if b.type == 'qa' -%}
-      <details class="qa"{% if b.settings.open %} open{% endif %} {{ b.shopify_attributes }}>
-        <summary><span class="q">{{ b.settings.question }}</span><span class="plus">+</span></summary>
-        <div class="qa__body">{{ b.settings.answer }}</div>
-      </details>
+        {%- if b.type == 'accordion_item' -%}
+      {% render 'accordion-item', question: b.settings.question, answer: b.settings.answer, open: b.settings.open, attrs: b.shopify_attributes %}
         {%- endif -%}
       {%- endfor -%}
     </section>
@@ -136,6 +133,7 @@
     { "type": "url", "id": "strip_visit_link", "label": "Secondary button link", "info": "Leave empty for the built-in Google Maps link." },
     { "type": "header", "content": "Text size & colour" },
     { "type": "range", "id": "title_scale", "label": "Heading size", "min": 60, "max": 130, "step": 5, "unit": "%", "default": 100 },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Colour scheme", "default": "scheme-1", "info": "Recolours this whole section. The default matches the rest of the site." },
     { "type": "color", "id": "text_color", "label": "Text colour", "info": "Recolours this section's text. Leave empty for the default near-black." }
   ],
   "blocks": [
@@ -148,8 +146,8 @@
       ]
     },
     {
-      "type": "qa",
-      "name": "Question",
+      "type": "accordion_item",
+      "name": "FAQ item",
       "settings": [
         { "type": "text", "id": "question", "label": "Question" },
         { "type": "richtext", "id": "answer", "label": "Answer" },

@@ -137,6 +137,7 @@
     { "type": "url", "id": "close_cta2_link", "label": "Secondary button link" },
     { "type": "header", "content": "Text size & colour" },
     { "type": "range", "id": "title_scale", "label": "Heading size", "min": 60, "max": 130, "step": 5, "unit": "%", "default": 100 },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Colour scheme", "default": "scheme-1", "info": "Recolours this whole section. The default matches the rest of the site." },
     { "type": "color", "id": "text_color", "label": "Text colour", "info": "Recolours this section's text. Leave empty for the default near-black." }
   ],
   "blocks": [
@@ -188,12 +189,12 @@
       ]
     },
     {
-      "type": "store_row",
+      "type": "step",
       "name": "Storage row",
       "settings": [
-        { "type": "text", "id": "n", "label": "Number" },
-        { "type": "text", "id": "t", "label": "Title" },
-        { "type": "textarea", "id": "d", "label": "Body" }
+        { "type": "text", "id": "num", "label": "Number" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "body", "label": "Body" }
       ]
     },
     {

@@ -1,0 +1,19 @@
+{% comment %}
+  hours — one opening-hours row: a day label + a time, with optional "closed"
+  and "today" styling. Shared @theme block. The host section supplies the list
+  wrapper and its own scoped styling (`.hours__row` / `__day` / `__time`,
+  `.is-closed` / `.is-today`); this block owns only the row markup, so every
+  section can reuse it while keeping its exact look. → COMPONENTS.md
+{% endcomment %}
+<div class="hours__row{% if block.settings.closed %} is-closed{% endif %}{% if block.settings.highlight %} is-today{% endif %}" {{ block.shopify_attributes }}><span class="hours__day">{{ block.settings.day }}</span><span class="hours__time">{{ block.settings.time }}</span></div>
+{% schema %}
+{
+  "name": "Hours row",
+  "settings": [
+    { "type": "text", "id": "day", "label": "Day(s)" },
+    { "type": "text", "id": "time", "label": "Time" },
+    { "type": "checkbox", "id": "closed", "label": "Closed styling", "default": false },
+    { "type": "checkbox", "id": "highlight", "label": "Highlight (today)", "default": false }
+  ]
+}
+{% endschema %}

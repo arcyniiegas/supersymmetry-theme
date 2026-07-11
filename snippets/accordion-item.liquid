@@ -1,0 +1,22 @@
+{%- comment -%}
+  accordion-item — one <details> disclosure row (question + answer), with an
+  optional leading index. Shared FAQ/accordion markup used across sections; each
+  host section styles the `.accordion` / `.accordion__body` classes (and the
+  inner `.idx` / `.q` / `.plus`) within its own wrapper, so every FAQ keeps its
+  own look on one markup source. → COMPONENTS.md
+
+  Params:
+    question (req) — the summary text
+    answer   (req) — the disclosure body (raw HTML allowed)
+    index    (opt) — small leading number/label shown before the question
+    open     (opt, bool) — render expanded
+    attrs    (opt) — block.shopify_attributes for the Theme Editor
+{%- endcomment -%}
+<details class="accordion"{% if open %} open{% endif %} {{ attrs }}>
+  <summary>
+    {%- if index != blank -%}<span class="idx">{{ index }}</span>{%- endif -%}
+    <span class="q">{{ question }}</span>
+    <span class="plus">+</span>
+  </summary>
+  <div class="accordion__body">{{ answer }}</div>
+</details>

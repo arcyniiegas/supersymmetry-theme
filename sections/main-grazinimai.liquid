@@ -157,19 +157,10 @@
     </div>
 
     <div class="faq">
-      {%- assign faq_blocks = section.blocks | where: 'type', 'faq' -%}
+      {%- assign faq_blocks = section.blocks | where: 'type', 'accordion_item' -%}
       {%- for block in faq_blocks -%}
-      <details{% if block.settings.open %} open{% endif %} {{ block.shopify_attributes }}>
-        <summary>
-          <span class="idx">{{ block.settings.idx }}</span>
-          <span class="q">{{ block.settings.q }}</span>
-          <span class="plus">+</span>
-        </summary>
-        <div class="faq__body">
-          <span></span>
-          <p class="c">{{ block.settings.a }}</p>
-        </div>
-      </details>
+      {%- capture faq_answer -%}<span></span><p class="c">{{ block.settings.answer }}</p>{%- endcapture -%}
+      {% render 'accordion-item', question: block.settings.question, answer: faq_answer, index: block.settings.index, open: block.settings.open, attrs: block.shopify_attributes %}
       {%- endfor -%}
     </div>
   </div>
@@ -210,6 +201,7 @@
     { "type": "textarea", "id": "faq_sub", "label": "Sub", "default": "Šeši klausimai, kuriuos užduoda dažniausiai. Plačiau — <a href=\"/pages/duk\" class=\"uline\">visi DUK</a>." },
     { "type": "header", "content": "Text size & colour" },
     { "type": "range", "id": "title_scale", "label": "Heading size", "min": 60, "max": 130, "step": 5, "unit": "%", "default": 100 },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Colour scheme", "default": "scheme-1", "info": "Recolours this whole section. The default matches the rest of the site." },
     { "type": "color", "id": "text_color", "label": "Text colour", "info": "Recolours this section's text. Leave empty for the default near-black." }
   ],
   "blocks": [
@@ -280,12 +272,12 @@
       ]
     },
     {
-      "type": "faq",
+      "type": "accordion_item",
       "name": "FAQ item",
       "settings": [
-        { "type": "text", "id": "idx", "label": "Number" },
-        { "type": "text", "id": "q", "label": "Question" },
-        { "type": "textarea", "id": "a", "label": "Answer" },
+        { "type": "text", "id": "index", "label": "Number" },
+        { "type": "text", "id": "question", "label": "Question" },
+        { "type": "textarea", "id": "answer", "label": "Answer" },
         { "type": "checkbox", "id": "open", "label": "Open by default", "default": false }
       ]
     }

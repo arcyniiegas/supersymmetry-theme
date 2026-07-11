@@ -158,13 +158,13 @@ a:hover{ color: var(--text-muted); }
    ════════════════════════════════════════════════════════════ */
 .store{ display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--sp-4) var(--sp-12); }
 @media (max-width: 720px){ .store{ grid-template-columns: 1fr; } }
-.store__row{
+.store .step{
   display: grid; grid-template-columns: 40px 1fr; gap: var(--sp-5);
   padding: var(--sp-6) 0; border-top: 1px solid rgba(255,255,255,0.14); align-items: baseline;
 }
-.store__n{ font: 500 12px/1 var(--font-mono); color: rgba(255,255,255,0.45); }
-.store__t{ margin: 0 0 8px; font: 500 19px/1.2 var(--font-sans); letter-spacing: -0.02em; color: #FFFFFF; }
-.store__d{ margin: 0; font: 400 15px/1.55 var(--font-sans); color: rgba(255,255,255,0.65); letter-spacing: -0.005em; }
+.store .step__num{ font: 500 12px/1 var(--font-mono); color: rgba(255,255,255,0.45); }
+.store .step__title{ margin: 0 0 8px; font: 500 19px/1.2 var(--font-sans); letter-spacing: -0.02em; color: #FFFFFF; }
+.store .step__text{ margin: 0; font: 400 15px/1.55 var(--font-sans); color: rgba(255,255,255,0.65); letter-spacing: -0.005em; }
 
 /* ════════════════════════════════════════════════════════════
    TROUBLESHOOTING — problem / fix rows

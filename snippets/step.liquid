@@ -1,0 +1,16 @@
+{%- comment -%}
+  step — one numbered step: a number, a title, and a body line. Shared markup
+  across sections; each host section styles the `.step` / `.step__num` /
+  `.step__title` / `.step__text` classes within its own wrapper, so a size-guide
+  step and a storage row reuse one markup source while keeping their own look.
+  → COMPONENTS.md
+
+  Params: num, title, body (req-ish); attrs (opt) — block.shopify_attributes
+{%- endcomment -%}
+<div class="step" {{ attrs }}>
+  <span class="step__num">{{ num }}</span>
+  <div class="step__body">
+    <h3 class="step__title">{{ title }}</h3>
+    <p class="step__text">{{ body }}</p>
+  </div>
+</div>

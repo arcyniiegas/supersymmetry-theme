@@ -201,19 +201,19 @@
   max-width: 42ch;
 }
 .hours{ margin: var(--sp-8) 0 0; max-width: 340px; }
-.hours .hr{
+.hours .hours__row{
   display: flex; justify-content: space-between; align-items: baseline;
   padding: 12px 0;
   border-bottom: 1px solid var(--line);
   font: 400 15px/1.4 var(--font-sans);
   letter-spacing: -0.005em;
 }
-.hours .hr:last-child{ border-bottom: 0; }
-.hours .hr.today{ font-weight: 500; }
-.hours .hr .d{ display: flex; align-items: center; gap: 10px; }
-.hours .hr.today .d::before{ content:''; width: 6px; height: 6px; border-radius: 99px; background: var(--orange); }
-.hours .hr.closed .t{ color: var(--soft); }
-.hours .hr .t{
+.hours .hours__row:last-child{ border-bottom: 0; }
+.hours .hours__row.is-today{ font-weight: 500; }
+.hours .hours__day{ display: flex; align-items: center; gap: 10px; }
+.hours .hours__row.is-today .hours__day::before{ content:''; width: 6px; height: 6px; border-radius: 99px; background: var(--orange); }
+.hours .hours__row.is-closed .hours__time{ color: var(--soft); }
+.hours .hours__time{
   font: 500 13px/1.4 var(--font-mono);
   letter-spacing: 0.01em;
   font-feature-settings: 'tnum';
