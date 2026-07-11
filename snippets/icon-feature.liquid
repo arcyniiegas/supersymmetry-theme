@@ -1,0 +1,26 @@
+{%- comment -%}
+  Product feature icon — hand-drawn line-art, keyed by the feature metaobject's
+  `icon` field. Render: {% render 'icon-feature', icon: f.icon %}
+  Add a new feature = add a case here + add its key to the `feature` metaobject's
+  `icon` choices. viewBox 0 0 30 30, single stroke.
+{%- endcomment -%}
+{%- assign icon = icon | default: '' -%}
+<svg class="feat-ico" viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+{%- case icon -%}
+{%- when 'lightweight' -%}<path d="M23 5 Q14 7 10 14 Q7 19 7 25 M23 5 Q24 13 19 18 Q14 23 7 25 M11 13 L14 16 M9 18 L12.5 20.5"/>
+{%- when 'flex-sole' -%}<path d="M4 21 Q8 21 11 19 Q15 16.5 18 12.5 Q20.5 9 24 8.5"/><path d="M4 24.5 Q9 24.5 13 22 Q17.5 19 20.5 14.5 Q22.5 11.5 26 11"/>
+{%- when 'soft-insole' -%}<path d="M8 25 Q7 20 12 17.5 Q17 15 22 16 Q25 16.5 24 20 Q22.5 24 17 25.5 Q11 27 8 25 Z"/><path d="M11 11.5 Q13 9.5 15 11.5 Q17 13.5 19 11.5 M12 6.5 Q14 4.5 16 6.5 Q18 8.5 20 6.5"/>
+{%- when 'breathes' -%}<circle cx="10" cy="9" r="0.7"/><circle cx="15" cy="7.5" r="0.7"/><circle cx="20" cy="9" r="0.7"/><circle cx="12.5" cy="12" r="0.7"/><circle cx="17.5" cy="12" r="0.7"/><path d="M8 19 Q12 17 15 19 Q18 21 22 19 M8 23.5 Q12 21.5 15 23.5 Q18 25.5 22 23.5"/>
+{%- when 'natural-leather' -%}<path d="M6 8 Q6 5 9 5 L21 5 Q24 5 24 8 L24 20 Q24 25 19 25 L11 25 Q6 25 6 20 Z"/><circle cx="11" cy="11" r="0.5"/><circle cx="16" cy="9.5" r="0.5"/><circle cx="20" cy="12" r="0.5"/><circle cx="13" cy="15" r="0.5"/><circle cx="18" cy="17" r="0.5"/><circle cx="11" cy="20" r="0.5"/>
+{%- when 'soft-leather' -%}<path d="M5 22 Q8 8 12 8 Q15 8 14 14 Q13.5 18 16 18 Q19 18 19 12 Q19 8 22 8 Q25 8 25 22"/>
+{%- when 'perforated' -%}<circle cx="9" cy="9" r="1"/><circle cx="15" cy="9" r="1"/><circle cx="21" cy="9" r="1"/><circle cx="9" cy="15" r="1"/><circle cx="15" cy="15" r="1"/><circle cx="21" cy="15" r="1"/><circle cx="9" cy="21" r="1"/><circle cx="15" cy="21" r="1"/><circle cx="21" cy="21" r="1"/>
+{%- when 'non-slip' -%}<path d="M4 18 L8 22 L12 18 L16 22 L20 18 L24 22"/><path d="M4 24 L24 24"/>
+{%- when 'anatomical' -%}<path d="M11 6 Q7 12 8 18 Q9 24 15 25 Q22 25 22 19 Q22 14 17 14 Q13 14 13 10 Q13 7 11 6 Z"/>
+{%- when 'warm-lining' -%}<path d="M9 22 Q9 15 15 15 Q21 15 21 22"/><path d="M11 11 Q13 9 11 7 M15 11 Q17 9 15 7 M19 11 Q21 9 19 7"/>
+{%- when 'elastic-strap' -%}<path d="M4 15 H11"/><path d="M11 15 Q12 12 13 15 Q14 18 15 15 Q16 12 17 15 Q18 18 19 15"/><path d="M19 15 H26"/>
+{%- when 'natural-fur' -%}<path d="M5 22 H25"/><path d="M6 22 Q7 15 9 21 M10 22 Q11 14 13 21 M14 22 Q15 15 17 21 M18 22 Q19 14 21 21 M22 22 Q23 15 25 21"/>
+{%- when 'zipper' -%}<path d="M15 4 V13"/><rect x="12.3" y="13" width="5.4" height="6" rx="1.4"/><path d="M15 19 V22"/><path d="M11 6 L15 7 M19 6 L15 7 M11 9.5 L15 10.5 M19 9.5 L15 10.5"/>
+{%- when 'slip-on' -%}<path d="M5 21 L5 17 Q5 15 8 15 L15 15 Q23 15 23 21 Z"/><path d="M14 3 V10 M11 7 L14 10 L17 7"/>
+{%- when 'heel' -%}<path d="M26 21 C20 15 11 11 6.5 6.5 C5.5 10 6 18 6.5 23 L8.5 23 C8.7 19 9 18 9.5 17 C12 21 16 22.5 20 22.5 C23 22.5 25 22 26 21 Z"/>
+{%- endcase -%}
+</svg>

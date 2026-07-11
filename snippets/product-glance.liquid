@@ -1,4 +1,8 @@
-{%- comment -%} Product — at-a-glance bento. Rendered by main-product for the `glance` block. {%- endcomment -%}
+{%- comment -%} Product — at-a-glance bento (Trumpai). Rendered by main-product for the `glance` block.
+  material/sole/weight ← custom.model_info · maker/origin ← custom.manufacturer · price ← product.
+  Real value or an honest em-dash — never a fabricated default. {%- endcomment -%}
+{%- assign model = product.metafields.custom.model_info.value -%}
+{%- assign maker = product.metafields.custom.manufacturer.value -%}
 <section class="glance" {{ block.shopify_attributes }}>
   <div class="glance__head">
     <div>
@@ -9,9 +13,9 @@
   <div class="bento">
 
     <div class="bento__cell b-1">
-      <div class="bento__label">Medžiaga</div>
+      <div class="bento__label">{{ 'product.glance.material' | t }}</div>
       <div>
-        <div class="bento__value">{{ product.metafields.glance.material | default: 'Natūrali oda' }}</div>
+        <div class="bento__value">{{ model.material | default: '—' }}</div>
         {%- if block.settings.material_sub != blank -%}<div class="bento__sub" style="margin-top: 8px;">{{ block.settings.material_sub }}</div>{%- endif -%}
       </div>
       <div class="bento__bg" aria-hidden="true">
@@ -20,15 +24,15 @@
     </div>
 
     <div class="bento__cell b-2">
-      <div class="bento__label">Padas</div>
+      <div class="bento__label">{{ 'product.glance.sole' | t }}</div>
       <div>
-        <div class="bento__value bento__value--mono">{{ product.metafields.glance.sole | default: 'Vulkanizuota guma' }}</div>
+        <div class="bento__value bento__value--mono">{{ model.sole | default: '—' }}</div>
         {%- if block.settings.sole_sub != blank -%}<div class="bento__sub" style="margin-top: 8px;">{{ block.settings.sole_sub }}</div>{%- endif -%}
       </div>
     </div>
 
     <div class="bento__cell bento__cell--orange b-3">
-      <div class="bento__label">Kaina</div>
+      <div class="bento__label">{{ 'product.glance.price' | t }}</div>
       <div>
         <div class="bento__value bento__value--big bento__value--mono">{{ product.price | money | remove: '€' | remove: ',00' }}</div>
         {%- if block.settings.price_sub != blank -%}<div class="bento__sub" style="margin-top: 8px;">{{ block.settings.price_sub }}</div>{%- endif -%}
@@ -36,25 +40,25 @@
     </div>
 
     <div class="bento__cell b-4">
-      <div class="bento__label">Gamintojas</div>
+      <div class="bento__label">{{ 'product.glance.maker' | t }}</div>
       <div>
-        <div class="bento__value bento__value--mono">{{ product.metafields.glance.maker | default: product.vendor }}</div>
+        <div class="bento__value bento__value--mono">{{ maker.name | default: product.vendor | default: '—' }}</div>
         {%- if block.settings.maker_sub != blank -%}<div class="bento__sub" style="margin-top: 8px;">{{ block.settings.maker_sub }}</div>{%- endif -%}
       </div>
     </div>
 
     <div class="bento__cell b-5">
-      <div class="bento__label">Svoris</div>
+      <div class="bento__label">{{ 'product.glance.weight' | t }}</div>
       <div>
-        <div class="bento__value bento__value--mono">{{ product.metafields.glance.weight | default: '—' }}</div>
+        <div class="bento__value bento__value--mono">{{ model.weight | default: '—' }}</div>
         {%- if block.settings.weight_sub != blank -%}<div class="bento__sub" style="margin-top: 8px;">{{ block.settings.weight_sub }}</div>{%- endif -%}
       </div>
     </div>
 
     <div class="bento__cell b-6">
-      <div class="bento__label">Kilmė</div>
+      <div class="bento__label">{{ 'product.glance.origin' | t }}</div>
       <div>
-        <div class="bento__value">{{ product.metafields.glance.origin | default: '—' }}</div>
+        <div class="bento__value">{{ maker.country_of_origin | default: '—' }}</div>
         {%- if block.settings.origin_sub != blank -%}<div class="bento__sub" style="margin-top: 8px;">{{ block.settings.origin_sub }}</div>{%- endif -%}
       </div>
     </div>

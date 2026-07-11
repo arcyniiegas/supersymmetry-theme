@@ -54,6 +54,36 @@
       "transit": "In transit",
       "delivered": "Delivery by"
     },
+    "glance": {
+      "material": "Material",
+      "sole": "Sole",
+      "price": "Price",
+      "maker": "Maker",
+      "weight": "Weight",
+      "origin": "Origin"
+    },
+    "fit": {
+      "wide": "Wide",
+      "narrow": "Narrow",
+      "smaller": "Smaller",
+      "larger": "Larger",
+      "pct_normal_suffix": "take their usual size",
+      "sample_suffix": "pairs of feedback",
+      "fit_val": {
+        "gerokai_mazesni": "Much smaller",
+        "kiek_mazesni": "Slightly smaller",
+        "standartiniai": "True to size",
+        "kiek_didesni": "Slightly larger",
+        "gerokai_didesni": "Much larger"
+      },
+      "width_val": {
+        "labai_siauri": "very narrow",
+        "siauri": "narrow",
+        "standartinis": "standard width",
+        "platus": "wide",
+        "labai_platus": "very wide"
+      }
+    },
     "sold_out": "Sold out",
     "new": "New",
     "add_to_cart": "Add to cart",

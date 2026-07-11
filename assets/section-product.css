@@ -536,30 +536,26 @@
   width: 100%;
   max-width: 200px;
   aspect-ratio: 1 / 1;
-  background: var(--bg);
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(rgba(10,10,10,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(10,10,10,0.05) 1px, transparent 1px);
+  background-size: 8.3333% 8.3333%;
   border-radius: var(--r-sm);
   border: 1px solid var(--line);
 }
-/* dotted crosshair through dead-center = "true to size, regular width" */
-.fit__cross{
-  position: absolute;
-  pointer-events: none;
-}
+/* solid faint crosshair, centred on the axis = "true to size, regular width" */
+.fit__cross{ position: absolute; pointer-events: none; }
 .fit__cross--h{
-  left: 14%; right: 14%;
-  top: 50%; height: 1px;
-  background-image: linear-gradient(to right, var(--soft) 50%, transparent 50%);
-  background-size: 5px 1px;
-  background-repeat: repeat-x;
+  left: 8%; right: 8%; top: 50%; height: 1px;
+  transform: translateY(-50%);
+  background: rgba(10,10,10,0.14);
 }
 .fit__cross--v{
-  top: 14%; bottom: 14%;
-  left: 50%; width: 1px;
-  background-image: linear-gradient(to bottom, var(--soft) 50%, transparent 50%);
-  background-size: 1px 5px;
-  background-repeat: repeat-y;
+  top: 8%; bottom: 8%; left: 50%; width: 1px;
+  transform: translateX(-50%);
+  background: rgba(10,10,10,0.14);
 }
-/* anchor pip for true-center reference */
 .fit__anchor{
   position: absolute;
   top: 50%; left: 50%;
@@ -568,39 +564,27 @@
   background: var(--soft);
   transform: translate(-50%, -50%);
 }
-/* the dot — the actual fit position for THIS product */
+/* the dot — the actual fit position for THIS product (Apple system green) */
 .fit__dot{
   position: absolute;
-  width: 12px; height: 12px;
-  background: var(--orange);
+  width: 9px; height: 9px;
+  background: #34C759;
   border-radius: 99px;
   transform: translate(-50%, -50%);
   z-index: 2;
-  box-shadow:
-    0 0 0 3px var(--bg),
-    0 0 0 4px rgba(10,10,10,0.22);
+  box-shadow: 0 0 0 2.5px var(--bg), 0 0 0 3.5px rgba(52,199,89,0.35);
 }
 .fit__dot::after{
   content: '';
   position: absolute;
-  inset: -8px;
+  inset: -7px;
   border-radius: 99px;
-  border: 1px solid var(--orange);
+  border: 1px solid #34C759;
   opacity: 0;
   animation: pulse 2.6s ease-out infinite;
 }
-/* projection ticks — soft orange marks on the inside of each axis edge */
-.fit__tick{
-  position: absolute;
-  background: var(--orange);
-  opacity: 0.5;
-}
-.fit__tick--x{
-  bottom: 0; height: 4px; width: 1px;
-}
-.fit__tick--y{
-  left: 0; width: 4px; height: 1px;
-}
+/* projection ticks retired — the grid conveys position */
+.fit__tick{ display: none; }
 
 .fit__verdict{
   padding-top: var(--sp-3);

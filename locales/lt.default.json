@@ -54,6 +54,36 @@
       "transit": "Užsakymas kelyje",
       "delivered": "Pristatymas iki"
     },
+    "glance": {
+      "material": "Medžiaga",
+      "sole": "Padas",
+      "price": "Kaina",
+      "maker": "Gamintojas",
+      "weight": "Svoris",
+      "origin": "Kilmė"
+    },
+    "fit": {
+      "wide": "Platūs",
+      "narrow": "Siauri",
+      "smaller": "Mažesni",
+      "larger": "Didesni",
+      "pct_normal_suffix": "ima įprastą dydį",
+      "sample_suffix": "porų grįžtamasis ryšys",
+      "fit_val": {
+        "gerokai_mazesni": "Gerokai mažesni",
+        "kiek_mazesni": "Kiek mažesni",
+        "standartiniai": "Standartiniai",
+        "kiek_didesni": "Kiek didesni",
+        "gerokai_didesni": "Gerokai didesni"
+      },
+      "width_val": {
+        "labai_siauri": "labai siauri",
+        "siauri": "siauresni",
+        "standartinis": "standartinis plotis",
+        "platus": "platesni",
+        "labai_platus": "labai platūs"
+      }
+    },
     "sold_out": "Išparduota",
     "new": "Naujiena",
     "add_to_cart": "Į krepšelį",

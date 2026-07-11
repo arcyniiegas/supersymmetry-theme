@@ -99,45 +99,60 @@
     {%- for block in section.blocks -%}
       {%- case block.type -%}
       {%- when 'fit' -%}
+{%- assign sg = product.metafields.custom.size_guide.value -%}
+{%- if sg != blank -%}
+{%- case sg.fit -%}
+  {%- when 'gerokai_mazesni' -%}{%- assign fx = 10 -%}{%- assign fit_label = 'product.fit.fit_val.gerokai_mazesni' | t -%}
+  {%- when 'kiek_mazesni' -%}{%- assign fx = 30 -%}{%- assign fit_label = 'product.fit.fit_val.kiek_mazesni' | t -%}
+  {%- when 'kiek_didesni' -%}{%- assign fx = 70 -%}{%- assign fit_label = 'product.fit.fit_val.kiek_didesni' | t -%}
+  {%- when 'gerokai_didesni' -%}{%- assign fx = 90 -%}{%- assign fit_label = 'product.fit.fit_val.gerokai_didesni' | t -%}
+  {%- else -%}{%- assign fx = 50 -%}{%- assign fit_label = 'product.fit.fit_val.standartiniai' | t -%}
+{%- endcase -%}
+{%- case sg.width -%}
+  {%- when 'labai_siauri' -%}{%- assign fy = 90 -%}{%- assign width_label = 'product.fit.width_val.labai_siauri' | t -%}
+  {%- when 'siauri' -%}{%- assign fy = 70 -%}{%- assign width_label = 'product.fit.width_val.siauri' | t -%}
+  {%- when 'platus' -%}{%- assign fy = 30 -%}{%- assign width_label = 'product.fit.width_val.platus' | t -%}
+  {%- when 'labai_platus' -%}{%- assign fy = 10 -%}{%- assign width_label = 'product.fit.width_val.labai_platus' | t -%}
+  {%- else -%}{%- assign fy = 50 -%}{%- assign width_label = 'product.fit.width_val.standartinis' | t -%}
+{%- endcase -%}
     <div class="fit" id="fit-guide" aria-label="Modelio sėdėjimas" {{ block.shopify_attributes }}>
       <div class="fit__head">
         <span class="fit__title"></span>
         <span class="fit__count"></span>
       </div>
       <div class="fit__chart">
-        <span class="fit__axis fit__axis--top">Platūs</span>
-        <span class="fit__axis fit__axis--left">Mažesni</span>
-        <span class="fit__axis fit__axis--right">Didesni</span>
-        <span class="fit__axis fit__axis--bottom">Siauri</span>
+        <span class="fit__axis fit__axis--top">{{ 'product.fit.wide' | t }}</span>
+        <span class="fit__axis fit__axis--left">{{ 'product.fit.smaller' | t }}</span>
+        <span class="fit__axis fit__axis--right">{{ 'product.fit.larger' | t }}</span>
+        <span class="fit__axis fit__axis--bottom">{{ 'product.fit.narrow' | t }}</span>
         <div class="fit__plot">
           <span class="fit__cross fit__cross--h" aria-hidden="true"></span>
           <span class="fit__cross fit__cross--v" aria-hidden="true"></span>
           <span class="fit__anchor" aria-hidden="true"></span>
-          <span class="fit__tick fit__tick--x" style="left: {{ product.metafields.fit.dot_x | default: 64 }}%;" aria-hidden="true"></span>
-          <span class="fit__tick fit__tick--y" style="top: {{ product.metafields.fit.dot_y | default: 50 }}%;" aria-hidden="true"></span>
-          <span class="fit__dot" style="left: {{ product.metafields.fit.dot_x | default: 64 }}%; top: {{ product.metafields.fit.dot_y | default: 50 }}%;" aria-hidden="true"></span>
+          <span class="fit__tick fit__tick--x" style="left: {{ fx }}%;" aria-hidden="true"></span>
+          <span class="fit__tick fit__tick--y" style="top: {{ fy }}%;" aria-hidden="true"></span>
+          <span class="fit__dot" style="left: {{ fx }}%; top: {{ fy }}%;" aria-hidden="true"></span>
         </div>
       </div>
       <div class="fit__verdict">
-        <b style="text-align: center">{{ product.metafields.fit.verdict | default: 'Šiek tiek didesni · standartinis plotis' }}</b>
-        <span class="fit__verdict-sub" style="text-align: center">{% if product.metafields.fit.verdict_sub != blank %}{{ product.metafields.fit.verdict_sub | metafield_tag }}{% else %}Rekomenduojame imti <em>vienu dydžiu mažesnius</em>, jei esate tarp dydžių.{% endif %}</span>
+        <b style="text-align: center">{{ fit_label }} · {{ width_label }}</b>
+        {%- if sg.caption_override != blank -%}<span class="fit__verdict-sub" style="text-align: center">{{ sg.caption_override }}</span>{%- endif -%}
       </div>
-      {%- comment -%} Fit stats render only from real metafield data — never
-        fabricated defaults (Design Principle 1: faithful over fabricated). {%- endcomment -%}
-      {%- if product.metafields.fit.pct_normal != blank or product.metafields.fit.sample_count != blank -%}
+      {%- if sg.pct_normal != blank or sg.sample_count != blank -%}
       <div class="fit__data">
-        {%- if product.metafields.fit.pct_normal != blank -%}
-        <span><b>{{ product.metafields.fit.pct_normal }}%</b> ima įprastą dydį</span>
+        {%- if sg.pct_normal != blank -%}
+        <span><b>{{ sg.pct_normal }}%</b> {{ 'product.fit.pct_normal_suffix' | t }}</span>
         {%- endif -%}
-        {%- if product.metafields.fit.pct_normal != blank and product.metafields.fit.sample_count != blank -%}
+        {%- if sg.pct_normal != blank and sg.sample_count != blank -%}
         <span class="fit__data-sep" aria-hidden="true"></span>
         {%- endif -%}
-        {%- if product.metafields.fit.sample_count != blank -%}
-        <span><b>{{ product.metafields.fit.sample_count }}</b> porų grįžtamasis ryšys</span>
+        {%- if sg.sample_count != blank -%}
+        <span><b>{{ sg.sample_count }}</b> {{ 'product.fit.sample_suffix' | t }}</span>
         {%- endif -%}
       </div>
       {%- endif -%}
     </div>
+{%- endif -%}
       {%- when 'delivery' -%}
     <div class="delivery" {{ block.shopify_attributes }}>
       <div class="delivery__head">

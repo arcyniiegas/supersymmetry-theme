@@ -18,38 +18,13 @@
     </div>
     <div>
       <div class="quals" aria-label="Konstrukcijos savybės">
-{%- if product.metafields.spec.quals != blank -%}
-{%- for qual in product.metafields.spec.quals.value -%}
+{%- assign features = product.metafields.custom.features.value -%}
+{%- for f in features -%}
         <div class="qual">
-          <span class="k">{{ qual }}</span>
+          {% render 'icon-feature', icon: f.icon %}
+          <span class="k">{{ f.label }}</span>
         </div>
 {%- endfor -%}
-{%- else -%}
-        <div class="qual">
-          <svg viewBox="0 0 30 30" aria-hidden="true"><path d="M23 5 Q14 7 10 14 Q7 19 7 25 M23 5 Q24 13 19 18 Q14 23 7 25 M11 13 L14 16 M9 18 L12.5 20.5"/></svg>
-          <span class="k">Lengvi</span>
-        </div>
-        <div class="qual">
-          <svg viewBox="0 0 30 30" aria-hidden="true"><path d="M4 21 Q8 21 11 19 Q15 16.5 18 12.5 Q20.5 9 24 8.5"/><path d="M4 24.5 Q9 24.5 13 22 Q17.5 19 20.5 14.5 Q22.5 11.5 26 11"/></svg>
-          <span class="k">Lankstus padas</span>
-        </div>
-        <div class="qual">
-          <svg viewBox="0 0 30 30" aria-hidden="true"><path d="M8 25 Q7 20 12 17.5 Q17 15 22 16 Q25 16.5 24 20 Q22.5 24 17 25.5 Q11 27 8 25 Z"/><path d="M11 11.5 Q13 9.5 15 11.5 Q17 13.5 19 11.5 M12 6.5 Q14 4.5 16 6.5 Q18 8.5 20 6.5"/></svg>
-          <span class="k">Minkštas vidpadis</span>
-        </div>
-        <div class="qual">
-          <svg viewBox="0 0 30 30" aria-hidden="true"><circle cx="10" cy="9" r="0.7"/><circle cx="15" cy="7.5" r="0.7"/><circle cx="20" cy="9" r="0.7"/><circle cx="12.5" cy="12" r="0.7"/><circle cx="17.5" cy="12" r="0.7"/><path d="M8 19 Q12 17 15 19 Q18 21 22 19 M8 23.5 Q12 21.5 15 23.5 Q18 25.5 22 23.5"/></svg>
-          <span class="k">Kvėpuoja</span>
-        </div>
-        <div class="qual">
-          <svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 8 Q6 5 9 5 L21 5 Q24 5 24 8 L24 20 Q24 25 19 25 L11 25 Q6 25 6 20 Z"/><circle cx="11" cy="11" r="0.5"/><circle cx="16" cy="9.5" r="0.5"/><circle cx="20" cy="12" r="0.5"/><circle cx="13" cy="15" r="0.5"/><circle cx="18" cy="17" r="0.5"/><circle cx="11" cy="20" r="0.5"/></svg>
-          <span class="k">Natūrali oda</span>
-        </div>
-        <div class="qual">
-          <svg viewBox="0 0 30 30" aria-hidden="true"><path d="M5 22 Q8 8 12 8 Q15 8 14 14 Q13.5 18 16 18 Q19 18 19 12 Q19 8 22 8 Q25 8 25 22"/></svg>
-          <span class="k">Minkšta oda</span>
-        </div>
-{%- endif -%}
       </div>
     </div>
   </section>
@@ -62,10 +37,10 @@
     </div>
     <div>
       <div class="notes-prose">
-{%- if product.metafields.custom.story != blank -%}
-        {{ product.metafields.custom.story | metafield_tag }}
-{%- else -%}
-        <p>Kiekviena pora gaminama ribotomis partijomis ir numeruojama ranka — ne kolekcionavimui, o tam, kad žinotume, kur siųsti padų keitimą, kai juos sugrąžinsite.</p>
+{%- assign maker = product.metafields.custom.manufacturer.value -%}
+{%- if maker != blank -%}
+{%- if maker.description != blank -%}<p>{{ maker.description | newline_to_br }}</p>{%- endif -%}
+        <p class="notes-prose__maker">{{ maker.name }}{% if maker.country_of_origin != blank %} · {{ maker.country_of_origin }}{% endif %}</p>
 {%- endif -%}
       </div>
     </div>
