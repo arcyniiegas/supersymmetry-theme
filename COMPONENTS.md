@@ -157,6 +157,15 @@ money — this only reflects the count. The `cart:updated` event is the pub-sub 
 any future surface (mini-cart, add animation, analytics) subscribes to instead of
 re-fetching.
 
+**✅ JS string registry — `window.theme.strings` + `theme.t(key, vars)`.** Customer
+-facing copy rendered *by scripts* (add-to-cart status, cart toasts, stock notes)
+must not be hardcoded in JS. `theme.liquid` injects the needed strings from
+`locales/*` (`{{ 'key' | t | json }}`) into `window.theme.strings`, and
+`theme.t(key, vars)` looks one up and fills `{token}` placeholders (single-brace so
+Shopify's `| t` leaves them for JS). Adopted in `product.js` + `cart.js`; extend the
+registry when a new script needs a string. Keys live under the same namespaces as the
+Liquid copy (`product.*`, `cart.*`), so translators edit one place.
+
 **Page scripts to retire** as their behaviour moves into components:
 `kontaktai.js`, `duk.js`, `customers.js`, `collection.js`, `cart.js`,
 `product.js`, `product-tryon.js`, `gift-card.js`, `password.js`.

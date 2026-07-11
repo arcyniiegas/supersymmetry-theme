@@ -26,7 +26,9 @@
     "increase": "Increase",
     "quantity": "Quantity",
     "promo_code": "Discount code",
-    "added": "Added to cart"
+    "added": "Added to cart",
+    "removed": "Removed from cart",
+    "update_error": "Couldn't update — please try again."
   },
   "collection": {
     "filters": "Filters",
@@ -46,7 +48,14 @@
   },
   "product": {
     "sold_out": "Sold out",
-    "new": "New"
+    "new": "New",
+    "add_to_cart": "Add to cart",
+    "added_short": "Added ✓",
+    "added_to_cart": "Added to cart.",
+    "add_error": "Couldn't add to cart — please try again.",
+    "stock_left": "Only {count} left",
+    "reviews_show": "Read reviews",
+    "reviews_hide": "Collapse"
   },
   "contact": {
     "sent": "Thanks — your message was sent.",

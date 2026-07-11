@@ -26,7 +26,9 @@
     "increase": "Didinti",
     "quantity": "Kiekis",
     "promo_code": "Nuolaidos kodas",
-    "added": "Pridėta į krepšelį"
+    "added": "Pridėta į krepšelį",
+    "removed": "Pašalinta iš krepšelio",
+    "update_error": "Nepavyko atnaujinti — bandykite dar kartą."
   },
   "collection": {
     "filters": "Filtrai",
@@ -46,7 +48,14 @@
   },
   "product": {
     "sold_out": "Išparduota",
-    "new": "Naujiena"
+    "new": "Naujiena",
+    "add_to_cart": "Į krepšelį",
+    "added_short": "Pridėta ✓",
+    "added_to_cart": "Pridėta į krepšelį.",
+    "add_error": "Nepavyko pridėti į krepšelį — bandykite dar kartą.",
+    "stock_left": "Liko {count} vnt.",
+    "reviews_show": "Skaityti atsiliepimus",
+    "reviews_hide": "Suskleisti"
   },
   "contact": {
     "sent": "Ačiū — žinutė išsiųsta.",

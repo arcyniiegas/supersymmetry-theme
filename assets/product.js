@@ -22,7 +22,7 @@
       '<span class="buybar__price"></span>' +
     '</div>' +
     '<span class="buybar__size" data-buybar-size></span>' +
-    '<button class="btn btn--primary" type="button" data-buybar-add style="white-space:nowrap;"><span>Į krepšelį</span></button>';
+    '<button class="btn btn--primary" type="button" data-buybar-add style="white-space:nowrap;"><span>' + theme.t('product.add_to_cart') + '</span></button>';
   document.body.appendChild(buybar);
   buybar.querySelector('.buybar__name').textContent = title;
   buybar.querySelector('.buybar__price').innerHTML = priceHtml;
@@ -63,7 +63,7 @@
       var note = document.querySelector('[data-sizes-note]');
       if (note) {
         var qty = parseInt(btn.getAttribute('data-variant-qty'), 10);
-        if (qty > 0 && qty <= 5) { note.textContent = 'Liko ' + qty + ' vnt.'; note.hidden = false; }
+        if (qty > 0 && qty <= 5) { note.textContent = theme.t('product.stock_left', { count: qty }); note.hidden = false; }
         else { note.hidden = true; }
       }
 
@@ -89,7 +89,7 @@
     var arrow = btn.querySelector('.btn__arrow');
     if (!span) return;
     var orig = span.textContent;
-    span.textContent = 'Pridėta ✓';
+    span.textContent = theme.t('product.added_short');
     if (arrow) arrow.style.display = 'none';
     setTimeout(function () {
       span.textContent = orig;
@@ -121,11 +121,10 @@
     theme.cart.add([{ id: id, quantity: 1 }])
       .then(function () {
         added(btn);
-        atcStatus.textContent = 'Pridėta į krepšelį.';
+        atcStatus.textContent = theme.t('product.added_to_cart');
       })
       .catch(function (err) {
-        atcStatus.textContent = (err && err.userMessage) ||
-          'Nepavyko pridėti į krepšelį — bandykite dar kartą.';
+        atcStatus.textContent = (err && err.userMessage) || theme.t('product.add_error');
         atcStatus.classList.add('is-error');
       })
       .then(function () {
@@ -209,7 +208,7 @@
       var open = t.getAttribute('aria-expanded') === 'true';
       t.setAttribute('aria-expanded', String(!open));
       list.hidden = open;
-      t.firstChild.textContent = open ? 'Skaityti atsiliepimus\n      ' : 'Suskleisti\n      ';
+      t.firstChild.textContent = (open ? theme.t('product.reviews_show') : theme.t('product.reviews_hide')) + '\n      ';
     });
   })();
   }

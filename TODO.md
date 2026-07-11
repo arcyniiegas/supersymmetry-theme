@@ -171,6 +171,10 @@ The high‑value, high‑complexity surfaces, onto the shared kit last.
 - Confirm `gift_card.liquid` is the only legacy `.liquid` template; leave unless
   it blocks something.
 - Locale coverage: audit for strings still hardcoded in Liquid.
+- JS strings → locales via `window.theme.strings` + `theme.t()` (injected in
+  `theme.liquid`). **Done:** `product.js`, `cart.js`. **Remaining:** `duk.js`
+  (search filter — plural `rezultatas`/`rezultatai` + interpolation),
+  `predictive-search.js`, `customers.js`, `collection.js`.
 
 ## How to keep this file
 

@@ -31,6 +31,27 @@
   {% render 'mobile-menu' %}
   {% render 'search-overlay' %}
   {% render 'cookie-banner' %}
+  {%- comment -%} JS string registry: customer-facing copy used by scripts, sourced
+    from locales so translators reach it. theme.t(key, {var}) fills {var} tokens. {%- endcomment -%}
+  <script>
+    window.theme = window.theme || {};
+    window.theme.strings = {
+      'product.add_to_cart': {{ 'product.add_to_cart' | t | json }},
+      'product.added_short': {{ 'product.added_short' | t | json }},
+      'product.added_to_cart': {{ 'product.added_to_cart' | t | json }},
+      'product.add_error': {{ 'product.add_error' | t | json }},
+      'product.stock_left': {{ 'product.stock_left' | t | json }},
+      'product.reviews_show': {{ 'product.reviews_show' | t | json }},
+      'product.reviews_hide': {{ 'product.reviews_hide' | t | json }},
+      'cart.removed': {{ 'cart.removed' | t | json }},
+      'cart.update_error': {{ 'cart.update_error' | t | json }}
+    };
+    window.theme.t = function (key, vars) {
+      var s = (window.theme.strings && window.theme.strings[key]) || '';
+      if (vars) { Object.keys(vars).forEach(function (k) { s = s.split('{' + k + '}').join(vars[k]); }); }
+      return s;
+    };
+  </script>
   <script src="{{ 'cart-store.js' | asset_url }}" defer></script>
   <script src="{{ 'component-drawer.js' | asset_url }}" defer></script>
   <script src="{{ 'chrome.js' | asset_url }}" defer></script>

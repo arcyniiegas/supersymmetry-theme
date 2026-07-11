@@ -68,7 +68,7 @@
       .then(function (cart) { theme.cart.setCount(cart); return reRender(); })
       .then(function () { if (toastMsg) { showToast(toastMsg); } })
       .catch(function (err) {
-        showToast((err && err.userMessage) || 'Nepavyko atnaujinti — bandykite dar kartą.');
+        showToast((err && err.userMessage) || theme.t('cart.update_error'));
       })
       .then(function () { busy = false; });
   }
@@ -109,7 +109,7 @@
     var rm = t.closest('.line__remove');
     if (rm) {
       var l = rm.closest('.line');
-      if (l) { changeQty(l.dataset.key, 0, 'Pašalinta iš krepšelio'); }
+      if (l) { changeQty(l.dataset.key, 0, theme.t('cart.removed')); }
       return;
     }
 
