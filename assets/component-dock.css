@@ -1,13 +1,9 @@
 /* Dock component · snippets/dock.liquid · loaded in <head>.
 
-   "Whisper" — the dock recedes. An ultra-thin rail of glass, icon-only, that
-   reads as a premium object floating in the interface rather than a navigation
-   bar bolted on top. The active item is revealed by ink + a soft internal glow
-   (a whisper of light — no lift, no edge), never a solid pressed pill or a
-   raised chip. Monochrome per the
-   token law: emphasis is contrast, not hue. Mobile-only; desktop navigates via
-   the header. Pure CSS — the active item is server-rendered (aria-current),
-   so no script is needed. */
+   "Whisper" — the dock recedes. An ultra-thin rail of glass, icon-only. Every
+   icon is white; there is no active key, box, fill, or glow, and no black
+   anywhere. Mobile-only; desktop navigates via the header. Pure CSS, no
+   script. */
 
 .dockwrap{
   position: fixed; left: 50%; z-index: 60;
@@ -35,13 +31,12 @@
     0 10px 26px -14px rgba(10, 10, 10, 0.26);
 }
 
-/* ── items: icon-only, touch-safe, tone the only default distinction ── */
+/* ── items: icon-only, all white, no active box/fill/glow ── */
 .dock__item{
-  position: relative; isolation: isolate;
+  position: relative;
   display: grid; place-items: center;
   width: 50px; height: 44px; border-radius: 14px;
-  color: var(--soft);
-  transition: color var(--tx-fast) var(--ease);
+  color: #ffffff;
 }
 .dock__item svg{
   width: 21px; height: 21px; stroke: currentColor; fill: none;
@@ -49,20 +44,6 @@
   transition: transform var(--tx-fast) var(--ease-snap);
 }
 .dock__item:active svg{ transform: scale(0.88); }
-
-/* Active = full ink + a soft internal glow behind the icon. A feathered bloom
-   of light — no edge, no top specular, no drop shadow, no lift (that would be
-   a raised chip). The ink tone shift carries the state; the glow is a whisper. */
-.dock__item::before{
-  content: ""; position: absolute; z-index: -1; inset: 0;
-  border-radius: 14px;
-  background: radial-gradient(56% 74% at 50% 46%,
-    color-mix(in oklab, #ffffff 82%, transparent), transparent 72%);
-  opacity: 0; transform: scale(0.68);
-  transition: opacity var(--tx-base) var(--ease), transform var(--tx-base) var(--ease-snap);
-}
-.dock__item[aria-current="page"]{ color: var(--ink); }
-.dock__item[aria-current="page"]::before{ opacity: 1; transform: none; }
 
 /* Labels stay in the DOM for a redundant accessible name, but the rail is
    icon-only — each item already carries an aria-label. */
@@ -75,18 +56,15 @@
   position: absolute; top: 1px; right: 5px;
   min-width: 15px; height: 15px; padding: 0 4px;
   display: grid; place-items: center;
-  background: var(--ink); color: #ffffff;
+  background: #4a4a4a; color: #ffffff;
   border-radius: 99px;
   font: 500 9px/1 var(--font-mono);
   box-shadow: 0 0 0 2px color-mix(in oklab, var(--bg) 70%, transparent);
-}
-.dock__item[aria-current="page"] .dock__badge{
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.9);
 }
 
 @media (max-width: 360px){
   .dock__item{ width: 46px; }
 }
 @media (prefers-reduced-motion: reduce){
-  .dock__item, .dock__item svg, .dock__item::before{ transition: none; }
+  .dock__item svg{ transition: none; }
 }
