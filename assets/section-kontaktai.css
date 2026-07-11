@@ -112,30 +112,7 @@
 .form{ display: grid; gap: var(--sp-5); }
 .form__row{ display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4); }
 @media (max-width: 520px){ .form__row{ grid-template-columns: 1fr; } }
-.field{ display: grid; gap: 8px; }
-.field label{
-  font: 500 13px/1.3 var(--font-sans);
-  letter-spacing: -0.005em;
-  color: var(--text);
-}
-.field label .opt{ color: var(--soft); font-weight: 400; }
-.field input, .field select, .field textarea{
-  background: var(--surface);
-  border: 1px solid transparent;
-  border-radius: var(--r-md);
-  padding: 16px 17px;
-  font: 400 17px/1.4 var(--font-sans);
-  letter-spacing: -0.01em;
-  color: var(--text);
-  transition: border-color var(--tx-fast) var(--ease), background var(--tx-fast) var(--ease), box-shadow var(--tx-fast) var(--ease);
-}
-.field input:focus, .field select:focus, .field textarea:focus{
-  outline: none; background: var(--bg);
-  border-color: var(--text);
-  box-shadow: 0 0 0 3px rgba(10,10,10,0.08);
-}
-.field input::placeholder, .field textarea::placeholder{ color: var(--soft); }
-.field textarea{ resize: vertical; min-height: 160px; }
+/* .field primitive → component-form.css; contact-form char counter only */
 .field__count{
   justify-self: end;
   font: 400 12px/1 var(--font-mono);

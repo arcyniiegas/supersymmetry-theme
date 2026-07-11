@@ -1,0 +1,30 @@
+/* ════════════════════════════════════════════════════════════
+   FORM FIELD — label + input / select / textarea group
+   Shared primitive. Used by the customer auth forms (wrapped in
+   .acct) and the contact form. Sections layer only their own
+   context on top (grid layout, char counter, consent controls).
+   ════════════════════════════════════════════════════════════ */
+.field{ display: grid; gap: 8px; }
+.field label{
+  font: 500 13px/1.3 var(--font-sans);
+  letter-spacing: -0.005em;
+  color: var(--text);
+}
+.field label .opt{ color: var(--soft); font-weight: 400; }
+.field input, .field select, .field textarea{
+  background: var(--surface);
+  border: 1px solid transparent;
+  border-radius: var(--r-md);
+  padding: 16px 17px;
+  font: 400 17px/1.4 var(--font-sans);
+  letter-spacing: -0.01em;
+  color: var(--text);
+  transition: border-color var(--tx-fast) var(--ease), background var(--tx-fast) var(--ease), box-shadow var(--tx-fast) var(--ease);
+}
+.field input:focus, .field select:focus, .field textarea:focus{
+  outline: none; background: var(--bg);
+  border-color: var(--text);
+  box-shadow: 0 0 0 3px rgba(10,10,10,0.08);
+}
+.field input::placeholder, .field textarea::placeholder{ color: var(--soft); }
+.field textarea{ resize: vertical; min-height: 160px; }

@@ -16,6 +16,7 @@
   {{ 'component-utility-bar.css' | asset_url | stylesheet_tag }}
   {{ 'component-header.css' | asset_url | stylesheet_tag }}
   {{ 'component-footer.css' | asset_url | stylesheet_tag }}
+  {{ 'component-form.css' | asset_url | stylesheet_tag }}
   <style>{% render 'color-schemes' %}</style>
   {{ content_for_header }}
   {%- assign brand = settings.brand_name | default: shop.name -%}
