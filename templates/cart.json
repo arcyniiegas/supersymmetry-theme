@@ -1,1 +1,87 @@
-{"sections":{"main":{"type":"main-cart","blocks":{"eside-1":{"type":"eside","settings":{"product":"","meta":""}},"eside-2":{"type":"eside","settings":{"product":"","meta":""}},"eside-3":{"type":"eside","settings":{"product":"","meta":""}}},"block_order":["eside-1","eside-2","eside-3"],"settings":{"title_light":"","title":"","clear_label":"Išvalyti krepšelį","empty_eyebrow":"Krepšelis · 0 prekių","empty_title":"Krepšelis kol kas tuščias.","empty_lede":"Kiekviena pora gaminama ranka, ribota partija. Pradėk nuo šio sezono — arba grįžk ten, kur buvai.","empty_cta_label":"Į kolekciją","empty_cta_link":"","empty_ghost_label":"Kolekcijos","empty_ghost_link":"","empty_side_heading":"Iš kolekcijos","ship_note":"Išsiunčiame per 1—2 darbo dienas iš Vilniaus.","ship_cost_note":"Pristatymas skaičiuojamas apmokant","gift_prefix":"Dovana?","gift_link_label":"Pridėk ranka rašytą kortelę","gift_link":"","gift_suffix":"ir įvyniojimą — nemokamai.","summary_title":"Suvestinė","label_subtotal":"Tarpinė suma","label_shipping":"Pristatymas","label_shipping_free":"Nemokamas","label_shipping_calc":"Skaičiuojama apmokant","promo_placeholder":"Nuolaidos kodas","promo_apply":"Taikyti","label_total":"Iš viso","vat_prefix":"su PVM","checkout_label":"Apmokėti","pay_methods":"VISA, MC, AMEX, APPLE PAY, PAYPAL","trust_1":"14 dienų grąžinimas · nemokamas keitimas.","trust_2":"Saugus mokėjimas · šifruota SSL jungtimi.","trust_3":"Išsiunčiame per 1–2 darbo dienas iš Vilniaus.","upsell_title_light":"Galbūt","upsell_title":"praleidai","upsell_more_label":"Visa kolekcija →","upsell_more_link":"","title_scale":100,"text_color":""}}},"order":["main"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-cart",
+      "blocks": {
+        "eside-1": {
+          "type": "eside",
+          "settings": {
+            "product": "",
+            "meta": ""
+          }
+        },
+        "eside-2": {
+          "type": "eside",
+          "settings": {
+            "product": "",
+            "meta": ""
+          }
+        },
+        "eside-3": {
+          "type": "eside",
+          "settings": {
+            "product": "",
+            "meta": ""
+          }
+        }
+      },
+      "block_order": [
+        "eside-1",
+        "eside-2",
+        "eside-3"
+      ],
+      "settings": {
+        "title_light": "",
+        "title": "",
+        "clear_label": "Išvalyti krepšelį",
+        "empty_eyebrow": "Krepšelis · 0 prekių",
+        "empty_title": "Krepšelis kol kas tuščias.",
+        "empty_lede": "Kiekviena pora gaminama ranka, ribota partija. Pradėk nuo šio sezono — arba grįžk ten, kur buvai.",
+        "empty_cta_label": "Į kolekciją",
+        "empty_cta_link": "",
+        "empty_ghost_label": "Kolekcijos",
+        "empty_ghost_link": "",
+        "empty_side_heading": "Iš kolekcijos",
+        "ship_note": "Išsiunčiame per 1—2 darbo dienas iš Vilniaus.",
+        "ship_cost_note": "",
+        "gift_prefix": "Dovana?",
+        "gift_link_label": "Pridėk ranka rašytą kortelę",
+        "gift_link": "",
+        "gift_suffix": "ir įvyniojimą — nemokamai.",
+        "summary_title": "Suvestinė",
+        "label_subtotal": "Tarpinė suma",
+        "label_shipping": "Pristatymas",
+        "label_shipping_free": "Nemokamas",
+        "label_shipping_calc": "Skaičiuojama apmokant",
+        "promo_placeholder": "Nuolaidos kodas",
+        "promo_apply": "Taikyti",
+        "label_total": "Iš viso",
+        "vat_prefix": "su PVM",
+        "checkout_label": "Apmokėti",
+        "pay_methods": "VISA, MC, AMEX, APPLE PAY, PAYPAL",
+        "trust_1": "14 dienų grąžinimas · nemokamas keitimas.",
+        "trust_2": "Saugus mokėjimas · šifruota SSL jungtimi.",
+        "trust_3": "Išsiunčiame per 1–2 darbo dienas iš Vilniaus.",
+        "upsell_title_light": "Galbūt",
+        "upsell_title": "praleidai",
+        "upsell_more_label": "Visa kolekcija →",
+        "upsell_more_link": "",
+        "title_scale": 100,
+        "color_scheme": "",
+        "text_color": ""
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

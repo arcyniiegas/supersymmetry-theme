@@ -1,1 +1,86 @@
-{"sections":{"main":{"type":"main-collection","blocks":{"note-1":{"type":"note_row","settings":{"index":"01","label":"Sezoninės kolekcijos","sub":"Du kartus per metus — pavasaris\/vasara ir ruduo\/žiema.","value":"01 ir 07 mėn."}},"note-2":{"type":"note_row","settings":{"index":"02","label":"Gamyba","sub":"Kiekvienas modelis gaminamas 1-1.5 mėneso, todėl turime itin ribotas partijas.","value":"30-45 d."}},"note-3":{"type":"note_row","settings":{"index":"03","label":"Išankstiniai užsakymai","sub":"Išparduotos partijos negrįžta į gamybą, nebent yra surenkamas pakankamas kiekis užsakymui kartoti.","value":"∅ restock"}},"note-4":{"type":"note_row","settings":{"index":"04","label":"Individualus požiūris","sub":"Dauguma užsakomų modelių yra individualūs - mes parenkame odos tipą, spalvą, apdailos detales bei padą.","value":""}}},"block_order":["note-1","note-2","note-3","note-4"],"settings":{"show_eyebrow":true,"eyebrow_prefix":"Kolekcija","meta_label":"Pavasaris–Vasara 2026","default_title_light":"Visa","default_title":"kolekcija.","products_per_page":24,"empty_eyebrow":"Kolekcija ruošiama","empty_title_light":"Poros","empty_title":"grįžta netrukus.","empty_text":"Ši kolekcija dar pildoma — užsukite po kelių dienų arba peržiūrėkite visą asortimentą.","show_notes":true,"notes_eyebrow":"","notes_title":"Kaip mąstome","notes_title_light":"apie kolekcijas.","notes_text":"Kiekvienas modelis gaminamas tik vieną kartą. Kiekvieno modelio užsakome tik 8 vienetus. Kai modelis baigiasi, jo nebekartojame.","notes_cta_label":"Mūsų istorija","notes_cta_link":"","title_scale":100,"card_name_scale":70,"text_color":""}}},"order":["main"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "blocks": {
+        "note-1": {
+          "type": "note_row",
+          "settings": {
+            "index": "01",
+            "label": "Sezoninės kolekcijos",
+            "sub": "Du kartus per metus — pavasaris/vasara ir ruduo/žiema.",
+            "value": "01 ir 07 mėn."
+          }
+        },
+        "note-2": {
+          "type": "note_row",
+          "settings": {
+            "index": "02",
+            "label": "Gamyba",
+            "sub": "Kiekvienas modelis gaminamas 1-1.5 mėneso, todėl turime itin ribotas partijas.",
+            "value": "30-45 d."
+          }
+        },
+        "note-3": {
+          "type": "note_row",
+          "settings": {
+            "index": "03",
+            "label": "Išankstiniai užsakymai",
+            "sub": "Išparduotos partijos negrįžta į gamybą, nebent yra surenkamas pakankamas kiekis užsakymui kartoti.",
+            "value": "∅ restock"
+          }
+        },
+        "note-4": {
+          "type": "note_row",
+          "settings": {
+            "index": "04",
+            "label": "Individualus požiūris",
+            "sub": "Dauguma užsakomų modelių yra individualūs - mes parenkame odos tipą, spalvą, apdailos detales bei padą.",
+            "value": ""
+          }
+        }
+      },
+      "block_order": [
+        "note-1",
+        "note-2",
+        "note-3",
+        "note-4"
+      ],
+      "settings": {
+        "show_eyebrow": true,
+        "eyebrow_prefix": "Kolekcija",
+        "meta_label": "Pavasaris–Vasara 2026",
+        "default_title_light": "Visa",
+        "default_title": "kolekcija.",
+        "products_per_page": 24,
+        "empty_eyebrow": "Kolekcija ruošiama",
+        "empty_title_light": "Poros",
+        "empty_title": "grįžta netrukus.",
+        "empty_text": "Ši kolekcija dar pildoma — užsukite po kelių dienų arba peržiūrėkite visą asortimentą.",
+        "show_notes": true,
+        "notes_eyebrow": "",
+        "notes_title": "Kaip mąstome",
+        "notes_title_light": "apie kolekcijas.",
+        "notes_text": "Kiekvienas modelis gaminamas tik vieną kartą. Kiekvieno modelio užsakome tik 8 vienetus. Kai modelis baigiasi, jo nebekartojame.",
+        "notes_cta_label": "Mūsų istorija",
+        "notes_cta_link": "",
+        "title_scale": 100,
+        "card_name_scale": 70,
+        "color_scheme": "",
+        "text_color": ""
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

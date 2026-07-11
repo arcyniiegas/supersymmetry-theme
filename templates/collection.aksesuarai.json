@@ -1,1 +1,118 @@
-{"sections":{"1783680542de1c9479":{"type":"_blocks","settings":{}},"main_list_collections_xMgV9P":{"type":"main-list-collections","blocks":{"collection_3ynCDJ":{"type":"collection","settings":{"collection":"rankines-1","badge":"","count_word":"poros"}},"collection_txzipf":{"type":"collection","settings":{"collection":"pirstines","badge":"","count_word":"poros"}},"collection_y9wUNt":{"type":"collection","settings":{"collection":"salikai","badge":"","count_word":"poros"}},"collection_A9wD8Y":{"type":"collection","settings":{"collection":"minkstos-ausines","badge":"","count_word":"poros"}},"collection_fkeTcA":{"type":"collection","settings":{"collection":"kepures","badge":"","count_word":"poros"}},"collection_FbkKi9":{"type":"collection","settings":{"collection":"2026-saules-akiniai","badge":"","count_word":"poros"}},"collection_rAzewm":{"type":"collection","settings":{"collection":"","badge":"","count_word":"poros"}},"collection_bDVW3e":{"type":"collection","settings":{"collection":"","badge":"","count_word":"poros"}},"collection_JrVdVN":{"type":"collection","settings":{"collection":"","badge":"","count_word":"poros"}}},"block_order":["collection_3ynCDJ","collection_txzipf","collection_y9wUNt","collection_A9wD8Y","collection_fkeTcA","collection_FbkKi9","collection_rAzewm","collection_bDVW3e","collection_JrVdVN"],"name":"List collections","settings":{"text_color":"","eyebrow":"Visi rinkiniai · SS 26","title_light":"Visos","title":"kolekcijos.","intro":"Kiekvienas rinkinys — atskira partija, ribotas porų skaičius, <b>vienas modelis, daug niuansų<\/b>. Rinkis pagal nuotaiką arba pagal sezoną.","season":"SS·26","band_eyebrow":"Kaip skaityti partijas","band_title_light":"Vienas modelis.","band_title":"Daug partijų.","band_text":"Negaminame visko iš karto. Kas kelis mėnesius išleidžiame naują partiją — ribotą, sunumeruotą, dažnai šiek tiek kitokią. Kai partija išparduota, ji keliauja į archyvą. Štai kodėl kiekviena pora turi savo numerį."}}},"order":["1783680542de1c9479","main_list_collections_xMgV9P"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main_list_collections_xMgV9P": {
+      "type": "main-list-collections",
+      "blocks": {
+        "collection_3ynCDJ": {
+          "type": "collection",
+          "settings": {
+            "collection": "rankines-1",
+            "badge": "",
+            "count_word": "poros"
+          }
+        },
+        "collection_txzipf": {
+          "type": "collection",
+          "settings": {
+            "collection": "pirstines",
+            "badge": "",
+            "count_word": "poros"
+          }
+        },
+        "collection_y9wUNt": {
+          "type": "collection",
+          "settings": {
+            "collection": "salikai",
+            "badge": "",
+            "count_word": "poros"
+          }
+        },
+        "collection_A9wD8Y": {
+          "type": "collection",
+          "settings": {
+            "collection": "minkstos-ausines",
+            "badge": "",
+            "count_word": "poros"
+          }
+        },
+        "collection_fkeTcA": {
+          "type": "collection",
+          "settings": {
+            "collection": "kepures",
+            "badge": "",
+            "count_word": "poros"
+          }
+        },
+        "collection_FbkKi9": {
+          "type": "collection",
+          "settings": {
+            "collection": "2026-saules-akiniai",
+            "badge": "",
+            "count_word": "poros"
+          }
+        },
+        "collection_rAzewm": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "badge": "",
+            "count_word": "poros"
+          }
+        },
+        "collection_bDVW3e": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "badge": "",
+            "count_word": "poros"
+          }
+        },
+        "collection_JrVdVN": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "badge": "",
+            "count_word": "poros"
+          }
+        }
+      },
+      "block_order": [
+        "collection_3ynCDJ",
+        "collection_txzipf",
+        "collection_y9wUNt",
+        "collection_A9wD8Y",
+        "collection_fkeTcA",
+        "collection_FbkKi9",
+        "collection_rAzewm",
+        "collection_bDVW3e",
+        "collection_JrVdVN"
+      ],
+      "name": "List collections",
+      "settings": {
+        "color_scheme": "",
+        "text_color": "",
+        "eyebrow": "Visi rinkiniai · SS 26",
+        "title_light": "Visos",
+        "title": "kolekcijos.",
+        "intro": "Kiekvienas rinkinys — atskira partija, ribotas porų skaičius, <b>vienas modelis, daug niuansų</b>. Rinkis pagal nuotaiką arba pagal sezoną.",
+        "season": "SS·26",
+        "band_eyebrow": "Kaip skaityti partijas",
+        "band_title_light": "Vienas modelis.",
+        "band_title": "Daug partijų.",
+        "band_text": "Negaminame visko iš karto. Kas kelis mėnesius išleidžiame naują partiją — ribotą, sunumeruotą, dažnai šiek tiek kitokią. Kai partija išparduota, ji keliauja į archyvą. Štai kodėl kiekviena pora turi savo numerį."
+      }
+    }
+  },
+  "order": [
+    "main_list_collections_xMgV9P"
+  ]
+}
