@@ -3,7 +3,7 @@
 
 <!-- ──────────── BREADCRUMBS ──────────── -->
 <nav class="crumbs" aria-label="Breadcrumb">
-  <a href="{{ routes.root_url }}">Pradžia</a>
+  <a href="{{ routes.root_url }}">{{ 'nav.home' | t }}</a>
   <span class="sep">/</span>
   <b>{{ collection.title | default: 'Visa kolekcija' }}</b>
   {%- if section.settings.meta_label != blank -%}
@@ -16,7 +16,7 @@
 <section class="phead">
   <div>
     {%- if section.settings.show_eyebrow -%}
-    <div class="phead__eyebrow">{{ section.settings.eyebrow_prefix | default: 'Kolekcija' }} · <b>{{ collection.products_count }}</b> modelių</div>
+    <div class="phead__eyebrow">{{ section.settings.eyebrow_prefix | default: 'Kolekcija' }} · <b>{{ collection.products_count }}</b> {{ 'collection.models' | t }}</div>
     {%- endif -%}
     <h1 class="phead__title">
       {%- if collection.title != blank -%}
@@ -44,7 +44,7 @@
   <div class="subbar__wrap">
     <button type="button" class="filterbtn" id="filterOpen" aria-haspopup="dialog" aria-controls="filterDrawer" aria-expanded="false">
       <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><line x1="2" y1="4.5" x2="14" y2="4.5"/><line x1="2" y1="11.5" x2="14" y2="11.5"/><circle cx="6" cy="4.5" r="1.8" fill="var(--bg)"/><circle cx="10.5" cy="11.5" r="1.8" fill="var(--bg)"/></svg>
-      <span>Filtrai</span>
+      <span>{{ 'collection.filters' | t }}</span>
       {%- if active_count > 0 -%}<span class="filterbtn__n">{{ active_count }}</span>{%- endif -%}
     </button>
 
@@ -52,18 +52,18 @@
 
     <div class="tools">
       <label class="tool sort">
-        <span class="sort__label">Rūšiuoti</span>
+        <span class="sort__label">{{ 'collection.sort' | t }}</span>
         <span class="sort__control">
-          <select id="sortSel" name="sort_by" class="sort__select" aria-label="Rūšiuoti">
+          <select id="sortSel" name="sort_by" class="sort__select" aria-label="{{ 'collection.sort' | t }}">
             {%- if collection.sort_options != blank -%}
             {%- for opt in collection.sort_options -%}
             <option value="{{ opt.value }}"{% if opt.value == collection.sort_by %} selected{% endif %}>{{ opt.name }}</option>
             {%- endfor -%}
             {%- else -%}
-            <option value="rec">Rekomenduojama</option>
-            <option value="price-asc">Kaina ↑</option>
-            <option value="price-desc">Kaina ↓</option>
-            <option value="name">Pagal pavadinimą</option>
+            <option value="rec">{{ 'collection.sort_recommended' | t }}</option>
+            <option value="price-asc">{{ 'collection.sort_price_asc' | t }}</option>
+            <option value="price-desc">{{ 'collection.sort_price_desc' | t }}</option>
+            <option value="name">{{ 'collection.sort_name' | t }}</option>
             {%- endif -%}
           </select>
           <svg class="sort__chev" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 5 L7 9 L11 5"></path></svg>
@@ -90,13 +90,13 @@
 
   <!-- Active filters (Shopify Search & Discovery active values) -->
   <div class="active" id="activeRow"{% if active_count == 0 %} hidden{% endif %}>
-    <span class="active__label">Aktyvūs filtrai</span>
+    <span class="active__label">{{ 'collection.active_filters' | t }}</span>
     {%- for f in collection.filters -%}
       {%- for v in f.active_values -%}
         <a class="active__chip" href="{{ v.url_to_remove }}">{{ v.label }} ✕</a>
       {%- endfor -%}
     {%- endfor -%}
-    <a class="active__clear" id="clearAll" href="{{ collection.url }}">Išvalyti viską</a>
+    <a class="active__clear" id="clearAll" href="{{ collection.url }}">{{ 'collection.clear_all' | t }}</a>
   </div>
 
   <!-- ─────── FILTER DRAWER (off-canvas) ─────── -->
@@ -125,7 +125,7 @@
     {%- if collection.products.size > 0 -%}
     <div class="loadmore">
       <div class="loadmore__progress">
-        <div>Rodoma <b>{{ collection.products.size }}</b> iš <b>{{ paginate.items }}</b> modelių</div>
+        <div>{{ 'collection.showing_html' | t: shown: collection.products.size, total: paginate.items }}</div>
         <div class="loadmore__bar"><i></i></div>
       </div>
       {%- if paginate.pages > 1 -%}<div class="loadmore__pagination">{{ paginate | default_pagination }}</div>{%- endif -%}

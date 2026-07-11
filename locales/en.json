@@ -1,6 +1,7 @@
 {
   "general": {
-    "brand": "Supersymmetry"
+    "brand": "Supersymmetry",
+    "close": "Close"
   },
   "nav": {
     "home": "Home",
@@ -19,7 +20,33 @@
     "menu": "Menu"
   },
   "cart": {
-    "title": "Cart"
+    "title": "Cart",
+    "remove": "Remove",
+    "decrease": "Decrease",
+    "increase": "Increase",
+    "quantity": "Quantity",
+    "promo_code": "Discount code",
+    "added": "Added to cart"
+  },
+  "collection": {
+    "filters": "Filters",
+    "sort": "Sort",
+    "models": "models",
+    "active_filters": "Active filters",
+    "clear_all": "Clear all",
+    "showing_html": "Showing <b>{{ shown }}</b> of <b>{{ total }}</b> models",
+    "sort_recommended": "Recommended",
+    "sort_price_asc": "Price ↑",
+    "sort_price_desc": "Price ↓",
+    "sort_name": "By name",
+    "price_label": "Price · EUR",
+    "color": "Colour",
+    "colors": "Colours",
+    "show_html": "Show ({{ count }})"
+  },
+  "product": {
+    "sold_out": "Sold out",
+    "new": "New"
   },
   "search": {
     "title": "Search",

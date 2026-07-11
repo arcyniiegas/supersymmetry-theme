@@ -10,9 +10,9 @@
 
 <!-- ──────────── BREADCRUMBS ──────────── -->
 <nav class="crumbs" aria-label="Breadcrumb">
-  <a href="{{ routes.root_url }}">Pradžia</a>
+  <a href="{{ routes.root_url }}">{{ 'nav.home' | t }}</a>
   <span class="sep">/</span>
-  <b>Krepšelis</b>
+  <b>{{ 'cart.title' | t }}</b>
 </nav>
 
 <!-- ──────────── CART HEAD ──────────── -->
@@ -70,7 +70,7 @@
         <div class="line__body">
           <div class="line__top">
             <div class="line__name"><a href="{{ item.url }}">{{ item.product.title }}</a></div>
-            <button type="button" class="line__remove" aria-label="Pašalinti">
+            <button type="button" class="line__remove" aria-label="{{ 'cart.remove' | t }}">
               <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 3l8 8M11 3l-8 8"/></svg>
             </button>
           </div>
@@ -90,9 +90,9 @@
           </div>
           <div class="line__foot">
             <div class="qty">
-              <button type="button" data-step="-1" aria-label="Mažinti">–</button>
-              <input type="text" value="{{ item.quantity }}" inputmode="numeric" aria-label="Kiekis" />
-              <button type="button" data-step="1" aria-label="Didinti">+</button>
+              <button type="button" data-step="-1" aria-label="{{ 'cart.decrease' | t }}">–</button>
+              <input type="text" value="{{ item.quantity }}" inputmode="numeric" aria-label="{{ 'cart.quantity' | t }}" />
+              <button type="button" data-step="1" aria-label="{{ 'cart.increase' | t }}">+</button>
             </div>
             <div class="line__price">
               {%- if item.original_line_price > item.final_line_price -%}
@@ -130,14 +130,14 @@
 
       <!-- promo -->
       <div class="promo" id="promo">
-        <input type="text" id="promoInput" placeholder="{{ section.settings.promo_placeholder | default: 'Nuolaidos kodas' | escape }}" aria-label="Nuolaidos kodas" />
+        <input type="text" id="promoInput" placeholder="{{ section.settings.promo_placeholder | default: 'Nuolaidos kodas' | escape }}" aria-label="{{ 'cart.promo_code' | t }}" />
         <button type="button" id="promoBtn">{{ section.settings.promo_apply | default: 'Taikyti' }}</button>
       </div>
       {%- for d in cart.cart_level_discount_applications -%}
       <div class="promo__applied is-on" id="promoApplied">
         <span>{{ d.title }} · −{{ d.total_allocated_amount | money | remove: '€' | remove: ',00' }}</span>
         {%- comment -%} Discount codes are managed at checkout; removal isn't supported via Cart AJAX. {# TODO: promo removal #} {%- endcomment -%}
-        <button type="button" id="promoRemove">Pašalinti</button>
+        <button type="button" id="promoRemove">{{ 'cart.remove' | t }}</button>
       </div>
       {%- endfor -%}
 
@@ -191,7 +191,7 @@
 {%- comment -%} removed: react tweaks panel (mount was #tweaks-root) — not part of the real cart {%- endcomment -%}
 
 <!-- toast -->
-<div class="toast" id="toast"><span class="brand-dot"></span><span id="toastMsg">Pridėta į krepšelį</span></div>
+<div class="toast" id="toast"><span class="brand-dot"></span><span id="toastMsg">{{ 'cart.added' | t }}</span></div>
 
 <script src="{{ 'cart.js' | asset_url }}" defer></script>
 

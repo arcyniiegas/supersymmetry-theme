@@ -1,10 +1,10 @@
 {%- comment -%} Collection — off-canvas filter drawer. Rendered by main-collection inside the paginate block; paginate is passed in for paginate.items. {%- endcomment -%}
-  <div class="fdrawer" id="filterDrawer" role="dialog" aria-modal="true" aria-label="Filtrai">
+  <div class="fdrawer" id="filterDrawer" role="dialog" aria-modal="true" aria-label="{{ 'collection.filters' | t }}">
     <div class="fdrawer__scrim" data-drawer-close></div>
     <aside class="fdrawer__panel">
       <div class="fdrawer__head">
-        <span class="fdrawer__title">Filtrai{% if active_count > 0 %} <span class="n">{{ active_count }}</span>{% endif %}</span>
-        <button class="fdrawer__close" type="button" data-drawer-close aria-label="Uždaryti">
+        <span class="fdrawer__title">{{ 'collection.filters' | t }}{% if active_count > 0 %} <span class="n">{{ active_count }}</span>{% endif %}</span>
+        <button class="fdrawer__close" type="button" data-drawer-close aria-label="{{ 'general.close' | t }}">
           <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M3 3l8 8M11 3l-8 8"/></svg>
         </button>
       </div>
@@ -59,7 +59,7 @@
         {%- assign rendered_filter = true -%}
         {%- assign pmax = f.range_max | divided_by: 100.0 | ceil -%}
     <details class="facet">
-      <summary>Kaina · EUR <span class="meta">0 — {{ pmax }}</span></summary>
+      <summary>{{ 'collection.price_label' | t }} <span class="meta">0 — {{ pmax }}</span></summary>
       <div class="facet__body">
         <div class="price">
           <div class="price__bar" aria-hidden="true">
@@ -86,9 +86,9 @@
     {%- unless rendered_filter -%}
     {%- comment -%} No Search & Discovery filters configured — prototype visual shells (non-filtering). {%- endcomment -%}
     <details class="facet" open>
-      <summary>Spalva <span class="meta">0 / 8</span></summary>
+      <summary>{{ 'collection.color' | t }} <span class="meta">0 / 8</span></summary>
       <div class="facet__body">
-        <div class="swatches" role="group" aria-label="Spalvos">
+        <div class="swatches" role="group" aria-label="{{ 'collection.colors' | t }}">
           <button class="swatch" data-name="noir" aria-pressed="false" type="button" style="background:#0A0A0A;"></button>
           <button class="swatch" data-name="écru" aria-pressed="false" type="button" style="background:#E9DFCB;"></button>
           <button class="swatch" data-name="marron" aria-pressed="false" type="button" style="background:#5C3A28;"></button>
@@ -104,8 +104,8 @@
 
       </div><!-- /.fdrawer__body -->
       <div class="fdrawer__foot">
-        <a class="fdrawer__reset" href="{{ collection.url }}">Išvalyti viską</a>
-        <button class="btn btn--primary" type="button" data-drawer-close>Rodyti ({{ paginate.items }})</button>
+        <a class="fdrawer__reset" href="{{ collection.url }}">{{ 'collection.clear_all' | t }}</a>
+        <button class="btn btn--primary" type="button" data-drawer-close>{{ 'collection.show_html' | t: count: paginate.items }}</button>
       </div>
     </aside>
   </div><!-- /.fdrawer -->

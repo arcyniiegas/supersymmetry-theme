@@ -1,6 +1,7 @@
 {
   "general": {
-    "brand": "Supersymmetry"
+    "brand": "Supersymmetry",
+    "close": "Uždaryti"
   },
   "nav": {
     "home": "Pradžia",
@@ -19,7 +20,33 @@
     "menu": "Meniu"
   },
   "cart": {
-    "title": "Krepšelis"
+    "title": "Krepšelis",
+    "remove": "Pašalinti",
+    "decrease": "Mažinti",
+    "increase": "Didinti",
+    "quantity": "Kiekis",
+    "promo_code": "Nuolaidos kodas",
+    "added": "Pridėta į krepšelį"
+  },
+  "collection": {
+    "filters": "Filtrai",
+    "sort": "Rūšiuoti",
+    "models": "modelių",
+    "active_filters": "Aktyvūs filtrai",
+    "clear_all": "Išvalyti viską",
+    "showing_html": "Rodoma <b>{{ shown }}</b> iš <b>{{ total }}</b> modelių",
+    "sort_recommended": "Rekomenduojama",
+    "sort_price_asc": "Kaina ↑",
+    "sort_price_desc": "Kaina ↓",
+    "sort_name": "Pagal pavadinimą",
+    "price_label": "Kaina · EUR",
+    "color": "Spalva",
+    "colors": "Spalvos",
+    "show_html": "Rodyti ({{ count }})"
+  },
+  "product": {
+    "sold_out": "Išparduota",
+    "new": "Naujiena"
   },
   "search": {
     "title": "Paieška",
