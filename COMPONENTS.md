@@ -158,9 +158,10 @@ any future surface (mini-cart, add animation, analytics) subscribes to instead o
 re-fetching.
 
 **Page scripts to retire** as their behaviour moves into components:
-`kontaktai.js`, `grazinimai.js`, `avalynes-prieziura.js`, `accessories.js`,
-`duk.js`, `customers.js`, `collection.js`, `cart.js`, `product.js`,
-`product-tryon.js`, `gift-card.js`, `password.js`.
+`kontaktai.js`, `duk.js`, `customers.js`, `collection.js`, `cart.js`,
+`product.js`, `product-tryon.js`, `gift-card.js`, `password.js`.
+(`grazinimai.js` + `avalynes-prieziura.js` retired into `<scroll-spy>`;
+`accessories.js` deleted with the orphaned `main-accessories` section.)
 
 ## 4. When to create a new part
 

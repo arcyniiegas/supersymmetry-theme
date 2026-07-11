@@ -99,7 +99,7 @@ sections that need it — never a per‑page script re‑implementing the same t
 
 `Accordion`, `Carousel`, `Drawer`, `Modal`, `Sticky`, `Reveal`, `Video`,
 `Tabs`, `ScrollObserver`. These replace today's page scripts (`duk.js`,
-`kontaktai.js`, `grazinimai.js`, `avalynes-prieziura.js`, `accessories.js`, …).
+`kontaktai.js`, `product.js`, `collection.js`, …).
 
 **Pattern** — prefer Custom Elements so behaviour binds itself and the Theme
 Editor can re‑init on `shopify:section:load`:
