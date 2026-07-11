@@ -44,7 +44,13 @@
       'product.reviews_show': {{ 'product.reviews_show' | t | json }},
       'product.reviews_hide': {{ 'product.reviews_hide' | t | json }},
       'cart.removed': {{ 'cart.removed' | t | json }},
-      'cart.update_error': {{ 'cart.update_error' | t | json }}
+      'cart.update_error': {{ 'cart.update_error' | t | json }},
+      'faq.summary': {{ 'faq.summary' | t | json }},
+      'faq.results': {{ 'faq.results' | t | json }},
+      'faq.result_one': {{ 'faq.result_one' | t | json }},
+      'faq.result_other': {{ 'faq.result_other' | t | json }},
+      'faq.no_results': {{ 'faq.no_results' | t | json }},
+      'faq.quoted_term': {{ 'faq.quoted_term' | t | json }}
     };
     window.theme.t = function (key, vars) {
       var s = (window.theme.strings && window.theme.strings[key]) || '';

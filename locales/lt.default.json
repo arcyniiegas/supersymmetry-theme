@@ -57,6 +57,14 @@
     "reviews_show": "Skaityti atsiliepimus",
     "reviews_hide": "Suskleisti"
   },
+  "faq": {
+    "summary": "{count} klausimai · {groups} kategorijos",
+    "results": "{count} {word} pagal „{term}“",
+    "result_one": "rezultatas",
+    "result_other": "rezultatai",
+    "no_results": "0 rezultatų pagal „{term}“",
+    "quoted_term": "„{term}“"
+  },
   "contact": {
     "sent": "Ačiū — žinutė išsiųsta.",
     "name": "Vardas",

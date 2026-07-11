@@ -16,7 +16,7 @@ q.addEventListener('input', () => {
     allQA.forEach(d => d.style.display = '');
     groups.forEach(g => g.style.display = '');
     noresults.classList.remove('show');
-    stat.textContent = `${totalQ} klausimai · 6 kategorijos`;
+    stat.textContent = theme.t('faq.summary', { count: totalQ, groups: groups.length });
     return;
   }
   let shown = 0;
@@ -32,11 +32,12 @@ q.addEventListener('input', () => {
   });
   if (shown === 0){
     noresults.classList.add('show');
-    nrTerm.textContent = `„${q.value.trim()}“`;
-    stat.textContent = `0 rezultatų pagal „${q.value.trim()}“`;
+    nrTerm.textContent = theme.t('faq.quoted_term', { term: q.value.trim() });
+    stat.textContent = theme.t('faq.no_results', { term: q.value.trim() });
   } else {
     noresults.classList.remove('show');
-    stat.textContent = `${shown} ${shown === 1 ? 'rezultatas' : 'rezultatai'} pagal „${q.value.trim()}“`;
+    const word = theme.t(shown === 1 ? 'faq.result_one' : 'faq.result_other');
+    stat.textContent = theme.t('faq.results', { count: shown, word: word, term: q.value.trim() });
   }
 });
 

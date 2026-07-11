@@ -57,6 +57,14 @@
     "reviews_show": "Read reviews",
     "reviews_hide": "Collapse"
   },
+  "faq": {
+    "summary": "{count} questions · {groups} categories",
+    "results": "{count} {word} for “{term}”",
+    "result_one": "result",
+    "result_other": "results",
+    "no_results": "0 results for “{term}”",
+    "quoted_term": "“{term}”"
+  },
   "contact": {
     "sent": "Thanks — your message was sent.",
     "name": "Name",
