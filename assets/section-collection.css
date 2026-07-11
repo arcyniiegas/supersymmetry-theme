@@ -75,25 +75,7 @@ input{ font:inherit; color:inherit; }
   background: var(--orange); flex-shrink: 0; position: relative; top: 1px;
 }
 
-/* buttons */
-.btn{
-  display: inline-flex; align-items: center; justify-content: center;
-  gap: var(--sp-3);
-  padding: 14px 22px;
-  font: 500 14px/1 var(--font-sans);
-  letter-spacing: -0.005em;
-  border-radius: 999px;
-  transition: background var(--tx-base) var(--ease), color var(--tx-base) var(--ease), transform var(--tx-fast) var(--ease);
-}
-.btn:active{ transform: scale(0.98); }
-.btn--primary{ background: var(--ink); color: var(--bg); }
-.btn--primary:hover{ background: #2A2A2A; }
-.btn--secondary{ background: var(--surface); color: var(--text); }
-.btn--secondary:hover{ background: var(--surface-hover); }
-.btn--ghost{ background: transparent; color: var(--text); box-shadow: inset 0 0 0 1px var(--ink); }
-.btn--ghost:hover{ background: var(--ink); color: var(--bg); }
-.btn__arrow{ display: inline-flex; align-items: center; font: 500 16px/1 var(--font-sans); transition: transform var(--tx-base) var(--ease); }
-.btn:hover .btn__arrow{ transform: translateX(4px); }
+/* Buttons: the shared glass component — see component-button.css. */
 
 /* ════════════════════════════════════════════════════════════
    PAGE HEAD — editorial, asymmetric

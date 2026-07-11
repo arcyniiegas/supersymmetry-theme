@@ -507,32 +507,8 @@ input{ font:inherit; color:inherit; }
   display: grid;
   gap: var(--sp-2);
 }
-.btn{
-  display: flex; align-items: center; justify-content: center;
-  gap: var(--sp-3);
-  padding: 18px 24px;
-  font: 500 14px/1 var(--font-sans);
-  letter-spacing: -0.005em;
-  border-radius: 999px;
-  transition: background var(--tx-base) var(--ease), color var(--tx-base) var(--ease), transform var(--tx-fast) var(--ease);
-}
-.btn:active{ transform: scale(0.98); }
-.btn--primary{
-  background: var(--ink);
-  color: var(--bg);
-}
-.btn--primary:hover{ background: #2A2A2A; }
-.btn--secondary{
-  background: var(--surface);
-  color: var(--text);
-}
-.btn--secondary:hover{ background: var(--surface-hover); }
-.btn__arrow{
-  display: inline-flex; align-items: center;
-  font: 500 16px/1 var(--font-sans);
-  transition: transform var(--tx-base) var(--ease);
-}
-.btn:hover .btn__arrow{ transform: translateX(4px); }
+/* Buttons: the shared glass component — see component-button.css.
+   The compact .buybar .btn override above stays (sticky-bar sizing). */
 
 /* DELIVERY — clean horizontal stepper */
 .delivery{
