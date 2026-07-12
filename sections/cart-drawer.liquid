@@ -16,10 +16,7 @@
     <div class="cart-drawer__inner" id="cart-drawer-inner">
 
       <header class="cart-drawer__head">
-        <div class="cart-drawer__title">
-          {{ 'cart.title' | t }}
-          <span class="cart-drawer__count" data-bag-count{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</span>
-        </div>
+        <div class="cart-drawer__title">{{ 'cart.title' | t }}</div>
         <button type="button" class="cart-drawer__close" data-drawer-close aria-label="{{ 'general.close' | t }}">
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg>
         </button>

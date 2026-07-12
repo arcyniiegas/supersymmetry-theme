@@ -1,13 +1,17 @@
 @charset "UTF-8";
 
 /* ════════════════════════════════════════════════════════════
-   CART DRAWER — off-canvas panel (sections/cart-drawer.liquid)
+   CART DRAWER — floating glass panel (sections/cart-drawer.liquid)
    Loaded globally. Mechanics (open/close, focus trap, Esc, scroll-lock) come
    from the shared <theme-drawer> component; this file is presentation only.
    Shared line/tag/qty/free-ship rules live in component-cart.css.
 
-   NOTE: functional styling for the ATC→drawer flow. The editorial visual pass
-   (spacing, typography refinement) is a separate, deferred design task.
+   A frosted card that pops in from the right, inset from every edge with
+   rounded corners — a window over the dimmed page, matching the search
+   dropdown. Compositing note (same as search): the scrim owns the opacity
+   fade (no backdrop-filter) and the glass panel slides via transform only —
+   the panel is never inside an opacity<1 ancestor, which would make Chrome
+   leave an opaque paint behind on close.
    ════════════════════════════════════════════════════════════ */
 
 body.cart-open{ overflow: hidden; }
@@ -21,37 +25,58 @@ body.cart-open{ overflow: hidden; }
   background: rgba(10, 10, 10, 0.4);
   opacity: 0;
   transition: opacity var(--tx-base) var(--ease);
+  cursor: pointer;
 }
+
+/* floating frosted panel — inset from the screen edges, rounded, glass */
 .cart-drawer__panel{
-  position: absolute; top: 0; right: 0; height: 100%;
-  width: min(440px, 92vw);
-  background: var(--bg); color: var(--text);
+  position: absolute;
+  top: var(--sp-4); right: var(--sp-4); bottom: var(--sp-4);
+  width: min(444px, calc(100vw - var(--sp-8)));
   display: flex; flex-direction: column;
-  transform: translateX(100%);
-  transition: transform var(--tx-base) var(--ease);
-  box-shadow: -20px 0 60px rgba(0, 0, 0, 0.12);
+  color: var(--text);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--glass-line);
+  background:
+    linear-gradient(180deg, color-mix(in oklab, #ffffff 22%, transparent), transparent 24%),
+    color-mix(in oklab, var(--bg) 86%, transparent);
+  backdrop-filter: blur(28px) saturate(1.7);
+  -webkit-backdrop-filter: blur(28px) saturate(1.7);
+  box-shadow:
+    inset 0 1px 0 var(--glass-line-top),
+    0 2px 2px rgba(10, 10, 10, 0.05),
+    0 40px 80px -32px rgba(10, 10, 10, 0.45);
+  overflow: hidden;
+  transform: translateX(calc(100% + var(--sp-4)));
+  transition: transform var(--tx-base) var(--ease-snap, var(--ease));
 }
 .cart-drawer.is-open{ pointer-events: auto; }
 .cart-drawer.is-open .cart-drawer__scrim{ opacity: 1; }
 .cart-drawer.is-open .cart-drawer__panel{ transform: none; }
+/* glass disabled (Theme settings) → solid panel */
+html[data-glass="off"] .cart-drawer__panel{
+  backdrop-filter: none; -webkit-backdrop-filter: none;
+  background: var(--bg);
+}
 
 .cart-drawer__inner{
   display: flex; flex-direction: column;
   height: 100%; min-height: 0;
 }
 
+/* subtle hairline that reads on frosted glass */
+.cart-drawer__head,
+.cart-drawer__foot{ border-color: color-mix(in oklab, var(--ink) 10%, transparent); }
+
 .cart-drawer__head{
+  flex-shrink: 0;
   display: flex; align-items: center; justify-content: space-between;
-  padding: var(--sp-6) var(--sp-6) var(--sp-4);
-  border-bottom: 1px solid var(--line);
+  padding: var(--sp-6) var(--sp-6) var(--sp-5);
+  border-bottom: 1px solid;
 }
-.cart-drawer__title{
-  display: flex; align-items: baseline; gap: 8px;
-  font: 500 20px/1 var(--font-sans); letter-spacing: -0.02em;
-}
-.cart-drawer__count{ font: 500 12px/1 var(--font-mono); color: var(--text-muted); }
+.cart-drawer__title{ font: 500 20px/1 var(--font-sans); letter-spacing: -0.02em; }
 .cart-drawer__close{
-  width: 40px; height: 40px; margin-right: -8px;
+  width: 40px; height: 40px; margin-right: -6px;
   display: grid; place-items: center; color: var(--text);
   border-radius: 99px;
   transition: background var(--tx-fast) var(--ease);
@@ -59,17 +84,18 @@ body.cart-open{ overflow: hidden; }
 .cart-drawer__close:hover{ background: var(--surface); }
 .cart-drawer__close svg{ width: 16px; height: 16px; }
 
-.cart-drawer .free-ship{ padding: var(--sp-5) var(--sp-6) 0; margin-bottom: var(--sp-4); }
+.cart-drawer .free-ship{ flex-shrink: 0; padding: var(--sp-5) var(--sp-6) 0; margin-bottom: var(--sp-4); }
 
 .cart-drawer__items{
-  flex: 1 1 auto; min-height: 0; overflow-y: auto;
+  flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain;
   padding: 0 var(--sp-6);
   align-content: start; /* don't stretch sparse rows across the tall panel */
 }
 
 .cart-drawer__foot{
-  border-top: 1px solid var(--line);
-  padding: var(--sp-5) var(--sp-6) calc(env(safe-area-inset-bottom, 0px) + var(--sp-6));
+  flex-shrink: 0;
+  border-top: 1px solid;
+  padding: var(--sp-5) var(--sp-6) var(--sp-6);
   display: grid; gap: var(--sp-4);
 }
 .cart-drawer__row{ display: flex; align-items: baseline; justify-content: space-between; }
@@ -89,6 +115,9 @@ body.cart-open{ overflow: hidden; }
 }
 .cart-drawer__empty-title{ margin: 0; font: 400 18px/1.3 var(--font-sans); color: var(--text-muted); }
 
+@media (max-width: 480px){
+  .cart-drawer__panel{ top: var(--sp-3); right: var(--sp-3); bottom: var(--sp-3); width: calc(100vw - var(--sp-6)); }
+}
 @media (prefers-reduced-motion: reduce){
   .cart-drawer__scrim, .cart-drawer__panel{ transition: none; }
 }
