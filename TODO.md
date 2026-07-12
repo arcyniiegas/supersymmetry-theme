@@ -296,6 +296,14 @@ The high‑value, high‑complexity surfaces, onto the shared kit last.
   state). Populated pages byte-identical; verified live (blog empty, DUK/
   collections still render real content). `templates/gift_card.liquid` (legacy,
   14 strings) localizes when it's converted off the legacy `.liquid` template.
+  **Assistive-text layer — DONE:** the visible-copy passes above missed
+  `aria-label`s. Static a11y sweep found ~25 unique hardcoded aria strings
+  across 20 files (Breadcrumb ×10) — all routed through 22 new `accessibility.*`
+  keys (LT+EN), reusing `collection.sort` for the search sort control;
+  "Breadcrumb" landmark localized to "Naršymo kelias". Pixel-neutral (aria not
+  rendered), theme-check clean. Remaining i18n debt is now only the setting-
+  backed `| default: 'LT'` fallbacks (translator-reachable via Theme Editor) —
+  acceptable, not a violation.
 - JS strings → locales via `window.theme.strings` + `theme.t()` (injected in
   `theme.liquid`). **Done:** `product.js`, `cart.js`, `duk.js` (FAQ search — 2-form
   plural), `predictive-search.js` (search overlay — full **3-form** LT plural
