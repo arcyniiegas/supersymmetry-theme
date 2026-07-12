@@ -1,0 +1,146 @@
+@charset "UTF-8";
+
+/* ════════════════════════════════════════════════════════════
+   PDP DOC SECTIONS — editorial spec / story / care (snippets/product-docs.liquid).
+   Extracted from section-product.css. Loaded by main-product.
+   Covers .doc* (layout), .notes-prose (Apie gamintoją), .care* (priežiūra),
+   and .quals/.qual* (Konstrukcija construction tiles).
+   ════════════════════════════════════════════════════════════ */
+.docs{
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+.doc{
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: var(--sp-12);
+  padding: var(--sp-20) 0;
+  border-top: 1px solid var(--line);
+  align-items: start;
+}
+@media (max-width: 760px){
+  .doc{ grid-template-columns: 1fr; gap: var(--sp-6); padding: var(--sp-12) 0; }
+}
+.doc__index{ position: sticky; top: calc(64px + 48px); }
+@media (max-width: 760px){
+  .doc__index{ position: static; }
+}
+.doc__num{
+  display: block;
+  font: 500 12px/1 var(--font-mono);
+  color: var(--text-muted);
+  margin-bottom: var(--sp-3);
+  letter-spacing: 0.04em;
+}
+.doc__title{
+  font: 500 var(--t-section)/1.08 var(--font-sans);
+  letter-spacing: -0.025em;
+  font-kerning: normal;
+  margin: 0 0 var(--sp-4);
+}
+.doc__lede{
+  font: 400 14px/1.55 var(--font-sans);
+  color: var(--text-muted);
+  max-width: 30ch;
+}
+
+/* design notes (Apie gamintoją) */
+.notes-prose{
+  max-width: 62ch;
+  /* body prose sits at the page's 15px scale (product description, reviews)
+     rather than its own larger size — the drop cap carries the editorial weight */
+  font: 400 15px/1.65 var(--font-sans);
+  color: var(--text);
+  letter-spacing: -0.005em;
+}
+.notes-prose p + p{ margin-top: 1.1em; }
+.notes-prose p:first-child::first-letter{
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 4em;
+  line-height: 0.85;
+  float: left;
+  padding: 0.08em 0.12em 0 0;
+  letter-spacing: -0.05em;
+  color: var(--text);
+}
+
+/* care — bento with copy: 2×2 on desktop (cells wide enough for a sentence),
+   a single column on mobile */
+.care{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-3);
+  max-width: 720px;
+}
+@media (max-width: 520px){
+  .care{ grid-template-columns: 1fr; }
+}
+.care__cell{
+  background: var(--surface);
+  border-radius: var(--r-lg);
+  padding: var(--sp-6);
+  display: grid; gap: var(--sp-5); align-content: start;
+  min-width: 0;
+}
+.care__icon{ color: var(--text); }
+.care__icon svg{ width: 26px; height: 26px; stroke: currentColor; fill: none; stroke-width: 1.4; }
+.care__text{ display: grid; gap: 6px; }
+.care__label{
+  font: 500 14px/1.35 var(--font-sans);
+  color: var(--text);
+  letter-spacing: -0.005em;
+}
+.care__desc{
+  font: 400 13px/1.55 var(--font-sans);
+  color: var(--text-muted);
+  letter-spacing: -0.005em;
+}
+
+/* QUALITY GLYPHS — construction feature tiles (Konstrukcija) */
+.quals{
+  display: grid;
+  /* three across on desktop — cells wide enough for a sentence of copy */
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-3);
+  max-width: 960px;
+}
+@media (max-width: 760px){ .quals{ grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px){
+  /* Bento mosaic on mobile, like Trumpai: a wide banner then a pair of
+     squares, repeating — instead of a uniform stack of identical tiles.
+     Dense flow keeps the rows gapless for any feature count. */
+  .quals{ grid-template-columns: repeat(2, 1fr); grid-auto-flow: dense; }
+  .quals .qual:nth-child(6n+1),
+  .quals .qual:nth-child(6n+4){ grid-column: span 2; }
+}
+.qual{
+  background: var(--surface);
+  border-radius: var(--r-lg);
+  padding: var(--sp-6) var(--sp-5);
+  display: grid;
+  gap: var(--sp-4);
+  /* icon pinned to the top, label + description to the bottom — fills the
+     tile the way the Trumpai cells do, instead of clustering at the top. */
+  align-content: space-between;
+  min-height: 148px;
+  transition: transform var(--tx-fast) var(--ease);
+}
+.qual:hover{ transform: translateY(-2px); }
+.qual svg{
+  width: 30px; height: 30px;
+  stroke: var(--ink); fill: none;
+  stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+}
+.qual__text{ display: grid; gap: 5px; }
+.qual .k{
+  font: 500 10px/1.5 var(--font-mono);
+  letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--text);
+}
+.qual .v{
+  font: 400 13px/1.4 var(--font-sans);
+  letter-spacing: -0.005em;
+  color: var(--text-muted);
+}
