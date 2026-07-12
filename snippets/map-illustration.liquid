@@ -1,0 +1,28 @@
+{%- comment -%}
+  Decorative stylised street-map illustration (no real geo data). Shared by the
+  homepage "visit us" band (home-visit) and the contact page (main-kontaktai);
+  each section supplies its own wrapper + pin. Purely ornamental → aria-hidden,
+  its own baked warm palette. Render: {% render 'map-illustration' %}
+{%- endcomment -%}
+<svg viewBox="0 0 400 275" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <rect width="400" height="275" fill="#E7E4DD"></rect>
+  <g stroke="#D5D0C5" stroke-width="10" fill="none">
+    <path d="M-20 100 L420 70"></path>
+    <path d="M-20 190 L420 165"></path>
+    <path d="M80 -20 L120 295"></path>
+    <path d="M250 -20 L290 295"></path>
+  </g>
+  <g stroke="#CFC9BD" stroke-width="4" fill="none">
+    <path d="M-20 45 L420 22"></path>
+    <path d="M-20 145 L420 120"></path>
+    <path d="M-20 240 L420 225"></path>
+    <path d="M170 -20 L200 295"></path>
+    <path d="M340 -20 L370 295"></path>
+  </g>
+  <g fill="#DAD5CA">
+    <rect x="130" y="80" width="100" height="75" rx="3"></rect>
+    <rect x="300" y="175" width="70" height="65" rx="3"></rect>
+    <rect x="30" y="175" width="60" height="55" rx="3"></rect>
+  </g>
+  <path d="M120 130 L210 275" stroke="#0A0A0A" stroke-width="3" stroke-dasharray="2 5" fill="none" opacity="0.6"></path>
+</svg>
