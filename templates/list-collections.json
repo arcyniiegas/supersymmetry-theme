@@ -1,1 +1,113 @@
-{"sections":{"main":{"type":"main-list-collections","blocks":{"collection_Cqw9Jt":{"type":"collection","settings":{"collection":"basutes","badge":"","count_word":"poros"}},"coll-1":{"type":"collection","settings":{"collection":"bateliai","badge":"","count_word":"poros"}},"coll-4":{"type":"collection","settings":{"collection":"laisvalaikio-batai","badge":"","count_word":"poros"}},"coll-3":{"type":"collection","settings":{"collection":"aulinukai","badge":"","count_word":"poros"}},"coll-5":{"type":"collection","settings":{"collection":"rankines-1","badge":"","count_word":"prekių"}},"coll-6":{"type":"collection","settings":{"collection":"salikai","badge":"","count_word":"prekių"}},"coll-7":{"type":"collection","settings":{"collection":"kepures-ir-ausines","badge":"","count_word":"prekių"}},"coll-8":{"type":"collection","settings":{"collection":"pirstines","badge":"","count_word":"prekių"}}},"block_order":["collection_Cqw9Jt","coll-1","coll-4","coll-3","coll-5","coll-6","coll-7","coll-8"],"settings":{"text_color":"","eyebrow":"","title_light":"Visos","title":"kolekcijos.","intro":"Kiekviena kolekcija — atskira partija, ribotas porų skaičius, <b>vienas modelis, daug niuansų<\/b>. Rinkis pagal nuotaiką arba pagal sezoną.","season":"SS·26","band_eyebrow":"","band_title_light":"Vienas modelis.","band_title":"Daug pasirinkimų.","band_text":"Neužsakome visko vienu kartu. Kas kelis mėnesius išleidžiame naują subkolekciją — ribotą, dažnai šiek tiek kitokią."}}},"order":["main"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-list-collections",
+      "blocks": {
+        "collection_Cqw9Jt": {
+          "type": "collection",
+          "settings": {
+            "collection": "basutes",
+            "badge": "",
+            "count_word": "poros"
+          }
+        },
+        "coll-1": {
+          "type": "collection",
+          "settings": {
+            "collection": "bateliai",
+            "badge": "",
+            "count_word": "poros"
+          }
+        },
+        "coll-4": {
+          "type": "collection",
+          "settings": {
+            "collection": "laisvalaikio-batai",
+            "badge": "",
+            "count_word": "poros"
+          }
+        },
+        "coll-3": {
+          "type": "collection",
+          "settings": {
+            "collection": "aulinukai",
+            "image": "shopify://shop_images/Change_shoes_to_boots_2K_202607121905.jpg",
+            "badge": "",
+            "count_word": "poros"
+          }
+        },
+        "coll-5": {
+          "type": "collection",
+          "disabled": true,
+          "settings": {
+            "collection": "rankines-1",
+            "badge": "",
+            "count_word": "prekių"
+          }
+        },
+        "coll-6": {
+          "type": "collection",
+          "disabled": true,
+          "settings": {
+            "collection": "salikai",
+            "badge": "",
+            "count_word": "prekių"
+          }
+        },
+        "coll-7": {
+          "type": "collection",
+          "disabled": true,
+          "settings": {
+            "collection": "kepures-ir-ausines",
+            "badge": "",
+            "count_word": "prekių"
+          }
+        },
+        "coll-8": {
+          "type": "collection",
+          "disabled": true,
+          "settings": {
+            "collection": "pirstines",
+            "badge": "",
+            "count_word": "prekių"
+          }
+        }
+      },
+      "block_order": [
+        "collection_Cqw9Jt",
+        "coll-1",
+        "coll-4",
+        "coll-3",
+        "coll-5",
+        "coll-6",
+        "coll-7",
+        "coll-8"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "text_color": "",
+        "eyebrow": "",
+        "title_light": "Visos",
+        "title": "kolekcijos.",
+        "intro": "Kiekviena kolekcija — atskira partija, ribotas porų skaičius, <b>vienas modelis, daug niuansų</b>. Rinkis pagal nuotaiką arba pagal sezoną.",
+        "season": "SS·26",
+        "band_eyebrow": "",
+        "band_title_light": "Vienas modelis.",
+        "band_title": "Daug pasirinkimų.",
+        "band_text": "Neužsakome visko vienu kartu. Kas kelis mėnesius išleidžiame naują subkolekciją — ribotą, dažnai šiek tiek kitokią."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
