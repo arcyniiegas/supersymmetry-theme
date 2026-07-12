@@ -329,6 +329,24 @@ The high‑value, high‑complexity surfaces, onto the shared kit last.
       store — each is clean (single h1, sequential h2s). Only defect was the
       global footer (`<h6>` columns → h2→h6 skip); promoted to `<h2>` + retargeted
       `.foot__col h6`→`h2` (computed style identical). Static a11y sweep complete.
+      **Interactive a11y deep-dive — 2 fixes + 2 verified-clean:**
+      (1) **Modal focus containment** — `<theme-drawer>` (cart/menu/search/filter)
+      set `role=dialog`+`aria-modal` but never inerted the background, so screen
+      readers reading by heading/landmark and the JS Tab-trap's blind spots let
+      users reach the page behind. Now sets `inert` on everything outside the open
+      panel (both tab order + a11y tree), lifted before focus-return; correct for
+      portaled + nested panels; 17/17 headless assertions.
+      (2) **Reduced-motion overrides repaired** (see the section-product split) —
+      `animation:none` on the stock/gantt/fit dots was ordered before its base so
+      it never applied.
+      (3) **Contrast audit — PASS.** Computed WCAG ratios for the greyscale text
+      tokens: `--text-muted`/`--mid` 4.89–5.33:1 (AA everywhere), `--soft` 4.54:1
+      on white (its floor); the sub-4.5 `--soft`-on-surface cases are all
+      decorative/disabled/exempt (separators, disabled qty buttons, struck prices,
+      placeholders); `--hairline`-as-colour is all borders/empty-stars/decorative
+      SVG. No change needed.
+      (4) **Mega-menu — verified** (`aria-expanded`, Esc + focus-return, outside/
+      focusout close, PE). Remaining needs a live SR/Lighthouse run (final gate).
 - [x] **Live-caught bug:** cart drawer empty state rendered the raw key
       `cart.empty_cta` — `label: '…' | t` filter isn't evaluated inside a `render`
       arg. Pre-assigned the translated value. Verified on dev store.
