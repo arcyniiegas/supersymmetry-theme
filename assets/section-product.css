@@ -770,10 +770,12 @@ html[data-glass="off"] .buybar{
 
 /* design notes */
 .notes-prose{
-  max-width: 60ch;
-  font: 400 18px/1.7 var(--font-sans);
+  max-width: 62ch;
+  /* body prose sits at the page's 15px scale (product description, reviews)
+     rather than its own larger size — the drop cap carries the editorial weight */
+  font: 400 15px/1.65 var(--font-sans);
   color: var(--text);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.005em;
 }
 .notes-prose p + p{ margin-top: 1.1em; }
 .notes-prose p:first-child::first-letter{
