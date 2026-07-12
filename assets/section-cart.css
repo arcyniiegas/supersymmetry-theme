@@ -34,19 +34,25 @@
 }
 .promises{ display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-3); }
 .promise{
-  display: flex; align-items: center; gap: var(--sp-3);
-  padding: var(--sp-4) var(--sp-5);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: var(--sp-3); text-align: center;
+  padding: var(--sp-6) var(--sp-4);
   border: 1px solid var(--hairline); border-radius: var(--r-md);
-  font: 500 12px/1.3 var(--font-sans); letter-spacing: -0.005em; color: var(--text);
+  font: 500 13px/1.35 var(--font-sans); letter-spacing: -0.005em; color: var(--text);
 }
-.promise svg{ flex-shrink: 0; width: 20px; height: 20px; color: var(--text); }
-@media (max-width: 700px){ .promises{ grid-template-columns: 1fr; } }
+.promise svg{ flex-shrink: 0; width: 26px; height: 26px; color: var(--text); }
+/* mobile: three squares side by side under the shipping card */
+@media (max-width: 700px){
+  .promise{ aspect-ratio: 1; justify-content: center; gap: var(--sp-3); padding: var(--sp-3); font-size: 11px; line-height: 1.25; }
+  .promise svg{ width: 22px; height: 22px; }
+}
 
-/* clear-cart, relocated to a slim bar above the items list */
+/* clear-cart, relocated to a slim right-aligned bar above the items list.
+   The first cart line carries its own top border — no extra rule here so the
+   items and the clear bar are separated by a single line, not two. */
 .items-head{
   display: flex; justify-content: flex-end;
-  padding-bottom: var(--sp-4);
-  border-bottom: 1px solid var(--line); margin-bottom: var(--sp-4);
+  padding-bottom: var(--sp-3);
 }
 .items-head .uline{
   cursor: pointer; background: none; border: 0; padding: 0;
