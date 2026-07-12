@@ -89,16 +89,21 @@
     {%- for block in section.blocks -%}
       {%- case block.type -%}
       {%- when 'fit' -%}
-{%- assign sg = product.metafields.custom.size_guide.value -%}
-{%- if sg != blank -%}
-{%- case sg.fit -%}
+{%- comment -%} Two independent per-product choice metafields drive the dot:
+  custom.length_fit → X (runs small ↔ large), custom.width_fit → Y (narrow ↔ wide).
+  Opt-in: the graph renders only when length_fit is set (footwear); width falls
+  back to standard (centre-Y) if unset. No metaobject, no 25-combo lookup. {%- endcomment -%}
+{%- assign length_fit = product.metafields.custom.length_fit.value -%}
+{%- assign width_fit = product.metafields.custom.width_fit.value -%}
+{%- if length_fit != blank -%}
+{%- case length_fit -%}
   {%- when 'gerokai_mazesni' -%}{%- assign fx = 10 -%}{%- assign fit_label = 'product.fit.fit_val.gerokai_mazesni' | t -%}
   {%- when 'kiek_mazesni' -%}{%- assign fx = 30 -%}{%- assign fit_label = 'product.fit.fit_val.kiek_mazesni' | t -%}
   {%- when 'kiek_didesni' -%}{%- assign fx = 70 -%}{%- assign fit_label = 'product.fit.fit_val.kiek_didesni' | t -%}
   {%- when 'gerokai_didesni' -%}{%- assign fx = 90 -%}{%- assign fit_label = 'product.fit.fit_val.gerokai_didesni' | t -%}
   {%- else -%}{%- assign fx = 50 -%}{%- assign fit_label = 'product.fit.fit_val.standartiniai' | t -%}
 {%- endcase -%}
-{%- case sg.width -%}
+{%- case width_fit -%}
   {%- when 'labai_siauri' -%}{%- assign fy = 90 -%}{%- assign width_label = 'product.fit.width_val.labai_siauri' | t -%}
   {%- when 'siauri' -%}{%- assign fy = 70 -%}{%- assign width_label = 'product.fit.width_val.siauri' | t -%}
   {%- when 'platus' -%}{%- assign fy = 30 -%}{%- assign width_label = 'product.fit.width_val.platus' | t -%}
@@ -126,21 +131,7 @@
       </div>
       <div class="fit__verdict">
         <b>{{ fit_label }} · {{ width_label }}</b>
-        {%- if sg.caption_override != blank -%}<span class="fit__verdict-sub">{{ sg.caption_override }}</span>{%- endif -%}
       </div>
-      {%- if sg.pct_normal != blank or sg.sample_count != blank -%}
-      <div class="fit__data">
-        {%- if sg.pct_normal != blank -%}
-        <span><b>{{ sg.pct_normal }}%</b> {{ 'product.fit.pct_normal_suffix' | t }}</span>
-        {%- endif -%}
-        {%- if sg.pct_normal != blank and sg.sample_count != blank -%}
-        <span class="fit__data-sep" aria-hidden="true"></span>
-        {%- endif -%}
-        {%- if sg.sample_count != blank -%}
-        <span><b>{{ sg.sample_count }}</b> {{ 'product.fit.sample_suffix' | t }}</span>
-        {%- endif -%}
-      </div>
-      {%- endif -%}
     </div>
 {%- endif -%}
       {%- when 'delivery' -%}
