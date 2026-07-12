@@ -1,1 +1,92 @@
-{"sections":{"main":{"type":"main-product","blocks":{"fit":{"type":"fit","settings":{}},"delivery":{"type":"delivery","settings":{}},"glance":{"type":"glance","settings":{}},"spec":{"type":"spec","settings":{}},"story":{"type":"story","settings":{}},"care":{"type":"care","settings":{}},"related":{"type":"related","settings":{}}},"block_order":["fit","delivery","glance","spec","story","care","related"],"settings":{}}},"order":["main"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "fit": {
+          "type": "fit",
+          "settings": {}
+        },
+        "delivery": {
+          "type": "delivery",
+          "settings": {
+            "title": "Kada pristatysime?"
+          }
+        },
+        "glance": {
+          "type": "glance",
+          "settings": {
+            "eyebrow": "Trumpai",
+            "origin": "Turkija",
+            "material_sub": "",
+            "sole_sub": "",
+            "price_sub": "",
+            "maker_sub": "",
+            "weight_sub": "",
+            "origin_sub": ""
+          }
+        },
+        "spec": {
+          "type": "spec",
+          "settings": {
+            "num": "01 — Specifikacija",
+            "title": "Konstrukcija.",
+            "lede": "Savybės — be žodžių pertekliaus."
+          }
+        },
+        "story": {
+          "type": "story",
+          "settings": {
+            "num": "02 — Užrašai",
+            "title": "Apie gamintoją",
+            "lede": "Mūsų žodžiais"
+          }
+        },
+        "care": {
+          "type": "care",
+          "settings": {
+            "num": "03 — Priežiūra",
+            "title": "Išlaikykite juos kaip naujus.",
+            "lede": "Keturi įpročiai, šešiasdešimties dienų ritmas, dvidešimt sezonų dėvėjimo."
+          }
+        },
+        "related": {
+          "type": "related",
+          "settings": {
+            "title": "Naujausi modeliai —",
+            "more_label": "Naujienos",
+            "more_link": "shopify://collections/nuo-to-paties-podiumo"
+          }
+        }
+      },
+      "block_order": [
+        "fit",
+        "delivery",
+        "glance",
+        "spec",
+        "story",
+        "care",
+        "related"
+      ],
+      "settings": {
+        "atc_label": "Į krepšelį",
+        "show_payment_button": true,
+        "title_scale": 100,
+        "color_scheme": "",
+        "text_color": ""
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
