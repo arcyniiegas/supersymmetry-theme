@@ -13,39 +13,13 @@
   "sections": {
     "header": {
       "type": "header",
-      "blocks": {
-        "collection_strip_bHBgxE": {
-          "type": "collection_strip",
-          "settings": {
-            "heading": "Ieškomiausi",
-            "collections": [
-              "basutes",
-              "bateliai",
-              "rankines-1"
-            ]
-          }
-        },
-        "featured_tile_44VHez": {
-          "type": "featured_tile",
-          "settings": {
-            "heading": "",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "collection_strip_bHBgxE",
-        "featured_tile_44VHez"
-      ],
       "settings": {
         "menu": "supersymmetry-3-0",
         "logo": "shopify://shop_images/Super_Symmetry_10.svg",
         "logo_height": 24,
         "announcement_show": true,
         "announcement_text": "1-2 dienų siuntimas  1+1 vasaros išpardavimas",
-        "announcement_speed": 40,
-        "mega_enabled": true,
-        "shop_label": ""
+        "announcement_speed": 40
       }
     }
   },

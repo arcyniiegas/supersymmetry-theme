@@ -3,8 +3,8 @@
 
    A full-width glass panel that drops below the floating header card. It is a
    SIBLING of the card inside .header-shell (the card's overflow:hidden would
-   otherwise clip it), absolutely positioned just below it. Composed from
-   Theme-Editor blocks: menu columns · featured tiles · a collections carousel.
+   otherwise clip it), absolutely positioned just below it. Menu-driven: one
+   group of columns per top-level parent, revealed by the matching nav trigger.
    Desktop-only — on mobile the header hamburger opens the full-screen menu. */
 
 .mega{
@@ -40,67 +40,26 @@
     visibility 0s;
 }
 
-/* ── columns + featured tiles row ── */
-.mega__inner{
-  display: grid; grid-template-columns: 1fr auto;
-  gap: var(--sp-12); align-items: start;
-  padding: var(--sp-8) var(--sp-10);
-}
+/* ── one group per top-level parent; JS reveals the active one ── */
+.mega__group{ display: none; padding: var(--sp-8) var(--sp-10); }
+.mega__group.is-active{ display: block; }
 .mega__cols{
-  display: flex; flex-wrap: wrap; gap: var(--sp-12);
+  display: flex; flex-wrap: wrap; gap: var(--sp-8) var(--sp-12);
 }
-.mega__col{ min-width: 12rem; }
+.mega__col{ min-width: 11rem; }
+/* Column heading = the child link; grandchildren list beneath it. */
 .mega__col-title{
-  font: 500 11px/1 var(--font-mono);
-  letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--text-muted); margin-bottom: var(--sp-4);
-}
-.mega__col-list{ display: flex; flex-direction: column; gap: var(--sp-3); list-style: none; }
-.mega__col-list a{
-  font: 500 15px/1 var(--font-sans); letter-spacing: -0.01em;
+  display: inline-block; margin-bottom: var(--sp-4);
+  font: 500 15px/1.2 var(--font-sans); letter-spacing: -0.01em;
   color: var(--text); transition: color var(--tx-fast) var(--ease);
 }
-.mega__col-list a:hover{ color: var(--text-muted); }
-
-/* Tiles are the shared .tile primitive (component-tile.css); the panel owns
-   only the row layout + tile sizing. */
-.mega__featured{ display: flex; gap: var(--sp-4); }
-.mega__featured .tile{ width: 15rem; aspect-ratio: 0.82; }
-
-/* ── collections carousel (CSS scroll-snap, no JS) ── */
-.mega__strip{
-  border-top: 1px solid color-mix(in oklab, var(--ink) 8%, transparent);
-  padding: var(--sp-6) var(--sp-10) var(--sp-8);
+.mega__col-title:hover{ color: var(--text-muted); }
+.mega__col-list{ display: flex; flex-direction: column; gap: var(--sp-3); list-style: none; }
+.mega__col-list a{
+  font: 400 14px/1 var(--font-sans); letter-spacing: -0.01em;
+  color: var(--text-muted); transition: color var(--tx-fast) var(--ease);
 }
-.mega__strip-title{
-  font: 500 11px/1 var(--font-mono);
-  letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--text-muted); margin-bottom: var(--sp-4);
-}
-.mega__carousel{
-  display: flex; gap: var(--sp-4);
-  overflow-x: auto; scroll-snap-type: x mandatory;
-  scrollbar-width: none; -ms-overflow-style: none;
-  padding-bottom: 2px;
-}
-.mega__carousel::-webkit-scrollbar{ display: none; }
-.mega__card{
-  flex: 0 0 auto; width: 11.5rem; scroll-snap-align: start;
-}
-.mega__card-media{
-  display: block; aspect-ratio: 0.82; overflow: hidden;
-  border-radius: var(--r-md); background: var(--surface);
-}
-.mega__card-img{
-  width: 100%; height: 100%; object-fit: cover; display: block;
-  transition: transform var(--tx-base) var(--ease-snap);
-}
-.mega__card:hover .mega__card-img{ transform: scale(1.04); }
-.mega__card-title{
-  display: block; margin-top: var(--sp-2);
-  font: 500 14px/1.2 var(--font-sans); letter-spacing: -0.01em;
-  color: var(--text);
-}
+.mega__col-list a:hover{ color: var(--text); }
 
 /* ── mobile: the header hamburger opens the full-screen menu ── */
 @media (max-width: 960px){
@@ -109,5 +68,4 @@
 @media (prefers-reduced-motion: reduce){
   .mega{ transition: opacity var(--tx-base) linear, visibility 0s linear var(--tx-base); transform: none; }
   .header-shell.is-open .mega{ transform: none; }
-  .mega__card-img{ transition: none; }
 }

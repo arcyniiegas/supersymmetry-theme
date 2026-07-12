@@ -4,10 +4,6 @@
     assign nav_menu = settings.menu_main
   endif
   assign ann = section.settings.announcement_text
-  assign has_mega = false
-  if section.settings.mega_enabled and section.blocks.size > 0
-    assign has_mega = true
-  endif
 -%}
 {%- comment -%}
   Floating glass header — one rounded card fusing an optional looping
@@ -36,21 +32,19 @@
           <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6 H17 M3 10 H17 M3 14 H13"/></svg>
         </button>
         <nav class="header__nav" aria-label="{{ 'accessibility.main_nav' | t }}">
-          {%- comment -%} When the mega is on, the menu's first item labels the mega
-            trigger (it opens the curated dropdown) and is skipped from the flat links
-            so it never doubles up. Falls back to shop_label when no menu is assigned. {%- endcomment -%}
-          {%- if has_mega -%}
-            {%- if nav_menu.links != blank -%}{%- assign mega_label = nav_menu.links.first.title -%}{%- else -%}{%- assign mega_label = section.settings.shop_label -%}{%- endif -%}
-            <button type="button" class="header__nav-trigger" aria-expanded="false" aria-controls="megaPanel" aria-haspopup="true" data-mega-toggle>
-              {{- mega_label -}}
-              <svg class="header__nav-caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1 L5 5 L9 1"/></svg>
-            </button>
-          {%- endif -%}
+          {%- comment -%} Fully menu-driven: every top-level item with children opens a
+            dropdown (built below from the same menu) keyed by its index; leaf items are
+            plain links. Falls back to core routes only when no menu is assigned. {%- endcomment -%}
           {%- if nav_menu.links != blank -%}
             {%- for link in nav_menu.links -%}
-              {%- unless has_mega and forloop.first -%}
-                <a href="{{ link.url }}"{% if link.active %} aria-current="page"{% endif %}>{{ link.title }}</a>
-              {%- endunless -%}
+              {%- if link.links != blank -%}
+                <button type="button" class="header__nav-trigger" aria-expanded="false" aria-controls="megaPanel" aria-haspopup="true" data-mega-toggle="{{ forloop.index }}">
+                  {{- link.title -}}
+                  <svg class="header__nav-caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1 L5 5 L9 1"/></svg>
+                </button>
+              {%- else -%}
+                <a href="{{ link.url }}"{% if link.active or link.child_active %} aria-current="page"{% endif %}>{{ link.title }}</a>
+              {%- endif -%}
             {%- endfor -%}
           {%- else -%}
             <a href="{{ routes.root_url }}"{% if request.page_type == 'index' %} aria-current="page"{% endif %}>{{ 'nav.home' | t }}</a>
@@ -80,56 +74,31 @@
       </div>
     </header>
 
-    {%- if has_mega -%}
-      {%- assign col_blocks = section.blocks | where: 'type', 'menu_column' -%}
-      {%- assign tile_blocks = section.blocks | where: 'type', 'featured_tile' -%}
+    {%- comment -%} Dropdown panel — a sibling of the card (escapes its overflow clip),
+      one hidden group per top-level parent. component-mega-menu.js reveals the group
+      whose index matches the hovered/focused trigger. Each child becomes a column: a
+      heading link, with its own children listed beneath when it has any. {%- endcomment -%}
+    {%- assign has_dropdown = false -%}
+    {%- for link in nav_menu.links -%}{%- if link.links != blank -%}{%- assign has_dropdown = true -%}{%- endif -%}{%- endfor -%}
+    {%- if has_dropdown -%}
       <div class="mega" id="megaPanel" data-mega-panel>
-        {%- if col_blocks.size > 0 or tile_blocks.size > 0 -%}
-        <div class="mega__inner">
-          {%- if col_blocks.size > 0 -%}
-            <div class="mega__cols">
-              {%- for block in col_blocks -%}
-                <div class="mega__col" {{ block.shopify_attributes }}>
-                  {%- if block.settings.heading != blank -%}<p class="mega__col-title">{{ block.settings.heading }}</p>{%- endif -%}
-                  {%- if block.settings.menu.links != blank -%}
-                    <ul class="mega__col-list">
-                      {%- for link in block.settings.menu.links -%}
-                        <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-                      {%- endfor -%}
-                    </ul>
-                  {%- endif -%}
-                </div>
-              {%- endfor -%}
-            </div>
-          {%- endif -%}
-          {%- if tile_blocks.size > 0 -%}
-            <div class="mega__featured">
-              {%- for block in tile_blocks -%}
-                {% render 'featured-tile', image: block.settings.image, heading: block.settings.heading, link: block.settings.link, sizes: '15rem', attributes: block.shopify_attributes %}
-              {%- endfor -%}
-            </div>
-          {%- endif -%}
-        </div>
-        {%- endif -%}
-
-        {%- for block in section.blocks -%}
-          {%- if block.type == 'collection_strip' and block.settings.collections != blank -%}
-            <div class="mega__strip" {{ block.shopify_attributes }}>
-              {%- if block.settings.heading != blank -%}<p class="mega__strip-title">{{ block.settings.heading }}</p>{%- endif -%}
-              <ul class="mega__carousel">
-                {%- for coll in block.settings.collections -%}
-                  <li class="mega__card">
-                    <a href="{{ coll.url }}">
-                      <span class="mega__card-media">
-                        {%- if coll.featured_image -%}
-                          {{ coll.featured_image | image_url: width: 400 | image_tag: class: 'mega__card-img', widths: '180,270,360,440', sizes: '180px', alt: coll.title, loading: 'lazy' }}
-                        {%- endif -%}
-                      </span>
-                      <span class="mega__card-title">{{ coll.title }}</span>
-                    </a>
-                  </li>
+        {%- for link in nav_menu.links -%}
+          {%- if link.links != blank -%}
+            <div class="mega__group" data-mega-group="{{ forloop.index }}">
+              <div class="mega__cols">
+                {%- for child in link.links -%}
+                  <div class="mega__col">
+                    <a class="mega__col-title" href="{{ child.url }}">{{ child.title }}</a>
+                    {%- if child.links != blank -%}
+                      <ul class="mega__col-list">
+                        {%- for grandchild in child.links -%}
+                          <li><a href="{{ grandchild.url }}">{{ grandchild.title }}</a></li>
+                        {%- endfor -%}
+                      </ul>
+                    {%- endif -%}
+                  </div>
                 {%- endfor -%}
-              </ul>
+              </div>
             </div>
           {%- endif -%}
         {%- endfor -%}
@@ -202,82 +171,7 @@
       "unit": "s",
       "label": "Marquee loop duration",
       "default": 40
-    },
-    {
-      "type": "header",
-      "content": "Shop mega menu"
-    },
-    {
-      "type": "checkbox",
-      "id": "mega_enabled",
-      "label": "Enable Shop dropdown",
-      "info": "Shows a Shop trigger in the nav that opens the mega panel built from the blocks below.",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "shop_label",
-      "label": "Shop trigger label",
-      "default": "Parduotuvė"
     }
-  ],
-  "blocks": [
-    {
-      "type": "menu_column",
-      "name": "Menu column",
-      "settings": [
-        {
-          "type": "text",
-          "id": "heading",
-          "label": "Heading"
-        },
-        {
-          "type": "link_list",
-          "id": "menu",
-          "label": "Menu"
-        }
-      ]
-    },
-    {
-      "type": "featured_tile",
-      "name": "Featured tile",
-      "settings": [
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Image"
-        },
-        {
-          "type": "text",
-          "id": "heading",
-          "label": "Label"
-        },
-        {
-          "type": "url",
-          "id": "link",
-          "label": "Link"
-        }
-      ]
-    },
-    {
-      "type": "collection_strip",
-      "name": "Collections carousel",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "text",
-          "id": "heading",
-          "label": "Heading"
-        },
-        {
-          "type": "collection_list",
-          "id": "collections",
-          "label": "Collections",
-          "limit": 16
-        }
-      ]
-    }
-  ],
-  "max_blocks": 12
+  ]
 }
 {% endschema %}
