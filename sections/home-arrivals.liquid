@@ -25,7 +25,7 @@
         {%- if product.compare_at_price > product.price -%}
         <span class="prod__tag">–{{ product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round }}%</span>
         {%- elsif product.tags contains 'Naujiena' or product.tags contains 'new' -%}
-        <span class="prod__tag">Naujiena</span>
+        <span class="prod__tag">{{ 'product.new' | t }}</span>
         {%- endif -%}
       </div>
       <div class="prod__body">

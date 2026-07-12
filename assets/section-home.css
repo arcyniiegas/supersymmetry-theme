@@ -218,29 +218,6 @@
 }
 .cat:not(.cat--dark) .cat__placeholder{ color: var(--hairline); }
 .cat__placeholder svg{ width: 50%; height: auto; }
-.cat__num{
-  position: absolute;
-  top: var(--sp-5); left: var(--sp-5);
-  font: 500 11px/1 var(--font-mono);
-  letter-spacing: 0.04em;
-  color: var(--text-muted);
-}
-.cat--dark .cat__num{ color: rgba(255,255,255,0.6); }
-.cat__count{
-  position: absolute;
-  top: var(--sp-5); right: var(--sp-5);
-  padding: 6px 10px;
-  background: rgba(255,255,255,0.5);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: 99px;
-  font: 500 11px/1 var(--font-mono);
-  color: var(--text);
-}
-.cat--dark .cat__count{
-  background: rgba(0,0,0,0.4);
-  color: #FFFFFF;
-}
 .cat__body{
   position: absolute;
   left: var(--sp-6); right: var(--sp-6); bottom: var(--sp-6);
@@ -479,22 +456,6 @@
   transition: transform var(--tx-base) var(--ease);
 }
 .prod:hover .prod__media img{ transform: scale(1.03); }
-.prod__index{
-  position: absolute; top: var(--sp-4); left: var(--sp-4);
-  font: 500 11px/1 var(--font-mono);
-  letter-spacing: 0.04em;
-  color: var(--text-muted);
-}
-.prod__chip{
-  position: absolute; top: var(--sp-4); right: var(--sp-4);
-  padding: 6px 10px;
-  background: rgba(255,255,255,0.55);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-radius: 99px;
-  font: 500 11px/1 var(--font-mono);
-  color: var(--text);
-}
 .prod__tag{
   position: absolute; bottom: var(--sp-4); left: var(--sp-4);
   padding: 6px 10px;
@@ -511,16 +472,6 @@
   align-items: end;
   gap: var(--sp-4);
   padding: 4px;
-}
-.prod__name{
-  font: 500 17px/1.2 var(--font-sans);
-  letter-spacing: -0.025em;
-}
-.prod__sub{
-  display: block;
-  margin-top: 4px;
-  font: 400 13px/1.3 var(--font-sans);
-  color: var(--text-muted);
 }
 .prod__price{
   font: 500 15px/1 var(--font-mono);
@@ -790,8 +741,6 @@
 
   /* ── arrivals: tighter two-up cards ── */
   .arrivals__grid{ gap: var(--sp-6) var(--sp-3); }
-  .prod__name{ font-size: 15px; }
-  .prod__sub{ font-size: 12px; }
   .prod__body{ padding: 2px; }
 
   /* ── letter ── */
