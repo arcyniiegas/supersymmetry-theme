@@ -8,28 +8,36 @@
 
 <form action="{{ routes.cart_url }}" method="post" id="cart">
 
-<!-- ──────────── BREADCRUMBS ──────────── -->
-{%- assign crumb_current = 'cart.title' | t -%}
-{% render 'breadcrumbs', current: crumb_current %}
-
-<!-- ──────────── CART HEAD ──────────── -->
-<div class="carthead">
-  <div>
-    <h1 class="carthead__title"><span class="light">{{ section.settings.title_light | default: 'Tavo' }}</span> {{ section.settings.title | default: 'krepšelis.' }}</h1>
-  </div>
-  {%- unless cart.item_count == 0 -%}
-  <div class="carthead__meta">
-    <button type="button" class="uline" id="clearBtn">{{ section.settings.clear_label | default: 'Išvalyti krepšelį' }}</button>
-  </div>
-  {%- endunless -%}
-</div>
-
 {%- if cart.item_count == 0 -%}
 
 <!-- ══════════════ EMPTY STATE ══════════════ -->
 {% render 'cart-empty', section: section %}
 
 {%- else -%}
+
+<!-- ──────────── INTRO — shipping band + brand promises ──────────── -->
+<section class="cartintro">
+  <div class="cartintro__ship">
+    <span class="cartintro__ico" aria-hidden="true">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 4.5h9v9h-9zM10.5 7.5h3.2l2.8 3v3h-6"/><circle cx="5" cy="15" r="1.6"/><circle cx="13.5" cy="15" r="1.6"/></svg>
+    </span>
+    <span class="cartintro__ship-text">{{ section.settings.ship_note | default: 'Pristatymas visoje Lietuvoje per 2–3 dienas' }}</span>
+  </div>
+  <div class="promises">
+    <div class="promise">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></svg>
+      <span>{{ section.settings.promise_1 | default: '14 dienų grąžinimas' }}</span>
+    </div>
+    <div class="promise">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.6 6 .7-4.4 4.2 1.1 6L12 16.9 6.7 19.5l1.1-6L3.4 9.5l6-.9z"/></svg>
+      <span>{{ section.settings.promise_2 | default: 'Unikalūs vienetiniai modeliai' }}</span>
+    </div>
+    <div class="promise">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h13l-3.5-3.5M20 16H7l3.5 3.5"/></svg>
+      <span>{{ section.settings.promise_3 | default: 'Nemokamas keitimas' }}</span>
+    </div>
+  </div>
+</section>
 
 <!-- ════════════════════════════════════════════════════════════
      SHELL
@@ -38,17 +46,9 @@
 
   <!-- ITEMS -->
   <div>
-    {% render 'free-shipping-bar' %}
-    <!-- shipping note · honest static statement (shipping speed, not a fabricated per-country ETA) -->
-    <div class="estimator">
-      <span class="estimator__ico" aria-hidden="true">
-        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 4.5h9v9h-9zM10.5 7.5h3.2l2.8 3v3h-6"/><circle cx="5" cy="15" r="1.6"/><circle cx="13.5" cy="15" r="1.6"/></svg>
-      </span>
-      <div class="estimator__body">
-        <span class="estimator__label">{{ section.settings.ship_note | default: 'Išsiunčiame per 1—2 darbo dienas iš Vilniaus.' }}</span>
-      </div>
+    <div class="items-head">
+      <button type="button" class="uline" id="clearBtn">{{ section.settings.clear_label | default: 'Išvalyti krepšelį' }}</button>
     </div>
-
     <div class="items" id="items">
 
       {%- for item in cart.items -%}
@@ -98,25 +98,10 @@
       </button>
 
       <div class="summary__pays">
-        {%- assign pays = section.settings.pay_methods | default: 'VISA, MC, AMEX, APPLE PAY, PAYPAL' | split: ',' -%}
-        {%- for pay in pays -%}
-        <span class="pay">{{ pay | strip }}</span>
+        {%- assign pay_types = 'visa,master,american_express,apple_pay,google_pay' | split: ',' -%}
+        {%- for type in pay_types -%}
+        {{ type | payment_type_svg_tag: class: 'pay-icon' }}
         {%- endfor -%}
-      </div>
-    </div>
-
-    <div class="summary__trust">
-      <div class="trust">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M8 1.5l5.5 2.2v3.6c0 3.4-2.3 5.7-5.5 7.2-3.2-1.5-5.5-3.8-5.5-7.2V3.7L8 1.5z"/><path d="M5.8 8l1.6 1.6L10.4 6.6"/></svg>
-        <span>{{ section.settings.trust_1 | default: '<b>14 dienų grąžinimas <span style="color: rgb(107, 107, 107); letter-spacing: -0.065px;">· nemokamas keitimas.</span></b>' }}</span>
-      </div>
-      <div class="trust">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1.5" y="4" width="13" height="8.5" rx="1.5"/><path d="M1.5 6.8h13"/></svg>
-        <span>{{ section.settings.trust_2 | default: 'Saugus mokėjimas · šifruota <b>SSL</b> jungtimi.' }}</span>
-      </div>
-      <div class="trust">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M1.5 11V5.5h9V11M10.5 7.5h2.2l1.8 2V11h-4M4.2 13a1.3 1.3 0 100-2.6 1.3 1.3 0 000 2.6zM11.6 13a1.3 1.3 0 100-2.6 1.3 1.3 0 000 2.6z"/></svg>
-        <span>{{ section.settings.trust_3 | default: 'Išsiunčiame per <b>1–2 darbo dienas</b> iš Vilniaus.' }}</span>
       </div>
     </div>
   </aside>
@@ -144,9 +129,11 @@
     { "type": "url", "id": "empty_cta_link", "label": "Primary button link" },
     { "type": "text", "id": "empty_ghost_label", "label": "Secondary button label", "info": "Leave empty to hide.", "default": "Kolekcijos" },
     { "type": "url", "id": "empty_ghost_link", "label": "Secondary button link" },
-    { "type": "header", "content": "Shipping note" },
-    { "type": "text", "id": "ship_note", "label": "Note", "default": "Išsiunčiame per 1—2 darbo dienas iš Vilniaus." },
-    { "type": "text", "id": "ship_cost_note", "label": "Cost note", "default": "Pristatymas skaičiuojamas apmokant" },
+    { "type": "header", "content": "Shipping band + promises" },
+    { "type": "text", "id": "ship_note", "label": "Shipping band", "default": "Pristatymas visoje Lietuvoje per 2–3 dienas" },
+    { "type": "text", "id": "promise_1", "label": "Promise 1", "default": "14 dienų grąžinimas" },
+    { "type": "text", "id": "promise_2", "label": "Promise 2", "default": "Unikalūs vienetiniai modeliai" },
+    { "type": "text", "id": "promise_3", "label": "Promise 3", "default": "Nemokamas keitimas" },
     { "type": "header", "content": "Gift line" },
     { "type": "text", "id": "gift_prefix", "label": "Prefix", "default": "Dovana?" },
     { "type": "text", "id": "gift_link_label", "label": "Link label", "default": "Pridėk ranka rašytą kortelę" },
