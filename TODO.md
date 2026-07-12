@@ -90,8 +90,9 @@ inline styles moved to CSS (`.bento__sub` margin → `--sp-2`; `.fit__verdict`
 `text-align`), registry synced (dead `free-shipping-bar` row removed, mobile-menu
 + search + cart-line entries refreshed). **Open debt:** the Trumpai data model is
 transitional (direct metafields *plus* a legacy `model_info` fallback — decide
-whether to migrate the one remaining product and retire `model_info`); all the new
-PDP feature CSS still lives in the `section-product.css` monolith (Phase 5).
+whether to migrate the one remaining product and retire `model_info`).
+**Resolved since:** the `section-product.css` monolith is retired — the PDP
+now composes from eight `component-*.css` files, section CSS is layout-only.
 
 > **Architecture note (docs-confirmed):** dynamic theme blocks render only via
 > `{% content_for "blocks" %}` (all blocks, one reorderable container), so
@@ -232,14 +233,19 @@ The high‑value, high‑complexity surfaces, onto the shared kit last.
       gallery / glance / reviews / related / docs extracted to `product-*`
       snippets, **verified pixel-identical live**. (The info aside size picker +
       form could still be extracted, but the section now meets the size target.)
-- [~] Rebuild `section-product.css` (39 KB) as component CSS; delete the monolith.
-      **Dead-CSS prune DONE** — 28 provably-dead rules removed (11 classes rendered
-      on no element: `shot__caption/counter`, `info__meta/subtitle`, `price__tax`,
-      `delivery__zone`, `glance__title/meta`, `bento__cell--dark`, `qual--dark`,
-      `signoff`), **1038 → 946 lines**, pixel-identical by construction, `theme check`
-      clean. Remainder is largely genuine PDP-specific design (per Phase 6) — a
-      further split into per-region component files is organizational and wants a
-      **live PDP preview** to verify (not available in this environment).
+- [x] Rebuild `section-product.css` as component CSS; delete the monolith.
+      **DONE.** The dead-CSS prune (28 provably-dead rules; 1038 → 946 lines)
+      landed first; then the feature layer was extracted into `component-glance`
+      / `-docs` / `-fit`, and finally the remaining monolith was split verbatim
+      into `component-gallery` / `-buy` / `-delivery` / `-reviews` / `-related`.
+      `section-product.css` is now **38 lines — layout only** (the `.product`
+      grid). Every selector has exactly one owning file (verified: no duplication,
+      nothing dropped); `theme check` clean; pixel-identical by construction for
+      the default render. Two cleanups rode along: dropped the dead `:root` PDP
+      tokens (`--t-num`/`-t-name`/`--sp-32`, no `var()` ref), and **repaired the
+      reduced-motion overrides** (the pre-split `@media` block sat before its
+      target base rules → `animation:none` on stock/gantt/fit dots silently never
+      applied; each now sits after its base in the owning file).
 - [ ] `main-collection` + `main-cart` onto shared components/blocks.
 - [ ] Audit `home-*` sections against the shared kit; remove leftovers.
 
