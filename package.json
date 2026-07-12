@@ -1,0 +1,29 @@
+{
+  "name": "supersymmetry-4.0",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:report": "playwright show-report"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arcyniiegas/supersymmetry-theme.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/arcyniiegas/supersymmetry-theme/issues"
+  },
+  "homepage": "https://github.com/arcyniiegas/supersymmetry-theme#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.61.1"
+  }
+}

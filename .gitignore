@@ -15,3 +15,9 @@
 # Node (build tooling, if introduced)
 node_modules/
 .superpowers/
+
+# Playwright (E2E) — test output, never commit
+test-results/
+playwright-report/
+blob-report/
+.playwright/
