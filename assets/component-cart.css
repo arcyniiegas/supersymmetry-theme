@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 /* ════════════════════════════════════════════════════════════
-   CART — SHARED (line items · tags · qty · price · free-ship · toast)
+   CART — SHARED (line items · tags · qty · price · toast)
    Loaded globally so the cart page AND the cart drawer render identical
    line rows from the same rules (snippets/cart-line.liquid). Page-only
    layout (shell, summary, empty, gift line) stays in section-cart.css;
@@ -140,24 +140,6 @@
 .line--compact .line__now{ font-size: 15px; }
 .line--compact .line__was{ font-size: 11px; }
 
-/* ── Free-shipping progress meter (drawer + page) ── */
-.free-ship{ display: grid; gap: 8px; margin-bottom: var(--sp-5); }
-.free-ship__label{
-  font: 500 11px/1.3 var(--font-mono); letter-spacing: 0.02em;
-  text-transform: uppercase; color: var(--text-muted);
-}
-.free-ship__label b{ color: var(--text); font-weight: 600; }
-.free-ship__track{
-  height: 4px; border-radius: 99px; background: var(--surface); overflow: hidden;
-}
-.free-ship__fill{
-  display: block; width: 100%; height: 100%; border-radius: 99px; background: var(--ink);
-  transform: scaleX(calc(var(--free-ship-pct, 0) / 100)); transform-origin: left center;
-  transition: transform var(--tx-base) var(--ease);
-}
-.free-ship--done .free-ship__fill{ background: var(--orange); }
-.free-ship--done .free-ship__label{ color: var(--orange); }
-
 /* ── toast (global; markup lives in the cart-drawer section) ── */
 .toast{
   position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%) translateY(16px);
@@ -172,5 +154,5 @@
 .toast.is-on{ opacity: 1; transform: translateX(-50%) translateY(0); }
 .toast .brand-dot{ background: #FFFFFF; }
 @media (prefers-reduced-motion: reduce){
-  .free-ship__fill, .toast{ transition: none; }
+  .toast{ transition: none; }
 }

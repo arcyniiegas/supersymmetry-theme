@@ -4,7 +4,7 @@
    CART DRAWER — floating glass panel (sections/cart-drawer.liquid)
    Loaded globally. Mechanics (open/close, focus trap, Esc, scroll-lock) come
    from the shared <theme-drawer> component; this file is presentation only.
-   Shared line/tag/qty/free-ship rules live in component-cart.css.
+   Shared line/tag/qty rules live in component-cart.css.
 
    A frosted card that pops in from the right, inset from every edge with
    rounded corners — a window over the dimmed page, matching the search
@@ -84,8 +84,6 @@ html[data-glass="off"] .cart-drawer__panel{
 .cart-drawer__close:hover{ background: var(--surface); }
 .cart-drawer__close svg{ width: 16px; height: 16px; }
 
-.cart-drawer .free-ship{ flex-shrink: 0; padding: var(--sp-5) var(--sp-6) 0; margin-bottom: var(--sp-4); }
-
 .cart-drawer__items{
   flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain;
   padding: 0 var(--sp-6);
@@ -103,11 +101,7 @@ html[data-glass="off"] .cart-drawer__panel{
 .cart-drawer__row-v{ font: 500 20px/1 var(--font-mono); letter-spacing: -0.02em; }
 .cart-drawer__note{ margin: 0; font: 400 11px/1.4 var(--font-sans); color: var(--soft); }
 .cart-drawer__checkout{ width: 100%; }
-.cart-drawer__viewcart{
-  text-align: center;
-  font: 500 12px/1 var(--font-mono); letter-spacing: 0.04em;
-  text-transform: uppercase; color: var(--text-muted);
-}
+.cart-drawer__viewcart{ width: 100%; }
 
 .cart-drawer__empty{
   flex: 1; display: grid; place-content: center; justify-items: center;

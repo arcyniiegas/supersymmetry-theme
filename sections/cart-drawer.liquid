@@ -6,9 +6,8 @@
   mechanics: open/close, focus trap, Esc, scroll-lock, focus return. The
   #cart-drawer-inner element is the swap target: after every cart mutation,
   component-cart.js replaces it with freshly Liquid-rendered HTML delivered via
-  the Section Rendering API, so all money/totals/free-ship state stay
-  authoritative. Line rows and the free-ship meter are the same shared snippets
-  the cart page uses.
+  the Section Rendering API, so all money/totals state stay
+  authoritative. Line rows are the same shared snippet the cart page uses.
 {%- endcomment -%}
 <theme-drawer id="cartDrawer" class="cart-drawer" data-body-class="cart-open" data-open-class="is-open" data-portal data-focus=".cart-drawer__close">
   <div class="cart-drawer__scrim" data-drawer-close></div>
@@ -32,8 +31,6 @@
 
       {%- else -%}
 
-      {% render 'free-shipping-bar' %}
-
       <div class="cart-drawer__items items">
         {%- for item in cart.items -%}
           {% render 'cart-line', item: item, compact: true %}
@@ -51,7 +48,8 @@
             {{ 'cart.checkout' | t }} <span class="btn__arrow">→</span>
           </button>
         </form>
-        <a href="{{ routes.cart_url }}" class="cart-drawer__viewcart uline">{{ 'cart.view_cart' | t }}</a>
+        {%- assign view_cart = 'cart.view_cart' | t -%}
+        {% render 'button', label: view_cart, href: routes.cart_url, style: 'ghost', class: 'cart-drawer__viewcart' %}
       </footer>
 
       {%- endif -%}
