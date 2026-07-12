@@ -2,7 +2,7 @@
 {% render 'section-appearance', section: section %}
 
 <!-- ──────────── BREADCRUMBS ──────────── -->
-<nav class="crumbs" aria-label="Breadcrumb">
+<nav class="crumbs" aria-label="{{ 'accessibility.breadcrumb' | t }}">
   <a href="{{ routes.root_url }}">{{ 'nav.home' | t }}</a>
   <span class="sep">/</span>
   <b>{{ collection.title | default: 'Visa kolekcija' }}</b>
@@ -69,14 +69,14 @@
           <svg class="sort__chev" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 5 L7 9 L11 5"></path></svg>
         </span>
       </label>
-      <div class="viewtog" role="group" aria-label="Vaizdas">
-        <button type="button" aria-pressed="true" aria-label="Tinklelis">
+      <div class="viewtog" role="group" aria-label="{{ 'accessibility.view' | t }}">
+        <button type="button" aria-pressed="true" aria-label="{{ 'accessibility.grid' | t }}">
           <svg viewBox="0 0 14 14"><rect x="2" y="2" width="4" height="4"></rect><rect x="8" y="2" width="4" height="4"></rect><rect x="2" y="8" width="4" height="4"></rect><rect x="8" y="8" width="4" height="4"></rect></svg>
         </button>
-        <button type="button" aria-pressed="false" aria-label="Tankus tinklelis">
+        <button type="button" aria-pressed="false" aria-label="{{ 'accessibility.grid_dense' | t }}">
           <svg viewBox="0 0 14 14"><rect x="1.5" y="1.5" width="3" height="3"></rect><rect x="5.5" y="1.5" width="3" height="3"></rect><rect x="9.5" y="1.5" width="3" height="3"></rect><rect x="1.5" y="5.5" width="3" height="3"></rect><rect x="5.5" y="5.5" width="3" height="3"></rect><rect x="9.5" y="5.5" width="3" height="3"></rect><rect x="1.5" y="9.5" width="3" height="3"></rect><rect x="5.5" y="9.5" width="3" height="3"></rect><rect x="9.5" y="9.5" width="3" height="3"></rect></svg>
         </button>
-        <button type="button" aria-pressed="false" aria-label="Sąrašas">
+        <button type="button" aria-pressed="false" aria-label="{{ 'accessibility.list' | t }}">
           <svg viewBox="0 0 14 14"><line x1="2" y1="3" x2="12" y2="3"></line><line x1="2" y1="7" x2="12" y2="7"></line><line x1="2" y1="11" x2="12" y2="11"></line></svg>
         </button>
       </div>
@@ -115,7 +115,7 @@
         <h3 style="margin-top:14px;"><span class="light">{{ section.settings.empty_title_light | default: 'Poros' }}</span> {{ section.settings.empty_title | default: 'grįžta netrukus.' }}</h3>
         <p>{{ section.settings.empty_text | default: 'Ši kolekcija dar pildoma — užsukite po kelių dienų arba peržiūrėkite visą asortimentą.' }}</p>
       </div>
-      <a class="arrow" href="{{ routes.all_products_collection_url }}" aria-label="Visa kolekcija">
+      <a class="arrow" href="{{ routes.all_products_collection_url }}" aria-label="{{ 'accessibility.full_collection' | t }}">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8 H13 M8 3 L13 8 L8 13"></path></svg>
       </a>
     </div>

@@ -17,7 +17,7 @@
       <p class="doc__lede">{{ block.settings.lede }}</p>
     </div>
     <div>
-      <div class="quals" aria-label="Konstrukcijos savybės">
+      <div class="quals" aria-label="{{ 'accessibility.construction_features' | t }}">
 {%- assign features = product.metafields.custom.features.value -%}
 {%- for f in features -%}
         <div class="qual">

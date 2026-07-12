@@ -12,7 +12,7 @@
       </a>
       {%- endif -%}
     </div>
-    <div class="notes__list" aria-label="Kolekcijos paaiškinimai">
+    <div class="notes__list" aria-label="{{ 'accessibility.collection_notes' | t }}">
       {%- assign note_blocks = section.blocks | where: 'type', 'note_row' -%}
       {%- if note_blocks.size > 0 -%}
         {%- for block in note_blocks -%}

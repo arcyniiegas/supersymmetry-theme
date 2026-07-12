@@ -7,7 +7,7 @@
 {%- endcomment -%}
 {%- if settings.consent_enabled -%}
 {{ 'consent.css' | asset_url | stylesheet_tag }}
-<div class="consent-banner" id="consentBanner" role="dialog" aria-live="polite" aria-label="Slapukų sutikimas" hidden>
+<div class="consent-banner" id="consentBanner" role="dialog" aria-live="polite" aria-label="{{ 'accessibility.cookie_consent' | t }}" hidden>
   <p class="consent-banner__text">
     {{ settings.consent_text | default: 'Naudojame slapukus parduotuvės veikimui ir anoniminei statistikai. Rinktis gali pats —' }}
     <a class="uline" href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}">{{ settings.consent_policy_label | default: 'privatumo politika' }}</a>.

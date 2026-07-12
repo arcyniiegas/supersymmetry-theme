@@ -53,7 +53,7 @@
     {%- endif -%}
 
     <div class="sizeblock">
-      <div class="sizes" role="radiogroup" aria-label="Dydis EU">
+      <div class="sizes" role="radiogroup" aria-label="{{ 'accessibility.size_eu' | t }}">
 {%- if product.variants.size > 0 and product.has_only_default_variant == false -%}
 {%- for variant in product.variants -%}
 {%- assign size_eu = variant.title | split: ' (' | first | strip -%}
@@ -115,7 +115,7 @@
   {%- when 'labai_platus' -%}{%- assign fy = 10 -%}{%- assign width_label = 'product.fit.width_val.labai_platus' | t -%}
   {%- else -%}{%- assign fy = 50 -%}{%- assign width_label = 'product.fit.width_val.standartinis' | t -%}
 {%- endcase -%}
-    <div class="fit" id="fit-guide" aria-label="Modelio sėdėjimas" {{ block.shopify_attributes }}>
+    <div class="fit" id="fit-guide" aria-label="{{ 'accessibility.model_fit' | t }}" {{ block.shopify_attributes }}>
       <div class="fit__head">
         <span class="fit__title"></span>
         <span class="fit__count"></span>

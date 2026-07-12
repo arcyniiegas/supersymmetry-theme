@@ -25,7 +25,7 @@
   </div>
 
   {%- assign topics = section.settings.topics | split: ',' -%}
-  <div class="topics" role="group" aria-label="Tema">
+  <div class="topics" role="group" aria-label="{{ 'accessibility.topic' | t }}">
     {%- for topic in topics -%}
       <button class="topic" type="button" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}">{{ topic | strip }}</button>
     {%- endfor -%}

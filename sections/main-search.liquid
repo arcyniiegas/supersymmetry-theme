@@ -49,7 +49,7 @@
     <input type="hidden" name="q" value="{{ search.terms | escape }}">
     <input type="hidden" name="options[prefix]" value="last">
     <span>Rikiuoti</span>
-    <select aria-label="Rikiuoti" name="sort_by" onchange="this.form.submit()">
+    <select aria-label="{{ 'collection.sort' | t }}" name="sort_by" onchange="this.form.submit()">
       <option value="relevance"{% if search.sort_by == 'relevance' %} selected{% endif %}>Pagal aktualumą</option>
       <option value="created-descending"{% if search.sort_by == 'created-descending' %} selected{% endif %}>Naujausi</option>
       <option value="price-ascending"{% if search.sort_by == 'price-ascending' %} selected{% endif %}>Kaina ↑</option>

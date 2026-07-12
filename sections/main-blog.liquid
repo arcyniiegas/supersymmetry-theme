@@ -1,7 +1,7 @@
 {{ 'section-blog.css' | asset_url | stylesheet_tag }}
 {% render 'section-appearance', section: section %}
 <!-- ──────────── BREADCRUMBS ──────────── -->
-<nav class="crumbs" aria-label="Breadcrumb">
+<nav class="crumbs" aria-label="{{ 'accessibility.breadcrumb' | t }}">
   <a href="{{ routes.root_url }}">{{ 'nav.home' | t }}</a>
   <span class="sep">/</span>
   <b>{{ blog.title | default: 'Žurnalas' }}</b>

@@ -9,7 +9,7 @@
     {%- form 'customer', style: 'display: contents;' -%}
       <input type="hidden" name="contact[tags]" value="newsletter">
       <div class="letter__form">
-        <input type="email" name="contact[email]" placeholder="{{ section.settings.placeholder }}" aria-label="El. paštas">
+        <input type="email" name="contact[email]" placeholder="{{ section.settings.placeholder }}" aria-label="{{ 'accessibility.email' | t }}">
         <button type="submit">{{ section.settings.button_label }}</button>
       </div>
       {%- if form.posted_successfully? -%}

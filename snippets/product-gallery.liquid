@@ -1,11 +1,11 @@
 {%- comment -%} Product — media gallery + dots. Rendered by main-product. {%- endcomment -%}
-  <section class="gallery" aria-label="Produkto galerija">
+  <section class="gallery" aria-label="{{ 'accessibility.product_gallery' | t }}">
 {%- if product.media.size > 0 -%}
 {%- for media in product.media -%}
     <figure class="shot {% cycle 'shot--portrait', 'shot--square', 'shot--landscape' %}">
       <img class="shot__img" src="{{ media | image_url: width: 1400 }}" srcset="{{ media | image_url: width: 700 }} 700w, {{ media | image_url: width: 1400 }} 1400w" sizes="(max-width: 960px) 100vw, 60vw" width="{{ media.preview_image.width | default: 1400 }}" height="{{ media.preview_image.height | default: 1400 }}" alt="{% if media.alt != blank and media.alt != product.title %}{{ media.alt | escape }}{% else %}{{ product.title | escape }} — vaizdas {{ forloop.index }} iš {{ product.media.size }}{% endif %}" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"/>
 {%- if forloop.first %}
-      <button class="shot__zoom" type="button" aria-label="Padidinti">
+      <button class="shot__zoom" type="button" aria-label="{{ 'accessibility.zoom' | t }}">
         <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M16 16 L21 21"/><path d="M8 11 H14 M11 8 V14"/></svg>
       </button>
 {%- endif %}
@@ -14,7 +14,7 @@
 {%- else -%}
     <figure class="shot shot--portrait">
       <img class="shot__img" src="{{ 'Nr1.webp' | asset_url }}" width="1400" height="1400" alt="Šoninis profilis" loading="eager"/>
-      <button class="shot__zoom" type="button" aria-label="Padidinti">
+      <button class="shot__zoom" type="button" aria-label="{{ 'accessibility.zoom' | t }}">
         <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M16 16 L21 21"/><path d="M8 11 H14 M11 8 V14"/></svg>
       </button>
     </figure>
@@ -30,14 +30,14 @@
 
   </section>
 
-  <div class="gallery-dots" role="group" aria-label="Galerijos nuotraukos">
+  <div class="gallery-dots" role="group" aria-label="{{ 'accessibility.gallery_photos' | t }}">
 {%- if product.media.size > 0 -%}
 {%- for media in product.media -%}
     <button type="button" aria-current="{% if forloop.first %}true{% else %}false{% endif %}" aria-label="{{ forloop.index }} nuotrauka"></button>
 {%- endfor -%}
 {%- else -%}
-    <button type="button" aria-current="true" aria-label="1 nuotrauka"></button>
-    <button type="button" aria-current="false" aria-label="2 nuotrauka"></button>
-    <button type="button" aria-current="false" aria-label="3 nuotrauka"></button>
+    <button type="button" aria-current="true" aria-label="{{ 'accessibility.photo' | t: number: 1 }}"></button>
+    <button type="button" aria-current="false" aria-label="{{ 'accessibility.photo' | t: number: 2 }}"></button>
+    <button type="button" aria-current="false" aria-label="{{ 'accessibility.photo' | t: number: 3 }}"></button>
 {%- endif -%}
   </div>

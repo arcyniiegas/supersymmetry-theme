@@ -1,7 +1,7 @@
 {{ 'section-grazinimai.css' | asset_url | stylesheet_tag }}
 {% render 'section-appearance', section: section %}
 <!-- ──────────── BREADCRUMBS ──────────── -->
-<nav class="crumbs" aria-label="Breadcrumb">
+<nav class="crumbs" aria-label="{{ 'accessibility.breadcrumb' | t }}">
   <a href="{{ routes.root_url }}">{{ 'nav.home' | t }}</a>
   <span class="sep">/</span>
   <a href="{{ pages.duk.url | default: routes.root_url }}">{{ section.settings.crumb_parent | default: 'Paslaugos' }}</a>
@@ -34,7 +34,7 @@
 <!-- ──────────── SUBNAV ──────────── -->
 {%- assign chip_blocks = section.blocks | where: 'type', 'chip' -%}
 {%- if chip_blocks.size > 0 -%}
-<scroll-spy class="subnav" role="navigation" aria-label="Skyriai" data-spy-margin="-30% 0px -60% 0px">
+<scroll-spy class="subnav" role="navigation" aria-label="{{ 'accessibility.sections' | t }}" data-spy-margin="-30% 0px -60% 0px">
   <div class="subnav__wrap">
     {%- for block in chip_blocks -%}
     <a class="subnav__chip" href="#{{ block.settings.anchor }}"{% if forloop.first %} aria-current="true"{% endif %} {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
