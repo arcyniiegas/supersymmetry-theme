@@ -11,8 +11,6 @@
   "sections": {
     "main": {
       "type": "main-collection",
-      "blocks": {},
-      "block_order": [],
       "settings": {
         "show_eyebrow": true,
         "eyebrow_prefix": "Kolekcija",
