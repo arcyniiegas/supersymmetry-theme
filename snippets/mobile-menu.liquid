@@ -16,7 +16,10 @@
     assign nav_menu = linklists['supersymmetry-main']
   endif
 -%}
-<theme-drawer class="mobilemenu" id="ssMenu" role="dialog" aria-modal="true" aria-label="{{ 'nav.menu' | t }}" data-body-class="menu-open" data-focus=".mobilemenu__close">
+<theme-drawer class="mobilemenu" id="ssMenu" data-body-class="menu-open" data-open-class="is-open" data-portal data-focus=".mobilemenu__close">
+  <div class="mobilemenu__scrim" data-drawer-close></div>
+  <aside class="mobilemenu__panel" role="dialog" aria-modal="true" aria-label="{{ 'nav.menu' | t }}">
+  <div class="mobilemenu__inner">
   <div class="mobilemenu__top">
     <a href="{{ routes.root_url }}" class="mobilemenu__brand">{{ settings.brand_name | default: 'Supersymmetry' }}<span class="brand-dot" aria-hidden="true"></span></a>
     <button type="button" class="mobilemenu__close" data-drawer-close aria-label="{{ 'accessibility.close_menu' | t }}">✕</button>
@@ -91,4 +94,6 @@
       <span>{{ settings.utility_right_message | default: 'LT · EN' }}</span>
     </div>
   </div>
+  </div>
+  </aside>
 </theme-drawer>

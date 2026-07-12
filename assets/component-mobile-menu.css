@@ -2,35 +2,74 @@
    Owns ONLY .mobilemenu — header responsive rules live in the header
    component's own file, so <head> load order can never flip them. */
 
-/* ── full-screen mobile menu · liquid glass ──
-   A frosted panel matching the header/mega glass system: a white-dominant fill
-   (kept opaque enough that ink text reads over both white pages and the hero)
-   plus backdrop-blur. Ink text throughout; the image tiles keep white labels
-   because they sit over photography, not the glass. */
+/* ── mobile menu · floating liquid-glass panel ──
+   A frosted card that slides in from the left, inset from every edge with
+   rounded corners — a window over the dimmed page, matching the cart drawer
+   and search dropdown. Compositing note (same as those): the scrim owns the
+   opacity fade (no backdrop-filter) and the glass panel slides via transform
+   only — the panel is never inside an opacity<1 ancestor, which would make
+   Chrome leave an opaque paint behind on close. Ink text throughout; the image
+   tiles keep white labels because they sit over photography, not the glass. */
 body.menu-open{ overflow: hidden; }
+
 .mobilemenu{
-  position: fixed; inset: 0; z-index: 70;
-  color: var(--text);
-  /* See-through frosted fill + heavy blur so the page reads through as real
-     glass; a specular top edge sells it. Fill stays light enough that ink text
-     and muted greys hold over both white pages and the dark hero. */
-  background:
-    linear-gradient(180deg, color-mix(in oklab, #ffffff 42%, transparent), transparent 22%),
-    color-mix(in oklab, var(--bg) 64%, transparent);
-  backdrop-filter: blur(34px) saturate(1.9);
-  -webkit-backdrop-filter: blur(34px) saturate(1.9);
-  box-shadow: inset 0 1px 0 var(--glass-line-top);
-  display: flex; flex-direction: column;
-  padding: 16px var(--gutter) calc(env(safe-area-inset-bottom, 0px) + 28px);
-  overflow-y: auto; -webkit-overflow-scrolling: touch;
-  opacity: 0; pointer-events: none;
+  position: fixed; inset: 0; z-index: 90;
+  pointer-events: none;
 }
-.mobilemenu.is-open{ opacity: 1; pointer-events: auto; }
 @media (min-width: 961px){ .mobilemenu{ display: none; } }
-/* glass disabled (Theme settings) → collapse to a solid light panel */
-html[data-glass="off"] .mobilemenu{
+
+.mobilemenu__scrim{
+  position: absolute; inset: 0;
+  background: rgba(10, 10, 10, 0.4);
+  opacity: 0;
+  transition: opacity var(--tx-base) var(--ease);
+  cursor: pointer;
+}
+
+/* floating frosted panel — inset from the screen edges, rounded, glass */
+.mobilemenu__panel{
+  position: absolute;
+  top: var(--sp-4); left: var(--sp-4); bottom: var(--sp-4);
+  width: min(444px, calc(100vw - var(--sp-8)));
+  display: flex; flex-direction: column;
+  color: var(--text);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--glass-line);
+  background:
+    linear-gradient(180deg, color-mix(in oklab, #ffffff 22%, transparent), transparent 24%),
+    color-mix(in oklab, var(--bg) 86%, transparent);
+  backdrop-filter: blur(28px) saturate(1.7);
+  -webkit-backdrop-filter: blur(28px) saturate(1.7);
+  box-shadow:
+    inset 0 1px 0 var(--glass-line-top),
+    0 2px 2px rgba(10, 10, 10, 0.05),
+    0 40px 80px -32px rgba(10, 10, 10, 0.45);
+  overflow: hidden;
+  transform: translateX(calc(-100% - var(--sp-4)));
+  transition: transform var(--tx-base) var(--ease-snap, var(--ease));
+}
+.mobilemenu.is-open{ pointer-events: auto; }
+.mobilemenu.is-open .mobilemenu__scrim{ opacity: 1; }
+.mobilemenu.is-open .mobilemenu__panel{ transform: none; }
+/* glass disabled (Theme settings) → solid panel */
+html[data-glass="off"] .mobilemenu__panel{
   backdrop-filter: none; -webkit-backdrop-filter: none;
   background: var(--bg);
+}
+
+/* scroll container inside the fixed-height panel */
+.mobilemenu__inner{
+  display: flex; flex-direction: column;
+  height: 100%; min-height: 0;
+  overflow-y: auto; -webkit-overflow-scrolling: touch;
+  padding: 16px var(--sp-6) calc(env(safe-area-inset-bottom, 0px) + var(--sp-6));
+}
+
+@media (max-width: 480px){
+  .mobilemenu__panel{ top: var(--sp-3); left: var(--sp-3); bottom: var(--sp-3); width: calc(100vw - var(--sp-6)); }
+}
+@media (prefers-reduced-motion: reduce){
+  .mobilemenu__scrim, .mobilemenu__panel{ transition: none; }
 }
 
 .mobilemenu__top{ display: flex; align-items: center; justify-content: space-between; padding: 6px 0 20px; }
