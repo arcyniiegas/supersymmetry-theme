@@ -131,7 +131,13 @@ Build and adopt the missing primitives (see [COMPONENTS.md](COMPONENTS.md) §1).
       signed off; `theme check` clean; live preview pending for symbol placement.
 - [ ] Adopt `price` inside `product-card`; move card price logic out of the card.
 - [ ] `heading.liquid`, `section-header.liquid`, `container.liquid`.
-- [ ] `image.liquid` (responsive), `badge.liquid`, `icon.liquid` (SVG sprite).
+- [ ] `image.liquid` (responsive), `badge.liquid`.
+- [x] `icon.liquid` — name-keyed inline-SVG primitive (not a sprite; each case
+      emits its own `<svg>`, whitespace-trimmed → byte-identical). Adopted at 11
+      provably-identical sites (arrow/arrow-nav/search/zoom). Near-misses left for
+      a live-verified pass: `main-collection` arrow (inline stroke attrs) +
+      `product-related` arrow (stroke 1.5 vs 1.6). Broader adoption of the mixed
+      instances needs a rendered page to confirm parity.
 - [x] Move `product-card` strings (`Išparduota`, `Naujiena`) to `locales/*` (`product` ns).
 
 ## Phase 2 — Shared block vocabulary
