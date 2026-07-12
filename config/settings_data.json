@@ -9,9 +9,10 @@
  */
 {
   "current": {
+    "brand_name": "",
     "utility_right_message": "LT · EN",
     "phone": "",
-    "menu_main": "supersymmetry-main",
+    "menu_main": "supersymmetry-3-0",
     "atelier_address": "Trakų g. 16",
     "atelier_city": "Vilnius",
     "atelier_map_url": "https://maps.app.goo.gl/ewkj5Q11DmikhAdz9",
