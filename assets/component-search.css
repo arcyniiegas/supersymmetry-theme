@@ -5,16 +5,20 @@
    ════════════════════════════════════════════════════════════ */
 body.ss-search-open{ overflow: hidden; }
 .ss-search{
-  position: fixed; inset: 0; z-index: 90;
+  position: fixed; inset: 0; z-index: 95;
   background: var(--bg);
-  opacity: 0; visibility: hidden;
+  /* Hide with visibility + transform only. Do NOT fade opacity here: an
+     opacity<1 ancestor that contains backdrop-filter children (the chips)
+     makes Chrome mis-composite and leave this overlay's opaque background
+     painting over whatever opens next (e.g. the cart drawer). */
+  visibility: hidden; pointer-events: none;
   transform: translateY(-10px);
-  transition: opacity 220ms var(--ease), transform 220ms var(--ease), visibility 0s linear 220ms;
+  transition: transform 220ms var(--ease), visibility 0s linear 220ms;
   overflow-y: auto; overscroll-behavior: contain;
 }
 .ss-search.is-open{
-  opacity: 1; visibility: visible; transform: none;
-  transition: opacity 260ms var(--ease), transform 320ms var(--ease-snap, var(--ease));
+  visibility: visible; pointer-events: auto; transform: none;
+  transition: transform 320ms var(--ease-snap, var(--ease));
 }
 .ss-search__inner{ max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
 .ss-search__bar{
@@ -67,17 +71,15 @@ body.ss-search-open{ overflow: hidden; }
   display: inline-flex; align-items: center; gap: 8px;
   min-height: 44px;
   padding: 9px 16px; border-radius: 999px;
-  background:
-    radial-gradient(135% 140% at 16% -20%, rgba(255,255,255,0.5), rgba(255,255,255,0) 50%),
-    var(--glass-fill), var(--surface);
+  /* Solid surface (no backdrop-filter): the overlay background is opaque, so
+     glass here blurs nothing and previously contributed to the close-paint bug. */
+  background: var(--surface);
   color: var(--text);
   font: 500 13px/1 var(--font-sans); letter-spacing: -0.005em;
-  border: 1px solid var(--glass-line); border-top-color: var(--glass-line-top);
-  backdrop-filter: blur(var(--glass-blur)) saturate(180%);
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  border: 1px solid var(--line);
   transition: background var(--tx-fast) var(--ease);
 }
-.ss-search__chip:hover{ background: radial-gradient(135% 140% at 16% -20%, rgba(255,255,255,0.55), rgba(255,255,255,0) 50%), var(--glass-fill), var(--surface-hover); }
+.ss-search__chip:hover{ background: var(--surface-hover); }
 .ss-search__chip .n{ font: 500 10px/1 var(--font-mono); color: var(--text-muted); }
 .ss-search__resbar{
   margin-top: var(--sp-8);
