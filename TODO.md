@@ -194,7 +194,14 @@ The high‑value, high‑complexity surfaces, onto the shared kit last.
       gallery / glance / reviews / related / docs extracted to `product-*`
       snippets, **verified pixel-identical live**. (The info aside size picker +
       form could still be extracted, but the section now meets the size target.)
-- [ ] Rebuild `section-product.css` (39 KB) as component CSS; delete the monolith.
+- [~] Rebuild `section-product.css` (39 KB) as component CSS; delete the monolith.
+      **Dead-CSS prune DONE** — 28 provably-dead rules removed (11 classes rendered
+      on no element: `shot__caption/counter`, `info__meta/subtitle`, `price__tax`,
+      `delivery__zone`, `glance__title/meta`, `bento__cell--dark`, `qual--dark`,
+      `signoff`), **1038 → 946 lines**, pixel-identical by construction, `theme check`
+      clean. Remainder is largely genuine PDP-specific design (per Phase 6) — a
+      further split into per-region component files is organizational and wants a
+      **live PDP preview** to verify (not available in this environment).
 - [ ] `main-collection` + `main-cart` onto shared components/blocks.
 - [ ] Audit `home-*` sections against the shared kit; remove leftovers.
 
