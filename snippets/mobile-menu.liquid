@@ -37,7 +37,21 @@
             <summary>{{ link.title }}<svg class="mobilemenu__acc-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5"/></svg></summary>
             <ul class="mobilemenu__acc-list">
               {%- for child in link.links -%}
-                <li><a href="{{ child.url }}"{% if child.active %} aria-current="page"{% endif %}>{{ child.title }}</a></li>
+                {%- if child.links != blank -%}
+                  {%- comment -%} A child that itself has children becomes a nested accordion. {%- endcomment -%}
+                  <li>
+                    <details class="mobilemenu__acc mobilemenu__acc--sub"{% if child.child_active %} open{% endif %}>
+                      <summary>{{ child.title }}<svg class="mobilemenu__acc-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5"/></svg></summary>
+                      <ul class="mobilemenu__acc-list mobilemenu__acc-list--sub">
+                        {%- for grandchild in child.links -%}
+                          <li><a href="{{ grandchild.url }}"{% if grandchild.active %} aria-current="page"{% endif %}>{{ grandchild.title }}</a></li>
+                        {%- endfor -%}
+                      </ul>
+                    </details>
+                  </li>
+                {%- else -%}
+                  <li><a href="{{ child.url }}"{% if child.active %} aria-current="page"{% endif %}>{{ child.title }}</a></li>
+                {%- endif -%}
               {%- endfor -%}
             </ul>
           </details>

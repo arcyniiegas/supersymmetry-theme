@@ -116,7 +116,7 @@ html[data-glass="off"] .mobilemenu__panel{
   fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
   transition: transform var(--tx-base) var(--ease-snap);
 }
-.mobilemenu__acc[open] .mobilemenu__acc-caret{ transform: rotate(180deg); }
+.mobilemenu__acc[open] > summary .mobilemenu__acc-caret{ transform: rotate(180deg); }
 .mobilemenu__acc-list{ list-style: none; padding: 0 0 var(--sp-3); display: flex; flex-direction: column; gap: 2px; }
 /* scoped under .mobilemenu__nav so it outranks the big .mobilemenu__nav a rule */
 .mobilemenu__nav .mobilemenu__acc-list a{
@@ -127,6 +127,17 @@ html[data-glass="off"] .mobilemenu__panel{
 .mobilemenu__nav .mobilemenu__acc-list a:hover,
 .mobilemenu__nav .mobilemenu__acc-list a:active,
 .mobilemenu__nav .mobilemenu__acc-list a[aria-current="page"]{ color: var(--text); }
+/* Nested (grandchild) accordion — a child row that itself opens further.
+   Its summary matches a child link, not the big top-level summary. */
+.mobilemenu__acc--sub{ border-bottom: 0; }
+.mobilemenu__nav .mobilemenu__acc--sub > summary{
+  padding: 9px 0; min-height: 40px;
+  font: 500 15px/1 var(--font-sans); letter-spacing: -0.01em; color: var(--text-muted);
+}
+.mobilemenu__nav .mobilemenu__acc--sub[open] > summary{ color: var(--text); }
+.mobilemenu__acc--sub > summary .mobilemenu__acc-caret{ width: 14px; height: 10px; }
+.mobilemenu__acc-list--sub{ padding: 2px 0 var(--sp-3) var(--sp-4); }
+.mobilemenu__nav .mobilemenu__acc-list--sub a{ font-size: 14px; }
 
 /* ── featured image tiles — the shared .tile primitive (component-tile.css);
    the menu owns only the grid + tile aspect ── */
