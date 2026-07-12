@@ -20,11 +20,14 @@
       <div class="quals" aria-label="{{ 'accessibility.construction_features' | t }}">
 {%- assign features = product.metafields.custom.features.value -%}
 {%- for f in features -%}
+        {%- comment -%} description keyed by the feature's icon (stable enum), copy in locales {%- endcomment -%}
+        {%- assign feat_key = f.icon | replace: '-', '_' -%}
+        {%- capture feat_desc -%}{{ feat_key | prepend: 'product.feat.' | t }}{%- endcapture -%}
         <div class="qual">
           {% render 'icon-feature', icon: f.icon %}
           <div class="qual__text">
             <span class="k">{{ f.label }}</span>
-            {%- if f.label_en != blank -%}<span class="v">{{ f.label_en }}</span>{%- endif -%}
+            {%- unless feat_desc contains 'translation missing' or f.icon == blank -%}<span class="v">{{ feat_desc }}</span>{%- endunless -%}
           </div>
         </div>
 {%- endfor -%}
@@ -60,25 +63,37 @@
 {%- if product.metafields.care.steps != blank -%}
 {%- for step in product.metafields.care.steps.value -%}
         <div class="care__cell">
-          <div class="care__label">{{ step }}</div>
+          <div class="care__text"><div class="care__label">{{ step }}</div></div>
         </div>
 {%- endfor -%}
 {%- else -%}
         <div class="care__cell">
           <div class="care__icon"><svg viewBox="0 0 32 32"><path d="M8 13 L24 13 L22 24 L10 24 Z"/><path d="M12 13 V8 a4 4 0 0 1 8 0 V13"/></svg></div>
-          <div class="care__label">Valyti drėgnu skudurėliu.</div>
+          <div class="care__text">
+            <div class="care__label">{{ 'product.care.clean_label' | t }}</div>
+            <div class="care__desc">{{ 'product.care.clean_desc' | t }}</div>
+          </div>
         </div>
         <div class="care__cell">
           <div class="care__icon"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="9"/><line x1="9" y1="9" x2="23" y2="23"/></svg></div>
-          <div class="care__label">Neskalbti skalbimo mašinoje.</div>
+          <div class="care__text">
+            <div class="care__label">{{ 'product.care.nowash_label' | t }}</div>
+            <div class="care__desc">{{ 'product.care.nowash_desc' | t }}</div>
+          </div>
         </div>
         <div class="care__cell">
           <div class="care__icon"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="9"/><path d="M16 10 V16 L21 19"/></svg></div>
-          <div class="care__label">Tepti kondicionieriumi kas 60 d.</div>
+          <div class="care__text">
+            <div class="care__label">{{ 'product.care.condition_label' | t }}</div>
+            <div class="care__desc">{{ 'product.care.condition_desc' | t }}</div>
+          </div>
         </div>
         <div class="care__cell">
           <div class="care__icon"><svg viewBox="0 0 32 32"><path d="M8 15 V24 H24 V15"/><path d="M16 4 V16 M11 11 L16 16 L21 11"/></svg></div>
-          <div class="care__label">Džiovinti sausoje, tamsioje vietoje.</div>
+          <div class="care__text">
+            <div class="care__label">{{ 'product.care.dry_label' | t }}</div>
+            <div class="care__desc">{{ 'product.care.dry_desc' | t }}</div>
+          </div>
         </div>
 {%- endif -%}
       </div>

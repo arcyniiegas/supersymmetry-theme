@@ -772,30 +772,35 @@ html[data-glass="off"] .buybar{
   color: var(--text);
 }
 
-/* care — bento mini */
+/* care — bento with copy: 2×2 on desktop (cells wide enough for a sentence),
+   a single column on mobile */
 .care{
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--sp-3);
   max-width: 720px;
 }
 @media (max-width: 520px){
-  .care{ grid-template-columns: repeat(2, 1fr); }
+  .care{ grid-template-columns: 1fr; }
 }
 .care__cell{
   background: var(--surface);
   border-radius: var(--r-lg);
-  padding: var(--sp-6) var(--sp-5);
-  display: grid; gap: var(--sp-3); place-items: start;
-  aspect-ratio: 1 / 1;
+  padding: var(--sp-6);
+  display: grid; gap: var(--sp-5); align-content: start;
   min-width: 0;
 }
 .care__icon{ color: var(--text); }
 .care__icon svg{ width: 26px; height: 26px; stroke: currentColor; fill: none; stroke-width: 1.4; }
+.care__text{ display: grid; gap: 6px; }
 .care__label{
-  font: 500 13px/1.4 var(--font-sans);
+  font: 500 14px/1.35 var(--font-sans);
   color: var(--text);
-  align-self: end;
+  letter-spacing: -0.005em;
+}
+.care__desc{
+  font: 400 13px/1.55 var(--font-sans);
+  color: var(--text-muted);
   letter-spacing: -0.005em;
 }
 
@@ -818,12 +823,12 @@ html[data-glass="off"] .buybar{
 /* QUALITY GLYPHS — 20 shoe-quality pictograms, bento tiles */
 .quals{
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 8px;
-  max-width: 880px;
+  /* three across on desktop — cells wide enough for a sentence of copy */
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-3);
+  max-width: 960px;
 }
-@media (max-width: 1100px){ .quals{ grid-template-columns: repeat(4, 1fr); } }
-@media (max-width: 760px){ .quals{ grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 760px){ .quals{ grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 480px){
   /* Bento mosaic on mobile, like Trumpai: a wide banner then a pair of
      squares, repeating — instead of a uniform stack of identical tiles.
@@ -838,7 +843,7 @@ html[data-glass="off"] .buybar{
   padding: var(--sp-6) var(--sp-5);
   display: grid;
   gap: var(--sp-4);
-  /* icon pinned to the top, label + English gloss to the bottom — fills the
+  /* icon pinned to the top, label + description to the bottom — fills the
      tile the way the Trumpai cells do, instead of clustering at the top. */
   align-content: space-between;
   min-height: 148px;

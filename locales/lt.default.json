@@ -70,6 +70,33 @@
       "weight": "Svoris",
       "origin": "Kilmė"
     },
+    "feat": {
+      "lightweight": "Sumažintas svoris, kad pora beveik nesijaustų ant kojų net ir po ilgos dienos.",
+      "flex_sole": "Padas lankstosi kartu su pėda, todėl žingsnis lieka natūralus nuo pirmo mosto.",
+      "soft_insole": "Minkštas vidpadis prisitaiko prie pėdos ir sugeria kiekvieno žingsnio smūgį.",
+      "breathes": "Medžiaga praleidžia orą, todėl koja lieka sausa ir vėsi visą dieną.",
+      "natural_leather": "Tikra oda, kuri su laiku tik gražėja ir įgauna tavo pėdos formą.",
+      "soft_leather": "Minkšta, lanksti oda nespaudžia jau nuo pirmo avėjimo — be įsidėvėjimo laikotarpio.",
+      "perforated": "Smulkios skylutės odoje praleidžia orą ir apsaugo pėdą nuo perkaitimo.",
+      "non_slip": "Protektorius tvirtai laikosi net ant šlapio ar slidaus paviršiaus.",
+      "anatomical": "Forma seka natūralią pėdos liniją, todėl atrama jaučiama tolygiai.",
+      "warm_lining": "Šiltas vidinis pamušalas išlaiko šilumą šaltuoju metų laiku.",
+      "elastic_strap": "Elastinė juosta prisitaiko prie kelties ir laiko batą tvirtai, be spaudimo.",
+      "natural_fur": "Natūralus kailis šildo ir tuo pačiu leidžia kojai kvėpuoti.",
+      "zipper": "Šoninis užtrauktukas leidžia apsiauti ir nusiauti greitai, be raištelių.",
+      "slip_on": "Įspiriamas modelis be raištelių — apsiauni vienu judesiu.",
+      "heel": "Tvirtas kulno kontraforsas laiko pėdą stabiliai kiekviename žingsnyje."
+    },
+    "care": {
+      "clean_label": "Valyti drėgnu skudurėliu.",
+      "clean_desc": "Purvą nuvalyk iškart minkštu, vos drėgnu skudurėliu — be muilo ir stiprių valiklių.",
+      "nowash_label": "Neskalbti skalbimo mašinoje.",
+      "nowash_desc": "Oda nemėgsta vandens ir būgno — mašininis skalbimas ją nepataisomai sugadina.",
+      "condition_label": "Tepti kondicionieriumi kas 60 d.",
+      "condition_desc": "Kas porą mėnesių įtrink odos kondicionieriaus — jis maitina odą ir saugo nuo įtrūkimų.",
+      "dry_label": "Džiovinti sausoje, tamsioje vietoje.",
+      "dry_desc": "Džiovink natūraliai, atokiau nuo saulės ir radiatorių, kad oda neišsausėtų."
+    },
     "fit": {
       "wide": "Platūs",
       "narrow": "Siauri",

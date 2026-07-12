@@ -70,6 +70,33 @@
       "weight": "Weight",
       "origin": "Origin"
     },
+    "feat": {
+      "lightweight": "Weight is kept to a minimum, so the pair barely registers on your feet even after a long day.",
+      "flex_sole": "The sole bends with the foot, keeping every step natural from the very first stride.",
+      "soft_insole": "A soft insole moulds to the foot and absorbs the impact of each step.",
+      "breathes": "The material lets air through, so your foot stays dry and cool all day.",
+      "natural_leather": "Real leather that only improves with time and takes on the shape of your foot.",
+      "soft_leather": "Soft, supple leather that never pinches — no breaking-in period.",
+      "perforated": "Fine perforations in the leather let air through and keep the foot from overheating.",
+      "non_slip": "The tread holds firmly even on wet or slippery ground.",
+      "anatomical": "The shape follows the natural line of the foot for even, steady support.",
+      "warm_lining": "A warm inner lining holds the heat through the cold season.",
+      "elastic_strap": "An elastic band adapts to the instep and holds the shoe securely, without pressure.",
+      "natural_fur": "Natural fur keeps you warm while still letting the foot breathe.",
+      "zipper": "A side zip lets you slip in and out quickly, with no lacing.",
+      "slip_on": "A slip-on design with no laces — on in a single motion.",
+      "heel": "A firm heel counter keeps the foot stable with every step."
+    },
+    "care": {
+      "clean_label": "Wipe with a damp cloth.",
+      "clean_desc": "Clean off dirt straight away with a soft, barely damp cloth — no soap or harsh cleaners.",
+      "nowash_label": "Do not machine wash.",
+      "nowash_desc": "Leather dislikes water and the drum — a machine wash ruins it beyond repair.",
+      "condition_label": "Condition every 60 days.",
+      "condition_desc": "Every couple of months, work in a leather conditioner — it feeds the leather and guards against cracking.",
+      "dry_label": "Dry in a cool, dark place.",
+      "dry_desc": "Dry naturally, away from sun and radiators, so the leather doesn't dry out."
+    },
     "fit": {
       "wide": "Wide",
       "narrow": "Narrow",
