@@ -184,6 +184,7 @@
     },
     "journal": {
       "type": "home-journal",
+      "disabled": true,
       "settings": {
         "title": "Iš žurnalo",
         "blog": "",
