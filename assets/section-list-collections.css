@@ -14,12 +14,6 @@
 .phead2__aside{ display: grid; gap: var(--sp-5); padding-bottom: 6px; }
 .phead2__intro{ font: 400 17px/1.55 var(--font-sans); color: var(--text-muted); max-width: 42ch; letter-spacing: -0.005em; }
 .phead2__intro b{ color: var(--text); font-weight: 500; }
-.phead2__stats{
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-4);
-  padding-top: var(--sp-5); border-top: 1px solid var(--hairline);
-}
-.pstat .k{ font: 500 10px/1 var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); }
-.pstat .v{ font: 500 22px/1 var(--font-mono); letter-spacing: -0.02em; margin-top: 6px; }
 
 /* collections grid */
 .colls{

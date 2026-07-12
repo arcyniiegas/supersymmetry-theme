@@ -11,10 +11,6 @@
       assign curated_count = curated_count | plus: 1
     endif
   endfor
-  assign shown_count = collections.size
-  if curated_count > 0
-    assign shown_count = curated_count
-  endif
 -%}
 <!-- ──────────── BREADCRUMBS ──────────── -->
 {% render 'breadcrumbs', current: 'Kolekcijos' %}
@@ -22,16 +18,10 @@
 <!-- ──────────── PAGE HEAD ──────────── -->
 <div class="phead2">
   <div>
-    <div class="eyebrow-rule">{{ section.settings.eyebrow }}</div>
     <h1 class="phead2__title"><span class="light">{{ section.settings.title_light }}</span> {{ section.settings.title }}</h1>
   </div>
   <div class="phead2__aside">
     <p class="phead2__intro">{{ section.settings.intro }}</p>
-    <div class="phead2__stats">
-      <div class="pstat"><div class="k">Rinkinių</div><div class="v">{% if shown_count < 10 %}0{% endif %}{{ shown_count }}</div></div>
-      <div class="pstat"><div class="k">Prekių viso</div><div class="v">{{ collections.all.all_products_count | default: 0 }}</div></div>
-      <div class="pstat"><div class="k">Sezonas</div><div class="v">{{ section.settings.season }}</div></div>
-    </div>
   </div>
 </div>
 
@@ -101,11 +91,9 @@
     { "type": "header", "content": "Appearance" },
     { "type": "color_scheme", "id": "color_scheme", "label": "Colour scheme", "default": "scheme-1", "info": "Recolours this whole section. The default matches the rest of the site." },
     { "type": "color", "id": "text_color", "label": "Text colour", "info": "Recolours this section's text. Leave empty for the default near-black." },
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Visi rinkiniai · <b>SS 26</b>" },
     { "type": "text", "id": "title_light", "label": "Title (light part)", "default": "Visos" },
     { "type": "text", "id": "title", "label": "Title", "default": "kolekcijos." },
     { "type": "textarea", "id": "intro", "label": "Intro", "default": "Kiekvienas rinkinys — atskira partija, ribotas porų skaičius, <b>vienas modelis, daug niuansų</b>. Rinkis pagal nuotaiką arba pagal sezoną." },
-    { "type": "text", "id": "season", "label": "Season stat", "default": "SS·26" },
     { "type": "header", "content": "Bottom band" },
     { "type": "text", "id": "band_eyebrow", "label": "Eyebrow", "default": "Kaip skaityti partijas" },
     { "type": "text", "id": "band_title_light", "label": "Title (light part)", "default": "Vienas modelis." },
