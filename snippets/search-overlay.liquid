@@ -5,7 +5,7 @@
       <button type="button" class="ss-search__close" data-drawer-close aria-label="{{ 'accessibility.close_search' | t }}"><span class="x" aria-hidden="true">✕</span> {{ 'search.close' | t }}</button>
     </div>
     <form class="ss-search__box" action="{{ routes.search_url }}" method="get" role="search">
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><path d="M18 18l6 6"/></svg>
+      {% render 'icon', name: 'search' %}
       <input type="text" id="ssSearchInput" name="q" placeholder="{{ settings.search_placeholder | default: 'Ko ieškai?' | escape }}" autocomplete="off" aria-label="{{ 'search.title' | t }}" />
       <input type="hidden" name="options[prefix]" value="last">
       <button type="button" class="ss-search__clear" id="ssSearchClear" aria-label="{{ 'search.clear' | t }}">✕</button>

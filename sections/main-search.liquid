@@ -16,7 +16,7 @@
   <div class="eyebrow-rule shead__eyebrow">{{ section.settings.eyebrow | default: 'Paieška · <b>visa kolekcija ir žurnalas</b>' }}</div>
   <form action="{{ routes.search_url }}" method="get" role="search">
   <div class="searchbox">
-    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><path d="M18 18l6 6"/></svg>
+    {% render 'icon', name: 'search' %}
     <input type="text" id="q" name="q" value="{{ search.terms | escape }}" placeholder="{{ section.settings.placeholder | default: 'Ko ieškai?' | escape }}" autocomplete="off" aria-label="{{ 'search.title' | t }}" />
     <button type="button" class="searchbox__clear" id="clear" aria-label="{{ 'search.clear' | t }}" onclick="var i=document.getElementById('q');if(i.value){window.location='{{ routes.search_url }}';}else{i.focus();}">✕</button>
   </div>

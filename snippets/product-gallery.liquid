@@ -6,7 +6,7 @@
       <img class="shot__img" src="{{ media | image_url: width: 1400 }}" srcset="{{ media | image_url: width: 700 }} 700w, {{ media | image_url: width: 1400 }} 1400w" sizes="(max-width: 960px) 100vw, 60vw" width="{{ media.preview_image.width | default: 1400 }}" height="{{ media.preview_image.height | default: 1400 }}" alt="{% if media.alt != blank and media.alt != product.title %}{{ media.alt | escape }}{% else %}{{ product.title | escape }} — vaizdas {{ forloop.index }} iš {{ product.media.size }}{% endif %}" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"/>
 {%- if forloop.first %}
       <button class="shot__zoom" type="button" aria-label="{{ 'accessibility.zoom' | t }}">
-        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M16 16 L21 21"/><path d="M8 11 H14 M11 8 V14"/></svg>
+        {% render 'icon', name: 'zoom' %}
       </button>
 {%- endif %}
     </figure>
@@ -15,7 +15,7 @@
     <figure class="shot shot--portrait">
       <img class="shot__img" src="{{ 'Nr1.webp' | asset_url }}" width="1400" height="1400" alt="Šoninis profilis" loading="eager"/>
       <button class="shot__zoom" type="button" aria-label="{{ 'accessibility.zoom' | t }}">
-        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M16 16 L21 21"/><path d="M8 11 H14 M11 8 V14"/></svg>
+        {% render 'icon', name: 'zoom' %}
       </button>
     </figure>
 

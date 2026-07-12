@@ -44,6 +44,7 @@ Render with named args and a documented `{% comment %}` header:
 | `cart-line` | One cart line row (media, title, variant, qty stepper, remove, price) | `item` (req), `compact` (bool — drawer variant) | **Stable** — shared by the cart drawer + cart page |
 | `free-shipping-bar` | Free-shipping progress meter (Liquid-computed, server-authoritative) | reads `cart` + `free_shipping_threshold` | **Stable** — `--free-ship-pct` var drives a `scaleX` fill |
 | `featured-tile` | Image tile with gradient caption overlay → the shared `.tile` primitive (`component-tile.css`) | `image`, `heading`, `link`, `sizes`, `class`, `attributes` | **Stable** — single-sources the tiles in the header mega panel + mobile menu |
+| `icon` | Inline SVG glyph keyed by `name` (`case`/`when`, each emits its own `<svg>`; whitespace-trimmed → byte-identical output) | `name` (`arrow`/`arrow-nav`/`search`/`zoom`) | **Stable** — adopted at 11 byte-identical sites (home-collections/arrivals/journal, main-search, search-overlay, product-gallery). Deliberately NOT adopted where markup differs (main-collection arrow has inline stroke attrs; product-related arrow is stroke 1.5) — extend per-case as needed |
 | `collection-filter-drawer` | Off-canvas filters (swatch case) | `section`, `collection`, `paginate` | Stable — clean compile |
 | `collection-notes` | Collection notes (`note_row`) | `section` | Stable (split from `main-collection`) |
 | `stat` | Shared page-head stat — **unifies 5 sections** | `k`, `v`, `tabular`, `accent`, `attrs` | ✅ verified live |

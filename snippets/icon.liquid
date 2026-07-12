@@ -1,0 +1,21 @@
+{%- comment -%}
+  Icon primitive — inline SVG keyed by `name`. Render inline:
+    {% render 'icon', name: 'arrow' %}
+
+  Unlike icon-feature (one shared 30×30 wrapper), these glyphs each carry their
+  own viewBox/attributes, so every case emits a complete <svg>…</svg>. The
+  whitespace-trim markers keep the output byte-identical to the inline SVGs this
+  replaced, so adoption is pixel-safe. Add an icon = add a `when` case.
+
+  Names:
+    arrow      · 14px eyebrow "see all" arrow (inline stroke 1.6)
+    arrow-nav  · 16px card CTA arrow (stroke/fill come from CSS)
+    search     · 28px search glass
+    zoom       · 24px gallery zoom-in (stroke/fill come from CSS)
+{%- endcomment -%}
+{%- case name -%}
+{%- when 'arrow' -%}<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7 H11 M7 3 L11 7 L7 11"></path></svg>
+{%- when 'arrow-nav' -%}<svg viewBox="0 0 16 16"><path d="M3 8 H13 M8 3 L13 8 L8 13"></path></svg>
+{%- when 'search' -%}<svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><path d="M18 18l6 6"/></svg>
+{%- when 'zoom' -%}<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M16 16 L21 21"/><path d="M8 11 H14 M11 8 V14"/></svg>
+{%- endcase -%}

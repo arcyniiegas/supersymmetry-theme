@@ -7,7 +7,7 @@
       <h2 class="journal__title">{{ section.settings.title | default: 'Iš žurnalo' }} <span class="light">—</span></h2>
       <a href="{{ blogs[section.settings.blog].url | default: routes.root_url }}" class="journal__more">
         {{ section.settings.more_label | default: 'Visi straipsniai' }}
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7 H11 M7 3 L11 7 L7 11"></path></svg>
+        {% render 'icon', name: 'arrow' %}
       </a>
     </div>
 
