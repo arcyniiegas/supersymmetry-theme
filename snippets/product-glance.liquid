@@ -1,14 +1,16 @@
 {%- comment -%} Product — at-a-glance bento (Trumpai). Rendered by main-product for the `glance` block.
-  material/sole/weight ← custom.model_info · maker/origin ← custom.manufacturer · price ← product.
+  Each tile is its own direct product metafield (typed inline per model):
+  material/sole/weight/maker/origin ← custom.* · price ← product.
+  Falls back to the legacy model_info / manufacturer metaobjects for older products
+  (manufacturer still feeds the Apie gamintoją description).
   Real value or an honest em-dash — never a fabricated default. {%- endcomment -%}
-{%- comment -%} material/sole/weight are direct product metafields (typed inline per
-  product); fall back to the legacy model_info metaobject for older products.
-  maker/origin stay on the shared manufacturer metaobject (it also feeds Apie gamintoją). {%- endcomment -%}
 {%- assign model = product.metafields.custom.model_info.value -%}
 {%- assign maker = product.metafields.custom.manufacturer.value -%}
 {%- assign v_material = product.metafields.custom.material.value | default: model.material -%}
 {%- assign v_sole = product.metafields.custom.sole.value | default: model.sole -%}
 {%- assign v_weight = product.metafields.custom.weight.value | default: model.weight -%}
+{%- assign v_maker = product.metafields.custom.maker.value | default: maker.name | default: product.vendor -%}
+{%- assign v_origin = product.metafields.custom.origin.value | default: maker.country_of_origin -%}
 <section class="glance" {{ block.shopify_attributes }}>
   <div class="glance__head">
     <div>
@@ -48,7 +50,7 @@
     <div class="bento__cell b-4">
       <div class="bento__label">{{ 'product.glance.maker' | t }}</div>
       <div>
-        <div class="bento__value bento__value--mono">{{ maker.name | default: product.vendor | default: '—' }}</div>
+        <div class="bento__value bento__value--mono">{{ v_maker | default: '—' }}</div>
         {%- if block.settings.maker_sub != blank -%}<div class="bento__sub" style="margin-top: 8px;">{{ block.settings.maker_sub }}</div>{%- endif -%}
       </div>
     </div>
@@ -64,7 +66,7 @@
     <div class="bento__cell b-6">
       <div class="bento__label">{{ 'product.glance.origin' | t }}</div>
       <div>
-        <div class="bento__value">{{ maker.country_of_origin | default: '—' }}</div>
+        <div class="bento__value">{{ v_origin | default: '—' }}</div>
         {%- if block.settings.origin_sub != blank -%}<div class="bento__sub" style="margin-top: 8px;">{{ block.settings.origin_sub }}</div>{%- endif -%}
       </div>
     </div>
