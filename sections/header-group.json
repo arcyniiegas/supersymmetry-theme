@@ -14,27 +14,17 @@
     "header": {
       "type": "header",
       "blocks": {
-        "dropdown_image_8gjKcb": {
-          "type": "dropdown_image",
-          "settings": {
-            "image": "shopify://shop_images/d84f52e4ef4cd566e6728490a1da2eb7.jpg",
-            "under": "",
-            "link": "",
-            "caption": ""
-          }
-        },
         "dropdown_image_3D838e": {
           "type": "dropdown_image",
           "settings": {
             "image": "shopify://shop_images/a746819c7c3cfecfa2538ff70fd4ffec.jpg_2K_202607091421.jpg",
-            "under": "Rankinės",
+            "under": "",
             "link": "",
             "caption": ""
           }
         }
       },
       "block_order": [
-        "dropdown_image_8gjKcb",
         "dropdown_image_3D838e"
       ],
       "settings": {
