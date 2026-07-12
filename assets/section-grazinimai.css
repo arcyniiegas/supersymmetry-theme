@@ -72,6 +72,8 @@
 }
 .sec--tight{ padding-top: var(--sp-10); padding-bottom: var(--sp-10); }
 .sec--surface{ background: var(--surface); max-width: none; padding-left: 0; padding-right: 0; }
+/* full-bleed layout of --surface, but white instead of grey (was an inline style) */
+.sec--white{ background: var(--bg); }
 .sec--surface > .sec__wrap{
   max-width: var(--max);
   margin: 0 auto;
