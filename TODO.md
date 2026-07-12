@@ -246,8 +246,15 @@ The high‑value, high‑complexity surfaces, onto the shared kit last.
       reduced-motion overrides** (the pre-split `@media` block sat before its
       target base rules → `animation:none` on stock/gantt/fit dots silently never
       applied; each now sits after its base in the owning file).
-- [ ] `main-collection` + `main-cart` onto shared components/blocks.
-- [ ] Audit `home-*` sections against the shared kit; remove leftovers.
+- [~] `main-collection` + `main-cart` onto shared components/blocks.
+      **main-cart done** (prior cart pass — `cart-empty` + `cart-line` snippets,
+      `section-cart.css` + `component-cart.css`). **main-collection: markup already
+      reuses `product-card` / `collection-filter-drawer` / `collection-notes`; CSS
+      now componentized** — the off-canvas facet drawer (`.fdrawer*`/`.facet*`/
+      `.opt*`/`.swatch*`/filter `.size*`/`.price*`, ~270 lines) extracted to
+      `component-filter-drawer.css`, and the dead `.crumbs` dup (base.css owns it)
+      removed — `section-collection.css` 744 → 464, now collection-page layout only.
+      Remaining `.notes` footer is collection-specific (left section-local by design).
 
 ## Phase 6 — Consolidation
 
