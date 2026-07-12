@@ -24,6 +24,7 @@
           "type": "collection",
           "settings": {
             "collection": "pirstines",
+            "image": "shopify://shop_images/da4d3cad6397c8843c9a5bafffde049a.jpg",
             "badge": "",
             "count_word": "poros"
           }
@@ -32,6 +33,7 @@
           "type": "collection",
           "settings": {
             "collection": "salikai",
+            "image": "shopify://shop_images/608b5f05612715ec1171a1bdd8963ed1.jpg",
             "badge": "",
             "count_word": "poros"
           }
@@ -48,6 +50,7 @@
           "type": "collection",
           "settings": {
             "collection": "kepures",
+            "image": "shopify://shop_images/1be07e37fa878dff591aa8655e22f65d.jpg",
             "badge": "",
             "count_word": "poros"
           }
