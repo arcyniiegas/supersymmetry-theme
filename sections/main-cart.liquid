@@ -47,9 +47,6 @@
       <div class="estimator__body">
         <span class="estimator__label">{{ section.settings.ship_note | default: 'Išsiunčiame per 1—2 darbo dienas iš Vilniaus.' }}</span>
       </div>
-      <div class="estimator__result">
-        <span class="estimator__cost">{{ section.settings.ship_cost_note | default: 'Pristatymas skaičiuojamas apmokant' }}</span>
-      </div>
     </div>
 
     <div class="items" id="items">
@@ -57,12 +54,6 @@
       {%- for item in cart.items -%}
       {% render 'cart-line', item: item, index: forloop.index %}
       {%- endfor -%}
-
-      <!-- gift note -->
-      <div class="giftline">
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2.5" y="6.5" width="13" height="9" rx="1"/><path d="M2.5 9.5h13M9 6.5v9M9 6.5S7.5 2.5 5.5 3.5 7 6.5 9 6.5zM9 6.5s1.5-4 3.5-3-.5 3-3.5 3z"/></svg>
-        <span>{{ section.settings.gift_prefix | default: 'Dovana?' }} <a href="{{ section.settings.gift_link | default: pages.kontaktai.url | default: routes.root_url }}" class="uline">{{ section.settings.gift_link_label | default: 'Pridėk ranka rašytą kortelę' }}</a> {{ section.settings.gift_suffix | default: 'ir įvyniojimą — nemokamai.' }}</span>
-      </div>
     </div>
   </div>
 
