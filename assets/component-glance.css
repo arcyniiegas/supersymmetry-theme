@@ -1,0 +1,130 @@
+@charset "UTF-8";
+
+/* ════════════════════════════════════════════════════════════
+   GLANCE — the "Trumpai" at-a-glance bento (snippets/product-glance.liquid).
+   Extracted from section-product.css. Loaded by main-product for the
+   `glance` block. Self-contained: only .glance / .bento* selectors.
+   ════════════════════════════════════════════════════════════ */
+.glance{
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter) var(--sp-24);
+}
+@media (max-width: 720px){
+  .glance{ padding-bottom: var(--sp-16); }
+}
+.glance__head{
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: var(--sp-6);
+  gap: var(--sp-4);
+}
+
+.bento{
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: 180px;
+  gap: var(--sp-3);
+  margin-top: var(--sp-8);
+}
+@media (max-width: 900px){
+  .bento{ grid-template-columns: repeat(6, 1fr); grid-auto-rows: 160px; }
+}
+@media (max-width: 520px){
+  .bento{
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: minmax(112px, auto);
+    grid-auto-flow: row dense;
+  }
+}
+.bento__cell{
+  background: var(--surface);
+  border-radius: var(--r-lg);
+  padding: var(--sp-6);
+  display: flex; flex-direction: column; justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+}
+/* Orange anchor variant — ink text on orange, used once for the price */
+.bento__cell--orange{
+  background: var(--ink);
+  color: var(--bg);
+}
+.bento__cell--orange .bento__label{ color: rgba(255,255,255,0.55); }
+.bento__cell--orange .bento__sub{ color: rgba(255,255,255,0.7); }
+.bento__cell--orange .bento__label .idx{ background: var(--bg); color: var(--text); }
+.bento__label{
+  font: 500 10px/1 var(--font-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  display: flex; align-items: center; gap: 8px;
+}
+.bento__label .idx{
+  display: inline-grid; place-items: center;
+  width: 18px; height: 18px;
+  background: var(--ink); color: var(--bg);
+  border-radius: 99px;
+  font-size: 9px;
+}
+/* One consistent value scale across the grid: a single standard size for
+   every tile and one step up for the price anchor. Mono values sit a hair
+   smaller so they read at the same optical size as the sans ones. */
+.bento__value{
+  font: 500 26px/1 var(--font-sans);
+  letter-spacing: -0.02em;
+}
+.bento__value--big{
+  font-size: 38px;
+  letter-spacing: -0.03em;
+}
+.bento__value--mono{
+  font-family: var(--font-mono);
+  font-feature-settings: 'tnum';
+  font-size: 23px;
+  letter-spacing: -0.02em;
+}
+.bento__value--big.bento__value--mono{ font-size: 36px; }
+.bento__sub{
+  margin-top: var(--sp-2);
+  font: 400 13px/1.4 var(--font-sans);
+  color: var(--text-muted);
+  max-width: 28ch;
+}
+/* Spans */
+.b-1{ grid-column: span 4; }
+.b-2{ grid-column: span 4; }
+.b-3{ grid-column: span 4; }
+.b-4{ grid-column: span 6; grid-row: span 1; }
+.b-5{ grid-column: span 3; }
+.b-6{ grid-column: span 3; }
+@media (max-width: 900px){
+  .b-1{ grid-column: span 3; }
+  .b-2{ grid-column: span 3; }
+  .b-3{ grid-column: span 6; }
+  .b-4{ grid-column: span 3; }
+  .b-5{ grid-column: span 3; }
+  .b-6{ grid-column: span 6; }
+}
+@media (max-width: 520px){
+  /* Real mosaic, not stacked blobs: Material is a tall tile (it carries the
+     shoe illustration), Price is a wide ink banner, the rest are small tiles.
+     Dense flow backfills the gap beside the tall tile with Maker. */
+  .b-1{ grid-column: span 1; grid-row: span 2; } /* Material — tall */
+  .b-2{ grid-column: span 1; grid-row: span 1; } /* Sole */
+  .b-3{ grid-column: span 2; grid-row: span 1; } /* Price — wide banner */
+  .b-4{ grid-column: span 1; grid-row: span 1; } /* Maker */
+  .b-5{ grid-column: span 1; grid-row: span 1; } /* Weight */
+  .b-6{ grid-column: span 1; grid-row: span 1; } /* Origin */
+  /* values scaled down to the smaller tiles */
+  .bento__value{ font-size: 20px; }
+  .bento__value--mono{ font-size: 18px; }
+  .bento__value--big{ font-size: 32px; }
+  .bento__value--big.bento__value--mono{ font-size: 30px; }
+}
+.bento__bg{
+  position: absolute; right: -20px; bottom: -20px;
+  opacity: 0.06; pointer-events: none;
+}
+.bento__bg svg{ width: 200px; height: auto; }
+.bento__cell--orange .bento__bg{ opacity: 0.18; }
