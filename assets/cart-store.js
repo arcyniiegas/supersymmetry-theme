@@ -8,7 +8,7 @@
    Shopify stays authoritative for ALL money: each mutation asks Shopify to
    re-render the affected sections (Bundled Section Rendering) and returns that
    Liquid HTML in event.detail.sections — this module never computes subtotals,
-   discounts, tax, or free-shipping state. It only mirrors item_count into the
+   discounts, tax, or shipping state. It only mirrors item_count into the
    header / drawer bag badges.
 
    Event: 'cart:updated' → detail { cart, sections, source }

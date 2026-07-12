@@ -62,12 +62,6 @@
         "default": "LT · EN"
       },
       {
-        "type": "number",
-        "id": "free_shipping_threshold",
-        "label": "Free shipping threshold (€)",
-        "default": 100
-      },
-      {
         "type": "text",
         "id": "phone",
         "label": "Phone",
