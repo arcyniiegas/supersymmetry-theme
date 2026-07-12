@@ -72,45 +72,56 @@ html[data-glass="off"] .mobilemenu__panel{
   .mobilemenu__scrim, .mobilemenu__panel{ transition: none; }
 }
 
-.mobilemenu__top{ display: flex; align-items: center; justify-content: space-between; padding: 6px 0 20px; }
-.mobilemenu__brand{ font: 600 22px/1 var(--font-sans); letter-spacing: -0.025em; color: var(--text); display: inline-flex; align-items: center; gap: 8px; }
+/* On-glass hairline — the exact translucent-ink weight the cart drawer uses
+   for its head/foot dividers. A solid --line reads wrong over frosted glass,
+   so every divider in the panel resolves to this instead. */
+.mobilemenu__top{ display: flex; align-items: center; justify-content: space-between; padding: var(--sp-2) 0 var(--sp-5); }
+.mobilemenu__brand{ font: 600 20px/1 var(--font-sans); letter-spacing: -0.025em; color: var(--text); display: inline-flex; align-items: center; gap: 8px; }
 .mobilemenu__brand .brand-dot{ width: 8px; height: 8px; }
-.mobilemenu__close{ width: 44px; height: 44px; display: grid; place-items: center; color: var(--text); font-size: 20px; }
+/* matches .cart-drawer__close: SVG ✕ in a rounded hit-target with a surface hover */
+.mobilemenu__close{
+  width: 40px; height: 40px; margin-right: -6px;
+  display: grid; place-items: center; color: var(--text);
+  border-radius: 99px;
+  transition: background var(--tx-fast) var(--ease);
+}
+.mobilemenu__close:hover{ background: var(--surface); }
+.mobilemenu__close svg{ width: 16px; height: 16px; }
 
-.mobilemenu__nav{ display: flex; flex-direction: column; border-top: 1px solid color-mix(in oklab, var(--ink) 12%, transparent); }
+.mobilemenu__nav{ display: flex; flex-direction: column; border-top: 1px solid color-mix(in oklab, var(--ink) 10%, transparent); }
 .mobilemenu__nav a{
   display: flex; align-items: center; justify-content: space-between;
-  padding: 17px 0; min-height: 44px;
-  font: 500 clamp(27px, 8vw, 34px)/1 var(--font-sans); letter-spacing: -0.035em; color: var(--text);
-  border-bottom: 1px solid color-mix(in oklab, var(--ink) 8%, transparent);
+  padding: var(--sp-4) 0; min-height: 44px;
+  font: 500 clamp(22px, 5.2vw, 26px)/1.05 var(--font-sans); letter-spacing: -0.025em; color: var(--text);
+  border-bottom: 1px solid color-mix(in oklab, var(--ink) 10%, transparent);
 }
-.mobilemenu__nav a span{ color: var(--orange); font-size: 20px; opacity: 0; transform: translateX(-6px); transition: opacity .2s var(--ease), transform .2s var(--ease); }
+.mobilemenu__nav a span{ color: var(--text-muted); font-size: 16px; opacity: 0; transform: translateX(-6px); transition: opacity .2s var(--ease), transform .2s var(--ease); }
 .mobilemenu__nav a:hover span, .mobilemenu__nav a:active span{ opacity: 1; transform: none; }
 
-.mobilemenu__sec{ display: flex; flex-wrap: wrap; gap: 0 22px; margin-top: 22px; padding-top: 16px; border-top: 1px solid color-mix(in oklab, var(--ink) 12%, transparent); }
-.mobilemenu__sec a{ padding: 12px 0; min-height: 44px; display: inline-flex; align-items: center; font: 500 12px/1 var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--mid); }
+.mobilemenu__sec{ display: flex; flex-wrap: wrap; gap: 0 var(--sp-5); margin-top: var(--sp-6); padding-top: var(--sp-4); border-top: 1px solid color-mix(in oklab, var(--ink) 10%, transparent); }
+.mobilemenu__sec a{ padding: 12px 0; min-height: 44px; display: inline-flex; align-items: center; font: 500 11px/1 var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); transition: color var(--tx-fast) var(--ease); }
 .mobilemenu__sec a:hover, .mobilemenu__sec a:active{ color: var(--text); }
 
 /* ── accordions: a top-level entry that expands to sub-links (native <details>) ── */
-.mobilemenu__acc{ border-bottom: 1px solid color-mix(in oklab, var(--ink) 8%, transparent); }
+.mobilemenu__acc{ border-bottom: 1px solid color-mix(in oklab, var(--ink) 10%, transparent); }
 .mobilemenu__acc summary{
   list-style: none; cursor: pointer;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 17px 0; min-height: 44px;
-  font: 500 clamp(27px, 8vw, 34px)/1 var(--font-sans); letter-spacing: -0.035em; color: var(--text);
+  padding: var(--sp-4) 0; min-height: 44px;
+  font: 500 clamp(22px, 5.2vw, 26px)/1.05 var(--font-sans); letter-spacing: -0.025em; color: var(--text);
 }
 .mobilemenu__acc summary::-webkit-details-marker{ display: none; }
 .mobilemenu__acc-caret{
-  width: 20px; height: 13px; flex-shrink: 0;
+  width: 18px; height: 12px; flex-shrink: 0;
   fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
   transition: transform var(--tx-base) var(--ease-snap);
 }
 .mobilemenu__acc[open] .mobilemenu__acc-caret{ transform: rotate(180deg); }
-.mobilemenu__acc-list{ list-style: none; padding: 0 0 14px; display: flex; flex-direction: column; gap: 2px; }
+.mobilemenu__acc-list{ list-style: none; padding: 0 0 var(--sp-3); display: flex; flex-direction: column; gap: 2px; }
 /* scoped under .mobilemenu__nav so it outranks the big .mobilemenu__nav a rule */
 .mobilemenu__nav .mobilemenu__acc-list a{
   padding: 9px 0; min-height: 40px; display: flex; align-items: center;
-  font: 500 17px/1 var(--font-sans); letter-spacing: -0.01em; color: var(--text-muted);
+  font: 500 15px/1 var(--font-sans); letter-spacing: -0.01em; color: var(--text-muted);
   border-bottom: 0;
 }
 .mobilemenu__nav .mobilemenu__acc-list a:hover,
@@ -119,20 +130,20 @@ html[data-glass="off"] .mobilemenu__panel{
 
 /* ── featured image tiles — the shared .tile primitive (component-tile.css);
    the menu owns only the grid + tile aspect ── */
-.mobilemenu__tiles{ display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 22px 0 4px; }
+.mobilemenu__tiles{ display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-2); padding: var(--sp-6) 0 var(--sp-1); }
 .mobilemenu__tiles .tile{ aspect-ratio: 4 / 5; }
 
 /* ── meta zone: social + colophon, one hairline-topped block pinned to the bottom ── */
 .mobilemenu__meta{
-  margin-top: auto; padding-top: 18px;
-  border-top: 1px solid color-mix(in oklab, var(--ink) 12%, transparent);
-  display: flex; flex-direction: column; gap: 10px;
+  margin-top: auto; padding-top: var(--sp-5);
+  border-top: 1px solid color-mix(in oklab, var(--ink) 10%, transparent);
+  display: flex; flex-direction: column; gap: var(--sp-2);
 }
-.mobilemenu__social{ display: flex; flex-wrap: wrap; gap: 0 20px; }
+.mobilemenu__social{ display: flex; flex-wrap: wrap; gap: 0 var(--sp-5); }
 .mobilemenu__social a{
   padding: 8px 0; min-height: 36px; display: inline-flex; align-items: center;
   font: 500 11px/1 var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase;
-  color: var(--soft);
+  color: var(--soft); transition: color var(--tx-fast) var(--ease);
 }
 .mobilemenu__social a:hover, .mobilemenu__social a:active{ color: var(--text); }
 
