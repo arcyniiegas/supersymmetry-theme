@@ -297,8 +297,14 @@ The high‑value, high‑complexity surfaces, onto the shared kit last.
       the global `:focus-visible` on specificity → no keyboard focus. Scoped to
       `:focus:not(:focus-visible)` (pointer look unchanged, keyboard ring back);
       verified in harness against real CSS. Left `.field`/`.promo` — they change
-      border-color on focus (valid indicator). Open: per-page heading hierarchy
-      (needs live render to verify).
+      border-color on focus (valid indicator).
+      **Heading hierarchy — DONE (live):** audited home/collection/PDP on the dev
+      store — each is clean (single h1, sequential h2s). Only defect was the
+      global footer (`<h6>` columns → h2→h6 skip); promoted to `<h2>` + retargeted
+      `.foot__col h6`→`h2` (computed style identical). Static a11y sweep complete.
+- [x] **Live-caught bug:** cart drawer empty state rendered the raw key
+      `cart.empty_cta` — `label: '…' | t` filter isn't evaluated inside a `render`
+      arg. Pre-assigned the translated value. Verified on dev store.
 
 ---
 
