@@ -271,6 +271,15 @@ The high‑value, high‑complexity surfaces, onto the shared kit last.
       it (it grouped colour/size controls, not text). Only the parity-gated
       word-ids (`headline_light/_bold`) remain.
 - [ ] Full `theme-check` pass; accessibility + Lighthouse sweep.
+      **In progress (static a11y sweep):** aria-label i18n done (see i18n note);
+      **skip-to-content link added** (`accessibility.skip_to_content`, targets
+      `#MainContent[tabindex=-1]`, off-screen until focus, verified in harness).
+      Confirmed OK: global `:focus-visible` ring covers all links/buttons; every
+      icon-only control has an aria-label; images have alt; customer forms use
+      `<label for>`; `<html lang>` is dynamic (`request.locale.iso_code`); the
+      header marquee already honours `prefers-reduced-motion` (animation:none).
+      Open: `input:focus{outline:none}` on ~6 fields (caret+border remain —
+      marginal), per-page heading hierarchy (needs live render to verify).
 
 ---
 
