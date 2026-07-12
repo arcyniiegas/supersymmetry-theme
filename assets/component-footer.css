@@ -50,7 +50,7 @@
   .foot__cols{ grid-template-columns: repeat(2, 1fr); gap: var(--sp-8) var(--sp-6); }
   .foot__newsletter{ grid-column: 1 / -1; max-width: 420px; }
 }
-.foot__col h6{
+.foot__col h2{
   margin: 0 0 var(--sp-4);
   font: 500 11px/1.3 var(--font-mono);
   letter-spacing: 0.04em;
