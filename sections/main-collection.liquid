@@ -127,7 +127,9 @@
     <div class="loadmore">
       <div class="loadmore__progress">
         <div>{{ 'collection.showing_html' | t: shown: collection.products.size, total: paginate.items }}</div>
-        <div class="loadmore__bar"><i></i></div>
+        {%- assign lm_pct = 100 -%}
+        {%- if paginate.items > 0 -%}{%- assign lm_pct = collection.products.size | times: 100 | divided_by: paginate.items -%}{%- endif -%}
+        <div class="loadmore__bar"><i style="width: {{ lm_pct }}%;"></i></div>
       </div>
       {%- if paginate.pages > 1 -%}<div class="loadmore__pagination">{{ paginate | default_pagination }}</div>{%- endif -%}
     </div>
@@ -138,11 +140,6 @@
 {% endpaginate %}
 
 </form>
-
-{%- if section.settings.show_notes -%}
-<!-- ──────────── APIE KOLEKCIJĄ ──────────── -->
-{% render 'collection-notes', section: section %}
-{%- endif -%}
 
 <script src="{{ 'collection.js' | asset_url }}" defer></script>
 
@@ -163,14 +160,6 @@
     { "type": "text", "id": "empty_title_light", "label": "Title (light part)", "default": "Poros" },
     { "type": "text", "id": "empty_title", "label": "Title (bold part)", "default": "grįžta netrukus." },
     { "type": "textarea", "id": "empty_text", "label": "Body text", "default": "Ši kolekcija dar pildoma — užsukite po kelių dienų arba peržiūrėkite visą asortimentą." },
-    { "type": "header", "content": "\"About the collection\" section" },
-    { "type": "checkbox", "id": "show_notes", "label": "Show this section", "default": true },
-    { "type": "text", "id": "notes_eyebrow", "label": "Eyebrow", "default": "Apie kolekciją" },
-    { "type": "text", "id": "notes_title", "label": "Title (bold part)", "default": "Kaip mąstome" },
-    { "type": "text", "id": "notes_title_light", "label": "Title (light part)", "default": "apie partijas." },
-    { "type": "textarea", "id": "notes_text", "label": "Body text", "default": "Kiekvienas modelis pagaminamas tik vieną kartą — 500 porų partija, sunumeruota nuo 001 iki 500. Kai partija baigiasi, modelio nebeatkartojame. Tai vieninteliai mūsų „naujienos“ — todėl ir patikrinkite šį puslapį prieš sezoną." },
-    { "type": "text", "id": "notes_cta_label", "label": "Button label", "default": "Mūsų istorija", "info": "Leave empty to hide the button." },
-    { "type": "url", "id": "notes_cta_link", "label": "Button link" },
     { "type": "header", "content": "Text size & colour" },
     { "type": "range", "id": "title_scale", "label": "Heading size", "min": 60, "max": 130, "step": 5, "unit": "%", "default": 100 },
     { "type": "range", "id": "card_name_scale", "label": "Product card text size", "min": 70, "max": 150, "step": 5, "unit": "%", "default": 100, "info": "Scales the product name and price on each card in the grid below." },
@@ -178,17 +167,7 @@
     { "type": "color", "id": "text_color", "label": "Text colour", "info": "Recolours this section's text. Leave empty for the default near-black." }
   ],
   "blocks": [
-    { "type": "@app" },
-    {
-      "type": "note_row",
-      "name": "About · row",
-      "settings": [
-        { "type": "text", "id": "index", "label": "Row number", "default": "01" },
-        { "type": "text", "id": "label", "label": "Label", "default": "Row title" },
-        { "type": "textarea", "id": "sub", "label": "Description" },
-        { "type": "text", "id": "value", "label": "Value (right-aligned)" }
-      ]
-    }
+    { "type": "@app" }
   ]
 }
 {% endschema %}

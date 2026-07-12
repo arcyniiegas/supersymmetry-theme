@@ -328,8 +328,9 @@
 }
 .loadmore__bar i{
   display: block;
-  width: 36%;
+  width: 0; /* actual fill set inline from shown / total */
   height: 100%;
+  transition: width var(--tx-base) var(--ease);
   background: var(--ink);
   border-radius: 99px;
 }
@@ -377,80 +378,6 @@
 }
 .loadmore__pagination .deco{ color: var(--soft); }
 .loadmore__pagination .prev, .loadmore__pagination .next{ color: var(--text); padding: 0 14px; }
-
-/* ════════════════════════════════════════════════════════════
-   APIE KOLEKCIJĄ — footer note
-   ════════════════════════════════════════════════════════════ */
-.notes{
-  background: var(--surface);
-  padding: var(--sp-20) 0 var(--sp-16);
-}
-.notes__wrap{
-  max-width: var(--max);
-  margin: 0 auto;
-  padding: 0 var(--gutter);
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: var(--sp-12);
-  align-items: start;
-}
-@media (max-width: 900px){
-  .notes__wrap{ grid-template-columns: 1fr; gap: var(--sp-6); }
-}
-.notes__lede{
-  display: grid; gap: var(--sp-5);
-}
-/* eyebrow: .eyebrow.eyebrow--rule (base.css) */
-.notes__title{
-  font: 500 var(--t-display)/1.05 var(--font-sans);
-  letter-spacing: -0.03em;
-  font-kerning: normal;
-  margin: 0;
-  text-wrap: balance;
-}
-.notes__title .light{ color: var(--text-muted); font-weight: 300; }
-.notes__lede p{
-  font: 400 16px/1.6 var(--font-sans);
-  color: var(--text-muted);
-  margin: 0;
-  max-width: 44ch;
-}
-
-.notes__list{
-  display: grid;
-  gap: 0;
-  border-top: 1px solid var(--ink);
-}
-.notes__row{
-  display: grid;
-  grid-template-columns: 60px 1fr auto;
-  gap: var(--sp-5);
-  align-items: baseline;
-  padding: var(--sp-5) 0;
-  border-bottom: 1px solid var(--hairline);
-}
-.notes__row .idx{
-  font: 500 11px/1 var(--font-mono);
-  letter-spacing: 0.04em;
-  color: var(--text-muted);
-}
-.notes__row .lbl{
-  font: 500 18px/1.3 var(--font-sans);
-  letter-spacing: -0.02em;
-}
-.notes__row .lbl span{
-  display: block;
-  margin-top: 4px;
-  font: 400 13px/1.4 var(--font-sans);
-  color: var(--text-muted);
-  letter-spacing: -0.005em;
-  max-width: 36ch;
-}
-.notes__row .val{
-  font: 500 14px/1 var(--font-mono);
-  color: var(--text);
-  letter-spacing: -0.005em;
-}
 
 /* Mobile chrome */
 @media (max-width: 960px){
