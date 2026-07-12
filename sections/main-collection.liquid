@@ -109,10 +109,10 @@
     {% render 'product-card', product: product, show_name: true %}
     {%- endfor -%}
   {%- else -%}
-    <div class="card--break" style="text-decoration:none;">
+    <div class="card--break">
       <div>
         <div class="eyebrow">{{ section.settings.empty_eyebrow | default: 'Kolekcija ruošiama' }}</div>
-        <h3 style="margin-top:14px;"><span class="light">{{ section.settings.empty_title_light | default: 'Poros' }}</span> {{ section.settings.empty_title | default: 'grįžta netrukus.' }}</h3>
+        <h3><span class="light">{{ section.settings.empty_title_light | default: 'Poros' }}</span> {{ section.settings.empty_title | default: 'grįžta netrukus.' }}</h3>
         <p>{{ section.settings.empty_text | default: 'Ši kolekcija dar pildoma — užsukite po kelių dienų arba peržiūrėkite visą asortimentą.' }}</p>
       </div>
       <a class="arrow" href="{{ routes.all_products_collection_url }}" aria-label="{{ 'accessibility.full_collection' | t }}">

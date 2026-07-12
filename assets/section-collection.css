@@ -553,25 +553,20 @@ body.fdrawer-open{ overflow: hidden; }
   position: relative;
   overflow: hidden;
 }
-.card--break.ink{ background: var(--ink); color: #FFFFFF; }
-.card--break.orange{ background: var(--ink); color: #FFFFFF; }
 .card--break .eyebrow{ color: rgba(255,255,255,0.55); }
-.card--break.orange .eyebrow{ color: rgba(255,255,255,0.55); }
 .card--break h3{
-  margin: 0;
+  margin: 14px 0 0;
   font: 500 32px/0.98 var(--font-sans);
   letter-spacing: -0.03em;
   text-wrap: balance;
 }
 .card--break h3 .light{ display: block; font-weight: 300; opacity: 0.6; }
-.card--break.orange h3 .light{ color: rgba(10,10,10,0.55); opacity: 1; }
 .card--break p{
   margin: var(--sp-3) 0 0;
   font: 400 13px/1.5 var(--font-sans);
   color: rgba(255,255,255,0.72);
   max-width: 28ch;
 }
-.card--break.orange p{ color: rgba(10,10,10,0.78); }
 .card--break .arrow{
   align-self: end;
   display: inline-grid; place-items: center;
@@ -582,12 +577,6 @@ body.fdrawer-open{ overflow: hidden; }
   transition: transform var(--tx-fast) var(--ease);
 }
 .card--break:hover .arrow{ transform: translateX(4px); }
-.card--break.orange .arrow{ background: var(--ink); color: var(--orange); }
-.card--break .bignum{
-  font: 500 96px/0.95 var(--font-mono);
-  letter-spacing: -0.02em;
-  font-feature-settings: 'tnum';
-}
 
 /* Load-more */
 .loadmore{
