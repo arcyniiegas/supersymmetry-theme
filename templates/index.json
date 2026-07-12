@@ -184,6 +184,7 @@
     },
     "journal": {
       "type": "home-journal",
+      "disabled": true,
       "settings": {
         "title": "Iš žurnalo",
         "blog": "",
@@ -224,7 +225,7 @@
         "f3"
       ],
       "settings": {
-        "eyebrow": "Dydis ir tinkamumas",
+        "eyebrow": "Dydžiai ir keitimai",
         "title_light": "Netikus dydžiui —",
         "title": "pakeičiame.",
         "sub": "Kiekvienas modelis yra individualus - skiriasi kirpimas, nosis, kelties aukštis ir begalė kitų kintamųjų. Visuomet stengiamės tiksliai išmatuoti vidpadžio ilgį ir jį nurodome prie modelio dydžių.",
