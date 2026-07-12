@@ -27,7 +27,7 @@
       <div class="bento__label">{{ 'product.glance.material' | t }}</div>
       <div>
         <div class="bento__value">{{ v_material | default: '—' }}</div>
-        {%- if block.settings.material_sub != blank -%}<div class="bento__sub" style="margin-top: 8px;">{{ block.settings.material_sub }}</div>{%- endif -%}
+        {%- if block.settings.material_sub != blank -%}<div class="bento__sub">{{ block.settings.material_sub }}</div>{%- endif -%}
       </div>
       <div class="bento__bg" aria-hidden="true">
         <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 140 Q20 110 50 100 L120 80 Q160 70 180 100 Q190 130 170 150 L40 152 Z"/></svg>
@@ -38,7 +38,7 @@
       <div class="bento__label">{{ 'product.glance.sole' | t }}</div>
       <div>
         <div class="bento__value bento__value--mono">{{ v_sole | default: '—' }}</div>
-        {%- if block.settings.sole_sub != blank -%}<div class="bento__sub" style="margin-top: 8px;">{{ block.settings.sole_sub }}</div>{%- endif -%}
+        {%- if block.settings.sole_sub != blank -%}<div class="bento__sub">{{ block.settings.sole_sub }}</div>{%- endif -%}
       </div>
     </div>
 
@@ -46,7 +46,7 @@
       <div class="bento__label">{{ 'product.glance.price' | t }}</div>
       <div>
         <div class="bento__value bento__value--big bento__value--mono">{{ product.price | money_without_trailing_zeros }}</div>
-        {%- if block.settings.price_sub != blank -%}<div class="bento__sub" style="margin-top: 8px;">{{ block.settings.price_sub }}</div>{%- endif -%}
+        {%- if block.settings.price_sub != blank -%}<div class="bento__sub">{{ block.settings.price_sub }}</div>{%- endif -%}
       </div>
     </div>
 
@@ -54,7 +54,7 @@
       <div class="bento__label">{{ 'product.glance.maker' | t }}</div>
       <div>
         <div class="bento__value bento__value--mono">{{ v_maker | default: '—' }}</div>
-        {%- if block.settings.maker_sub != blank -%}<div class="bento__sub" style="margin-top: 8px;">{{ block.settings.maker_sub }}</div>{%- endif -%}
+        {%- if block.settings.maker_sub != blank -%}<div class="bento__sub">{{ block.settings.maker_sub }}</div>{%- endif -%}
       </div>
     </div>
 
@@ -62,7 +62,7 @@
       <div class="bento__label">{{ 'product.glance.weight' | t }}</div>
       <div>
         <div class="bento__value bento__value--mono">{{ v_weight | default: '—' }}</div>
-        {%- if block.settings.weight_sub != blank -%}<div class="bento__sub" style="margin-top: 8px;">{{ block.settings.weight_sub }}</div>{%- endif -%}
+        {%- if block.settings.weight_sub != blank -%}<div class="bento__sub">{{ block.settings.weight_sub }}</div>{%- endif -%}
       </div>
     </div>
 
@@ -70,7 +70,7 @@
       <div class="bento__label">{{ 'product.glance.origin' | t }}</div>
       <div>
         <div class="bento__value">{{ v_origin | default: '—' }}</div>
-        {%- if block.settings.origin_sub != blank -%}<div class="bento__sub" style="margin-top: 8px;">{{ block.settings.origin_sub }}</div>{%- endif -%}
+        {%- if block.settings.origin_sub != blank -%}<div class="bento__sub">{{ block.settings.origin_sub }}</div>{%- endif -%}
       </div>
     </div>
 

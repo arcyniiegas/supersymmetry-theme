@@ -117,8 +117,8 @@
         </div>
       </div>
       <div class="fit__verdict">
-        <b style="text-align: center">{{ fit_label }} · {{ width_label }}</b>
-        {%- if sg.caption_override != blank -%}<span class="fit__verdict-sub" style="text-align: center">{{ sg.caption_override }}</span>{%- endif -%}
+        <b>{{ fit_label }} · {{ width_label }}</b>
+        {%- if sg.caption_override != blank -%}<span class="fit__verdict-sub">{{ sg.caption_override }}</span>{%- endif -%}
       </div>
       {%- if sg.pct_normal != blank or sg.sample_count != blank -%}
       <div class="fit__data">

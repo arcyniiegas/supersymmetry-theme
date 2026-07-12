@@ -72,6 +72,27 @@ preview to confirm symbol placement in tight layouts. **Registry refreshed:**
 modules; stale entries corrected (`dock` removed, `price` marked stable, `cart.js`
 retired).
 
+**Latest feature session (on `main`):** more EME-inspired storefront polish —
+the **cart drawer** reworked into a floating glass panel (free-shipping meter
+dropped + `free-shipping-bar` snippet deleted, view-cart promoted to a ghost
+button), the **cart page** top restructured (promise squares, real payment
+logos, fixed shipping/pickup rows), the **mobile menu** rebuilt as a left-side
+glass drawer and **harmonized to the house type scale**, and the **PDP** bento
+work: mobile mosaic + harmonized value type, construction/care tiles given
+locale-keyed LT descriptions (`product.feat.*` / `product.care.*`), the top
+breadcrumb crossbar removed. **PDP data model (production, Admin API):** the
+Trumpai tiles became per-product inputs — Medžiaga/Padas are **choice metafield
+dropdowns**, Svoris a text metafield, Gamintojas the shared **manufacturer
+metaobject selector** (carries the Apie-gamintoją description), Kilmė a constant
+block setting; the `size_guide` metaobject got a `label` display field and **all
+25 length×width fit combinations** pre-created. **Reconcile pass (this review):**
+inline styles moved to CSS (`.bento__sub` margin → `--sp-2`; `.fit__verdict`
+`text-align`), registry synced (dead `free-shipping-bar` row removed, mobile-menu
++ search + cart-line entries refreshed). **Open debt:** the Trumpai data model is
+transitional (direct metafields *plus* a legacy `model_info` fallback — decide
+whether to migrate the one remaining product and retire `model_info`); all the new
+PDP feature CSS still lives in the `section-product.css` monolith (Phase 5).
+
 > **Architecture note (docs-confirmed):** dynamic theme blocks render only via
 > `{% content_for "blocks" %}` (all blocks, one reorderable container), so
 > **region-grouped** sections (product, avalynės, grąžinimai, akcijų-sąlygos,
