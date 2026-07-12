@@ -27,8 +27,9 @@
   {% render 'meta-social' %}
 </head>
 <body class="template-{{ request.page_type }} color-scheme-1">
+  <a class="skip-link" href="#MainContent">{{ 'accessibility.skip_to_content' | t }}</a>
   {% sections 'header-group' %}
-  <main id="MainContent">{{ content_for_layout }}</main>
+  <main id="MainContent" tabindex="-1">{{ content_for_layout }}</main>
   {% sections 'footer-group' %}
   {% render 'mobile-menu' %}
   {% render 'search-overlay' %}

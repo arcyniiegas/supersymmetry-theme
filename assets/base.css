@@ -82,6 +82,22 @@ input, textarea{ min-width:0; max-width:100%; }
   border-radius: 2px;
   box-shadow: 0 0 0 5px rgba(255,255,255,0.55);
 }
+
+/* Skip-to-content: off-screen until keyboard focus reveals it (WCAG 2.4.1). */
+.skip-link{
+  position: fixed; top: 12px; left: 12px; z-index: 1000;
+  padding: 10px 16px;
+  background: var(--ink); color: var(--bg);
+  border-radius: var(--r-sm);
+  font: 500 14px/1 var(--font-sans); letter-spacing: -0.01em;
+  text-decoration: none;
+  transform: translateY(-160%);
+  transition: transform var(--tx-fast) var(--ease-snap);
+}
+.skip-link:focus{ transform: none; }
+/* main is programmatically focused after the skip — no ring on the whole page */
+#MainContent:focus, #MainContent:focus-visible{ outline: none; box-shadow: none; }
+@media (prefers-reduced-motion: reduce){ .skip-link{ transition: none; } }
 .brand-dot{
   display: inline-block;
   width: 8px; height: 8px;
