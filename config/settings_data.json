@@ -1,1 +1,65 @@
-{"current":{"color_schemes":{"scheme-1":{"settings":{"background":"#FFFFFF","text":"#0A0A0A","surface":"#F5F5F5","line":"#EEEEEE","button":"#0A0A0A","button_label":"#FFFFFF"}},"scheme-2":{"settings":{"background":"#F5F5F5","text":"#0A0A0A","surface":"#FFFFFF","line":"#E8E8E8","button":"#0A0A0A","button_label":"#FFFFFF"}},"scheme-3":{"settings":{"background":"#0A0A0A","text":"#FFFFFF","surface":"#1A1A1A","line":"#2A2A2A","button":"#FFFFFF","button_label":"#0A0A0A"}}},"utility_right_message":"LT · EN","free_shipping_threshold":100,"phone":"+370 5 250 7700","atelier_address":"Trakų g. 16","atelier_city":"Vilnius","atelier_map_url":"https:\/\/maps.app.goo.gl\/ewkj5Q11DmikhAdz9","glass_enabled":true,"glass_blur":12,"utility_left_message":"Parduotuvė atidaryta · siunčiame iš Vilniaus","atelier_hours":"II–V 11:00–18:00 · VI–VII 12:00–17:00","content_for_index":[]}}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "utility_right_message": "LT · EN",
+    "free_shipping_threshold": 100,
+    "phone": "",
+    "atelier_address": "Trakų g. 16",
+    "atelier_city": "Vilnius",
+    "atelier_map_url": "https://maps.app.goo.gl/ewkj5Q11DmikhAdz9",
+    "glass_enabled": true,
+    "glass_blur": 28,
+    "utility_left_message": "Parduotuvė atidaryta · siunčiame iš Vilniaus",
+    "atelier_hours": "II–V 11:00–18:00 · VI–VII 12:00–17:00",
+    "sections": {
+      "cart-drawer": {
+        "type": "cart-drawer",
+        "settings": {}
+      }
+    },
+    "content_for_index": [],
+    "color_schemes": {
+      "scheme-1": {
+        "settings": {
+          "background": "#ffffff",
+          "background_gradient": "",
+          "text": "#0a0a0a",
+          "surface": "#f5f5f5",
+          "line": "#eeeeee",
+          "button": "#0a0a0a",
+          "button_label": "#ffffff"
+        }
+      },
+      "scheme-2": {
+        "settings": {
+          "background": "#f5f5f5",
+          "background_gradient": "",
+          "text": "#0a0a0a",
+          "surface": "#ffffff",
+          "line": "#e8e8e8",
+          "button": "#0a0a0a",
+          "button_label": "#ffffff"
+        }
+      },
+      "scheme-3": {
+        "settings": {
+          "background": "#0a0a0a",
+          "background_gradient": "",
+          "text": "#ffffff",
+          "surface": "#1a1a1a",
+          "line": "#2a2a2a",
+          "button": "#ffffff",
+          "button_label": "#0a0a0a"
+        }
+      }
+    }
+  }
+}
