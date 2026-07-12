@@ -8,25 +8,7 @@
   if product.compare_at_price and product.compare_at_price > product.price
     assign buybar_compare = product.compare_at_price | money_without_trailing_zeros
   endif
-  assign crumb_collection = product.collections.first
 -%}
-
-<!-- ──────────── CROSSBAR ──────────── -->
-<div class="crossbar">
-  <div class="crumb">
-    <a href="{{ crumb_collection.url | default: routes.all_products_collection_url }}">{{ crumb_collection.title | default: 'Avalynė' }}</a>
-    <span class="sep">/</span>
-    {%- if product.type != blank -%}
-      <a href="{{ routes.all_products_collection_url }}">{{ product.type }}</a>
-      <span class="sep">/</span>
-    {%- endif -%}
-    <b>{{ product.title }}</b>
-  </div>
-  <div class="crossbar__right">
-    <span></span>
-    <span></span>
-  </div>
-</div>
 
 <!-- ──────────── PRODUCT — sticky split ──────────── -->
 <div class="product"
@@ -239,6 +221,7 @@
     {
       "type": "glance", "name": "At a glance (bento)", "limit": 1,
       "settings": [
+        { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Trumpai" },
         { "type": "text", "id": "material_sub", "label": "Material sub-text" },
         { "type": "text", "id": "sole_sub", "label": "Sole sub-text" },
         { "type": "text", "id": "price_sub", "label": "Price sub-text" },
