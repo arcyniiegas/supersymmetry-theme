@@ -142,13 +142,6 @@
 }
 .consent a{ color: var(--text); text-decoration: underline; text-underline-offset: 2px; }
 .kform .btn--lg{ justify-self: center; margin-top: var(--sp-4); }
-.kform__note{
-  margin: var(--sp-5) 0 0;
-  text-align: center;
-  font: 400 14px/1.5 var(--font-sans);
-  letter-spacing: -0.005em;
-  color: var(--text-muted);
-}
 
 /* ── VISIT BAND ── */
 .visit{ background: var(--surface); padding: var(--sp-16) 0; }
@@ -191,13 +184,6 @@
   letter-spacing: 0.01em;
   font-feature-settings: 'tnum';
 }
-.hours__note{
-  margin: var(--sp-4) 0 var(--sp-8);
-  font: 400 14px/1.5 var(--font-sans);
-  letter-spacing: -0.005em;
-  color: var(--text-muted);
-}
-.hours__note b{ color: var(--text); font-weight: 500; }
 .minimap{
   aspect-ratio: 16/11; border-radius: var(--r-lg); overflow: hidden;
   background: #E7E4DD; position: relative;
