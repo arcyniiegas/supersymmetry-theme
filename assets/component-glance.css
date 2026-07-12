@@ -71,6 +71,21 @@
 .bento__cell--orange .bento__label{ color: rgba(255,255,255,0.55); }
 .bento__cell--orange .bento__sub{ color: rgba(255,255,255,0.7); }
 .bento__cell--orange .bento__label .idx{ background: var(--bg); color: var(--text); }
+/* Colour tile — the surface takes a slight hue of the product colour, with a
+   matching swatch dot before the name. --swatch is the metaobject hex. */
+.bento__cell--swatch{
+  background: color-mix(in oklab, var(--swatch, transparent) 16%, var(--surface));
+}
+.bento__swatch{
+  display: inline-block;
+  width: 14px; height: 14px;
+  border-radius: 99px;
+  background: var(--swatch);
+  box-shadow: inset 0 0 0 1px rgba(10, 10, 10, 0.14);
+  margin-right: 9px;
+  vertical-align: baseline;
+  translate: 0 1px;
+}
 .bento__label{
   font: 500 10px/1 var(--font-mono);
   letter-spacing: 0.06em;

@@ -11,10 +11,14 @@
 {%- assign maker = product.metafields.custom.manufacturer.value -%}
 {%- assign v_material = product.metafields.custom.material.value | default: model.material -%}
 {%- assign v_sole = product.metafields.custom.sole.value | default: model.sole -%}
-{%- assign v_weight = product.metafields.custom.weight.value | default: model.weight -%}
 {%- assign v_maker = maker.name | default: product.vendor -%}
 {%- assign v_origin = block.settings.origin -%}
-{%- if v_material != blank or v_sole != blank or v_weight != blank or v_maker != blank or v_origin != blank -%}
+{%- comment -%} Spalva — the first colour from the shared custom.spalvos_filtras
+  metaobject list (name + hex), reused from the storefront colour filter. {%- endcomment -%}
+{%- assign v_color = product.metafields.custom.spalvos_filtras.value | first -%}
+{%- assign v_color_name = v_color.spalva -%}
+{%- assign v_color_hex = v_color.hex -%}
+{%- if v_material != blank or v_sole != blank or v_color_name != blank or v_maker != blank or v_origin != blank -%}
 <section class="glance" {{ block.shopify_attributes }}>
   <div class="glance__head">
     {%- if block.settings.num != blank -%}<span class="glance__num">{{ block.settings.num }}</span>{%- endif -%}
@@ -65,12 +69,11 @@
     </div>
     {%- endif -%}
 
-    {%- if v_weight != blank -%}
-    <div class="bento__cell">
-      <div class="bento__label">{{ 'product.glance.weight' | t }}</div>
+    {%- if v_color_name != blank -%}
+    <div class="bento__cell bento__cell--swatch"{% if v_color_hex != blank %} style="--swatch: {{ v_color_hex }};"{% endif %}>
+      <div class="bento__label">{{ 'product.glance.color' | t }}</div>
       <div>
-        <div class="bento__value bento__value--mono">{{ v_weight }}</div>
-        {%- if block.settings.weight_sub != blank -%}<div class="bento__sub">{{ block.settings.weight_sub }}</div>{%- endif -%}
+        <div class="bento__value">{% if v_color_hex != blank %}<span class="bento__swatch" aria-hidden="true"></span>{% endif %}{{ v_color_name }}</div>
       </div>
     </div>
     {%- endif -%}
