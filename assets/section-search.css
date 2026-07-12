@@ -20,7 +20,7 @@
   padding: 0;
 }
 .searchbox input::placeholder{ color: var(--soft); }
-.searchbox input:focus{ outline: none; }
+.searchbox input:focus:not(:focus-visible){ outline: none; }
 .searchbox__clear{
   flex-shrink: 0;
   width: 40px; height: 40px; border-radius: 999px;

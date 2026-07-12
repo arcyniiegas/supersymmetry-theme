@@ -55,7 +55,7 @@
   font: 400 20px/1 var(--font-sans); letter-spacing: -0.02em; color: var(--text);
 }
 .e404__search input::placeholder{ color: var(--soft); }
-.e404__search input:focus{ outline: none; }
+.e404__search input:focus:not(:focus-visible){ outline: none; }
 .e404__search button{
   font: 500 12px/1 var(--font-mono); letter-spacing: 0.04em;
   text-transform: uppercase; color: var(--text-muted);
