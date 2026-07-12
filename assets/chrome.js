@@ -54,3 +54,15 @@
     }
   })();
 })();
+
+/* Header tucks up out of view as the footer comes into range, so the floating
+   glass bar never overlaps the footer at the bottom of the page. */
+(function () {
+  var header = document.querySelector('.section-header');
+  var footer = document.querySelector('.foot');
+  if (!header || !footer || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    header.classList.toggle('is-tucked', entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px 24px 0px' });
+  io.observe(footer);
+})();

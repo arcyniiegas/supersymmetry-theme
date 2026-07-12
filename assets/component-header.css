@@ -13,6 +13,12 @@
 .section-header{
   position: sticky; top: 0; z-index: 30;
   pointer-events: none;
+  transition: transform var(--tx-base) var(--ease);
+}
+/* tucks up out of view as the footer comes into range (set by chrome.js) */
+.section-header.is-tucked{ transform: translateY(-120%); }
+@media (prefers-reduced-motion: reduce){
+  .section-header{ transition: none; }
 }
 .header-inset{
   padding: var(--sp-4) var(--gutter) 0;
