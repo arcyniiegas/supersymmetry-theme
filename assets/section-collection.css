@@ -83,7 +83,7 @@
    CATEGORY TABS (sticky) + toolbar
    ════════════════════════════════════════════════════════════ */
 .subbar{
-  position: sticky; top: 73px;
+  position: sticky; top: var(--chrome-h, 73px);
   z-index: 20;
   background: color-mix(in oklab, var(--bg) 88%, transparent);
   backdrop-filter: blur(20px) saturate(1.05);
@@ -741,7 +741,7 @@ body.fdrawer-open{ overflow: hidden; }
 
 /* Mobile chrome */
 @media (max-width: 960px){
-  .subbar{ top: 64px; }
+  .subbar{ top: var(--chrome-h, 64px); }
 }
 @media (max-width: 600px){
   .subbar__wrap{ padding: 10px var(--gutter); flex-wrap: nowrap; }
