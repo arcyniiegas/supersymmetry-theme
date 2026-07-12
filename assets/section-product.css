@@ -750,14 +750,6 @@ html[data-glass="off"] .buybar{
   color: var(--text-muted);
   max-width: 30ch;
 }
-/* secondary grey copy under the lede — a sentence or two of context */
-.doc__note{
-  margin: var(--sp-4) 0 0;
-  font: 400 13px/1.6 var(--font-sans);
-  letter-spacing: -0.005em;
-  color: var(--text-muted);
-  max-width: 34ch;
-}
 
 /* design notes */
 .notes-prose{
@@ -846,8 +838,10 @@ html[data-glass="off"] .buybar{
   padding: var(--sp-6) var(--sp-5);
   display: grid;
   gap: var(--sp-4);
-  align-content: start;
-  min-height: 128px;
+  /* icon pinned to the top, label + English gloss to the bottom — fills the
+     tile the way the Trumpai cells do, instead of clustering at the top. */
+  align-content: space-between;
+  min-height: 148px;
   transition: transform var(--tx-fast) var(--ease);
 }
 .qual:hover{ transform: translateY(-2px); }
@@ -856,13 +850,14 @@ html[data-glass="off"] .buybar{
   stroke: var(--ink); fill: none;
   stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
 }
+.qual__text{ display: grid; gap: 5px; }
 .qual .k{
   font: 500 10px/1.5 var(--font-mono);
   letter-spacing: 0.05em; text-transform: uppercase;
   color: var(--text);
 }
 .qual .v{
-  font: 400 12px/1.45 var(--font-sans);
+  font: 400 13px/1.4 var(--font-sans);
   letter-spacing: -0.005em;
   color: var(--text-muted);
 }
