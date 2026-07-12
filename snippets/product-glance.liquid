@@ -1,16 +1,19 @@
 {%- comment -%} Product — at-a-glance bento (Trumpai). Rendered by main-product for the `glance` block.
-  Each tile is its own direct product metafield (typed inline per model):
-  material/sole/weight/maker/origin ← custom.* · price ← product.
-  Falls back to the legacy model_info / manufacturer metaobjects for older products
-  (manufacturer still feeds the Apie gamintoją description).
+  · Medžiaga / Padas — product metafield dropdowns (custom.material / custom.sole)
+  · Svoris — free-text product metafield (custom.weight)
+  · Gamintojas — the shared manufacturer metaobject selector (custom.manufacturer),
+    which also feeds the Apie gamintoją description
+  · Kilmė — constant, from the block setting (default "Turkija")
+  · Kaina — the product's own price
+  Legacy model_info metaobject is kept as a fallback for older products.
   Real value or an honest em-dash — never a fabricated default. {%- endcomment -%}
 {%- assign model = product.metafields.custom.model_info.value -%}
 {%- assign maker = product.metafields.custom.manufacturer.value -%}
 {%- assign v_material = product.metafields.custom.material.value | default: model.material -%}
 {%- assign v_sole = product.metafields.custom.sole.value | default: model.sole -%}
 {%- assign v_weight = product.metafields.custom.weight.value | default: model.weight -%}
-{%- assign v_maker = product.metafields.custom.maker.value | default: maker.name | default: product.vendor -%}
-{%- assign v_origin = product.metafields.custom.origin.value | default: maker.country_of_origin -%}
+{%- assign v_maker = maker.name | default: product.vendor -%}
+{%- assign v_origin = block.settings.origin | default: 'Turkija' -%}
 <section class="glance" {{ block.shopify_attributes }}>
   <div class="glance__head">
     <div>
