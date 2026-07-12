@@ -13,13 +13,6 @@
       </div>
       {% render 'button', label: section.settings.cta_label, href: section.settings.cta_link | default: pages.kontaktai.url | default: routes.root_url, style: 'primary', arrow: true, class: 'homevisit__cta' %}
     </div>
-    <div class="homevisit__map">
-      {% render 'map-illustration' %}
-      <div class="homevisit__pin">
-        <span class="lbl">{{ settings.atelier_address | default: 'Trakų g. 16' }}</span>
-        <span class="dot"></span>
-      </div>
-    </div>
   </div>
 </section>
 {% schema %}

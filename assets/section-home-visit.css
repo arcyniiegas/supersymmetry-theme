@@ -15,8 +15,8 @@
 
 /* ── STORE VISIT ── */
 .homevisit{ background: var(--surface); padding: var(--sp-12) 0 var(--sp-20); }
-.homevisit__wrap{ max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); display: grid; grid-template-columns: 1fr 1.1fr; gap: var(--sp-12); align-items: center; }
-@media (max-width: 900px){ .homevisit__wrap{ grid-template-columns: 1fr; gap: var(--sp-10); } .homevisit{ padding: var(--sp-12) 0; } }
+.homevisit__wrap{ max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+@media (max-width: 900px){ .homevisit{ padding: var(--sp-12) 0; } }
 /* .homevisit__eyebrow shares the .homefit__eyebrow rule above */
 .homevisit h2{ margin: var(--sp-5) 0 0; font: 500 calc(var(--t-section) * var(--title-scale, 1))/1.05 var(--font-sans); letter-spacing: -0.03em; text-wrap: balance; }
 .homevisit p{ margin: var(--sp-4) 0 0; font: 400 16px/1.6 var(--font-sans); color: var(--text-muted); max-width: 40ch; letter-spacing: -0.005em; }
@@ -29,8 +29,3 @@
 .homevisit__hours .hours__row.is-closed .hours__time{ color: var(--soft); }
 .homevisit__hours .hours__time{ font: 500 13px/1.4 var(--font-mono); letter-spacing: 0.01em; font-feature-settings: 'tnum'; }
 .homevisit__cta{ margin-top: var(--sp-6); display: inline-flex; }
-.homevisit__map{ aspect-ratio: 16/11; border-radius: var(--r-lg); overflow: hidden; background: #E7E4DD; position: relative; box-shadow: inset 0 0 0 1px var(--hairline); }
-.homevisit__map svg{ position: absolute; inset: 0; width: 100%; height: 100%; }
-.homevisit__pin{ position: absolute; top: 46%; left: 52%; transform: translate(-50%, -100%); display: grid; justify-items: center; gap: 4px; z-index: 2; }
-.homevisit__pin .dot{ width: 18px; height: 18px; border-radius: 99px; background: var(--ink); box-shadow: 0 0 0 5px rgba(255,255,255,0.65), 0 4px 14px rgba(0,0,0,0.25); }
-.homevisit__pin .lbl{ font: 500 11px/1 var(--font-mono); letter-spacing: 0.02em; background: var(--ink); color: #FFFFFF; padding: 6px 10px; border-radius: 99px; white-space: nowrap; }
