@@ -13,6 +13,20 @@
   "sections": {
     "header": {
       "type": "header",
+      "blocks": {
+        "dropdown_image_3D838e": {
+          "type": "dropdown_image",
+          "settings": {
+            "image": "shopify://shop_images/a746819c7c3cfecfa2538ff70fd4ffec.jpg_2K_202607091421.jpg",
+            "under": "",
+            "link": "",
+            "caption": ""
+          }
+        }
+      },
+      "block_order": [
+        "dropdown_image_3D838e"
+      ],
       "settings": {
         "menu": "supersymmetry-3-0",
         "logo": "shopify://shop_images/Super_Symmetry_10.svg",
