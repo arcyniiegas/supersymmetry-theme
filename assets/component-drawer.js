@@ -63,12 +63,14 @@
 
     disconnectedCallback() {
       if (this._onKeydown) document.removeEventListener('keydown', this._onKeydown);
+      this._setBackgroundInert(false);
     }
 
     open(trigger) {
       this._trigger = trigger || document.activeElement;
       this.classList.add(this._openClass);
       document.body.classList.add(this._bodyClass);
+      this._setBackgroundInert(true);
       Array.prototype.forEach.call(this._openers, function (o) { o.setAttribute('aria-expanded', 'true'); });
       var sel = this.getAttribute('data-focus');
       var target = (sel && this.querySelector(sel)) ||
@@ -79,8 +81,40 @@
     close() {
       this.classList.remove(this._openClass);
       document.body.classList.remove(this._bodyClass);
+      /* lift inert BEFORE returning focus — focus() is a no-op on an inert element */
+      this._setBackgroundInert(false);
       Array.prototype.forEach.call(this._openers, function (o) { o.setAttribute('aria-expanded', 'false'); });
       if (this._trigger && typeof this._trigger.focus === 'function') this._trigger.focus();
+    }
+
+    /* Make everything outside the open panel inert — removed from the tab order
+       AND the accessibility tree — so screen-reader / keyboard users can't reach
+       the page behind the modal (aria-modal alone is unreliable; WAI-ARIA APG
+       recommends inert). Walks the drawer's ancestor chain and inerts each
+       sibling, which is correct whether the panel is portaled to <body> (cart,
+       menu, filter) or nested where it was rendered (search). Only elements this
+       instance sets inert are tracked and later cleared, so pre-existing inert
+       state is never clobbered. */
+    _setBackgroundInert(on) {
+      if (on) {
+        var inerted = [];
+        var node = this;
+        while (node && node !== document.body && node.parentElement) {
+          var parent = node.parentElement;
+          var current = node;
+          Array.prototype.forEach.call(parent.children, function (sib) {
+            if (sib !== current && !sib.hasAttribute('inert')) {
+              sib.setAttribute('inert', '');
+              inerted.push(sib);
+            }
+          });
+          node = parent;
+        }
+        this._inerted = inerted;
+      } else if (this._inerted) {
+        this._inerted.forEach(function (el) { el.removeAttribute('inert'); });
+        this._inerted = null;
+      }
     }
 
     _trap(e) {
