@@ -45,7 +45,7 @@
   {%- assign coll_img = block.settings.image | default: c.featured_image -%}
   <a class="coll coll--dark" href="{{ c.url }}" {{ block.shopify_attributes }}>
     <div class="coll__img">
-      {% if coll_img %}<img src="{{ coll_img | image_url: width: 1400 }}" srcset="{{ coll_img | image_url: width: 700 }} 700w, {{ coll_img | image_url: width: 1000 }} 1000w, {{ coll_img | image_url: width: 1400 }} 1400w" sizes="(max-width: 720px) 100vw, 50vw" width="{{ coll_img.width }}" height="{{ coll_img.height }}" alt="{{ c.title | escape }}" />{% endif %}
+      {% if coll_img %}<img loading="lazy" src="{{ coll_img | image_url: width: 1400 }}" srcset="{{ coll_img | image_url: width: 700 }} 700w, {{ coll_img | image_url: width: 1000 }} 1000w, {{ coll_img | image_url: width: 1400 }} 1400w" sizes="(max-width: 720px) 100vw, 50vw" width="{{ coll_img.width }}" height="{{ coll_img.height }}" alt="{{ c.title | escape }}" />{% endif %}
     </div>
     <div class="coll__scrim"></div>
     {%- if block.settings.badge != blank -%}
@@ -66,7 +66,7 @@
 {% for collection in collections %}
   <a class="coll coll--dark" href="{{ collection.url }}">
     <div class="coll__img">
-      {% if collection.featured_image %}<img src="{{ collection.featured_image | image_url: width: 1400 }}" srcset="{{ collection.featured_image | image_url: width: 700 }} 700w, {{ collection.featured_image | image_url: width: 1000 }} 1000w, {{ collection.featured_image | image_url: width: 1400 }} 1400w" sizes="(max-width: 720px) 100vw, 50vw" width="{{ collection.featured_image.width }}" height="{{ collection.featured_image.height }}" alt="{{ collection.title | escape }}" />{% endif %}
+      {% if collection.featured_image %}<img loading="lazy" src="{{ collection.featured_image | image_url: width: 1400 }}" srcset="{{ collection.featured_image | image_url: width: 700 }} 700w, {{ collection.featured_image | image_url: width: 1000 }} 1000w, {{ collection.featured_image | image_url: width: 1400 }} 1400w" sizes="(max-width: 720px) 100vw, 50vw" width="{{ collection.featured_image.width }}" height="{{ collection.featured_image.height }}" alt="{{ collection.title | escape }}" />{% endif %}
     </div>
     <div class="coll__scrim"></div>
     <div class="coll__body">

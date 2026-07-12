@@ -77,7 +77,7 @@
 {%- unless a.id == article.id -%}
 {%- if rc < 3 -%}
     <a class="post" href="{{ a.url }}">
-      <div class="post__media">{%- if a.image -%}<img src="{{ a.image | image_url: width: 800 }}" srcset="{{ a.image | image_url: width: 400 }} 400w, {{ a.image | image_url: width: 800 }} 800w" sizes="(max-width: 720px) 100vw, 33vw" width="{{ a.image.width }}" height="{{ a.image.height }}" alt="{{ a.image.alt | escape }}" />{%- else -%}<img src="{{ 'Glr1.webp' | asset_url }}" width="1400" height="1400" alt="" />{%- endif -%}</div>
+      <div class="post__media">{%- if a.image -%}<img loading="lazy" src="{{ a.image | image_url: width: 800 }}" srcset="{{ a.image | image_url: width: 400 }} 400w, {{ a.image | image_url: width: 800 }} 800w" sizes="(max-width: 720px) 100vw, 33vw" width="{{ a.image.width }}" height="{{ a.image.height }}" alt="{{ a.image.alt | escape }}" />{%- else -%}<img loading="lazy" src="{{ 'Glr1.webp' | asset_url }}" width="1400" height="1400" alt="" />{%- endif -%}</div>
       <div class="post__meta"><span class="cat">{{ a.tags.first | default: 'Žurnalas' }}</span><span class="sep">·</span><span>{{ a.metafields.custom.read_time | default: '5 min.' }}</span></div>
       <div class="post__title">{{ a.title }}</div>
     </a>

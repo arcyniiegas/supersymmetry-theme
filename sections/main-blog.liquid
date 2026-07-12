@@ -66,7 +66,7 @@
 <section class="jgrid" id="jgrid">
 {%- for article in blog.articles offset: 1 -%}
   <a class="post" href="{{ article.url }}" data-cat="{{ article.tags.first | handleize }}">
-    <div class="post__media">{%- if article.image -%}<img src="{{ article.image | image_url: width: 800 }}" srcset="{{ article.image | image_url: width: 400 }} 400w, {{ article.image | image_url: width: 800 }} 800w" sizes="(max-width: 720px) 100vw, 33vw" width="{{ article.image.width }}" height="{{ article.image.height }}" alt="{{ article.image.alt | escape }}" />{%- else -%}<img src="{{ 'Glr4.webp' | asset_url }}" width="1400" height="1400" alt="" />{%- endif -%}</div>
+    <div class="post__media">{%- if article.image -%}<img loading="lazy" src="{{ article.image | image_url: width: 800 }}" srcset="{{ article.image | image_url: width: 400 }} 400w, {{ article.image | image_url: width: 800 }} 800w" sizes="(max-width: 720px) 100vw, 33vw" width="{{ article.image.width }}" height="{{ article.image.height }}" alt="{{ article.image.alt | escape }}" />{%- else -%}<img loading="lazy" src="{{ 'Glr4.webp' | asset_url }}" width="1400" height="1400" alt="" />{%- endif -%}</div>
     <div class="post__meta"><span class="cat">{{ article.tags.first | default: 'Žurnalas' }}</span><span class="sep">·</span><span>{{ article.metafields.custom.read_time | default: '5 min.' }}</span></div>
     <div class="post__title">{{ article.title }}</div>
     <p class="post__excerpt">{%- if article.excerpt != blank -%}{{ article.excerpt | strip_html }}{%- else -%}{{ article.excerpt_or_content | strip_html | truncatewords: 14 }}{%- endif -%}</p>

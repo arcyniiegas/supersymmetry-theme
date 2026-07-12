@@ -24,7 +24,7 @@
 {%- if col != blank or block.settings.image != blank -%}
     <a class="{{ modclass }}" href="{{ col.url | default: routes.all_products_collection_url }}" {{ block.shopify_attributes }}>
       {%- if card_img != blank -%}
-      <img class="cat__img" src="{{ card_img | image_url: width: 900 }}" srcset="{{ card_img | image_url: width: 500 }} 500w, {{ card_img | image_url: width: 900 }} 900w, {{ card_img | image_url: width: 1200 }} 1200w" sizes="(max-width: 720px) 100vw, 50vw" width="{{ card_img.width }}" height="{{ card_img.height }}" alt="{{ card_img.alt | default: col.title | escape }}" style="object-position: {{ focal_pos }};">
+      <img class="cat__img" loading="lazy" src="{{ card_img | image_url: width: 900 }}" srcset="{{ card_img | image_url: width: 500 }} 500w, {{ card_img | image_url: width: 900 }} 900w, {{ card_img | image_url: width: 1200 }} 1200w" sizes="(max-width: 720px) 100vw, 50vw" width="{{ card_img.width }}" height="{{ card_img.height }}" alt="{{ card_img.alt | default: col.title | escape }}" style="object-position: {{ focal_pos }};">
       {%- endif -%}
       <div class="cat__body">
         <span class="cat__name"{% if block.settings.text_color != blank %} style="color: {{ block.settings.text_color }};"{% endif %}>{{ col.title }}</span>
@@ -37,7 +37,7 @@
 {%- case forloop.index -%}
 {%- when 1 -%}
     <a class="cat cat--wide" href="{{ routes.all_products_collection_url }}" {{ block.shopify_attributes }}>
-      <img class="cat__img" src="{{ 'Nr2.webp' | asset_url }}" width="1400" height="1400" alt="">
+      <img class="cat__img" loading="lazy" src="{{ 'Nr2.webp' | asset_url }}" width="1400" height="1400" alt="">
       <div class="cat__body">
         <span class="cat__name">Avalynė</span>
         <span class="cat__cta">
