@@ -13,10 +13,29 @@
 @media (max-width: 720px){
   .glance{ padding-bottom: var(--sp-16); }
 }
+/* Trumpai header — same num / title / lede format as the doc sections
+   (.doc__* in component-docs.css), minus the sticky positioning. */
 .glance__head{
-  display: flex; justify-content: space-between; align-items: baseline;
   margin-bottom: var(--sp-6);
-  gap: var(--sp-4);
+}
+.glance__num{
+  display: block;
+  font: 500 12px/1 var(--font-mono);
+  color: var(--text-muted);
+  margin-bottom: var(--sp-3);
+  letter-spacing: 0.04em;
+}
+.glance__title{
+  font: 500 var(--t-section)/1.08 var(--font-sans);
+  letter-spacing: -0.025em;
+  font-kerning: normal;
+  margin: 0 0 var(--sp-4);
+}
+.glance__lede{
+  font: 400 14px/1.55 var(--font-sans);
+  color: var(--text-muted);
+  max-width: 40ch;
+  margin: 0;
 }
 
 /* Tiles are self-sizing and only the populated ones render, so the grid

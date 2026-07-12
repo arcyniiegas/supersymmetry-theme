@@ -162,6 +162,18 @@
   letter-spacing: 0.02em;
   color: var(--text-muted);
 }
+/* Size-guide link — quiet, sits under the size pills */
+.sizeguide{
+  margin-top: var(--sp-3);
+  display: inline-flex; align-items: center; gap: 6px;
+  font: 500 13px/1 var(--font-sans);
+  letter-spacing: -0.005em;
+  color: var(--text-muted);
+  transition: color var(--tx-fast) var(--ease);
+}
+.sizeguide:hover{ color: var(--text); }
+.sizeguide__ar{ transition: transform var(--tx-fast) var(--ease); }
+.sizeguide:hover .sizeguide__ar{ transform: translateX(3px); }
 /* Sticky buy bar — a glass card that floats UP from the bottom once the main
    CTA scrolls out of view. Matches the search dropdown / cart drawer glass.
    Appended to <body> (no opacity ancestor), so the transform slide is safe. */
@@ -254,6 +266,9 @@ html[data-glass="off"] .buybar{
 
 /* MOBILE chrome — tighten the name/price cluster on the smallest screens */
 @media (max-width: 600px){
-  .price{ flex-wrap: wrap; }
-  .info__name{ font-size: calc(clamp(22px, 6vw, 26px) * var(--title-scale, 1)); }
+  /* center the name/price cluster and enlarge both ~20% on mobile */
+  .info__head{ justify-content: center; text-align: center; }
+  .info__name{ font-size: calc(clamp(22px, 6vw, 26px) * 1.2 * var(--title-scale, 1)); }
+  .price{ flex-wrap: wrap; justify-content: center; }
+  .price__current{ font-size: calc(clamp(17px, 1.6vw, 20px) * 1.2); }
 }

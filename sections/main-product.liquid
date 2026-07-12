@@ -57,6 +57,7 @@
         <button class="size is-selected" role="radio" aria-checked="true"><span class="size__eu">{{ current_variant.title | default: 'Vienas dydis' }}</span></button>
 {%- endif -%}
       </div>
+      <a class="sizeguide" href="{{ pages['dydziu-lentele'].url | default: '/pages/dydziu-lentele' }}">{{ 'product.size_guide' | t }} <span class="sizeguide__ar" aria-hidden="true">→</span></a>
       <p class="sizes-note" data-sizes-note aria-live="polite"{% unless current_variant.available and current_variant.inventory_management != blank and current_variant.inventory_quantity > 0 and current_variant.inventory_quantity <= 5 %} hidden{% endunless %}>{%- if current_variant.inventory_quantity > 0 and current_variant.inventory_quantity <= 5 -%}Liko {{ current_variant.inventory_quantity }} vnt.{%- endif -%}</p>
       {%- if product.metafields.custom.stock_line != blank -%}
       <div class="stock">
@@ -220,7 +221,9 @@
     {
       "type": "glance", "name": "At a glance (bento)", "limit": 1,
       "settings": [
-        { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Trumpai" },
+        { "type": "text", "id": "num", "label": "Number line", "default": "00 — Apžvalga" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Trumpai." },
+        { "type": "text", "id": "lede", "label": "Lede", "default": "Svarbiausi faktai apie porą — be žodžių pertekliaus." },
         { "type": "text", "id": "origin", "label": "Kilmė (visiems modeliams)", "info": "Rodoma visų modelių Trumpai bloke. Palikite tuščią, kad nebūtų rodoma — geriau nerodyti nei rodyti neteisingą kilmę." },
         { "type": "text", "id": "material_sub", "label": "Material sub-text" },
         { "type": "text", "id": "sole_sub", "label": "Sole sub-text" },

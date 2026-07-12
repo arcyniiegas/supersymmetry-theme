@@ -17,9 +17,9 @@
 {%- if v_material != blank or v_sole != blank or v_weight != blank or v_maker != blank or v_origin != blank -%}
 <section class="glance" {{ block.shopify_attributes }}>
   <div class="glance__head">
-    <div>
-      <div class="eyebrow eyebrow--rule">{{ block.settings.eyebrow }}</div>
-    </div>
+    {%- if block.settings.num != blank -%}<span class="glance__num">{{ block.settings.num }}</span>{%- endif -%}
+    {%- if block.settings.title != blank -%}<h2 class="glance__title">{{ block.settings.title }}</h2>{%- endif -%}
+    {%- if block.settings.lede != blank -%}<p class="glance__lede">{{ block.settings.lede }}</p>{%- endif -%}
   </div>
 
   <div class="bento">
