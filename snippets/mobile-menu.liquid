@@ -11,9 +11,9 @@
   if request.page_type == 'blog' or request.page_type == 'article'
     assign is_journal = true
   endif
-  assign nav_menu = settings.menu_main
+  assign nav_menu = menu
   if nav_menu.links == blank
-    assign nav_menu = linklists['supersymmetry-main']
+    assign nav_menu = settings.menu_main
   endif
 -%}
 <theme-drawer class="mobilemenu" id="ssMenu" data-body-class="menu-open" data-open-class="is-open" data-portal data-focus=".mobilemenu__close">
@@ -56,9 +56,12 @@
     <div class="mobilemenu__tiles">
       {%- for i in (1..2) -%}
         {%- liquid
-          assign img = settings['menu_tile_' | append: i | append: '_image']
-          assign heading = settings['menu_tile_' | append: i | append: '_heading']
-          assign link = settings['menu_tile_' | append: i | append: '_link']
+          assign img_key = 'menu_tile_' | append: i | append: '_image'
+          assign heading_key = 'menu_tile_' | append: i | append: '_heading'
+          assign link_key = 'menu_tile_' | append: i | append: '_link'
+          assign img = settings[img_key]
+          assign heading = settings[heading_key]
+          assign link = settings[link_key]
         -%}
         {% render 'featured-tile', image: img, heading: heading, link: link, sizes: '45vw' %}
       {%- endfor -%}

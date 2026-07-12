@@ -1,7 +1,7 @@
 {%- liquid
-  assign nav_menu = settings.menu_main
+  assign nav_menu = section.settings.menu
   if nav_menu.links == blank
-    assign nav_menu = linklists['supersymmetry-main']
+    assign nav_menu = settings.menu_main
   endif
   assign ann = section.settings.announcement_text
   assign has_mega = false
@@ -36,15 +36,21 @@
           <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6 H17 M3 10 H17 M3 14 H13"/></svg>
         </button>
         <nav class="header__nav" aria-label="{{ 'accessibility.main_nav' | t }}">
+          {%- comment -%} When the mega is on, the menu's first item labels the mega
+            trigger (it opens the curated dropdown) and is skipped from the flat links
+            so it never doubles up. Falls back to shop_label when no menu is assigned. {%- endcomment -%}
           {%- if has_mega -%}
+            {%- if nav_menu.links != blank -%}{%- assign mega_label = nav_menu.links.first.title -%}{%- else -%}{%- assign mega_label = section.settings.shop_label -%}{%- endif -%}
             <button type="button" class="header__nav-trigger" aria-expanded="false" aria-controls="megaPanel" aria-haspopup="true" data-mega-toggle>
-              {{- section.settings.shop_label -}}
+              {{- mega_label -}}
               <svg class="header__nav-caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1 L5 5 L9 1"/></svg>
             </button>
           {%- endif -%}
           {%- if nav_menu.links != blank -%}
             {%- for link in nav_menu.links -%}
-              <a href="{{ link.url }}"{% if link.active %} aria-current="page"{% endif %}>{{ link.title }}</a>
+              {%- unless has_mega and forloop.first -%}
+                <a href="{{ link.url }}"{% if link.active %} aria-current="page"{% endif %}>{{ link.title }}</a>
+              {%- endunless -%}
             {%- endfor -%}
           {%- else -%}
             <a href="{{ routes.root_url }}"{% if request.page_type == 'index' %} aria-current="page"{% endif %}>{{ 'nav.home' | t }}</a>
@@ -131,12 +137,26 @@
     {%- endif -%}
   </div>
 </div>
+{%- comment -%} Mobile drawer — rendered here so it shares the section's assigned
+  menu. It is data-portal, so JS relocates it to the body; placing it at the
+  section root (outside .header-shell) keeps it clear of the card's overflow clip. {%- endcomment -%}
+{% render 'mobile-menu', menu: nav_menu %}
 
 {% schema %}
 {
   "name": "Header",
   "class": "section-header",
   "settings": [
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Main menu",
+      "info": "Drives the desktop nav and the mobile menu drawer."
+    },
     {
       "type": "header",
       "content": "Logo"
