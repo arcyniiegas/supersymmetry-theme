@@ -61,6 +61,7 @@
         },
         "related": {
           "type": "related",
+          "disabled": true,
           "settings": {
             "title": "Naujausi modeliai —",
             "more_label": "Naujienos",
