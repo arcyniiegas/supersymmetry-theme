@@ -10,13 +10,14 @@
 {
   "current": {
     "utility_right_message": "LT · EN",
-    "free_shipping_threshold": 100,
     "phone": "",
+    "menu_main": "supersymmetry-main",
     "atelier_address": "Trakų g. 16",
     "atelier_city": "Vilnius",
     "atelier_map_url": "https://maps.app.goo.gl/ewkj5Q11DmikhAdz9",
     "glass_enabled": true,
     "glass_blur": 28,
+    "free_shipping_threshold": 100,
     "utility_left_message": "Parduotuvė atidaryta · siunčiame iš Vilniaus",
     "atelier_hours": "II–V 11:00–18:00 · VI–VII 12:00–17:00",
     "sections": {
