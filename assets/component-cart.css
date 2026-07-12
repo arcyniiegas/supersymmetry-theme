@@ -84,6 +84,15 @@
 .tag--origin  { background: var(--c-origin-bg);  color: var(--c-origin-ink); }
 .tag--origin i{ background: var(--c-origin-ink); }
 
+/* Best-attribute pills — muted real accents grouped by category. A deliberate,
+   signed-off exception to the greyscale palette so attributes read at a glance. */
+.tag--feat-material     { background: #F1EADF; color: #6E5836; }
+.tag--feat-material i   { background: #A6875A; }
+.tag--feat-comfort      { background: #E6EDE4; color: #46583E; }
+.tag--feat-comfort i    { background: #789A6B; }
+.tag--feat-construction { background: #E4E8ED; color: #3E4A57; }
+.tag--feat-construction i{ background: #728AA0; }
+
 .line__foot{
   display: flex; align-items: center; justify-content: space-between;
   gap: var(--sp-4); flex-wrap: wrap;

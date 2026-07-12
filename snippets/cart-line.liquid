@@ -30,17 +30,26 @@
       </button>
     </div>
     <div class="tags">
-      {%- if item.product.metafields.glance.material != blank -%}
-      <span class="tag tag--mat"><i></i>{{ item.product.metafields.glance.material }}</span>
+      {%- comment -%} Best attributes — the product's feature list, as colour-coded
+        pills grouped by category (material · comfort · construction). {%- endcomment -%}
+      {%- assign feats = item.product.metafields.custom.features.value -%}
+      {%- if feats -%}
+        {%- for f in feats limit: 3 -%}
+          {%- assign fcat = 'construction' -%}
+          {%- case f.icon -%}
+            {%- when 'natural-leather', 'soft-leather', 'natural-fur', 'warm-lining', 'perforated' -%}{%- assign fcat = 'material' -%}
+            {%- when 'breathes', 'soft-insole', 'lightweight', 'anatomical', 'flex-sole', 'slip-on' -%}{%- assign fcat = 'comfort' -%}
+          {%- endcase -%}
+          <span class="tag tag--feat tag--feat-{{ fcat }}"><i></i>{{ f.label }}</span>
+        {%- endfor -%}
+      {%- elsif item.product.metafields.glance.material != blank -%}
+      <span class="tag tag--feat tag--feat-material"><i></i>{{ item.product.metafields.glance.material }}</span>
       {%- endif -%}
       {%- if item.variant.title and item.variant.title != 'Default Title' -%}
       <span class="tag tag--size"><i></i>{{ item.variant.title }}</span>
       {%- endif -%}
       {%- if item.original_price > item.final_price -%}
       <span class="tag tag--sale"><i></i>−{{ item.original_price | minus: item.final_price | times: 100.0 | divided_by: item.original_price | round }} %</span>
-      {%- endif -%}
-      {%- if item.product.metafields.glance.origin != blank -%}
-      <span class="tag tag--origin"><i></i>{{ item.product.metafields.glance.origin }}</span>
       {%- endif -%}
     </div>
     <div class="line__foot">
