@@ -1,8 +1,14 @@
 {%- comment -%} Product — at-a-glance bento (Trumpai). Rendered by main-product for the `glance` block.
   material/sole/weight ← custom.model_info · maker/origin ← custom.manufacturer · price ← product.
   Real value or an honest em-dash — never a fabricated default. {%- endcomment -%}
+{%- comment -%} material/sole/weight are direct product metafields (typed inline per
+  product); fall back to the legacy model_info metaobject for older products.
+  maker/origin stay on the shared manufacturer metaobject (it also feeds Apie gamintoją). {%- endcomment -%}
 {%- assign model = product.metafields.custom.model_info.value -%}
 {%- assign maker = product.metafields.custom.manufacturer.value -%}
+{%- assign v_material = product.metafields.custom.material.value | default: model.material -%}
+{%- assign v_sole = product.metafields.custom.sole.value | default: model.sole -%}
+{%- assign v_weight = product.metafields.custom.weight.value | default: model.weight -%}
 <section class="glance" {{ block.shopify_attributes }}>
   <div class="glance__head">
     <div>
@@ -15,7 +21,7 @@
     <div class="bento__cell b-1">
       <div class="bento__label">{{ 'product.glance.material' | t }}</div>
       <div>
-        <div class="bento__value">{{ model.material | default: '—' }}</div>
+        <div class="bento__value">{{ v_material | default: '—' }}</div>
         {%- if block.settings.material_sub != blank -%}<div class="bento__sub" style="margin-top: 8px;">{{ block.settings.material_sub }}</div>{%- endif -%}
       </div>
       <div class="bento__bg" aria-hidden="true">
@@ -26,7 +32,7 @@
     <div class="bento__cell b-2">
       <div class="bento__label">{{ 'product.glance.sole' | t }}</div>
       <div>
-        <div class="bento__value bento__value--mono">{{ model.sole | default: '—' }}</div>
+        <div class="bento__value bento__value--mono">{{ v_sole | default: '—' }}</div>
         {%- if block.settings.sole_sub != blank -%}<div class="bento__sub" style="margin-top: 8px;">{{ block.settings.sole_sub }}</div>{%- endif -%}
       </div>
     </div>
@@ -50,7 +56,7 @@
     <div class="bento__cell b-5">
       <div class="bento__label">{{ 'product.glance.weight' | t }}</div>
       <div>
-        <div class="bento__value bento__value--mono">{{ model.weight | default: '—' }}</div>
+        <div class="bento__value bento__value--mono">{{ v_weight | default: '—' }}</div>
         {%- if block.settings.weight_sub != blank -%}<div class="bento__sub" style="margin-top: 8px;">{{ block.settings.weight_sub }}</div>{%- endif -%}
       </div>
     </div>
