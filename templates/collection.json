@@ -83,34 +83,10 @@
     "main_list_collections_V8V6VP": {
       "type": "main-list-collections",
       "blocks": {
-        "collection_6EzpVC": {
+        "collection_mk6CE4": {
           "type": "collection",
           "settings": {
-            "collection": "slepetes",
-            "badge": "",
-            "count_word": "poros"
-          }
-        },
-        "collection_xkU7GF": {
-          "type": "collection",
-          "settings": {
-            "collection": "laisvalaikio-batai",
-            "badge": "",
-            "count_word": "poros"
-          }
-        },
-        "collection_Rphmwx": {
-          "type": "collection",
-          "settings": {
-            "collection": "aulinukai",
-            "badge": "",
-            "count_word": "poros"
-          }
-        },
-        "collection_DVGAYt": {
-          "type": "collection",
-          "settings": {
-            "collection": "aukstakulniai",
+            "collection": "basutes",
             "badge": "",
             "count_word": "poros"
           }
@@ -123,49 +99,46 @@
             "count_word": "poros"
           }
         },
-        "collection_mk6CE4": {
+        "collection_xkU7GF": {
           "type": "collection",
           "settings": {
-            "collection": "basutes",
+            "collection": "laisvalaikio-batai",
             "badge": "",
             "count_word": "poros"
           }
         },
-        "collection_bpH9rU": {
+        "collection_DVGAYt": {
           "type": "collection",
           "settings": {
-            "collection": "",
+            "collection": "aukstakulniai",
             "badge": "",
             "count_word": "poros"
           }
         },
-        "collection_qCBhQp": {
+        "collection_6EzpVC": {
           "type": "collection",
           "settings": {
-            "collection": "",
+            "collection": "slepetes",
             "badge": "",
             "count_word": "poros"
           }
         },
-        "collection_awgdRJ": {
+        "collection_Rphmwx": {
           "type": "collection",
           "settings": {
-            "collection": "",
+            "collection": "aulinukai",
             "badge": "",
             "count_word": "poros"
           }
         }
       },
       "block_order": [
-        "collection_6EzpVC",
-        "collection_xkU7GF",
-        "collection_Rphmwx",
-        "collection_DVGAYt",
-        "collection_6mtJbk",
         "collection_mk6CE4",
-        "collection_bpH9rU",
-        "collection_qCBhQp",
-        "collection_awgdRJ"
+        "collection_6mtJbk",
+        "collection_xkU7GF",
+        "collection_DVGAYt",
+        "collection_6EzpVC",
+        "collection_Rphmwx"
       ],
       "name": "List collections",
       "settings": {
