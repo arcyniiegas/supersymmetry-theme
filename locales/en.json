@@ -137,7 +137,8 @@
     "result_one": "result",
     "result_other": "results",
     "no_results": "0 results for “{term}”",
-    "quoted_term": "“{term}”"
+    "quoted_term": "“{term}”",
+    "group_questions": "questions"
   },
   "contact": {
     "sent": "Thanks — your message was sent.",

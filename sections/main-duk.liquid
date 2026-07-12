@@ -67,7 +67,7 @@
       <div class="group__head">
         <span class="gi">{% if gi < 10 %}0{% endif %}{{ gi }}</span>
         <h2>{{ block.settings.title }}</h2>
-        <span class="count">{% if cnt < 10 %}0{% endif %}{{ cnt }} klausimai</span>
+        <span class="count">{% if cnt < 10 %}0{% endif %}{{ cnt }} {{ 'faq.group_questions' | t }}</span>
       </div>
       {%- for b in section.blocks offset: forloop.index -%}
         {%- if b.type == 'group' -%}{%- break -%}{%- endif -%}

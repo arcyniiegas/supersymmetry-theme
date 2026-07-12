@@ -137,7 +137,8 @@
     "result_one": "rezultatas",
     "result_other": "rezultatai",
     "no_results": "0 rezultatų pagal „{term}“",
-    "quoted_term": "„{term}“"
+    "quoted_term": "„{term}“",
+    "group_questions": "klausimai"
   },
   "contact": {
     "sent": "Ačiū — žinutė išsiųsta.",
