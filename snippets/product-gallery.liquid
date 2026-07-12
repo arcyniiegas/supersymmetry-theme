@@ -3,7 +3,7 @@
 {%- if product.media.size > 0 -%}
 {%- for media in product.media -%}
     <figure class="shot {% cycle 'shot--portrait', 'shot--square', 'shot--landscape' %}">
-      <img class="shot__img" src="{{ media | image_url: width: 1400 }}" srcset="{{ media | image_url: width: 700 }} 700w, {{ media | image_url: width: 1400 }} 1400w" sizes="(max-width: 960px) 100vw, 60vw" width="{{ media.preview_image.width | default: 1400 }}" height="{{ media.preview_image.height | default: 1400 }}" alt="{% if media.alt != blank and media.alt != product.title %}{{ media.alt | escape }}{% else %}{{ product.title | escape }} — vaizdas {{ forloop.index }} iš {{ product.media.size }}{% endif %}" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"/>
+      <img class="shot__img" src="{{ media | image_url: width: 1400 }}" srcset="{{ media | image_url: width: 700 }} 700w, {{ media | image_url: width: 1400 }} 1400w" sizes="(max-width: 960px) 100vw, 60vw" width="{{ media.preview_image.width | default: 1400 }}" height="{{ media.preview_image.height | default: 1400 }}" alt="{% if media.alt != blank and media.alt != product.title %}{{ media.alt | escape }}{% else %}{{ product.title | escape }} — vaizdas {{ forloop.index }} iš {{ product.media.size }}{% endif %}" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"{% if forloop.first %} fetchpriority="high"{% endif %}/>
 {%- if forloop.first %}
       <button class="shot__zoom" type="button" aria-label="{{ 'accessibility.zoom' | t }}">
         {% render 'icon', name: 'zoom' %}
@@ -13,7 +13,7 @@
 {%- endfor -%}
 {%- else -%}
     <figure class="shot shot--portrait">
-      <img class="shot__img" src="{{ 'Nr1.webp' | asset_url }}" width="1400" height="1400" alt="Šoninis profilis" loading="eager"/>
+      <img class="shot__img" src="{{ 'Nr1.webp' | asset_url }}" width="1400" height="1400" alt="Šoninis profilis" loading="eager" fetchpriority="high"/>
       <button class="shot__zoom" type="button" aria-label="{{ 'accessibility.zoom' | t }}">
         {% render 'icon', name: 'zoom' %}
       </button>
