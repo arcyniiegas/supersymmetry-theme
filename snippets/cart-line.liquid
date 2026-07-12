@@ -42,8 +42,8 @@
           {%- endcase -%}
           <span class="tag tag--feat tag--feat-{{ fcat }}"><i></i>{{ f.label }}</span>
         {%- endfor -%}
-      {%- elsif item.product.metafields.glance.material != blank -%}
-      <span class="tag tag--feat tag--feat-material"><i></i>{{ item.product.metafields.glance.material }}</span>
+      {%- elsif item.product.metafields.custom.sudetis.value.medziagos != blank -%}
+      <span class="tag tag--feat tag--feat-material"><i></i>{{ item.product.metafields.custom.sudetis.value.medziagos }}</span>
       {%- endif -%}
       {%- if item.variant.title and item.variant.title != 'Default Title' -%}
       <span class="tag tag--size"><i></i>{{ item.variant.title }}</span>

@@ -1,16 +1,15 @@
 {%- comment -%} Product — at-a-glance bento (Trumpai). Rendered by main-product for the `glance` block.
   Each tile renders ONLY when it has a real value — no fabricated defaults, no
   em-dash placeholders. The whole section hides if nothing but price would show.
-  · Medžiaga / Padas — product metafield dropdowns (custom.material / custom.sole)
-  · Svoris — free-text product metafield (custom.weight)
-  · Gamintojas — manufacturer metaobject (custom.manufacturer), falls back to vendor
+  · Medžiaga — custom.material override, else the composition metaobject (custom.sudetis → medziagos)
+  · Padas — free-text product metafield (custom.sole)
+  · Gamintojas — maker metaobject (custom.designer), falls back to product.vendor
   · Kilmė — merchant-set block setting (NO default — never assert a country of origin)
-  · Kaina — the product's own price (the anchor tile, always shown when the section is)
-  Legacy model_info metaobject is kept as a fallback for older products. {%- endcomment -%}
-{%- assign model = product.metafields.custom.model_info.value -%}
-{%- assign maker = product.metafields.custom.manufacturer.value -%}
-{%- assign v_material = product.metafields.custom.material.value | default: model.material -%}
-{%- assign v_sole = product.metafields.custom.sole.value | default: model.sole -%}
+  · Kaina — the product's own price (the anchor tile, always shown when the section is) {%- endcomment -%}
+{%- assign sudetis = product.metafields.custom.sudetis.value -%}
+{%- assign maker = product.metafields.custom.designer.value -%}
+{%- assign v_material = product.metafields.custom.material.value | default: sudetis.medziagos -%}
+{%- assign v_sole = product.metafields.custom.sole.value -%}
 {%- assign v_maker = maker.name | default: product.vendor -%}
 {%- assign v_origin = block.settings.origin -%}
 {%- comment -%} Spalva — the first colour from the shared custom.spalvos_filtras

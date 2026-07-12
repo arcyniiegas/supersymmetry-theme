@@ -43,7 +43,7 @@
     </div>
     <div>
       <div class="notes-prose">
-{%- assign maker = product.metafields.custom.manufacturer.value -%}
+{%- assign maker = product.metafields.custom.designer.value -%}
 {%- if maker != blank -%}
 {%- if maker.description != blank -%}<p>{{ maker.description | newline_to_br }}</p>{%- endif -%}
         <p class="notes-prose__maker">{{ maker.name }}{% if maker.country_of_origin != blank %} · {{ maker.country_of_origin }}{% endif %}</p>
