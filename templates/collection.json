@@ -55,7 +55,6 @@
         "note-3",
         "note-4"
       ],
-      "disabled": true,
       "settings": {
         "show_eyebrow": false,
         "eyebrow_prefix": "Kolekcija",
@@ -140,6 +139,7 @@
         "collection_pziyxK",
         "collection_VPDgag"
       ],
+      "disabled": true,
       "name": "List collections",
       "settings": {
         "color_scheme": "",
