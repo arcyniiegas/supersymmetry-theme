@@ -3,10 +3,10 @@
 {% render 'section-appearance', section: section %}
 {%- liquid
   assign current_variant = product.selected_or_first_available_variant
-  assign buybar_price = product.price | money | remove: '€' | remove: ',00'
+  assign buybar_price = product.price | money_without_trailing_zeros
   assign buybar_compare = ''
   if product.compare_at_price and product.compare_at_price > product.price
-    assign buybar_compare = product.compare_at_price | money | remove: '€' | remove: ',00'
+    assign buybar_compare = product.compare_at_price | money_without_trailing_zeros
   endif
   assign crumb_collection = product.collections.first
 -%}
@@ -61,7 +61,7 @@
 {%- if variant.title contains ' (' -%}
 {%- assign size_cm = variant.title | split: ' (' | last | remove: ')' | replace: 'cm', ' cm' | strip -%}
 {%- endif -%}
-        <button class="size{% if variant.id == current_variant.id %} is-selected{% endif %}" role="radio" aria-checked="{% if variant.id == current_variant.id %}true{% else %}false{% endif %}" data-variant-id="{{ variant.id }}" data-variant-price="{{ variant.price | money | remove: '€' | remove: ',00' }}"{% if variant.compare_at_price > variant.price %} data-variant-compare="{{ variant.compare_at_price | money | remove: '€' | remove: ',00' }}"{% endif %} data-variant-available="{{ variant.available }}"{% if variant.inventory_management != blank %} data-variant-qty="{{ variant.inventory_quantity }}"{% endif %}{% unless variant.available %} disabled aria-label="{{ variant.title | escape }} — išparduota"{% endunless %}><span class="size__eu">{{ size_eu }}</span>{% if size_cm != blank %}<span class="size__cm">{{ size_cm }}</span>{% endif %}</button>
+        <button class="size{% if variant.id == current_variant.id %} is-selected{% endif %}" role="radio" aria-checked="{% if variant.id == current_variant.id %}true{% else %}false{% endif %}" data-variant-id="{{ variant.id }}" data-variant-price="{{ variant.price | money_without_trailing_zeros }}"{% if variant.compare_at_price > variant.price %} data-variant-compare="{{ variant.compare_at_price | money_without_trailing_zeros }}"{% endif %} data-variant-available="{{ variant.available }}"{% if variant.inventory_management != blank %} data-variant-qty="{{ variant.inventory_quantity }}"{% endif %}{% unless variant.available %} disabled aria-label="{{ variant.title | escape }} — išparduota"{% endunless %}><span class="size__eu">{{ size_eu }}</span>{% if size_cm != blank %}<span class="size__cm">{{ size_cm }}</span>{% endif %}</button>
 {%- endfor -%}
 {%- else -%}
         <button class="size is-selected" role="radio" aria-checked="true"><span class="size__eu">{{ current_variant.title | default: 'Vienas dydis' }}</span></button>

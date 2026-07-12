@@ -45,7 +45,7 @@
       <footer class="cart-drawer__foot">
         <div class="cart-drawer__row">
           <span class="cart-drawer__row-k">{{ 'cart.subtotal' | t }}</span>
-          <span class="cart-drawer__row-v">{{ cart.items_subtotal_price | money | remove: '€' | remove: ',00' }}</span>
+          <span class="cart-drawer__row-v">{{ cart.items_subtotal_price | money_without_trailing_zeros }}</span>
         </div>
         <p class="cart-drawer__note">{{ 'cart.checkout_note' | t }}</p>
         <form action="{{ routes.cart_url }}" method="post">

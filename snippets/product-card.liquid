@@ -33,9 +33,9 @@
     <span class="card__dot" aria-hidden="true">·</span>
     {%- endif -%}
     <div class="card__price">
-      <span{% unless product.available %} style="color:var(--mid);"{% endunless %}>{{ product.price | money | remove: '€' | remove: ',00' }}</span>
+      <span{% unless product.available %} style="color:var(--mid);"{% endunless %}>{{ product.price | money_without_trailing_zeros }}</span>
       {%- if product.compare_at_price > product.price -%}
-      <span class="strike">{{ product.compare_at_price | money | remove: '€' | remove: ',00' }}</span>
+      <span class="strike">{{ product.compare_at_price | money_without_trailing_zeros }}</span>
       {%- endif -%}
     </div>
     {%- if show_name and product.type != blank -%}<span class="card__sub">{{ product.type }}</span>{%- endif -%}

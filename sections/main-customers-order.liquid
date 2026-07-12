@@ -36,24 +36,24 @@
         </div>
         {%- endif -%}
       </div>
-      <div class="oline__price">{{ line_item.final_line_price | money | remove: '€' | remove: ',00' }}</div>
+      <div class="oline__price">{{ line_item.final_line_price | money_without_trailing_zeros }}</div>
     </div>
     {%- endfor -%}
   </div>
 
   <!-- ──────────── TOTALS ──────────── -->
   <div class="ototals">
-    <div class="row"><span>{{ 'customer.subtotal' | t }}</span><span class="v">{{ order.line_items_subtotal_price | money | remove: '€' | remove: ',00' }}</span></div>
+    <div class="row"><span>{{ 'customer.subtotal' | t }}</span><span class="v">{{ order.line_items_subtotal_price | money_without_trailing_zeros }}</span></div>
     {%- for discount_application in order.cart_level_discount_applications -%}
-    <div class="row"><span>{{ discount_application.title }}</span><span class="v">−{{ discount_application.total_allocated_amount | money | remove: '€' | remove: ',00' }}</span></div>
+    <div class="row"><span>{{ discount_application.title }}</span><span class="v">−{{ discount_application.total_allocated_amount | money_without_trailing_zeros }}</span></div>
     {%- endfor -%}
     {%- for shipping_method in order.shipping_methods -%}
-    <div class="row"><span>{{ 'customer.shipping' | t }} · {{ shipping_method.title }}</span><span class="v">{{ shipping_method.price | money | remove: '€' | remove: ',00' }}</span></div>
+    <div class="row"><span>{{ 'customer.shipping' | t }} · {{ shipping_method.title }}</span><span class="v">{{ shipping_method.price | money_without_trailing_zeros }}</span></div>
     {%- endfor -%}
     {%- for tax_line in order.tax_lines -%}
-    <div class="row"><span>{{ tax_line.title }} {{ tax_line.rate | times: 100 | round }}%</span><span class="v">{{ tax_line.price | money | remove: '€' | remove: ',00' }}</span></div>
+    <div class="row"><span>{{ tax_line.title }} {{ tax_line.rate | times: 100 | round }}%</span><span class="v">{{ tax_line.price | money_without_trailing_zeros }}</span></div>
     {%- endfor -%}
-    <div class="row row--total"><span>{{ 'customer.total' | t }}</span><span class="v">{{ order.total_price | money | remove: '€' | remove: ',00' }}</span></div>
+    <div class="row row--total"><span>{{ 'customer.total' | t }}</span><span class="v">{{ order.total_price | money_without_trailing_zeros }}</span></div>
   </div>
 
   <!-- ──────────── ADDRESSES ──────────── -->

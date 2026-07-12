@@ -58,11 +58,14 @@ menu had duplicated (caption id unified to `heading`); removed the **orphaned "D
 settings group** (dock deleted, zero consumers); relabelled the stale
 `utility_right_message` ("Utility bar" → "Locale note", now only the mobile-menu
 colophon). **`shopify theme check` clean** — 107 files, 0 errors (the 4 warnings are
-the baseline customer-template `UndefinedObject`s). **Known debt:** the cart
-(`cart-line` / `main-cart` / `cart-drawer`) uses `money | remove:'€' | remove:',00'`
-— the **Phase-1-banned currency anti-pattern** (EUR symbol hardcoded,
-multi-currency-fragile); the fix is to harden the `price` primitive and route cart
-money through it. **Registry debt:** `COMPONENTS.md` doesn't yet list the feature-layer
+the baseline customer-template `UndefinedObject`s). **Currency debt — RESOLVED
+(design change, signed off):** the `money | remove:'€' | remove:',00'` bare-number
+pattern (27 usages across 11 files — PDP, cards, cart, account orders, arrivals)
+migrated to **`money_without_trailing_zeros`**, so prices now render the store's
+localized money **with the currency symbol** (multi-currency-correct). This is a
+deliberate departure from the prior bare-number design; needs a live Theme-Editor
+preview to confirm symbol placement in tight layouts. **Registry debt:** `COMPONENTS.md`
+doesn't yet list the feature-layer
 components (`component-header`/`-mega-menu`/`-cart`/`-tile`, the `featured-tile` /
 `cart-line` / `free-shipping-bar` snippets, the header mega blocks) — refresh pending.
 
@@ -117,8 +120,12 @@ Build and adopt the missing primitives (see [COMPONENTS.md](COMPONENTS.md) §1).
       context** and kept by design: hero white (photo contrast — glass `--secondary`
       is illegible white-on-transparent over the image), buy-bar + consent compact
       sizing, contactstrip contrast, kform layout. Pending: 3 inline-`style=` anchors.
-- [ ] Harden `price.liquid`: remove `€289/€340` fallback literals, fix
-      multi‑currency (`money_without_trailing_zeros`, no `remove:'€'`).
+- [x] Harden currency handling: `€289/€340` fallback literals already gone;
+      migrated the site-wide `money | remove:'€' | remove:',00'` bare-number
+      pattern (27 usages / 11 files) to **`money_without_trailing_zeros`** — prices
+      now render the store's localized money **with** the currency symbol
+      (multi-currency-correct). Deliberate design change (bare-number → symbol),
+      signed off; `theme check` clean; live preview pending for symbol placement.
 - [ ] Adopt `price` inside `product-card`; move card price logic out of the card.
 - [ ] `heading.liquid`, `section-header.liquid`, `container.liquid`.
 - [ ] `image.liquid` (responsive), `badge.liquid`, `icon.liquid` (SVG sprite).

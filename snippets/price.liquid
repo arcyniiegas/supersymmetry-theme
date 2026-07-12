@@ -17,9 +17,9 @@
 {%- if p_price != nil -%}
 <div class="price">
   <div class="price__main">
-    <div class="price__current tabular">{{ p_price | money | remove: '€' | remove: ',00' }}</div>
+    <div class="price__current tabular">{{ p_price | money_without_trailing_zeros }}</div>
     {%- if p_compare and p_compare > p_price -%}
-    <div class="price__strike tabular">{{ p_compare | money | remove: '€' | remove: ',00' }}</div>
+    <div class="price__strike tabular">{{ p_compare | money_without_trailing_zeros }}</div>
     {%- endif -%}
   </div>
   {%- if p_compare and p_compare > p_price -%}

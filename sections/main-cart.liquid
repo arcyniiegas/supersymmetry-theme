@@ -73,9 +73,9 @@
   <aside class="summary">
     <div class="summary__card">
       <div class="summary__h">{{ section.settings.summary_title | default: 'Suvestinė' }}</div>
-      <div class="srow"><span class="k">{{ section.settings.label_subtotal | default: 'Tarpinė suma' }}</span><span class="v" id="sumSubtotal">{{ cart.items_subtotal_price | money | remove: '€' | remove: ',00' }}</span></div>
+      <div class="srow"><span class="k">{{ section.settings.label_subtotal | default: 'Tarpinė suma' }}</span><span class="v" id="sumSubtotal">{{ cart.items_subtotal_price | money_without_trailing_zeros }}</span></div>
       {%- for d in cart.cart_level_discount_applications -%}
-      <div class="srow"><span class="k">{{ d.title }}</span><span class="v" id="sumDiscount">−{{ d.total_allocated_amount | money | remove: '€' | remove: ',00' }}</span></div>
+      <div class="srow"><span class="k">{{ d.title }}</span><span class="v" id="sumDiscount">−{{ d.total_allocated_amount | money_without_trailing_zeros }}</span></div>
       {%- endfor -%}
       {%- if cart.total_price >= free_threshold -%}
       <div class="srow srow--free"><span class="k">{{ section.settings.label_shipping | default: 'Pristatymas' }}</span><span class="v" id="sumShipping">{{ section.settings.label_shipping_free | default: 'Nemokamas' }}</span></div>
@@ -90,7 +90,7 @@
       </div>
       {%- for d in cart.cart_level_discount_applications -%}
       <div class="promo__applied is-on" id="promoApplied">
-        <span>{{ d.title }} · −{{ d.total_allocated_amount | money | remove: '€' | remove: ',00' }}</span>
+        <span>{{ d.title }} · −{{ d.total_allocated_amount | money_without_trailing_zeros }}</span>
         {%- comment -%} Discount codes are managed at checkout; removal isn't supported via Cart AJAX. {# TODO: promo removal #} {%- endcomment -%}
         <button type="button" id="promoRemove">{{ 'cart.remove' | t }}</button>
       </div>
@@ -99,9 +99,9 @@
       <div class="srow srow--total">
         <span class="k">{{ section.settings.label_total | default: 'Iš viso' }}</span>
         <span>
-          <span class="v" id="sumTotal">{{ cart.total_price | money | remove: '€' | remove: ',00' }}</span>
+          <span class="v" id="sumTotal">{{ cart.total_price | money_without_trailing_zeros }}</span>
           {%- comment -%} PVM shown as the 21% VAT included in the tax-inclusive total. {%- endcomment -%}
-          <span class="vat">{{ section.settings.vat_prefix | default: 'su PVM' }} · {{ cart.total_price | times: 21 | divided_by: 121 | money | remove: '€' | remove: ',00' }}</span>
+          <span class="vat">{{ section.settings.vat_prefix | default: 'su PVM' }} · {{ cart.total_price | times: 21 | divided_by: 121 | money_without_trailing_zeros }}</span>
         </span>
       </div>
 

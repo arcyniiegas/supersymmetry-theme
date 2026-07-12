@@ -12,7 +12,7 @@
 {%- for p in recommendations.products limit: 4 -%}
     <a class="card" href="{{ p.url }}" aria-label="{{ p.title | escape }}">
       <div class="card__media">
-        <span class="card__price-chip">{{ p.price | money | remove: '€' | remove: ',00' }}</span>
+        <span class="card__price-chip">{{ p.price | money_without_trailing_zeros }}</span>
         {%- if p.featured_image -%}
         <img src="{{ p.featured_image | image_url: width: 800 }}" srcset="{{ p.featured_image | image_url: width: 400 }} 400w, {{ p.featured_image | image_url: width: 800 }} 800w" sizes="(max-width: 520px) 50vw, 25vw" width="{{ p.featured_image.width }}" height="{{ p.featured_image.height }}" alt="{{ p.featured_image.alt | escape }}" loading="lazy">
         {%- endif -%}
@@ -23,7 +23,7 @@
 {%- for p in collections.all.products limit: 4 -%}
     <a class="card" href="{{ p.url }}" aria-label="{{ p.title | escape }}">
       <div class="card__media">
-        <span class="card__price-chip">{{ p.price | money | remove: '€' | remove: ',00' }}</span>
+        <span class="card__price-chip">{{ p.price | money_without_trailing_zeros }}</span>
         {%- if p.featured_image -%}
         <img src="{{ p.featured_image | image_url: width: 800 }}" srcset="{{ p.featured_image | image_url: width: 400 }} 400w, {{ p.featured_image | image_url: width: 800 }} 800w" sizes="(max-width: 520px) 50vw, 25vw" width="{{ p.featured_image.width }}" height="{{ p.featured_image.height }}" alt="{{ p.featured_image.alt | escape }}" loading="lazy">
         {%- endif -%}

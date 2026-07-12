@@ -34,7 +34,7 @@
     <div class="bento__cell bento__cell--orange b-3">
       <div class="bento__label">{{ 'product.glance.price' | t }}</div>
       <div>
-        <div class="bento__value bento__value--big bento__value--mono">{{ product.price | money | remove: '€' | remove: ',00' }}</div>
+        <div class="bento__value bento__value--big bento__value--mono">{{ product.price | money_without_trailing_zeros }}</div>
         {%- if block.settings.price_sub != blank -%}<div class="bento__sub" style="margin-top: 8px;">{{ block.settings.price_sub }}</div>{%- endif -%}
       </div>
     </div>

@@ -29,7 +29,7 @@
         {%- endif -%}
       </div>
       <div class="prod__body">
-        <span class="prod__price">{{ product.price | money | remove: '€' | remove: ',00' }}</span>
+        <span class="prod__price">{{ product.price | money_without_trailing_zeros }}</span>
       </div>
     </a>
 {%- endfor -%}

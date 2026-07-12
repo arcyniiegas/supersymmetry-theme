@@ -51,9 +51,9 @@
       </div>
       <div class="line__price">
         {%- if item.original_line_price > item.final_line_price -%}
-        <span class="line__was">{{ item.original_line_price | money | remove: '€' | remove: ',00' }}</span>
+        <span class="line__was">{{ item.original_line_price | money_without_trailing_zeros }}</span>
         {%- endif -%}
-        <span class="line__now">{{ item.final_line_price | money | remove: '€' | remove: ',00' }}</span>
+        <span class="line__now">{{ item.final_line_price | money_without_trailing_zeros }}</span>
       </div>
     </div>
   </div>
