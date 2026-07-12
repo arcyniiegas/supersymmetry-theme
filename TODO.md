@@ -139,6 +139,14 @@ Build and adopt the missing primitives (see [COMPONENTS.md](COMPONENTS.md) §1).
       `product-related` arrow (stroke 1.5 vs 1.6). Broader adoption of the mixed
       instances needs a rendered page to confirm parity.
 - [x] Move `product-card` strings (`Išparduota`, `Naujiena`) to `locales/*` (`product` ns).
+- [x] `map-illustration.liquid` — extracted the identical 22-line decorative map
+      SVG duplicated in `home-visit` + `main-kontaktai` (byte-identical → pixel-safe).
+- [x] `breadcrumbs.liquid` — single-sources the `<nav class="crumbs">` scaffold
+      across 9 sections (Home + optional parent link + bold current). `.crumbs` is
+      flex+gap so whitespace is inert → pixel-identical, verified in harness.
+      `main-collection` kept inline (extra trailing meta crumb). `badge` was
+      evaluated and **skipped** — every section's badge markup/classes differ, so
+      there's no byte-identical duplication to consolidate safely.
 
 ## Phase 2 — Shared block vocabulary
 
