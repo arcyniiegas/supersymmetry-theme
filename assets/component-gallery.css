@@ -1,0 +1,95 @@
+@charset "UTF-8";
+
+/* ════════════════════════════════════════════════════════════
+   PRODUCT GALLERY — long image stack (desktop) / full-bleed
+   swipeable carousel + pagination dots (mobile).
+   Rendered by snippets/product-gallery.liquid. Extracted from
+   section-product.css (verbatim); the .product grid that places
+   this column stays in section-product.css (layout).
+   ════════════════════════════════════════════════════════════ */
+
+/* GALLERY — long stack on the left */
+.gallery{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-3);
+}
+.shot{
+  position: relative;
+  background: var(--bg);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  color: var(--text);
+  border: 1px solid var(--line);
+}
+.shot--portrait{ aspect-ratio: 4 / 5; }
+.shot--square{ aspect-ratio: 1 / 1; }
+.shot--landscape{ aspect-ratio: 5 / 4; }
+
+/* MOBILE — full-bleed swipeable carousel */
+@media (max-width: 960px){
+  .gallery{
+    display: flex;
+    grid-template-columns: none;
+    gap: 0;
+    width: 100vw;
+    margin-left: calc(-1 * var(--gutter));
+    margin-right: calc(-1 * var(--gutter));
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+  .gallery::-webkit-scrollbar{ display: none; }
+  .shot{
+    flex: 0 0 100vw;
+    scroll-snap-align: center;
+    border: none;
+    border-radius: 0;
+    aspect-ratio: 1 / 1;
+  }
+  .shot__zoom{ right: var(--gutter); bottom: var(--gutter); }
+}
+
+.shot__img{
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.shot__zoom{
+  position: absolute;
+  right: var(--sp-5); bottom: var(--sp-5);
+  width: 42px; height: 42px;
+  display: grid; place-items: center;
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 99px;
+  color: var(--text);
+  border: 1px solid var(--line);
+  transition: background var(--tx-fast) var(--ease);
+}
+.shot__zoom:hover{ background: var(--ink); color: var(--bg); border-color: var(--text); }
+.shot__zoom svg{ width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+
+/* gallery pagination — mobile carousel only */
+.gallery-dots{ display: none; }
+@media (max-width: 960px){
+  .gallery-dots{
+    display: flex; justify-content: center; align-items: center; gap: 1px;
+    margin-top: var(--sp-4);
+  }
+  /* 6px visual dot, ≥24px tap area (WCAG 2.5.8) via a transparent hit button */
+  .gallery-dots button{
+    width: 24px; height: 44px; padding: 0; border: none; background: none;
+    display: grid; place-items: center; cursor: pointer;
+  }
+  .gallery-dots button::before{
+    content: ''; width: 6px; height: 6px; border-radius: 99px;
+    background: var(--hairline);
+    transition: background var(--tx-fast) var(--ease), width var(--tx-fast) var(--ease);
+  }
+  .gallery-dots button[aria-current="true"]::before{ background: var(--ink); width: 20px; }
+}

@@ -3,9 +3,9 @@
 /* ════════════════════════════════════════════════════════════
    FIT WIDGET — 2D length×width trueness scatter (main-product `fit` block)
    + the fit-feedback data row shown under the size picker.
-   Extracted from section-product.css. Loaded by main-product AFTER
-   section-product.css, which keeps @keyframes pulse (shared with the gantt
-   + stock dots) — the .fit__dot pulse resolves to that global keyframe.
+   Extracted from section-product.css. @keyframes pulse lives in
+   component-delivery.css (shared with the gantt "now" node) — the .fit__dot
+   halo resolves to that global keyframe; both files always co-load on the PDP.
    ════════════════════════════════════════════════════════════ */
 
 /* fit feedback — data, not reviews (sits under the size picker) */
@@ -117,6 +117,12 @@
   border: 1px solid #34C759;
   opacity: 0;
   animation: pulse 2.6s ease-out infinite;
+}
+/* Motion-sensitive users: freeze the fit-dot halo. (Placed after the base
+   rule so the override wins — the pre-split copy sat in section-product.css,
+   an earlier-loaded file, so it silently never applied.) */
+@media (prefers-reduced-motion: reduce){
+  .fit__dot::after{ animation: none; }
 }
 /* projection ticks retired — the grid conveys position */
 .fit__tick{ display: none; }

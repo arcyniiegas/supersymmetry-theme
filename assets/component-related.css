@@ -1,0 +1,51 @@
+@charset "UTF-8";
+
+/* ════════════════════════════════════════════════════════════
+   RELATED — "keep looking" product row. Rendered by
+   snippets/product-related.liquid; the cards themselves are the
+   shared product card (component-card.css). Extracted from
+   section-product.css (verbatim).
+   ════════════════════════════════════════════════════════════ */
+.related{
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: var(--sp-24) var(--gutter) var(--sp-16);
+}
+@media (max-width: 720px){
+  .related{ padding: var(--sp-16) var(--gutter) var(--sp-10); }
+}
+.related__head{
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: var(--sp-8);
+  gap: var(--sp-4);
+}
+.related__title{
+  font: 500 var(--t-display)/1.05 var(--font-sans);
+  letter-spacing: -0.03em;
+  font-kerning: normal;
+  margin: 0;
+}
+.related__title .light{ color: var(--text-muted); font-weight: 300; }
+.related__more{
+  display: inline-flex; align-items: center; gap: 8px;
+  font: 500 14px/1 var(--font-sans);
+  color: var(--text);
+  padding: 12px 18px;
+  background: var(--surface);
+  border-radius: 99px;
+  transition: background var(--tx-fast) var(--ease);
+}
+.related__more:hover{ background: var(--surface-hover); }
+.related__grid{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sp-4);
+}
+@media (max-width: 920px){
+  .related__grid{ grid-template-columns: repeat(2, 1fr); }
+}
+/* Related-products cards use the shared product card (component-card.css).
+   The base .card/.card__media rules here were byte-identical duplicates and
+   .card__index/body/name/sub/price were dead (the related markup is just
+   media + price-chip), so they're gone. The price-chip variant moved to
+   component-card.css. */

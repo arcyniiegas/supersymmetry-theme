@@ -1,0 +1,259 @@
+@charset "UTF-8";
+
+/* ════════════════════════════════════════════════════════════
+   BUY COLUMN — the sticky product info aside: name/price, size
+   picker, stock, sticky buy bar, add-to-cart status + CTAs.
+   Rendered by main-product.liquid's info aside. Extracted from
+   section-product.css (verbatim). The .info sticky column lives
+   here; the .product two-column grid that places it stays in
+   section-product.css (layout).
+   ════════════════════════════════════════════════════════════ */
+
+/* INFO COLUMN — sticky on desktop */
+.info{
+  position: sticky;
+  top: calc(64px + 48px);  /* sticky beneath the header */
+  display: flex; flex-direction: column;
+  gap: var(--sp-8);
+  align-self: start;
+}
+@media (max-width: 960px){
+  .info{ position: static; gap: var(--sp-6); }
+}/* Name · price — one bullet-separated cluster, aligned to the right of the
+   panel. Quiet product-page scale; the gallery carries the drama. */
+.info__head{
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-start;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+}
+.info__sep{
+  color: var(--soft);
+  font: 400 20px/1 var(--font-sans);
+}
+.info__name{
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: calc(clamp(24px, 2.3vw, 32px) * var(--title-scale, 1));
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  font-kerning: normal;
+  margin: 0;
+  color: var(--text);
+}
+.info__name span{ display: block; }
+.info__name .light{
+  font-weight: 300;
+  color: var(--text-muted);
+  letter-spacing: -0.035em;
+}
+
+/* Product description — quiet body copy under the name/price row */
+.info__desc{
+  margin-top: calc(-1 * var(--sp-4)); /* pull nearer the price than the sp-8 flow gap */
+  font: 400 15px/1.6 var(--font-sans);
+  color: var(--text-muted);
+  letter-spacing: -0.005em;
+  max-width: 52ch;
+  text-wrap: pretty;
+}
+.info__desc > :first-child{ margin-top: 0; }
+.info__desc > :last-child{ margin-bottom: 0; }
+.info__desc p{ margin: 0 0 0.7em; }
+.info__desc b, .info__desc strong{ color: var(--text); font-weight: 500; }
+.info__desc a{ color: var(--text); text-decoration: underline; text-underline-offset: 2px; }
+.info__desc ul, .info__desc ol{ margin: 0.6em 0; padding-left: 1.1em; display: grid; gap: 4px; }
+
+/* PRICE — mono numerals, one weight lighter than the name */
+.price{
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+  flex-shrink: 0;
+}
+.price__main{
+  display: flex; align-items: baseline; gap: var(--sp-3);
+}
+.price__current{
+  font: 400 clamp(17px, 1.6vw, 20px)/1 var(--font-mono);
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+.price__strike{
+  font: 400 13px/1 var(--font-mono);
+  color: var(--text-muted);
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+.price__chip{
+  display: inline-flex;
+  align-items: center; gap: 6px;
+  padding: 7px 11px;
+  background: var(--orange);
+  color: var(--bg);
+  border-radius: 99px;
+  font: 600 11px/1 var(--font-mono);
+  letter-spacing: 0.02em;
+}
+
+/* SIZE — soft pills */
+/* One row while the sizes fit; wrap to a second only when there are more
+   than the row can hold. auto-fit fills the full width with whatever count
+   exists (4 sizes → 4 pills across), instead of a fixed 6-track grid that
+   left 4-size products bunched with empty columns. */
+.sizes{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(76px, 1fr));
+  gap: var(--sp-2);
+}
+.size{
+  position: relative;
+  min-height: 56px;
+  display: grid; place-items: center; align-content: center;
+  gap: 3px;
+  padding: 8px 4px;
+  font: 500 14px/1 var(--font-mono);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: var(--r-sm);
+  transition: background var(--tx-fast) var(--ease), color var(--tx-fast) var(--ease), transform var(--tx-fast) var(--ease);
+}
+.size__eu{ font: 500 15px/1 var(--font-mono); letter-spacing: -0.01em; }
+.size__cm{
+  font: 400 10px/1 var(--font-mono);
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+}
+.size.is-selected .size__cm{ color: rgba(255,255,255,0.6); }
+.size:hover:not([disabled]):not(.is-selected){
+  background: var(--surface-hover);
+}
+.size.is-selected{
+  background: var(--ink);
+  color: var(--bg);
+}
+.size[disabled]{
+  color: var(--soft);
+  cursor: not-allowed;
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+.size[disabled] .size__cm{ color: var(--soft); }
+.size[disabled]::after{
+  content: '';
+  position: absolute;
+  left: 18%; right: 18%; top: 50%;
+  height: 1px;
+  background: var(--soft);
+  transform: rotate(-14deg);
+}
+.stock{
+  display: flex; align-items: center; gap: 10px;
+  margin-top: var(--sp-3);
+  font: 400 13px/1.4 var(--font-sans);
+  color: var(--text-muted);
+}
+.stock b{ color: var(--text); font-weight: 500; }
+/* low-stock note for the selected size — honest inventory, quiet voice */
+.sizes-note{
+  margin: var(--sp-3) 0 0;
+  font: 500 11px/1 var(--font-mono);
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+}
+/* Sticky buy bar — a glass card that floats UP from the bottom once the main
+   CTA scrolls out of view. Matches the search dropdown / cart drawer glass.
+   Appended to <body> (no opacity ancestor), so the transform slide is safe. */
+.buybar{
+  position: fixed; z-index: 55;
+  left: 50%; bottom: calc(var(--sp-4) + env(safe-area-inset-bottom, 0px));
+  width: min(680px, calc(100vw - var(--sp-8)));
+  display: flex; align-items: center; gap: var(--sp-4);
+  color: var(--text);
+  padding: 10px 10px 10px var(--sp-6);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--glass-line);
+  background:
+    linear-gradient(180deg, color-mix(in oklab, #ffffff 22%, transparent), transparent 42%),
+    color-mix(in oklab, var(--bg) 84%, transparent);
+  backdrop-filter: blur(28px) saturate(1.7);
+  -webkit-backdrop-filter: blur(28px) saturate(1.7);
+  box-shadow:
+    inset 0 1px 0 var(--glass-line-top),
+    0 2px 2px rgba(10, 10, 10, 0.05),
+    0 30px 60px -28px rgba(10, 10, 10, 0.45);
+  transform: translate(-50%, calc(100% + var(--sp-5)));
+  transition: transform var(--tx-base) var(--ease-snap, var(--ease));
+}
+.buybar.is-visible{ transform: translate(-50%, 0); }
+html[data-glass="off"] .buybar{
+  backdrop-filter: none; -webkit-backdrop-filter: none;
+  background: var(--bg);
+}
+.buybar__meta{ display: flex; align-items: baseline; gap: 10px; min-width: 0; flex: 1; }
+.buybar__name{
+  font: 500 14px/1.2 var(--font-sans); letter-spacing: -0.01em; color: var(--text);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.buybar__price{ font: 500 12px/1 var(--font-mono); color: var(--text-muted); white-space: nowrap; }
+.buybar__size{
+  font: 500 11px/1 var(--font-mono); color: var(--text);
+  padding: 7px 11px; border: 1px solid color-mix(in oklab, var(--ink) 14%, transparent); border-radius: 99px;
+  white-space: nowrap;
+}
+.buybar .btn{ padding: 12px 22px; font-size: 13px; white-space: nowrap; min-height: 44px; }
+
+/* Add-to-cart status: screen-reader announced always; visible only on error.
+   Ink, not a hue — errors keep the One Voice Rule. */
+.atc-status{
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); clip-path: inset(50%); margin: -1px;
+}
+.atc-status.is-error{
+  position: static; width: auto; height: auto; overflow: visible;
+  clip: auto; clip-path: none; margin: 12px 0 0;
+  font: 500 13px/1.45 var(--font-sans); letter-spacing: -0.005em;
+  color: var(--text);
+  border-left: 2px solid var(--ink); padding-left: 10px;
+}
+
+/* live "in stock" dot — quiet looping ping beside the stock line */
+.stock__dot{
+  width: 7px; height: 7px; border-radius: 99px;
+  background: var(--orange);
+  position: relative;
+}
+.stock__dot::before{
+  content:''; position: absolute; inset: -4px;
+  border-radius: 99px;
+  background: var(--orange);
+  opacity: 0.32;
+  animation: ping 2.4s ease-out infinite;
+}
+@keyframes ping{
+  0%{ transform: scale(0.7); opacity: 0.4; }
+  100%{ transform: scale(1.8); opacity: 0; }
+}
+
+/* CTAs — full pill buttons */
+.ctas{
+  display: grid;
+  gap: var(--sp-2);
+}
+/* Buttons: the shared glass component — see component-button.css.
+   The compact .buybar .btn override above stays (sticky-bar sizing). */
+
+/* Motion-sensitive users: freeze the sticky-bar slide + the looping stock ping.
+   (Placed after the base rules so the override actually wins — the pre-split
+   copy sat before them in source order and silently never applied.) */
+@media (prefers-reduced-motion: reduce){
+  .buybar{ transition: none; }
+  .stock__dot::before{ animation: none; }
+}
+
+/* MOBILE chrome — tighten the name/price cluster on the smallest screens */
+@media (max-width: 600px){
+  .price{ flex-wrap: wrap; }
+  .info__name{ font-size: calc(clamp(22px, 6vw, 26px) * var(--title-scale, 1)); }
+}
