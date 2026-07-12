@@ -90,28 +90,3 @@
 /* hidden by filter */
 .post.is-hidden, .feature.is-hidden{ display: none; }
 
-/* subscribe band */
-.sub{
-  background: var(--ink); color: #FFFFFF; padding: var(--sp-16) var(--gutter);
-}
-.sub__wrap{
-  max-width: var(--max); margin: 0 auto;
-  display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-12); align-items: center;
-}
-@media (max-width: 820px){ .sub__wrap{ grid-template-columns: 1fr; gap: var(--sp-6); } }
-.sub__title{ font: 500 var(--t-display)/0.98 var(--font-sans); letter-spacing: -0.04em; margin: var(--sp-3) 0 0; }
-.sub__title .light{ color: rgba(255,255,255,0.5); font-weight: 300; }
-.sub .eyebrow-rule{ color: rgba(255,255,255,0.55); }
-.sub .eyebrow-rule::before{ background: #FFFFFF; }
-.sub .eyebrow-rule b{ color: #FFFFFF; }
-.sub__form{ display: grid; gap: var(--sp-4); }
-.sub__field{
-  display: flex; align-items: center; background: rgba(255,255,255,0.08);
-  border-radius: 999px; padding: 5px 5px 5px 20px;
-}
-.sub__field input{ flex: 1; background: none; border: 0; color: #FFFFFF; font: 400 15px/1 var(--font-sans); padding: 13px 0; }
-.sub__field input::placeholder{ color: rgba(255,255,255,0.4); }
-.sub__field input:focus:not(:focus-visible){ outline: none; }
-.sub__field button{ background: #FFFFFF; color: var(--text); padding: 13px 22px; border-radius: 999px; font: 500 13px/1 var(--font-sans); transition: background var(--tx-fast) var(--ease); }
-.sub__field button:hover{ background: var(--surface-hover); }
-.sub__note{ font: 400 13px/1.5 var(--font-sans); color: rgba(255,255,255,0.55); }
