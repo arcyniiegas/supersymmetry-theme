@@ -278,8 +278,13 @@ The high‑value, high‑complexity surfaces, onto the shared kit last.
       icon-only control has an aria-label; images have alt; customer forms use
       `<label for>`; `<html lang>` is dynamic (`request.locale.iso_code`); the
       header marquee already honours `prefers-reduced-motion` (animation:none).
-      Open: `input:focus{outline:none}` on ~6 fields (caret+border remain —
-      marginal), per-page heading hierarchy (needs live render to verify).
+      **Keyboard focus rings — DONE:** 5 inputs with bare `input:focus{outline:
+      none}` (search overlay, 404, blog + password newsletter, search page) beat
+      the global `:focus-visible` on specificity → no keyboard focus. Scoped to
+      `:focus:not(:focus-visible)` (pointer look unchanged, keyboard ring back);
+      verified in harness against real CSS. Left `.field`/`.promo` — they change
+      border-color on focus (valid indicator). Open: per-page heading hierarchy
+      (needs live render to verify).
 
 ---
 
