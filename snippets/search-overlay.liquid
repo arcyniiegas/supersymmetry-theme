@@ -1,32 +1,36 @@
 <theme-drawer class="ss-search" id="ssSearch" role="dialog" aria-modal="true" aria-label="{{ 'search.title' | t }}" data-body-class="ss-search-open" data-focus="#ssSearchInput">
-  <div class="ss-search__inner">
-    <div class="ss-search__bar">
-      <span class="ss-search__eyebrow">{{ settings.search_eyebrow | default: 'Paieška · <b>visa kolekcija</b>' }}</span>
-      <button type="button" class="ss-search__close" data-drawer-close aria-label="{{ 'accessibility.close_search' | t }}"><span class="x" aria-hidden="true">✕</span> {{ 'search.close' | t }}</button>
-    </div>
+  {%- comment -%} Dims the page; clicking it closes the panel. {%- endcomment -%}
+  <div class="ss-search__scrim" data-drawer-close aria-hidden="true"></div>
+
+  {%- comment -%} Glass dropdown that drops from below the floating header card. {%- endcomment -%}
+  <div class="ss-search__panel">
     <form class="ss-search__box" action="{{ routes.search_url }}" method="get" role="search">
       {% render 'icon', name: 'search' %}
       <input type="text" id="ssSearchInput" name="q" placeholder="{{ settings.search_placeholder | default: 'Ko ieškai?' | escape }}" autocomplete="off" aria-label="{{ 'search.title' | t }}" />
       <input type="hidden" name="options[prefix]" value="last">
       <button type="button" class="ss-search__clear" id="ssSearchClear" aria-label="{{ 'search.clear' | t }}">✕</button>
+      <button type="button" class="ss-search__close" data-drawer-close aria-label="{{ 'accessibility.close_search' | t }}"><span aria-hidden="true">✕</span></button>
     </form>
-    <div class="ss-search__suggest"><span class="lbl">{{ settings.search_popular_label | default: 'Populiaru' }}</span>
-      {%- assign chip_src = settings.search_chips | default: 'bateliai, basutės, aulinukai, rankinės, šalikai, kepurės' -%}
-      {%- assign chips = chip_src | split: ',' -%}
-      {%- for chip in chips -%}
-        {%- assign parts = chip | strip | split: '|' -%}
-        {%- assign term = parts[0] | strip -%}
-        {%- if term != blank -%}
-          <button type="button" class="ss-search__chip" data-term="{{ term | escape }}">{{ term }}{% if parts[1] %} <span class="n">·{{ parts[1] | strip }}</span>{% endif %}</button>
-        {%- endif -%}
-      {%- endfor -%}
-    </div>
-    <div class="ss-search__resbar" id="ssSearchCount"></div>
-    <div class="ss-search__grid" id="ssSearchGrid"></div>
-    <div class="ss-search__empty">
-      <span class="ss-search__eyebrow">{{ 'search.empty_eyebrow' | t }}</span>
-      <h2 class="ss-search__empty-big">Pagal <span class="q" id="ssSearchEmptyQ">„…“</span> kol kas <b>nieko.</b></h2>
-      <p class="ss-search__empty-lede">{{ settings.search_empty_lede | default: 'Galbūt ši pora dar archyve arba ruošiama kitai partijai. Pabandyk plačiau — pagal spalvą ar modelį.' }}</p>
+
+    <div class="ss-search__body">
+      <div class="ss-search__suggest"><span class="lbl">{{ settings.search_popular_label | default: 'Populiaru' }}</span>
+        {%- assign chip_src = settings.search_chips | default: 'bateliai, basutės, aulinukai, rankinės, šalikai, kepurės' -%}
+        {%- assign chips = chip_src | split: ',' -%}
+        {%- for chip in chips -%}
+          {%- assign parts = chip | strip | split: '|' -%}
+          {%- assign term = parts[0] | strip -%}
+          {%- if term != blank -%}
+            <button type="button" class="ss-search__chip" data-term="{{ term | escape }}">{{ term }}{% if parts[1] %} <span class="n">·{{ parts[1] | strip }}</span>{% endif %}</button>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      <div class="ss-search__resbar" id="ssSearchCount"></div>
+      <div class="ss-search__grid" id="ssSearchGrid"></div>
+      <div class="ss-search__empty">
+        <span class="ss-search__eyebrow">{{ 'search.empty_eyebrow' | t }}</span>
+        <h2 class="ss-search__empty-big">Pagal <span class="q" id="ssSearchEmptyQ">„…“</span> kol kas <b>nieko.</b></h2>
+        <p class="ss-search__empty-lede">{{ settings.search_empty_lede | default: 'Galbūt ši pora dar archyve arba ruošiama kitai partijai. Pabandyk plačiau — pagal spalvą ar modelį.' }}</p>
+      </div>
     </div>
   </div>
 </theme-drawer>
