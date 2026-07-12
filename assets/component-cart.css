@@ -40,7 +40,8 @@
   position: relative;
 }
 @media (max-width: 540px){ .line__media{ width: 92px; min-height: 116px; } }
-.line__media img{ width: 100%; height: 100%; object-fit: cover; }
+/* contain (not cover) so the whole shoe shows — letterboxed on the surface */
+.line__media img{ width: 100%; height: 100%; object-fit: contain; padding: 8px; }
 .line__index{
   position: absolute; left: 6px; top: 6px;
   padding: 3px 7px; border-radius: 99px;
