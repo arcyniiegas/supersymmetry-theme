@@ -1,0 +1,22 @@
+/* Tile component · snippets/featured-tile.liquid · loaded in <head>.
+   An image tile with a gradient caption overlay. Shared by the header mega
+   panel (.mega__featured) and the mobile menu (.mobilemenu__tiles); those
+   contexts own only sizing/layout — the tile internals live here. Labels stay
+   white over a dark scrim because tiles sit over photography. */
+.tile{
+  position: relative; display: block; overflow: hidden;
+  border-radius: var(--r-sm); background: var(--surface);
+}
+.tile__img{
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform var(--tx-base) var(--ease-snap);
+}
+.tile:hover .tile__img{ transform: scale(1.04); }
+.tile__label{
+  position: absolute; left: 0; right: 0; bottom: 0; padding: 14px;
+  font: 500 14px/1.1 var(--font-sans); letter-spacing: -0.01em; color: #FFFFFF;
+  background: linear-gradient(0deg, rgba(10, 10, 10, 0.62), transparent);
+}
+@media (prefers-reduced-motion: reduce){
+  .tile__img{ transition: none; }
+}

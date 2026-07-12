@@ -57,8 +57,8 @@
       {
         "type": "text",
         "id": "utility_right_message",
-        "label": "Utility bar — right message",
-        "info": "Also shown in the mobile-menu footer.",
+        "label": "Locale note",
+        "info": "Shown in the mobile-menu colophon (e.g. the LT · EN languages line).",
         "default": "LT · EN"
       },
       {
@@ -74,16 +74,6 @@
         "info": "Shown in the search page's no-results tips.",
         "default": "+370 5 250 7700"
       }
-    ]
-  },
-  {
-    "name": "Dock (mobile navigation)",
-    "settings": [
-      { "type": "text", "id": "dock_label_home", "label": "Home label", "default": "Pradžia" },
-      { "type": "text", "id": "dock_label_products", "label": "Products label", "default": "Gaminiai" },
-      { "type": "text", "id": "dock_label_search", "label": "Search label", "default": "Paieška" },
-      { "type": "text", "id": "dock_label_cart", "label": "Cart label", "default": "Krepšelis" },
-      { "type": "text", "id": "dock_label_menu", "label": "Menu label", "default": "Meniu" }
     ]
   },
   {
@@ -224,8 +214,8 @@
       },
       {
         "type": "text",
-        "id": "menu_tile_1_label",
-        "label": "Tile 1 label"
+        "id": "menu_tile_1_heading",
+        "label": "Tile 1 caption"
       },
       {
         "type": "url",
@@ -239,8 +229,8 @@
       },
       {
         "type": "text",
-        "id": "menu_tile_2_label",
-        "label": "Tile 2 label"
+        "id": "menu_tile_2_heading",
+        "label": "Tile 2 caption"
       },
       {
         "type": "url",

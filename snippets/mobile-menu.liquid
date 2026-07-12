@@ -52,15 +52,10 @@
       {%- for i in (1..2) -%}
         {%- liquid
           assign img = settings['menu_tile_' | append: i | append: '_image']
-          assign label = settings['menu_tile_' | append: i | append: '_label']
+          assign heading = settings['menu_tile_' | append: i | append: '_heading']
           assign link = settings['menu_tile_' | append: i | append: '_link']
         -%}
-        {%- if img != blank -%}
-          <a class="mobilemenu__tile" href="{{ link | default: routes.root_url }}">
-            {{ img | image_url: width: 600 | image_tag: class: 'mobilemenu__tile-img', widths: '300,450,600', sizes: '45vw', alt: label, loading: 'lazy' }}
-            {%- if label != blank -%}<span class="mobilemenu__tile-label">{{ label }}</span>{%- endif -%}
-          </a>
-        {%- endif -%}
+        {% render 'featured-tile', image: img, heading: heading, link: link, sizes: '45vw' %}
       {%- endfor -%}
     </div>
   {%- endif -%}

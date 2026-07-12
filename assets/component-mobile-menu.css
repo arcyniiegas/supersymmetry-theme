@@ -78,19 +78,10 @@ html[data-glass="off"] .mobilemenu{
 .mobilemenu__nav .mobilemenu__acc-list a:active,
 .mobilemenu__nav .mobilemenu__acc-list a[aria-current="page"]{ color: var(--text); }
 
-/* ── featured image tiles — sharp editorial corners (product-media radius).
-   Labels stay white over a dark scrim: these sit over photography. ── */
+/* ── featured image tiles — the shared .tile primitive (component-tile.css);
+   the menu owns only the grid + tile aspect ── */
 .mobilemenu__tiles{ display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 22px 0 4px; }
-.mobilemenu__tile{
-  position: relative; display: block; aspect-ratio: 4 / 5;
-  border-radius: var(--r-sm); overflow: hidden; background: var(--surface);
-}
-.mobilemenu__tile-img{ width: 100%; height: 100%; object-fit: cover; display: block; }
-.mobilemenu__tile-label{
-  position: absolute; left: 0; right: 0; bottom: 0; padding: 14px 14px 13px;
-  font: 500 14px/1.1 var(--font-sans); letter-spacing: -0.01em; color: #FFFFFF;
-  background: linear-gradient(0deg, rgba(10,10,10,0.62), transparent);
-}
+.mobilemenu__tiles .tile{ aspect-ratio: 4 / 5; }
 
 /* ── meta zone: social + colophon, one hairline-topped block pinned to the bottom ── */
 .mobilemenu__meta{

@@ -99,12 +99,7 @@
           {%- if tile_blocks.size > 0 -%}
             <div class="mega__featured">
               {%- for block in tile_blocks -%}
-                <a class="mega__tile" href="{{ block.settings.link | default: routes.root_url }}" {{ block.shopify_attributes }}>
-                  {%- if block.settings.image != blank -%}
-                    {{ block.settings.image | image_url: width: 640 | image_tag: class: 'mega__tile-img', widths: '320,440,560,640', sizes: '(max-width: 1200px) 30vw, 320px', alt: block.settings.heading, loading: 'lazy' }}
-                  {%- endif -%}
-                  {%- if block.settings.heading != blank -%}<span class="mega__tile-label">{{ block.settings.heading }}</span>{%- endif -%}
-                </a>
+                {% render 'featured-tile', image: block.settings.image, heading: block.settings.heading, link: block.settings.link, sizes: '15rem', attributes: block.shopify_attributes %}
               {%- endfor -%}
             </div>
           {%- endif -%}

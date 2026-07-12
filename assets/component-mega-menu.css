@@ -62,25 +62,10 @@
 }
 .mega__col-list a:hover{ color: var(--text-muted); }
 
+/* Tiles are the shared .tile primitive (component-tile.css); the panel owns
+   only the row layout + tile sizing. */
 .mega__featured{ display: flex; gap: var(--sp-4); }
-.mega__tile{
-  position: relative; display: block;
-  width: 15rem; aspect-ratio: 0.82;
-  border-radius: var(--r-md); overflow: hidden;
-  background: var(--surface);
-}
-.mega__tile-img{
-  width: 100%; height: 100%; object-fit: cover; display: block;
-  transition: transform var(--tx-base) var(--ease-snap);
-}
-.mega__tile:hover .mega__tile-img{ transform: scale(1.04); }
-.mega__tile-label{
-  position: absolute; left: 0; right: 0; bottom: 0;
-  padding: var(--sp-4);
-  font: 600 16px/1.1 var(--font-sans); letter-spacing: -0.02em;
-  color: #ffffff;
-  background: linear-gradient(0deg, rgba(10,10,10,0.55), transparent);
-}
+.mega__featured .tile{ width: 15rem; aspect-ratio: 0.82; }
 
 /* ── collections carousel (CSS scroll-snap, no JS) ── */
 .mega__strip{
@@ -124,5 +109,5 @@
 @media (prefers-reduced-motion: reduce){
   .mega{ transition: opacity var(--tx-base) linear, visibility 0s linear var(--tx-base); transform: none; }
   .header-shell.is-open .mega{ transform: none; }
-  .mega__tile-img, .mega__card-img{ transition: none; }
+  .mega__card-img{ transition: none; }
 }

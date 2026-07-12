@@ -4,7 +4,9 @@ The live plan for turning this theme into the framework described in
 [ARCHITECTURE.md](ARCHITECTURE.md). Work top to bottom; each phase is
 behaviour‑preserving and verified before the next begins.
 
-**Status:** branch `refactor/framework-foundations` — this session: collection fix ·
+**Status:** on `main` (the repo consolidated to a single branch; the old
+`refactor/framework-foundations` / feature branches were merged and deleted) —
+foundations session: collection fix ·
 colour-scheme + type-scale (both **complete**) · shared block vocabulary + canonical
 renames · **i18n** (commerce/search/404/contact/customer-auth chrome, `collection`/
 `product`/`cart`/`contact`/`customer` namespaces) · foundations confirmed done · docs
@@ -42,6 +44,27 @@ per-page overrides removed; justified context kept). **tokens/base dedup:** ever
 on product/collection/home (pixel-identical at 100%). Also fixed a **FAQ-search
 regression** (`duk.js` matched the pre-rename `.qa` class → 0 results) and removed the
 **orphaned `main-accessories`** section + assets. All verified live; theme-check green.
+
+**Feature layer + reconcile (later sessions, on `main`):** a run of EME-inspired
+storefront work landed on top of the foundation — the bottom **dock retired** and
+**all navigation moved into a floating glass header** (announcement marquee + Shop
+**mega menu** built from Theme-Editor blocks + collections carousel; mobile =
+hamburger · logo · search + bag opening the full-screen menu), the **cart drawer**
+flow, and the **mobile menu** enriched (native `<details>` accordions, featured
+tiles, social row) and reskinned to **liquid glass**. Then a **reconcile pass**:
+extracted a shared **`.tile` primitive** (`featured-tile` snippet +
+`component-tile.css`) single-sourcing the tile markup/CSS the mega panel and mobile
+menu had duplicated (caption id unified to `heading`); removed the **orphaned "Dock"
+settings group** (dock deleted, zero consumers); relabelled the stale
+`utility_right_message` ("Utility bar" → "Locale note", now only the mobile-menu
+colophon). **`shopify theme check` clean** — 107 files, 0 errors (the 4 warnings are
+the baseline customer-template `UndefinedObject`s). **Known debt:** the cart
+(`cart-line` / `main-cart` / `cart-drawer`) uses `money | remove:'€' | remove:',00'`
+— the **Phase-1-banned currency anti-pattern** (EUR symbol hardcoded,
+multi-currency-fragile); the fix is to harden the `price` primitive and route cart
+money through it. **Registry debt:** `COMPONENTS.md` doesn't yet list the feature-layer
+components (`component-header`/`-mega-menu`/`-cart`/`-tile`, the `featured-tile` /
+`cart-line` / `free-shipping-bar` snippets, the header mega blocks) — refresh pending.
 
 > **Architecture note (docs-confirmed):** dynamic theme blocks render only via
 > `{% content_for "blocks" %}` (all blocks, one reorderable container), so

@@ -1,0 +1,20 @@
+{%- comment -%}
+  featured-tile — an image tile with a gradient caption overlay, linking to a URL.
+  Shared primitive for the header mega panel (.mega__featured) and the mobile
+  menu (.mobilemenu__tiles); each context owns only sizing, the tile internals
+  live in component-tile.css. Renders nothing without an image.
+
+  Accepts:
+    image       (image)  required — no image, no tile
+    heading     (string) caption text (optional)
+    link        (url)    defaults to the home URL
+    sizes       (string) responsive `sizes` attribute; default '45vw'
+    class       (string) extra classes on the <a> (context sizing)
+    attributes  (string) e.g. block.shopify_attributes for the Theme Editor
+{%- endcomment -%}
+{%- if image != blank -%}
+  <a class="tile{% if class %} {{ class }}{% endif %}" href="{{ link | default: routes.root_url }}"{% if attributes %} {{ attributes }}{% endif %}>
+    {{ image | image_url: width: 640 | image_tag: class: 'tile__img', widths: '300,440,560,640', sizes: sizes | default: '45vw', alt: heading, loading: 'lazy' }}
+    {%- if heading != blank -%}<span class="tile__label">{{ heading }}</span>{%- endif -%}
+  </a>
+{%- endif -%}
