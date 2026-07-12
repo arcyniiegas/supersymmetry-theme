@@ -64,10 +64,13 @@ pattern (27 usages across 11 files — PDP, cards, cart, account orders, arrival
 migrated to **`money_without_trailing_zeros`**, so prices now render the store's
 localized money **with the currency symbol** (multi-currency-correct). This is a
 deliberate departure from the prior bare-number design; needs a live Theme-Editor
-preview to confirm symbol placement in tight layouts. **Registry debt:** `COMPONENTS.md`
-doesn't yet list the feature-layer
-components (`component-header`/`-mega-menu`/`-cart`/`-tile`, the `featured-tile` /
-`cart-line` / `free-shipping-bar` snippets, the header mega blocks) — refresh pending.
+preview to confirm symbol placement in tight layouts. **Registry refreshed:**
+`COMPONENTS.md` now lists the feature layer — the `featured-tile` / `cart-line` /
+`free-shipping-bar` snippets + the `.tile` primitive, the header mega blocks
+(`menu_column` / `featured_tile` / `collection_strip`), the cart drawer on the
+`Drawer` component, and the `component-cart` / `-mega-menu` / `-delivery` behaviour
+modules; stale entries corrected (`dock` removed, `price` marked stable, `cart.js`
+retired).
 
 > **Architecture note (docs-confirmed):** dynamic theme blocks render only via
 > `{% content_for "blocks" %}` (all blocks, one reorderable container), so

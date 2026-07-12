@@ -21,13 +21,12 @@ Render with named args and a documented `{% comment %}` header:
 
 | Snippet | Purpose | API | Status |
 |---------|---------|-----|--------|
-| `product-card` | Collection/grid product card | `product` (req), `show_name` (bool) | **Needs work** — inlines price instead of using `price`; hardcoded LT strings (`Išparduota`, `Naujiena`); fragile tag matching |
-| `price` | Price block (current + compare + % chip) | `product:` **or** `price:` + `compare_at:` | **Needs work** — hardcoded `€289/€340/–15%` fallback literals; `money \| remove:'€'` breaks multi‑currency |
+| `product-card` | Collection/grid product card | `product` (req), `show_name` (bool) | **Needs work** — inlines price (`money_without_trailing_zeros`) instead of rendering `price`; LT strings now in locales; fragile tag matching remains |
+| `price` | Price block (current + compare + % chip) | `product:` **or** `price:` + `compare_at:` | **Stable** — renders nothing without a price; currency via `money_without_trailing_zeros` (localized symbol, multi‑currency‑safe) |
 | `section-appearance` | Per‑section **colour scheme** + text‑colour + type‑scale overrides via scoped `{% style %}` | `section` (req) | **Stable** — applies `color_scheme` (full palette remap + bg/text paint) then `text_color`/scales. Adopted in 19 content sections; `scheme-1` default = pixel parity |
 | `meta-social` | Open Graph / Twitter meta tags | reads globals | **Stable** |
 | `structured-data-product` | Product JSON‑LD | `product` | **Stable** |
-| `dock` | Mobile bottom navigation | reads settings | **Stable** |
-| `mobile-menu` | Off‑canvas mobile menu | reads settings/menus | **Needs work** — behaviour should move to `Drawer` component |
+| `mobile-menu` | Full‑screen mobile menu (glass) — nav + `<details>` accordions + featured tiles + social row + colophon | reads settings/menus | **Stable** — is a `<theme-drawer>`, opened by the header hamburger. (The bottom `dock` was retired — navigation moved into the header.) |
 | `search-overlay` | Full‑screen search overlay | reads settings | **Needs work** — pair with `predictive-search.js` cleanly |
 | `cookie-banner` | GDPR consent banner | reads settings | **Stable** |
 | `customer-address-fields` | Address form fields | `address` (confirm on touch) | **Stable** |
@@ -41,7 +40,10 @@ Render with named args and a documented `{% comment %}` header:
 | `care-steps` | Numbered tutorial-step list for one care `group` | `section`, `group` | Stable — de-duplicates the identical `tstep` markup shared by `care-leather` + `care-suede` |
 | `accordion-item` | One `<details>` FAQ/disclosure row (+ optional index) | `question`, `answer`, `index`, `open`, `attrs` | Stable — unifies `main-duk`'s `qa` + `main-grazinimai`'s `faq` markup onto canonical `.accordion` classes; each section keeps its look. Verified live |
 | `step` | One numbered step (number + title + body) | `num`, `title`, `body`, `attrs` | Stable — shared by `main-dydziu-lentele` + `main-avalynes-prieziura` (storage); canonical `.step*` classes, per-section styling. Verified pixel-identical |
-| `cart-empty` / `cart-upsell` | Cart empty-state + upsell | `section` | Stable (split from `main-cart`) |
+| `cart-empty` | Cart empty-state | `section` | Stable (split from `main-cart`; `cart-upsell` removed — no upsell by design) |
+| `cart-line` | One cart line row (media, title, variant, qty stepper, remove, price) | `item` (req), `compact` (bool — drawer variant) | **Stable** — shared by the cart drawer + cart page |
+| `free-shipping-bar` | Free-shipping progress meter (Liquid-computed, server-authoritative) | reads `cart` + `free_shipping_threshold` | **Stable** — `--free-ship-pct` var drives a `scaleX` fill |
+| `featured-tile` | Image tile with gradient caption overlay → the shared `.tile` primitive (`component-tile.css`) | `image`, `heading`, `link`, `sizes`, `class`, `attributes` | **Stable** — single-sources the tiles in the header mega panel + mobile menu |
 | `collection-filter-drawer` | Off-canvas filters (swatch case) | `section`, `collection`, `paginate` | Stable — clean compile |
 | `collection-notes` | Collection notes (`note_row`) | `section` | Stable (split from `main-collection`) |
 | `stat` | Shared page-head stat — **unifies 5 sections** | `k`, `v`, `tabular`, `accent`, `attrs` | ✅ verified live |
@@ -83,6 +85,13 @@ stay pixel‑identical. Fits **single‑block‑type** sections; region‑groupe
 (`main-product`, `main-avalynes-prieziura`, `main-grazinimai`, `main-akciju-salygos`,
 `main-dydziu-lentele`) place heterogeneous blocks in different regions and need
 per‑block `{% content_for "block", type, id %}` or stay section‑local for now.
+
+**Section‑local blocks (header mega menu):** the `header` section composes its Shop
+mega panel from three section‑scoped blocks — `menu_column` (heading + a linked
+`menu`), `featured_tile` (image + `heading` + `link` → renders the `featured-tile`
+snippet) and `collection_strip` (a `collection_list` → the CSS scroll‑snap carousel).
+Header‑local by design (global chrome, not `@theme`); merchants compose the panel in
+the header group.
 
 ### Target vocabulary
 
@@ -130,7 +139,7 @@ re‑initialises them on section load. Sections initialise; nothing page‑speci
 |-----------|-----------|------------------|
 | `Accordion` | Expand/collapse disclosure groups | `duk.js`, ad‑hoc toggles |
 | `Carousel` | Horizontal slider / scroll‑snap track | per‑section sliders |
-| ✅ `Drawer` **(shipped — `<theme-drawer>`)** | Off‑canvas/overlay: open · close · Esc · focus‑trap (WCAG 2.4.3) · scroll‑lock · scrim · focus‑return; `data-*` config + optional portal; Theme‑Editor‑aware | Unifies the **filter drawer** (was `collection.js`) + **mobile menu** + **search overlay** (were `chrome.js`) into one Custom Element; `chrome.js` 119→66 |
+| ✅ `Drawer` **(shipped — `<theme-drawer>`)** | Off‑canvas/overlay: open · close · Esc · focus‑trap (WCAG 2.4.3) · scroll‑lock · scrim · focus‑return; `data-*` config + optional portal; Theme‑Editor‑aware | Unifies the **filter drawer** (was `collection.js`) + **mobile menu** + **search overlay** (were `chrome.js`) + the **cart drawer** into one Custom Element; `chrome.js` 119→66 |
 | `Modal` | Focus‑trapped dialogs (size chart, quick view) | one‑off modal code |
 | `Sticky` | Sticky‑on‑scroll elements | scattered scroll handlers |
 | `Reveal` | On‑scroll enter animations | per‑page reveal scripts |
@@ -145,7 +154,7 @@ pattern but keep them as the shared core, not page scripts.
 
 **✅ `cart-store.js` (shipped — shared cart state).** `window.theme.cart` is the
 one client-side mirror of the cart: `setCount(cart)` paints every `[data-bag-count]`
-badge (header + dock) and broadcasts a `cart:updated` `CustomEvent` (`detail.cart`);
+badge (header + cart drawer) and broadcasts a `cart:updated` `CustomEvent` (`detail.cart`);
 `refresh()` fetches the authoritative `/cart.js` and repaints; `add(items)` POSTs
 `/cart/add.js`, refreshes, resolves with the add response, and on a non-2xx rejects
 with an `Error` whose `.userMessage` carries Shopify's `description` so each page can
@@ -166,11 +175,22 @@ Shopify's `| t` leaves them for JS). Adopted in `product.js` + `cart.js`; extend
 registry when a new script needs a string. Keys live under the same namespaces as the
 Liquid copy (`product.*`, `cart.*`), so translators edit one place.
 
+**✅ Feature-layer behaviour modules (shipped).** Three small, feature-scoped
+modules loaded `defer` from `theme.liquid`: `component-cart.js` (cart drawer + page
+— subscribes to `cart:updated`, swaps the Section-Rendering HTML into the drawer +
+cart root, opens the drawer on add, delegates qty/remove/clear/promo);
+`component-mega-menu.js` (header Shop panel — hover/click/focus/Esc/outside-click
+open‑close with a close-delay bridge across the card→panel gap); `component-delivery.js`
+(PDP shipping-cutoff estimator, computed in the atelier timezone). Not generic Custom
+Elements — each owns one feature — but they keep the "behaviour → JS component,
+sections initialise" contract.
+
 **Page scripts to retire** as their behaviour moves into components:
-`kontaktai.js`, `duk.js`, `customers.js`, `collection.js`, `cart.js`,
+`kontaktai.js`, `duk.js`, `customers.js`, `collection.js`,
 `product.js`, `gift-card.js`, `password.js`.
 (`grazinimai.js` + `avalynes-prieziura.js` retired into `<scroll-spy>`;
 `accessories.js` deleted with the orphaned `main-accessories` section;
+`cart.js` retired — cart behaviour folded into `cart-store.js` + `component-cart.js`;
 `product-tryon.js` deleted — orphaned demo mock, no loader/markup since
 the baseline import.)
 
