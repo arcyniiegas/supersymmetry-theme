@@ -15,16 +15,6 @@
   gap: var(--sp-6); flex-wrap: wrap;
   border-bottom: 1px solid rgba(255,255,255,0.14);
 }
-.foot__mark{
-  font: 600 clamp(36px, 9.5vw, 56px)/0.98 var(--font-sans);
-  letter-spacing: -0.03em;
-  font-kerning: normal;
-  display: inline-flex; align-items: center; gap: 14px;
-}
-.foot__mark .brand-dot{ width: 18px; height: 18px; top: 6px; background:#FFFFFF; }
-@media (max-width: 600px){
-  .foot__mark .brand-dot{ width: 12px; height: 12px; top: 4px; }
-}
 .foot__tag{
   font: 400 14px/1.6 var(--font-sans);
   color: rgba(255,255,255,0.65);

@@ -1,8 +1,9 @@
 <footer class="foot">
+{%- if section.settings.tagline != blank -%}
   <div class="foot__head">
-    <div class="foot__mark">{{ settings.brand_name | default: 'Supersymmetry' }}<span class="brand-dot" aria-hidden="true"></span></div>
     <div class="foot__tag">{{ section.settings.tagline }}</div>
   </div>
+{%- endif -%}
   <div class="foot__cols">
     {%- for block in section.blocks -%}
       {%- if block.type == 'menu' -%}
