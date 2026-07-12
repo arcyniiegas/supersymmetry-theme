@@ -17,11 +17,7 @@
   endif
 -%}
 <!-- ──────────── BREADCRUMBS ──────────── -->
-<nav class="crumbs" aria-label="{{ 'accessibility.breadcrumb' | t }}">
-  <a href="{{ routes.root_url }}">{{ 'nav.home' | t }}</a>
-  <span class="sep">/</span>
-  <b>Kolekcijos</b>
-</nav>
+{% render 'breadcrumbs', current: 'Kolekcijos' %}
 
 <!-- ──────────── PAGE HEAD ──────────── -->
 <div class="phead2">

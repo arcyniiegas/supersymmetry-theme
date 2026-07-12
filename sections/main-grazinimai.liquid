@@ -1,13 +1,9 @@
 {{ 'section-grazinimai.css' | asset_url | stylesheet_tag }}
 {% render 'section-appearance', section: section %}
 <!-- ──────────── BREADCRUMBS ──────────── -->
-<nav class="crumbs" aria-label="{{ 'accessibility.breadcrumb' | t }}">
-  <a href="{{ routes.root_url }}">{{ 'nav.home' | t }}</a>
-  <span class="sep">/</span>
-  <a href="{{ pages.duk.url | default: routes.root_url }}">{{ section.settings.crumb_parent | default: 'Paslaugos' }}</a>
-  <span class="sep">/</span>
-  <b>{{ section.settings.crumb_current | default: 'Grąžinimai ir keitimai' }}</b>
-</nav>
+{%- assign crumb_parent = section.settings.crumb_parent | default: 'Paslaugos' -%}
+{%- assign crumb_current = section.settings.crumb_current | default: 'Grąžinimai ir keitimai' -%}
+{% render 'breadcrumbs', parent_label: crumb_parent, parent_url: pages.duk.url, current: crumb_current %}
 
 <!-- ──────────── PAGE HEAD ──────────── -->
 <section class="phead">

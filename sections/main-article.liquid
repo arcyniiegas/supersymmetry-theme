@@ -3,13 +3,8 @@
 <div class="progress" id="progress"></div>
 
 <!-- ──────────── BREADCRUMBS ──────────── -->
-<nav class="crumbs" aria-label="{{ 'accessibility.breadcrumb' | t }}">
-  <a href="{{ routes.root_url }}">{{ 'nav.home' | t }}</a>
-  <span class="sep">/</span>
-  <a href="{{ blog.url }}">{{ blog.title | default: 'Žurnalas' }}</a>
-  <span class="sep">/</span>
-  <b>{{ article.title }}</b>
-</nav>
+{%- assign crumb_parent = blog.title | default: 'Žurnalas' -%}
+{% render 'breadcrumbs', parent_label: crumb_parent, parent_url: blog.url, current: article.title %}
 
 <!-- ──────────── ARTICLE HEADER ──────────── -->
 <header class="ahead">

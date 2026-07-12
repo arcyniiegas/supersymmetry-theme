@@ -1,0 +1,25 @@
+{%- comment -%}
+  Breadcrumb trail. "Home" is always the first crumb; an optional middle
+  "parent" crumb (a link) may follow; the current page is the bold last crumb.
+
+  Params:
+    current      (req)  · current-page label (already resolved/translated)
+    parent_label (opt)  · middle crumb label — omit for a 2-level trail
+    parent_url   (opt)  · middle crumb href (defaults to home)
+
+  Render:
+    {% render 'breadcrumbs', current: page_title %}
+    {% render 'breadcrumbs', parent_label: p_label, parent_url: p_url, current: page_title %}
+
+  .crumbs is flex + gap, so layout is driven by the element sequence, not by
+  whitespace — output is pixel-identical to the inline navs this replaced.
+{%- endcomment -%}
+<nav class="crumbs" aria-label="{{ 'accessibility.breadcrumb' | t }}">
+  <a href="{{ routes.root_url }}">{{ 'nav.home' | t }}</a>
+  {%- if parent_label != blank -%}
+  <span class="sep">/</span>
+  <a href="{{ parent_url | default: routes.root_url }}">{{ parent_label }}</a>
+  {%- endif -%}
+  <span class="sep">/</span>
+  <b>{{ current }}</b>
+</nav>
