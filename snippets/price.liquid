@@ -1,20 +1,31 @@
 {%- comment -%}
-  price — PDP price block. Matches the prototype .price markup exactly.
+  price — the single source of truth for rendering a product price
+  (current + optional compare-at strike + optional discount chip).
   Usage:
-    {% render 'price', product: product %}
+    {% render 'price', product: product %}            → PDP `.price` block
     {% render 'price', price: 28900, compare_at: 34000 %}
-  Renders nothing when no product/price is supplied (never the case on a real
-  product page).
+    {% render 'price', product: product, layout: 'card' %}  → collection-card `.card__price`
+  Renders nothing when no price is supplied.
 {%- endcomment -%}
 {%- liquid
   assign p_price = price
   assign p_compare = compare_at
+  assign p_available = true
   if product
     assign p_price = product.price
     assign p_compare = product.compare_at_price
+    assign p_available = product.available
   endif
 -%}
 {%- if p_price != nil -%}
+  {%- if layout == 'card' -%}
+<div class="card__price{% unless p_available %} card__price--out{% endunless %}">
+  <span>{{ p_price | money_without_trailing_zeros }}</span>
+  {%- if p_compare and p_compare > p_price -%}
+  <span class="strike">{{ p_compare | money_without_trailing_zeros }}</span>
+  {%- endif -%}
+</div>
+  {%- else -%}
 <div class="price">
   <div class="price__main">
     <div class="price__current tabular">{{ p_price | money_without_trailing_zeros }}</div>
@@ -26,4 +37,5 @@
   <span class="price__chip">–{{ p_compare | minus: p_price | times: 100.0 | divided_by: p_compare | round }}%</span>
   {%- endif -%}
 </div>
+  {%- endif -%}
 {%- endif -%}

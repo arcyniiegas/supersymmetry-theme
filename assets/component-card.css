@@ -154,6 +154,8 @@
   color: var(--text-muted);
   text-decoration: line-through;
 }
+/* sold-out card: the current price greys out (was an inline style) */
+.card__price--out > span:first-child{ color: var(--mid); }
 
 /* ════════════════════════════════════════════════════════════
    JOURNAL POST CARD — shared by blog listing + article related
