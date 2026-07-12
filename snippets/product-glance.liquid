@@ -1,19 +1,20 @@
 {%- comment -%} Product — at-a-glance bento (Trumpai). Rendered by main-product for the `glance` block.
+  Each tile renders ONLY when it has a real value — no fabricated defaults, no
+  em-dash placeholders. The whole section hides if nothing but price would show.
   · Medžiaga / Padas — product metafield dropdowns (custom.material / custom.sole)
   · Svoris — free-text product metafield (custom.weight)
-  · Gamintojas — the shared manufacturer metaobject selector (custom.manufacturer),
-    which also feeds the Apie gamintoją description
-  · Kilmė — constant, from the block setting (default "Turkija")
-  · Kaina — the product's own price
-  Legacy model_info metaobject is kept as a fallback for older products.
-  Real value or an honest em-dash — never a fabricated default. {%- endcomment -%}
+  · Gamintojas — manufacturer metaobject (custom.manufacturer), falls back to vendor
+  · Kilmė — merchant-set block setting (NO default — never assert a country of origin)
+  · Kaina — the product's own price (the anchor tile, always shown when the section is)
+  Legacy model_info metaobject is kept as a fallback for older products. {%- endcomment -%}
 {%- assign model = product.metafields.custom.model_info.value -%}
 {%- assign maker = product.metafields.custom.manufacturer.value -%}
 {%- assign v_material = product.metafields.custom.material.value | default: model.material -%}
 {%- assign v_sole = product.metafields.custom.sole.value | default: model.sole -%}
 {%- assign v_weight = product.metafields.custom.weight.value | default: model.weight -%}
 {%- assign v_maker = maker.name | default: product.vendor -%}
-{%- assign v_origin = block.settings.origin | default: 'Turkija' -%}
+{%- assign v_origin = block.settings.origin -%}
+{%- if v_material != blank or v_sole != blank or v_weight != blank or v_maker != blank or v_origin != blank -%}
 <section class="glance" {{ block.shopify_attributes }}>
   <div class="glance__head">
     <div>
@@ -23,26 +24,7 @@
 
   <div class="bento">
 
-    <div class="bento__cell b-1">
-      <div class="bento__label">{{ 'product.glance.material' | t }}</div>
-      <div>
-        <div class="bento__value">{{ v_material | default: '—' }}</div>
-        {%- if block.settings.material_sub != blank -%}<div class="bento__sub">{{ block.settings.material_sub }}</div>{%- endif -%}
-      </div>
-      <div class="bento__bg" aria-hidden="true">
-        <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 140 Q20 110 50 100 L120 80 Q160 70 180 100 Q190 130 170 150 L40 152 Z"/></svg>
-      </div>
-    </div>
-
-    <div class="bento__cell b-2">
-      <div class="bento__label">{{ 'product.glance.sole' | t }}</div>
-      <div>
-        <div class="bento__value bento__value--mono">{{ v_sole | default: '—' }}</div>
-        {%- if block.settings.sole_sub != blank -%}<div class="bento__sub">{{ block.settings.sole_sub }}</div>{%- endif -%}
-      </div>
-    </div>
-
-    <div class="bento__cell bento__cell--orange b-3">
+    <div class="bento__cell bento__cell--orange">
       <div class="bento__label">{{ 'product.glance.price' | t }}</div>
       <div>
         <div class="bento__value bento__value--big bento__value--mono">{{ product.price | money_without_trailing_zeros }}</div>
@@ -50,29 +32,59 @@
       </div>
     </div>
 
-    <div class="bento__cell b-4">
+    {%- if v_material != blank -%}
+    <div class="bento__cell">
+      <div class="bento__label">{{ 'product.glance.material' | t }}</div>
+      <div>
+        <div class="bento__value">{{ v_material }}</div>
+        {%- if block.settings.material_sub != blank -%}<div class="bento__sub">{{ block.settings.material_sub }}</div>{%- endif -%}
+      </div>
+      <div class="bento__bg" aria-hidden="true">
+        <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 140 Q20 110 50 100 L120 80 Q160 70 180 100 Q190 130 170 150 L40 152 Z"/></svg>
+      </div>
+    </div>
+    {%- endif -%}
+
+    {%- if v_sole != blank -%}
+    <div class="bento__cell">
+      <div class="bento__label">{{ 'product.glance.sole' | t }}</div>
+      <div>
+        <div class="bento__value bento__value--mono">{{ v_sole }}</div>
+        {%- if block.settings.sole_sub != blank -%}<div class="bento__sub">{{ block.settings.sole_sub }}</div>{%- endif -%}
+      </div>
+    </div>
+    {%- endif -%}
+
+    {%- if v_maker != blank -%}
+    <div class="bento__cell">
       <div class="bento__label">{{ 'product.glance.maker' | t }}</div>
       <div>
-        <div class="bento__value bento__value--mono">{{ v_maker | default: '—' }}</div>
+        <div class="bento__value bento__value--mono">{{ v_maker }}</div>
         {%- if block.settings.maker_sub != blank -%}<div class="bento__sub">{{ block.settings.maker_sub }}</div>{%- endif -%}
       </div>
     </div>
+    {%- endif -%}
 
-    <div class="bento__cell b-5">
+    {%- if v_weight != blank -%}
+    <div class="bento__cell">
       <div class="bento__label">{{ 'product.glance.weight' | t }}</div>
       <div>
-        <div class="bento__value bento__value--mono">{{ v_weight | default: '—' }}</div>
+        <div class="bento__value bento__value--mono">{{ v_weight }}</div>
         {%- if block.settings.weight_sub != blank -%}<div class="bento__sub">{{ block.settings.weight_sub }}</div>{%- endif -%}
       </div>
     </div>
+    {%- endif -%}
 
-    <div class="bento__cell b-6">
+    {%- if v_origin != blank -%}
+    <div class="bento__cell">
       <div class="bento__label">{{ 'product.glance.origin' | t }}</div>
       <div>
-        <div class="bento__value">{{ v_origin | default: '—' }}</div>
+        <div class="bento__value">{{ v_origin }}</div>
         {%- if block.settings.origin_sub != blank -%}<div class="bento__sub">{{ block.settings.origin_sub }}</div>{%- endif -%}
       </div>
     </div>
+    {%- endif -%}
 
   </div>
 </section>
+{%- endif -%}

@@ -19,21 +19,20 @@
   gap: var(--sp-4);
 }
 
+/* Tiles are self-sizing and only the populated ones render, so the grid
+   auto-fits whatever count exists (2–6) and always reads as intentional —
+   no fixed mosaic that breaks when fields are empty. */
 .bento{
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-auto-rows: 180px;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  grid-auto-rows: 170px;
   gap: var(--sp-3);
   margin-top: var(--sp-8);
-}
-@media (max-width: 900px){
-  .bento{ grid-template-columns: repeat(6, 1fr); grid-auto-rows: 160px; }
 }
 @media (max-width: 520px){
   .bento{
     grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: minmax(112px, auto);
-    grid-auto-flow: row dense;
+    grid-auto-rows: minmax(120px, auto);
   }
 }
 .bento__cell{
@@ -91,31 +90,7 @@
   color: var(--text-muted);
   max-width: 28ch;
 }
-/* Spans */
-.b-1{ grid-column: span 4; }
-.b-2{ grid-column: span 4; }
-.b-3{ grid-column: span 4; }
-.b-4{ grid-column: span 6; grid-row: span 1; }
-.b-5{ grid-column: span 3; }
-.b-6{ grid-column: span 3; }
-@media (max-width: 900px){
-  .b-1{ grid-column: span 3; }
-  .b-2{ grid-column: span 3; }
-  .b-3{ grid-column: span 6; }
-  .b-4{ grid-column: span 3; }
-  .b-5{ grid-column: span 3; }
-  .b-6{ grid-column: span 6; }
-}
 @media (max-width: 520px){
-  /* Real mosaic, not stacked blobs: Material is a tall tile (it carries the
-     shoe illustration), Price is a wide ink banner, the rest are small tiles.
-     Dense flow backfills the gap beside the tall tile with Maker. */
-  .b-1{ grid-column: span 1; grid-row: span 2; } /* Material — tall */
-  .b-2{ grid-column: span 1; grid-row: span 1; } /* Sole */
-  .b-3{ grid-column: span 2; grid-row: span 1; } /* Price — wide banner */
-  .b-4{ grid-column: span 1; grid-row: span 1; } /* Maker */
-  .b-5{ grid-column: span 1; grid-row: span 1; } /* Weight */
-  .b-6{ grid-column: span 1; grid-row: span 1; } /* Origin */
   /* values scaled down to the smaller tiles */
   .bento__value{ font-size: 20px; }
   .bento__value--mono{ font-size: 18px; }
