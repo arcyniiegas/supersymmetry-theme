@@ -27,7 +27,7 @@
     "main": {
       "type": "main-collection",
       "settings": {
-        "show_eyebrow": true,
+        "show_eyebrow": false,
         "eyebrow_prefix": "Išpardavimas",
         "meta_label": "",
         "default_title_light": "Išpardavimo",
