@@ -18,7 +18,7 @@
           "type": "menu",
           "settings": {
             "heading": "Pirkti",
-            "menu": "parduotuv"
+            "menu": "footer-pirkti"
           }
         },
         "paslaugos": {
@@ -34,12 +34,20 @@
             "heading": "Apie supersymmetry",
             "menu": "footer-apie"
           }
+        },
+        "menu_7iLG3F": {
+          "type": "menu",
+          "settings": {
+            "heading": "Informacija",
+            "menu": "parduotuv"
+          }
         }
       },
       "block_order": [
         "pirkti",
         "paslaugos",
-        "apie"
+        "apie",
+        "menu_7iLG3F"
       ],
       "settings": {
         "tagline": "",
