@@ -48,10 +48,15 @@
         o.setAttribute('aria-expanded', 'false');
       });
 
-      this._onClose = function () { self.close(); };
-      Array.prototype.forEach.call(this.querySelectorAll('[data-drawer-close]'), function (c) {
-        c.addEventListener('click', self._onClose);
-      });
+      /* Delegated close: bound to the drawer root (which persists), so it keeps
+         working after inner content is swapped — e.g. the cart drawer re-renders
+         #cart-drawer-inner (close button included) on every cart mutation, and
+         the filter drawer swaps its facets. Any click within a [data-drawer-close]
+         (scrim, ✕, CTA) closes. */
+      this._onClose = function (e) {
+        if (e.target && e.target.closest && e.target.closest('[data-drawer-close]')) self.close();
+      };
+      this.addEventListener('click', this._onClose);
 
       this._onKeydown = function (e) {
         if (!self.classList.contains(self._openClass)) return;
