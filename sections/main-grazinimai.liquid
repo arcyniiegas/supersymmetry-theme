@@ -99,8 +99,12 @@
               recipient · form required · fortnightly collection · refund window ·
               keep the tracking number. {%- endcomment -%}
             {%- for note in note_list -%}
-              {%- if note != blank -%}
-              <li class="important__item">
+              {%- assign note_clean = note | strip -%}
+              {%- if note_clean != blank -%}
+              {%- assign flag = false -%}
+              {%- assign first_char = note_clean | slice: 0 -%}
+              {%- if first_char == '*' -%}{%- assign flag = true -%}{%- assign note_clean = note_clean | remove_first: '*' | strip -%}{%- endif -%}
+              <li class="important__item{% if flag %} important__item--flag{% endif %}">
                 <span class="important__ico" aria-hidden="true">
                   {%- case forloop.index -%}
                     {%- when 1 -%}<svg viewBox="0 0 24 24"><path d="M12 21.5c3.8-4.3 6.6-7.6 6.6-10.6a6.6 6.6 0 1 0-13.2 0c0 3 2.8 6.3 6.6 10.6Z"/><circle cx="12" cy="10.6" r="2.4"/></svg>
@@ -110,7 +114,7 @@
                     {%- else -%}<svg viewBox="0 0 24 24"><path d="M4 4.5h6.6L20 13.9l-6.1 6.1L4.5 10.6V4.5Z"/><circle cx="8" cy="8" r="1.3"/></svg>
                   {%- endcase -%}
                 </span>
-                <span class="important__t">{{ note | strip }}</span>
+                <span class="important__t">{{ note_clean }}</span>
               </li>
               {%- endif -%}
             {%- endfor -%}

@@ -253,7 +253,7 @@
 .important__badge{
   display: inline-grid; place-items: center;
   width: 22px; height: 22px; border-radius: 99px;
-  background: var(--orange); color: var(--bg);
+  background: #FFFFFF; color: var(--ink);
   font: 700 13px/1 var(--font-sans);
 }
 .important__list{ list-style: none; margin: 0; padding: 0; display: grid; }
@@ -278,6 +278,19 @@
   font: 500 clamp(15px, 1.7vw, 16.5px)/1.5 var(--font-sans);
   letter-spacing: -0.01em; color: rgba(255,255,255,0.9);
 }
+/* a flagged point (leading * in the setting) — a highlighted band so it can't
+   be missed: solid white icon, bold white text, subtle raised row. */
+.important__item--flag{
+  border-top: 0;
+  background: rgba(255,255,255,0.07);
+  border-radius: var(--r-md);
+  padding: var(--sp-4);
+  margin: var(--sp-2) calc(-1 * var(--sp-4));
+}
+.important__item--flag + .important__item{ border-top-color: transparent; }
+.important__item--flag .important__ico{ border-color: transparent; background: #FFFFFF; }
+.important__item--flag .important__ico svg{ stroke: var(--ink); }
+.important__item--flag .important__t{ color: #FFFFFF; font-weight: 600; }
 @media (max-width: 520px){
   .important__item{ grid-template-columns: 40px 1fr; gap: var(--sp-3); }
   .important__ico{ width: 40px; height: 40px; }
