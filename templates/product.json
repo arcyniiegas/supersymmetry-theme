@@ -59,6 +59,14 @@
             "lede": "Keturi įpročiai, šešiasdešimties dienų ritmas, dvidešimt sezonų dėvėjimo."
           }
         },
+        "reviews": {
+          "type": "reviews",
+          "settings": {
+            "eyebrow": "04 — Atsiliepimai",
+            "title_light": "Ką sako",
+            "title": "pirkėjai."
+          }
+        },
         "related": {
           "type": "related",
           "disabled": true,
@@ -76,6 +84,7 @@
         "spec",
         "story",
         "care",
+        "reviews",
         "related"
       ],
       "settings": {

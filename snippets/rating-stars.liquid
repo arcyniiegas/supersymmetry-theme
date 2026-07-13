@@ -1,0 +1,35 @@
+{%- comment -%}
+  rating-stars — aggregate product review score, rendered in the theme's own
+  monochrome star vocabulary. Reads the standard `reviews.rating` metafield.
+  Renders NOTHING when there are no reviews (no fabricated social proof).
+
+  Params:
+  · rating      — 0–5 score, e.g. product.metafields.reviews.rating.value.rating
+  · count       — review count, e.g. product.metafields.reviews.rating_count.value
+  · size        — 'sm' | 'md' (default 'md')
+  · href        — optional anchor; wraps the row in a link (e.g. '#atsiliepimai')
+  · show_score  — prepend the numeric average (mono)
+  · show_count  — append the count
+  · count_style — 'paren' → "(N)" (default) · 'words' → "N atsiliepimai"
+{%- endcomment -%}
+{%- assign r = rating | default: 0 -%}
+{%- assign c = count | default: 0 -%}
+{%- if c > 0 -%}
+  {%- assign sz = size | default: 'md' -%}
+  {%- assign pct = r | times: 20.0 | round -%}
+  {%- assign score_display = r | round: 1 -%}
+  {%- assign aria = 'product.rating_aria' | t: rating: score_display, count: c -%}
+  {%- capture stars_inner -%}
+    {%- if show_score -%}<span class="rating__score">{{ score_display }}</span>{%- endif -%}
+    <span class="rating__stars" aria-hidden="true">★★★★★<span class="rating__stars-fill" style="width: {{ pct }}%;">★★★★★</span></span>
+    {%- if show_count -%}
+      {%- if count_style == 'words' -%}<span class="rating__count">{{ 'product.reviews_count' | t: count: c }}</span>
+      {%- else -%}<span class="rating__count">({{ c }})</span>{%- endif -%}
+    {%- endif -%}
+  {%- endcapture -%}
+  {%- if href != blank -%}
+  <a class="rating rating--{{ sz }}" href="{{ href }}" aria-label="{{ aria | escape }}">{{ stars_inner }}</a>
+  {%- else -%}
+  <span class="rating rating--{{ sz }}" role="img" aria-label="{{ aria | escape }}">{{ stars_inner }}</span>
+  {%- endif -%}
+{%- endif -%}

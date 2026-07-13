@@ -198,19 +198,6 @@
       });
     });
   })();
-
-  /* reviews expand / collapse */
-  (function () {
-    var t = document.getElementById('revToggle');
-    var list = document.getElementById('revList');
-    if (!t || !list) return;
-    t.addEventListener('click', function () {
-      var open = t.getAttribute('aria-expanded') === 'true';
-      t.setAttribute('aria-expanded', String(!open));
-      list.hidden = open;
-      t.firstChild.textContent = (open ? theme.t('product.reviews_show') : theme.t('product.reviews_hide')) + '\n      ';
-    });
-  })();
   }
 
   initProduct();

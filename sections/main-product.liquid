@@ -38,6 +38,12 @@
       {% render 'price', product: product %}
     </div>
 
+    {%- assign pr_rating = product.metafields.reviews.rating.value.rating -%}
+    {%- assign pr_count = product.metafields.reviews.rating_count.value -%}
+    {%- if pr_count > 0 -%}
+    <div class="info__rating">{% render 'rating-stars', rating: pr_rating, count: pr_count, href: '#atsiliepimai', show_score: true, show_count: true, count_style: 'words' %}</div>
+    {%- endif -%}
+
     {%- if product.description != blank -%}
     <div class="info__desc">{{ product.description }}</div>
     {%- endif -%}
@@ -258,23 +264,12 @@
       ]
     },
     {
-      "type": "reviews", "name": "Reviews header", "limit": 1,
+      "type": "reviews", "name": "Reviews", "limit": 1,
       "settings": [
+        { "type": "paragraph", "content": "Reviews are powered by the Judge.me app (install it and enable its app embed). This block renders the on-brand heading around the Judge.me widget." },
         { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "04 — Atsiliepimai" },
-        { "type": "text", "id": "score", "label": "Score (leave empty until you have real reviews)" },
-        { "type": "text", "id": "count_line", "label": "Count line (real data only, e.g. \"12 patvirtinti pirkimai\")" },
-        { "type": "textarea", "id": "brief", "label": "Summary", "default": "Dažniausiai giriama: <b>oda prisitaiko per 2–3 sav.</b>, <b>keičiami padai</b>, <b>numeruota partija</b>." },
-        { "type": "text", "id": "toggle_label", "label": "Toggle label", "default": "Skaityti atsiliepimus" }
-      ]
-    },
-    {
-      "type": "review", "name": "Review",
-      "settings": [
-        { "type": "text", "id": "author", "label": "Author" },
-        { "type": "text", "id": "date", "label": "Date (YYYY-MM-DD)" },
-        { "type": "range", "id": "rating", "label": "Rating", "min": 1, "max": 5, "step": 1, "default": 5 },
-        { "type": "textarea", "id": "body", "label": "Body" },
-        { "type": "text", "id": "fit_note", "label": "Fit note" }
+        { "type": "text", "id": "title_light", "label": "Title (light part)", "default": "Ką sako" },
+        { "type": "text", "id": "title", "label": "Title (bold part)", "default": "pirkėjai." }
       ]
     },
     {
