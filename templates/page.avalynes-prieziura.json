@@ -32,7 +32,7 @@
           "type": "stat",
           "settings": {
             "label": "Tarnauja",
-            "value": "10+ m.",
+            "value": "2+ m.",
             "tabular": true
           }
         },
@@ -281,7 +281,7 @@
           "settings": {
             "tag": "Žiema",
             "question": "Druskos ruožai",
-            "answer": "Nuvalykite tirpalu iš <b>lygių dalių vandens ir balto acto</b>, nusausinkite, išdžiovinkite ir iš naujo impregnuokite. Druską šalinkite nedelsiant — ji ėda odą."
+            "answer": "Nuvalykite tirpalu iš <b>lygių dalių vandens ir balto acto</b>, nusausinkite, išdžiovinkite ir iš naujo impregnuokite. Druską šalinkite nedelsiant — ji ėda odą. Šis metodas tinka tik lygiai odai, jokiu būdu ne zomšai ar nubukui."
           }
         },
         "fix-3": {
@@ -466,7 +466,7 @@
         "kit_sub": "Nereikia dešimties buteliukų. Septyni daiktai padengia visą odos ir zomšos priežiūrą metų metus.",
         "close_eyebrow": "Reikia daugiau?",
         "close_title": "Kai kurie darbai — meistrui.",
-        "close_text": "Padų keitimas, persiuvimas ir gilus atnaujinimas atliekami ateljė. Parašykite ar užsukite — pasakysime, ką dar galima išgelbėti.",
+        "close_text": "Padų keitimas, persiuvimas ir gilus atnaujinimas atliekami batų taisyklose. Parašykite ar užsukite — pasakysime, ką dar galima išgelbėti.",
         "close_cta_label": "Susisiekti",
         "close_cta_link": "",
         "close_cta2_label": "DUK",
