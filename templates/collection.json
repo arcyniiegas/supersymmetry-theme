@@ -12,17 +12,12 @@
     "main": {
       "type": "main-collection",
       "settings": {
-        "show_eyebrow": false,
-        "eyebrow_prefix": "Kolekcija",
         "meta_label": "",
-        "default_title_light": "Visa",
-        "default_title": "kolekcija.",
         "products_per_page": 24,
         "empty_eyebrow": "Kolekcija ruošiama",
         "empty_title_light": "Poros",
         "empty_title": "grįžta netrukus.",
         "empty_text": "Ši kolekcija dar pildoma — užsukite po kelių dienų arba peržiūrėkite visą asortimentą.",
-        "title_scale": 100,
         "card_name_scale": 70,
         "color_scheme": "",
         "text_color": ""
