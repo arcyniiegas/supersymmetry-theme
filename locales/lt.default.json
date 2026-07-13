@@ -234,6 +234,10 @@
     "placeholder": "Jūsų el. paštas",
     "button": "Prenumeruoti"
   },
+  "returns": {
+    "copy": "Kopijuoti",
+    "copied": "Nukopijuota ✓"
+  },
   "footer": {
     "buy": "Pirkti",
     "services": "Paslaugos",

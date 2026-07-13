@@ -234,6 +234,10 @@
     "placeholder": "Your email",
     "button": "Subscribe"
   },
+  "returns": {
+    "copy": "Copy",
+    "copied": "Copied ✓"
+  },
   "footer": {
     "buy": "Shop",
     "services": "Services",

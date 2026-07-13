@@ -1,0 +1,16 @@
+{%- comment -%}
+  Recipient row with a copy-to-clipboard button (returns / paštomatas block).
+  Params:
+  · label         — row label (e.g. "Gavėjas")
+  · label_default — fallback when label is blank
+  · value         — the copyable value (name / phone / address)
+{%- endcomment -%}
+{%- assign row_label = label | default: label_default -%}
+<div class="recip__row">
+  <div class="recip__k">{{ row_label }}</div>
+  <div class="recip__v">{{ value }}</div>
+  <button type="button" class="recip__copy" data-copy="{{ value | escape }}" data-copy-idle="{{ 'returns.copy' | t }}" data-copy-done="{{ 'returns.copied' | t }}" aria-label="{{ 'returns.copy' | t }} — {{ value | escape }}">
+    <svg class="recip__copy-ico" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="5" y="5" width="8.5" height="9.5" rx="1.6"/><path d="M2.5 11 V3.6 A1.6 1.6 0 0 1 4.1 2 H10"/></svg>
+    <span data-copy-label>{{ 'returns.copy' | t }}</span>
+  </button>
+</div>
