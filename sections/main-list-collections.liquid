@@ -33,7 +33,9 @@
   {%- assign c = block.settings.collection -%}
   {%- if c != blank -%}
   {%- assign coll_img = block.settings.image | default: c.featured_image -%}
-  <a class="coll coll--dark" href="{{ c.url }}" {{ block.shopify_attributes }}>
+  {%- assign tile_focus = block.settings.image_focus -%}
+  {%- if tile_focus == blank or tile_focus == 'inherit' -%}{%- assign tile_focus = section.settings.card_image_focus -%}{%- endif -%}
+  <a class="coll coll--dark" href="{{ c.url }}"{% if tile_focus != 'center' %} data-focus="{{ tile_focus }}"{% endif %} {{ block.shopify_attributes }}>
     <div class="coll__img">
       {% if coll_img %}<img loading="lazy" src="{{ coll_img | image_url: width: 1400 }}" srcset="{{ coll_img | image_url: width: 700 }} 700w, {{ coll_img | image_url: width: 1000 }} 1000w, {{ coll_img | image_url: width: 1400 }} 1400w" sizes="(max-width: 720px) 100vw, 50vw" width="{{ coll_img.width }}" height="{{ coll_img.height }}" alt="{{ c.title | escape }}" />{% endif %}
     </div>
@@ -54,7 +56,8 @@
 {% elsif collections.size > 0 %}
 {%- comment -%} No blocks chosen → list every published collection. {%- endcomment -%}
 {% for collection in collections %}
-  <a class="coll coll--dark" href="{{ collection.url }}">
+  {%- assign tile_focus = section.settings.card_image_focus -%}
+  <a class="coll coll--dark" href="{{ collection.url }}"{% if tile_focus != 'center' %} data-focus="{{ tile_focus }}"{% endif %}>
     <div class="coll__img">
       {% if collection.featured_image %}<img loading="lazy" src="{{ collection.featured_image | image_url: width: 1400 }}" srcset="{{ collection.featured_image | image_url: width: 700 }} 700w, {{ collection.featured_image | image_url: width: 1000 }} 1000w, {{ collection.featured_image | image_url: width: 1400 }} 1400w" sizes="(max-width: 720px) 100vw, 50vw" width="{{ collection.featured_image.width }}" height="{{ collection.featured_image.height }}" alt="{{ collection.title | escape }}" />{% endif %}
     </div>
@@ -91,6 +94,11 @@
     { "type": "header", "content": "Appearance" },
     { "type": "color_scheme", "id": "color_scheme", "label": "Colour scheme", "default": "scheme-1", "info": "Recolours this whole section. The default matches the rest of the site." },
     { "type": "color", "id": "text_color", "label": "Text colour", "info": "Recolours this section's text. Leave empty for the default near-black." },
+    { "type": "select", "id": "card_image_focus", "label": "Image focus", "info": "Default vertical crop anchor for the collection tiles. Each tile can override this below.", "options": [
+      { "value": "top", "label": "Top" },
+      { "value": "center", "label": "Middle" },
+      { "value": "bottom", "label": "Bottom" }
+    ], "default": "center" },
     { "type": "text", "id": "title_light", "label": "Title (light part)", "default": "Visos" },
     { "type": "text", "id": "title", "label": "Title", "default": "kolekcijos." },
     { "type": "textarea", "id": "intro", "label": "Intro", "default": "Kiekvienas rinkinys — atskira partija, ribotas porų skaičius, <b>vienas modelis, daug niuansų</b>. Rinkis pagal nuotaiką arba pagal sezoną." },
@@ -107,6 +115,12 @@
       "settings": [
         { "type": "collection", "id": "collection", "label": "Collection" },
         { "type": "image_picker", "id": "image", "label": "Image override", "info": "Optional — defaults to the collection's own featured image." },
+        { "type": "select", "id": "image_focus", "label": "Image focus", "info": "Vertical crop anchor for this tile's image.", "options": [
+          { "value": "inherit", "label": "Use section default" },
+          { "value": "top", "label": "Top" },
+          { "value": "center", "label": "Middle" },
+          { "value": "bottom", "label": "Bottom" }
+        ], "default": "inherit" },
         { "type": "text", "id": "badge", "label": "Badge", "info": "Optional label shown on the tile (e.g. Naujiena)." },
         { "type": "text", "id": "count_word", "label": "Count word", "default": "poros", "info": "Word after the product count, e.g. poros (shoes) or prekių (accessories)." }
       ]

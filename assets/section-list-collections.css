@@ -62,6 +62,9 @@
 
 .coll__img{ position: absolute; inset: 0; }
 .coll__img img{ width: 100%; height: 100%; object-fit: cover; transition: transform var(--tx-base) var(--ease); }
+/* Vertical crop anchor — set per tile / section via [data-focus] (default: center). */
+.coll[data-focus="top"] .coll__img img{ object-position: center top; }
+.coll[data-focus="bottom"] .coll__img img{ object-position: center bottom; }
 .coll:hover .coll__img img{ transform: scale(1.03); }
 .coll__scrim{
   position: absolute; inset: 0; z-index: 1;
