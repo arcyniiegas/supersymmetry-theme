@@ -13,20 +13,6 @@
   "sections": {
     "header": {
       "type": "header",
-      "blocks": {
-        "dropdown_image_MyBGfz": {
-          "type": "dropdown_image",
-          "settings": {
-            "image": "shopify://shop_images/d84f52e4ef4cd566e6728490a1da2eb7.jpg",
-            "under": "Rankinės",
-            "link": "",
-            "caption": ""
-          }
-        }
-      },
-      "block_order": [
-        "dropdown_image_MyBGfz"
-      ],
       "settings": {
         "menu": "supersymmetry-3-0",
         "logo": "shopify://shop_images/Super_Symmetry_10.svg",
