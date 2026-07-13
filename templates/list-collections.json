@@ -46,40 +46,20 @@
             "count_word": "poros"
           }
         },
-        "coll-5": {
+        "collection_hn76HX": {
           "type": "collection",
-          "disabled": true,
           "settings": {
-            "collection": "rankines-1",
+            "collection": "slepetes",
             "badge": "",
-            "count_word": "prekių"
+            "count_word": "poros"
           }
         },
-        "coll-6": {
+        "collection_DV8Wjk": {
           "type": "collection",
-          "disabled": true,
           "settings": {
-            "collection": "salikai",
+            "collection": "aukstakulniai",
             "badge": "",
-            "count_word": "prekių"
-          }
-        },
-        "coll-7": {
-          "type": "collection",
-          "disabled": true,
-          "settings": {
-            "collection": "kepures-ir-ausines",
-            "badge": "",
-            "count_word": "prekių"
-          }
-        },
-        "coll-8": {
-          "type": "collection",
-          "disabled": true,
-          "settings": {
-            "collection": "pirstines",
-            "badge": "",
-            "count_word": "prekių"
+            "count_word": "poros"
           }
         }
       },
@@ -88,10 +68,8 @@
         "coll-1",
         "coll-4",
         "coll-3",
-        "coll-5",
-        "coll-6",
-        "coll-7",
-        "coll-8"
+        "collection_hn76HX",
+        "collection_DV8Wjk"
       ],
       "settings": {
         "color_scheme": "",
