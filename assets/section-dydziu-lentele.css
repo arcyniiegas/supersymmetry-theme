@@ -12,6 +12,8 @@
   font-kerning: normal;
 }
 .phead__title .light{ letter-spacing: -0.035em; }
+/* No aside (intro + stats removed) → title spans the head as a single column. */
+.phead--solo{ grid-template-columns: 1fr; }
 
 /* ════════════════════════════════════════════════════════════
    SIZES — table + how-to-measure, house editorial grid

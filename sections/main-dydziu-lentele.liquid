@@ -6,16 +6,21 @@
 {% render 'breadcrumbs', parent_label: crumb_parent, parent_url: pages.duk.url, current: crumb_current %}
 
 <!-- ──────────── PAGE HEAD ──────────── -->
-<section class="phead">
+{%- assign stat_blocks = section.blocks | where: 'type', 'stat' -%}
+{%- assign has_aside = false -%}
+{%- if section.settings.intro != blank or stat_blocks.size > 0 -%}{%- assign has_aside = true -%}{%- endif -%}
+<section class="phead{% unless has_aside %} phead--solo{% endunless %}">
   <div>
     <h1 class="phead__title">
       <span class="light">{{ section.settings.title_light | default: 'Dydžių' }}</span>
       {{ section.settings.title | default: 'lentelė.' }}
     </h1>
   </div>
+  {%- if has_aside -%}
   <div class="phead__aside">
-    <p class="phead__intro">{{ section.settings.intro | default: 'Visos poros siuvamos ant tų pačių kurpalių, todėl lentelė galioja <b>kiekvienam modeliui</b>. Svarbiausias skaičius — pėdos ilgis centimetrais; EU, UK ir US dydžiai čia tik orientyras.' }}</p>
-    {%- assign stat_blocks = section.blocks | where: 'type', 'stat' -%}
+    {%- if section.settings.intro != blank -%}
+    <p class="phead__intro">{{ section.settings.intro }}</p>
+    {%- endif -%}
     {%- if stat_blocks.size > 0 -%}
     <div class="phead__stats">
       {%- for block in stat_blocks -%}
@@ -24,6 +29,7 @@
     </div>
     {%- endif -%}
   </div>
+  {%- endif -%}
 </section>
 
 <!-- ──────────── SIZES ──────────── -->
@@ -107,7 +113,7 @@
     { "type": "text", "id": "crumb_current", "label": "Breadcrumb current", "default": "Dydžių lentelė" },
     { "type": "text", "id": "title_light", "label": "Title (light part)", "default": "Dydžių" },
     { "type": "text", "id": "title", "label": "Title (bold part)", "default": "lentelė." },
-    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Visos poros siuvamos ant tų pačių kurpalių, todėl lentelė galioja <b>kiekvienam modeliui</b>. Svarbiausias skaičius — pėdos ilgis centimetrais; EU dydis čia tik orientyras." },
+    { "type": "textarea", "id": "intro", "label": "Intro", "info": "Optional lead paragraph beside the title. Leave empty to hide." },
     { "type": "header", "content": "Table" },
     { "type": "text", "id": "th_1", "label": "Column 1 header", "default": "EU" },
     { "type": "text", "id": "th_2", "label": "Column 2 header", "default": "Pėdos ilgis" },
