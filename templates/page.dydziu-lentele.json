@@ -16,56 +16,49 @@
           "type": "row",
           "settings": {
             "eu": "36",
-            "cm": "22,8 cm"
+            "cm": "22,6–23,2"
           }
         },
         "row-37": {
           "type": "row",
           "settings": {
             "eu": "37",
-            "cm": "23,5 cm"
+            "cm": "23,3–23,8"
           }
         },
         "row-38": {
           "type": "row",
           "settings": {
             "eu": "38",
-            "cm": "24,1 cm"
+            "cm": "23,9–24,5"
           }
         },
         "row-39": {
           "type": "row",
           "settings": {
             "eu": "39",
-            "cm": "24,8 cm"
+            "cm": "24,6–25,2"
           }
         },
         "row-40": {
           "type": "row",
           "settings": {
             "eu": "40",
-            "cm": "25,4 cm"
+            "cm": "25,3–25,8"
           }
         },
         "row-41": {
           "type": "row",
           "settings": {
             "eu": "41",
-            "cm": "26,0 cm"
+            "cm": "25,9–26,5"
           }
         },
         "row-42": {
           "type": "row",
           "settings": {
             "eu": "42",
-            "cm": "26,7 cm"
-          }
-        },
-        "row-43": {
-          "type": "row",
-          "settings": {
-            "eu": "43",
-            "cm": "27,3 cm"
+            "cm": "26,6–27,2"
           }
         },
         "mstep-1": {
@@ -101,12 +94,14 @@
         "row-40",
         "row-41",
         "row-42",
-        "row-43",
         "mstep-1",
         "mstep-2",
         "mstep-3"
       ],
-      "settings": {}
+      "settings": {
+        "th_1": "EU dydis",
+        "th_2": "Pėdos ilgis (cm)"
+      }
     }
   },
   "order": [
