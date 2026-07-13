@@ -57,7 +57,7 @@
       },
       "block_order": [
         "stat-1", "stat-2", "stat-3",
-        "chip-1", "chip-2", "chip-3", "chip-4",
+        "chip-2", "chip-1", "chip-3", "chip-4",
         "method-a", "method-b",
         "faq-1", "faq-2", "faq-3", "faq-4", "faq-5", "faq-6"
       ],
@@ -68,11 +68,11 @@
         "title_light": "Grąžinimo",
         "title": "centras.",
         "intro": "Pora neprigludo? <b>Per 14 dienų</b> grąžinkite ją mūsų parduotuvėje Vilniuje arba paštomatu. Nenešiotą, originalioje būklėje — pinigus grąžiname per 14 darbo dienų.",
-        "methods_eyebrow": "Skyrius <b>01</b> · Būdai",
+        "methods_eyebrow": "Skyrius <b>02</b> · Būdai",
         "methods_title": "Du būdai",
         "methods_title_light": "grąžinti porą.",
         "methods_sub": "Užsukite į ateljė ir grąžinkite vietoje — nemokamai ir iškart — arba išsiųskite paštomatu. Abu keliai priima ir grąžinimą, ir keitimą kitu dydžiu.",
-        "form_eyebrow": "Skyrius <b>02</b> · Forma",
+        "form_eyebrow": "Skyrius <b>01</b> · Forma",
         "form_title": "Grąžinimo",
         "form_title_light": "forma.",
         "form_sub": "Atsispausdinkite formą, užpildykite ir įdėkite į siuntą. Be jos negalėsime identifikuoti, kieno grąžinimą gavome.",

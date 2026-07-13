@@ -39,11 +39,28 @@
 </scroll-spy>
 {%- endif -%}
 
-<!-- ──────────── 1 · GRĄŽINIMO BŪDAI / METHODS ──────────── -->
+<!-- ──────────── 1 · GRĄŽINIMO FORMA / FORM ──────────── -->
+<section class="sec sec--tight" id="forma">
+  <div class="formcall">
+    <div class="formcall__text">
+      <div class="eyebrow-rule">{{ section.settings.form_eyebrow | default: 'Skyrius <b>01</b> · Forma' }}</div>
+      <h2 class="formcall__title">{{ section.settings.form_title | default: 'Grąžinimo' }} <span class="light">{{ section.settings.form_title_light | default: 'forma.' }}</span></h2>
+      <p class="formcall__sub">{{ section.settings.form_sub | default: 'Atsispausdinkite formą, užpildykite ir įdėkite į siuntą. Be jos negalėsime identifikuoti, kieno grąžinimą gavome.' }}</p>
+    </div>
+    {%- if section.settings.form_pdf != blank -%}
+    <a class="btn btn--primary formcall__dl" href="{{ section.settings.form_pdf }}" target="_blank" rel="noopener">
+      {{ section.settings.form_button | default: 'Atsisiųsti formą (PDF)' }}
+      <span class="btn__arrow" aria-hidden="true">↓</span>
+    </a>
+    {%- endif -%}
+  </div>
+</section>
+
+<!-- ──────────── 2 · GRĄŽINIMO BŪDAI / METHODS ──────────── -->
 <section class="sec" id="parduotuve">
   <div class="sec__head">
     <div>
-      <div class="eyebrow-rule">{{ section.settings.methods_eyebrow | default: 'Skyrius <b>01</b> · Būdai' }}</div>
+      <div class="eyebrow-rule">{{ section.settings.methods_eyebrow | default: 'Skyrius <b>02</b> · Būdai' }}</div>
       <h2 class="sec__title">{{ section.settings.methods_title | default: 'Du būdai' }} <span class="light">{{ section.settings.methods_title_light | default: 'grąžinti porą.' }}</span></h2>
     </div>
     <p class="sec__sub">{{ section.settings.methods_sub | default: 'Užsukite į ateljė ir grąžinkite vietoje — nemokamai ir iškart — arba išsiųskite paštomatu. Abu keliai priima ir grąžinimą, ir keitimą kitu dydžiu.' }}</p>
@@ -72,23 +89,6 @@
     {%- endfor -%}
   </div>
   {%- endif -%}
-</section>
-
-<!-- ──────────── 2 · GRĄŽINIMO FORMA / FORM ──────────── -->
-<section class="sec" id="forma">
-  <div class="formcall">
-    <div class="formcall__text">
-      <div class="eyebrow-rule">{{ section.settings.form_eyebrow | default: 'Skyrius <b>02</b> · Forma' }}</div>
-      <h2 class="formcall__title">{{ section.settings.form_title | default: 'Grąžinimo' }} <span class="light">{{ section.settings.form_title_light | default: 'forma.' }}</span></h2>
-      <p class="formcall__sub">{{ section.settings.form_sub | default: 'Atsispausdinkite formą, užpildykite ir įdėkite į siuntą. Be jos negalėsime identifikuoti, kieno grąžinimą gavome.' }}</p>
-    </div>
-    {%- if section.settings.form_pdf != blank -%}
-    <a class="btn btn--primary formcall__dl" href="{{ section.settings.form_pdf }}" target="_blank" rel="noopener">
-      {{ section.settings.form_button | default: 'Atsisiųsti formą (PDF)' }}
-      <span class="btn__arrow" aria-hidden="true">↓</span>
-    </a>
-    {%- endif -%}
-  </div>
 </section>
 
 <!-- ──────────── 3 · PAŠTOMATO GAVĖJAS / RECIPIENT ──────────── -->
