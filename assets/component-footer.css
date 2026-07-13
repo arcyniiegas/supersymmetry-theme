@@ -38,7 +38,6 @@
 }
 @media (max-width: 720px){
   .foot__cols{ grid-template-columns: repeat(2, 1fr); gap: var(--sp-8) var(--sp-6); }
-  .foot__newsletter{ grid-column: 1 / -1; max-width: 420px; }
 }
 .foot__col h2{
   margin: 0 0 var(--sp-4);
@@ -54,28 +53,6 @@
   color: rgba(255,255,255,0.9);
 }
 .foot__col a:hover{ color: #FFFFFF; }
-.foot__newsletter p{
-  margin: 0 0 var(--sp-3);
-  font: 400 14px/1.55 var(--font-sans);
-  color: rgba(255,255,255,0.7);
-}
-.foot__newsletter form{
-  display: flex; align-items: center;
-  background: rgba(255,255,255,0.08);
-  border-radius: 999px;
-  padding: 4px 4px 4px 14px;
-}
-.foot__newsletter input{
-  flex: 1 1 0%; width: 0; min-width: 0; background: transparent; border: 0;
-  padding: 10px 0; font: 400 14px/1 var(--font-sans); color: #FFFFFF;
-}
-.foot__newsletter input::placeholder{ color: rgba(255,255,255,0.4); }
-.foot__newsletter button{
-  background: #FFFFFF; color: var(--text);
-  padding: 10px 16px; border-radius: 999px;
-  font: 500 13px/1 var(--font-sans);
-  white-space: nowrap; flex-shrink: 0;
-}
 .foot__legal{
   display: flex; justify-content: space-between; align-items: center;
   padding-top: var(--sp-6);

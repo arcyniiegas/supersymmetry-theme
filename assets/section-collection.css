@@ -15,11 +15,8 @@
    CATEGORY TABS (sticky) + toolbar
    ════════════════════════════════════════════════════════════ */
 .subbar{
-  position: sticky; top: var(--chrome-h, 73px);
-  z-index: 20;
-  background: color-mix(in oklab, var(--bg) 88%, transparent);
-  backdrop-filter: blur(20px) saturate(1.05);
-  -webkit-backdrop-filter: blur(20px) saturate(1.05);
+  position: relative;
+  background: var(--bg);
   border-bottom: 1px solid var(--line);
 }
 .subbar__wrap{

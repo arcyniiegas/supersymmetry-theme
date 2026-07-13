@@ -17,15 +17,6 @@
         </div>
       {%- endif -%}
     {%- endfor -%}
-    <div class="foot__col foot__newsletter">
-      <h2>{{ section.settings.newsletter_heading }}</h2>
-      <p>{{ section.settings.newsletter_text }}</p>
-      {% form 'customer' %}
-        <input type="hidden" name="contact[tags]" value="newsletter">
-        <input type="email" name="contact[email]" placeholder="{{ section.settings.newsletter_placeholder }}" aria-label="{{ 'accessibility.email' | t }}" />
-        <button type="submit">{{ section.settings.newsletter_button }}</button>
-      {% endform %}
-    </div>
   </div>
   <div class="foot__legal">
     <span>{{ section.settings.legal_left }}<span class="u-desktop"> · {{ section.settings.legal_left_desktop }}</span></span>
@@ -50,31 +41,6 @@
       "id": "tagline",
       "label": "Tagline",
       "default": "Maža ateljė Vilniuje, gaminanti po vieną sportbatį, vieną batą, vieną krepšį — nuo 2019 metų."
-    },
-    { "type": "header", "content": "Newsletter" },
-    {
-      "type": "text",
-      "id": "newsletter_heading",
-      "label": "Newsletter heading",
-      "default": "Laiškas iš ateljės"
-    },
-    {
-      "type": "text",
-      "id": "newsletter_text",
-      "label": "Newsletter text",
-      "default": "Vienas laiškas per mėnesį — naujos poros, taisymo istorijos, jokio marketingo."
-    },
-    {
-      "type": "text",
-      "id": "newsletter_placeholder",
-      "label": "Newsletter placeholder",
-      "default": "Jūsų el. paštas"
-    },
-    {
-      "type": "text",
-      "id": "newsletter_button",
-      "label": "Newsletter button",
-      "default": "Prenumeruoti"
     },
     { "type": "header", "content": "Legal" },
     {
