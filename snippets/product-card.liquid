@@ -34,9 +34,9 @@
     {%- endif -%}
     {% render 'price', product: product, layout: 'card' %}
     {%- if show_name -%}
-      {%- assign card_rating = product.metafields.reviews.rating.value.rating -%}
-      {%- assign card_count = product.metafields.reviews.rating_count.value -%}
-      {%- if card_count > 0 -%}<span class="card__rating">{% render 'rating-stars', rating: card_rating, count: card_count, size: 'sm', show_count: true %}</span>{%- endif -%}
+      {%- capture card_stars -%}{% render 'product-rating', product: product, size: 'sm', show_count: true %}{%- endcapture -%}
+      {%- assign card_stars = card_stars | strip -%}
+      {%- if card_stars != blank -%}<span class="card__rating">{{ card_stars }}</span>{%- endif -%}
     {%- endif -%}
     {%- if show_name and product.type != blank -%}<span class="card__sub">{{ product.type }}</span>{%- endif -%}
   </div>

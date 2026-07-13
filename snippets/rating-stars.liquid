@@ -1,11 +1,11 @@
 {%- comment -%}
-  rating-stars — aggregate product review score, rendered in the theme's own
-  monochrome star vocabulary. Reads the standard `reviews.rating` metafield.
-  Renders NOTHING when there are no reviews (no fabricated social proof).
+  rating-stars — presentational star row in the theme's own monochrome
+  vocabulary. Pure primitive: takes a score + count (the product-rating snippet
+  derives those from Judge.me). Renders NOTHING when count is 0/blank.
 
   Params:
-  · rating      — 0–5 score, e.g. product.metafields.reviews.rating.value.rating
-  · count       — review count, e.g. product.metafields.reviews.rating_count.value
+  · rating      — 0–5 score
+  · count       — review count
   · size        — 'sm' | 'md' (default 'md')
   · href        — optional anchor; wraps the row in a link (e.g. '#atsiliepimai')
   · show_score  — prepend the numeric average (mono)

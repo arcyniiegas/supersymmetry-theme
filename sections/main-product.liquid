@@ -38,11 +38,9 @@
       {% render 'price', product: product %}
     </div>
 
-    {%- assign pr_rating = product.metafields.reviews.rating.value.rating -%}
-    {%- assign pr_count = product.metafields.reviews.rating_count.value -%}
-    {%- if pr_count > 0 -%}
-    <div class="info__rating">{% render 'rating-stars', rating: pr_rating, count: pr_count, href: '#atsiliepimai', show_score: true, show_count: true, count_style: 'words' %}</div>
-    {%- endif -%}
+    {%- capture pr_stars -%}{% render 'product-rating', product: product, href: '#atsiliepimai', show_score: true, show_count: true, count_style: 'words' %}{%- endcapture -%}
+    {%- assign pr_stars = pr_stars | strip -%}
+    {%- if pr_stars != blank -%}<div class="info__rating">{{ pr_stars }}</div>{%- endif -%}
 
     {%- if product.description != blank -%}
     <div class="info__desc">{{ product.description }}</div>
