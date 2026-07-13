@@ -238,6 +238,13 @@
     "copy": "Kopijuoti",
     "copied": "Nukopijuota ✓"
   },
+  "sale": {
+    "days": "d.",
+    "hours": "val.",
+    "minutes": "min.",
+    "seconds": "sek.",
+    "ended": "Pasiūlymas baigėsi"
+  },
   "footer": {
     "buy": "Pirkti",
     "services": "Paslaugos",

@@ -1,0 +1,42 @@
+{
+  "sections": {
+    "sale_banner": {
+      "type": "sale-banner",
+      "settings": {
+        "eyebrow": "Ribotas pasiūlymas",
+        "title_light": "Sezono",
+        "title": "išpardavimas.",
+        "subtext": "Ribotas porų skaičius sumažintomis kainomis — kol nepasibaigė.",
+        "show_countdown": true,
+        "end_at": "2026-12-31 23:59",
+        "timer_label": "Iki pabaigos",
+        "ended_text": "Pasiūlymas baigėsi",
+        "variant": "ink",
+        "title_scale": 100
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "show_eyebrow": true,
+        "eyebrow_prefix": "Išpardavimas",
+        "meta_label": "",
+        "default_title_light": "Išpardavimo",
+        "default_title": "kolekcija.",
+        "products_per_page": 24,
+        "empty_eyebrow": "Netrukus",
+        "empty_title_light": "Pasiūlymai",
+        "empty_title": "grįžta greitai.",
+        "empty_text": "Šiuo metu aktyvių pasiūlymų nėra — užsukite netrukus arba peržiūrėkite visą asortimentą.",
+        "title_scale": 100,
+        "card_name_scale": 70,
+        "color_scheme": "",
+        "text_color": ""
+      }
+    }
+  },
+  "order": [
+    "sale_banner",
+    "main"
+  ]
+}

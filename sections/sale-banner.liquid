@@ -1,0 +1,81 @@
+{{ 'component-countdown.css' | asset_url | stylesheet_tag }}
+{% render 'section-appearance', section: section %}
+
+{%- comment -%}
+  Sale banner — a restrained promo band for the "Sale / Special offers"
+  collection template. Text is set per-collection in the schema; the optional
+  countdown ticks down client-side (cache-proof, Europe/Vilnius wall time) via
+  component-countdown.js. Progressive enhancement: with no JS the static target
+  date is shown. See templates/collection.sale.json.
+{%- endcomment -%}
+
+{%- assign has_countdown = false -%}
+{%- if section.settings.show_countdown and section.settings.end_at != blank -%}{%- assign has_countdown = true -%}{%- endif -%}
+
+<section class="salebanner salebanner--{{ section.settings.variant | default: 'ink' }}"
+  style="--salebanner-title-scale: {{ section.settings.title_scale | default: 100 | divided_by: 100.0 }};">
+  <div class="salebanner__wrap">
+
+    <div class="salebanner__lead">
+      {%- if section.settings.eyebrow != blank -%}
+      <div class="eyebrow-rule salebanner__eyebrow">{{ section.settings.eyebrow }}</div>
+      {%- endif -%}
+      <h2 class="salebanner__title">
+        {%- if section.settings.title_light != blank -%}<span class="light">{{ section.settings.title_light }}</span> {% endif -%}
+        {{ section.settings.title }}
+      </h2>
+      {%- if section.settings.subtext != blank -%}
+      <p class="salebanner__sub">{{ section.settings.subtext }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- if has_countdown -%}
+    <div class="salebanner__timer">
+      <div class="countdown" data-countdown data-end="{{ section.settings.end_at | escape }}" data-tz="Europe/Vilnius"
+        role="timer" aria-label="{{ section.settings.timer_label | escape }}">
+        <div class="countdown__grid" data-cd-units>
+          <div class="countdown__unit"><span class="countdown__num mono tabular" data-cd="days">00</span><span class="countdown__lab">{{ 'sale.days' | t }}</span></div>
+          <div class="countdown__unit"><span class="countdown__num mono tabular" data-cd="hours">00</span><span class="countdown__lab">{{ 'sale.hours' | t }}</span></div>
+          <div class="countdown__unit"><span class="countdown__num mono tabular" data-cd="minutes">00</span><span class="countdown__lab">{{ 'sale.minutes' | t }}</span></div>
+          <div class="countdown__unit"><span class="countdown__num mono tabular" data-cd="seconds">00</span><span class="countdown__lab">{{ 'sale.seconds' | t }}</span></div>
+        </div>
+        <div class="countdown__ended" data-cd-ended hidden>{{ section.settings.ended_text }}</div>
+      </div>
+      {%- if section.settings.timer_label != blank -%}
+      <div class="salebanner__timer-cap mono">{{ section.settings.timer_label }}</div>
+      {%- endif -%}
+    </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+<script src="{{ 'component-countdown.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Sale banner",
+  "settings": [
+    { "type": "header", "content": "Copy" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Ribotas pasiūlymas" },
+    { "type": "text", "id": "title_light", "label": "Title (light part)", "default": "Sezono", "info": "Rendered in light weight before the bold part." },
+    { "type": "text", "id": "title", "label": "Title (bold part)", "default": "išpardavimas." },
+    { "type": "textarea", "id": "subtext", "label": "Subtext", "default": "Ribotas porų skaičius sumažintomis kainomis — kol nepasibaigė." },
+    { "type": "header", "content": "Countdown" },
+    { "type": "checkbox", "id": "show_countdown", "label": "Show countdown timer", "default": true },
+    { "type": "text", "id": "end_at", "label": "Ends at", "default": "2026-12-31 23:59", "info": "Format: YYYY-MM-DD HH:MM (24h), Vilnius time. The timer counts down to this moment." },
+    { "type": "text", "id": "timer_label", "label": "Timer caption", "default": "Iki pabaigos", "info": "Small caption above the timer. Leave empty to hide." },
+    { "type": "text", "id": "ended_text", "label": "Ended message", "default": "Pasiūlymas baigėsi", "info": "Shown once the countdown reaches zero." },
+    { "type": "header", "content": "Appearance" },
+    { "type": "select", "id": "variant", "label": "Style", "default": "ink",
+      "options": [
+        { "value": "ink", "label": "Dark (ink)" },
+        { "value": "surface", "label": "Light (surface)" }
+      ] },
+    { "type": "range", "id": "title_scale", "label": "Heading size", "min": 60, "max": 130, "step": 5, "unit": "%", "default": 100 }
+  ],
+  "presets": [
+    { "name": "Sale banner" }
+  ]
+}
+{% endschema %}
