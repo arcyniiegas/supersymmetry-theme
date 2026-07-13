@@ -2,9 +2,18 @@
   <section class="gallery" aria-label="{{ 'accessibility.product_gallery' | t }}">
 {%- if product.media.size > 0 -%}
 {%- for media in product.media -%}
+    {%- assign media_alt = product.title | append: ' — vaizdas ' | append: forloop.index -%}
+    {%- if media.alt != blank and media.alt != product.title -%}{%- assign media_alt = media.alt -%}{%- endif -%}
     <figure class="shot {% cycle 'shot--portrait', 'shot--square', 'shot--landscape' %}">
-      <img class="shot__img" src="{{ media | image_url: width: 1400 }}" srcset="{{ media | image_url: width: 700 }} 700w, {{ media | image_url: width: 1400 }} 1400w" sizes="(max-width: 960px) 100vw, 60vw" width="{{ media.preview_image.width | default: 1400 }}" height="{{ media.preview_image.height | default: 1400 }}" alt="{% if media.alt != blank and media.alt != product.title %}{{ media.alt | escape }}{% else %}{{ product.title | escape }} — vaizdas {{ forloop.index }} iš {{ product.media.size }}{% endif %}" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"{% if forloop.first %} fetchpriority="high"{% endif %}/>
-{%- if forloop.first %}
+      {%- case media.media_type -%}
+      {%- when 'video' -%}
+        {{ media | video_tag: image_size: '1400x', controls: true, playsinline: true, preload: 'metadata', class: 'shot__img shot__video' }}
+      {%- when 'external_video' -%}
+        <div class="shot__embed">{{ media | external_video_tag: class: 'shot__img' }}</div>
+      {%- else -%}
+      <img class="shot__img" src="{{ media | image_url: width: 1400 }}" srcset="{{ media | image_url: width: 700 }} 700w, {{ media | image_url: width: 1400 }} 1400w" sizes="(max-width: 960px) 100vw, 60vw" width="{{ media.preview_image.width | default: 1400 }}" height="{{ media.preview_image.height | default: 1400 }}" alt="{{ media_alt | escape }}" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"{% if forloop.first %} fetchpriority="high"{% endif %}/>
+      {%- endcase -%}
+{%- if forloop.first and media.media_type == 'image' %}
       <button class="shot__zoom" type="button" aria-label="{{ 'accessibility.zoom' | t }}">
         {% render 'icon', name: 'zoom' %}
       </button>

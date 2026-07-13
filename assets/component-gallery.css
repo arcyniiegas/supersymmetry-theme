@@ -58,6 +58,11 @@
   object-fit: cover;
   object-position: center;
 }
+/* Video keeps controls reachable, so contain (not cover) — never crop the UI. */
+.shot__video{ object-fit: contain; background: var(--surface); }
+/* External embeds (YouTube/Vimeo) fill the figure. */
+.shot__embed{ position: absolute; inset: 0; }
+.shot__embed iframe{ width: 100%; height: 100%; border: 0; display: block; }
 .shot__zoom{
   position: absolute;
   right: var(--sp-5); bottom: var(--sp-5);
