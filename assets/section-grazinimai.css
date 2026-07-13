@@ -189,8 +189,7 @@
 /* parcel extras — recipient card + Svarbu checklist */
 .way__detail{ display: grid; gap: var(--sp-5); }
 .way__panel{ display: grid; gap: var(--sp-3); }
-.way__panel-label,
-.way__important-head{
+.way__panel-label{
   font: 500 11px/1 var(--font-mono);
   letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted);
 }
@@ -237,89 +236,50 @@
 }
 
 /* ════════════════════════════════════════════════════════════
-   SVARBU — the five points, numbered, on a clear white card
+   SVARBU — an ink panel so the rules carry real weight; each point
+   gets a meaning-matched line icon rather than a hollow number.
    ════════════════════════════════════════════════════════════ */
-.way__important{
-  display: grid; gap: var(--sp-5);
-  background: var(--bg);
-  border: 1px solid var(--line);
-  border-radius: var(--r-md);
-  padding: clamp(var(--sp-5), 2.4vw, var(--sp-7));
+.important{
+  background: var(--ink); color: #FFFFFF;
+  border-radius: var(--r-lg);
+  padding: clamp(var(--sp-6), 3vw, var(--sp-10));
+  display: grid; gap: var(--sp-6);
 }
-.way__important-head{
-  display: inline-flex; align-items: center; gap: 10px; color: var(--text);
+.important__head{
+  display: inline-flex; align-items: center; gap: 10px;
+  font: 500 11px/1 var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(255,255,255,0.9);
 }
-.way__important-badge{
+.important__badge{
   display: inline-grid; place-items: center;
   width: 22px; height: 22px; border-radius: 99px;
   background: var(--orange); color: var(--bg);
   font: 700 13px/1 var(--font-sans);
 }
-.checklist{ list-style: none; margin: 0; padding: 0; display: grid; }
-.checklist__item{
-  display: grid; grid-template-columns: 40px 1fr; gap: var(--sp-4); align-items: start;
+.important__list{ list-style: none; margin: 0; padding: 0; display: grid; }
+.important__item{
+  display: grid; grid-template-columns: 46px 1fr; gap: var(--sp-4); align-items: center;
   padding: var(--sp-4) 0;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid rgba(255,255,255,0.12);
 }
-.checklist__item:first-child{ border-top: 0; padding-top: 0; }
-.checklist__item:last-child{ padding-bottom: 0; }
-.checklist__n{
-  display: inline-grid; place-items: center;
-  width: 28px; height: 28px; border-radius: 99px;
-  border: 1px solid var(--ink);
-  font: 500 12px/1 var(--font-mono); color: var(--text);
-  font-variant-numeric: tabular-nums;
+.important__item:first-child{ border-top: 0; padding-top: 0; }
+.important__item:last-child{ padding-bottom: 0; }
+.important__ico{
+  width: 46px; height: 46px; border-radius: 99px;
+  display: grid; place-items: center;
+  border: 1px solid rgba(255,255,255,0.22);
+  background: rgba(255,255,255,0.03);
 }
-.checklist__t{
-  font: 500 clamp(15px, 1.7vw, 17px)/1.5 var(--font-sans);
-  letter-spacing: -0.01em; color: var(--text); padding-top: 3px;
+.important__ico svg{
+  width: 22px; height: 22px; fill: none; stroke: #FFFFFF;
+  stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
 }
-
-/* ════════════════════════════════════════════════════════════
-   FAQ — return-specific accordion, refined
-   ════════════════════════════════════════════════════════════ */
-.faq{ display: grid; border-top: 1px solid var(--ink); }
-.faq .accordion{ border-bottom: 1px solid var(--hairline); }
-.faq .accordion summary{
-  list-style: none; cursor: pointer;
-  display: grid; grid-template-columns: 48px 1fr 40px;
-  gap: var(--sp-5); align-items: center;
-  padding: var(--sp-6) 0;
+.important__t{
+  font: 500 clamp(15px, 1.7vw, 16.5px)/1.5 var(--font-sans);
+  letter-spacing: -0.01em; color: rgba(255,255,255,0.9);
 }
-.faq .accordion summary::-webkit-details-marker{ display: none; }
-.faq .accordion summary .idx{
-  font: 500 11px/1 var(--font-mono); letter-spacing: 0.04em;
-  color: var(--text-muted); font-variant-numeric: tabular-nums;
-}
-.faq .accordion summary .q{
-  font: 500 clamp(18px, 2.1vw, 23px)/1.3 var(--font-sans);
-  letter-spacing: -0.02em; text-wrap: balance;
-}
-.faq .accordion summary .plus{
-  width: 32px; height: 32px;
-  display: inline-grid; place-items: center; border-radius: 99px;
-  background: var(--bg); color: var(--text);
-  font: 300 20px/1 var(--font-sans);
-  transition: background var(--tx-fast) var(--ease), transform var(--tx-base) var(--ease-snap);
-}
-.faq .accordion[open] summary .plus{ background: var(--ink); color: var(--bg); transform: rotate(45deg); }
-.faq .accordion:hover summary .plus{ background: var(--surface-hover); }
-.faq .accordion[open]:hover summary .plus{ background: var(--ink); }
-.faq .accordion__body{
-  display: grid; grid-template-columns: 48px 1fr;
-  gap: var(--sp-5); padding: 0 0 var(--sp-7);
-}
-.faq .accordion__body .c{
-  margin: 0; max-width: 62ch;
-  font: 400 15.5px/1.65 var(--font-sans);
-  color: var(--text-muted); letter-spacing: -0.005em;
-}
-.faq .accordion__body .c b{ color: var(--text); font-weight: 500; }
-@media (max-width: 620px){
-  .faq .accordion summary{ grid-template-columns: 1fr 40px; }
-  .faq .accordion summary .idx{ display: none; }
-  .faq .accordion__body{ grid-template-columns: 1fr; }
-}
-@media (prefers-reduced-motion: reduce){
-  .faq .accordion summary .plus{ transition: background var(--tx-fast) var(--ease); }
+@media (max-width: 520px){
+  .important__item{ grid-template-columns: 40px 1fr; gap: var(--sp-3); }
+  .important__ico{ width: 40px; height: 40px; }
+  .important__ico svg{ width: 19px; height: 19px; }
 }

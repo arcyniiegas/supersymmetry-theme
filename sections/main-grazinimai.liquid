@@ -92,18 +92,29 @@
         {%- assign notes = section.settings.notes | default: 'Įveskite tikslius gavėjo duomenis — kitaip siunta pas mus nepasieks.|Grąžinimo forma privaloma kiekvienoje siuntoje.|Paštomatų siuntas surenkame ir apdorojame kas 2 savaites.|Pinigus grąžiname per 14 darbo dienų nuo siuntos gavimo.|Išsaugokite siuntos sekimo numerį, kol pinigai sugrįš.' -%}
         {%- assign note_list = notes | split: '|' -%}
         {%- if note_list.size > 0 -%}
-        <div class="way__important">
-          <div class="way__important-head"><span class="way__important-badge" aria-hidden="true">!</span>{{ section.settings.notes_title | default: 'Svarbu' }}</div>
-          <ol class="checklist">
+        <div class="important">
+          <div class="important__head"><span class="important__badge" aria-hidden="true">!</span>{{ section.settings.notes_title | default: 'Svarbu' }}</div>
+          <ul class="important__list">
+            {%- comment -%} Icons map to the five default points in order: accurate
+              recipient · form required · fortnightly collection · refund window ·
+              keep the tracking number. {%- endcomment -%}
             {%- for note in note_list -%}
               {%- if note != blank -%}
-              <li class="checklist__item">
-                <span class="checklist__n">{%- if forloop.index < 10 -%}0{%- endif -%}{{ forloop.index }}</span>
-                <span class="checklist__t">{{ note | strip }}</span>
+              <li class="important__item">
+                <span class="important__ico" aria-hidden="true">
+                  {%- case forloop.index -%}
+                    {%- when 1 -%}<svg viewBox="0 0 24 24"><path d="M12 21.5c3.8-4.3 6.6-7.6 6.6-10.6a6.6 6.6 0 1 0-13.2 0c0 3 2.8 6.3 6.6 10.6Z"/><circle cx="12" cy="10.6" r="2.4"/></svg>
+                    {%- when 2 -%}<svg viewBox="0 0 24 24"><rect x="5.5" y="3.5" width="13" height="17" rx="2"/><path d="M9 8.5h6M9 12h6M9 15.5h3.5"/></svg>
+                    {%- when 3 -%}<svg viewBox="0 0 24 24"><rect x="4" y="5.5" width="16" height="15" rx="2"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/></svg>
+                    {%- when 4 -%}<svg viewBox="0 0 24 24"><path d="M4.7 12a7.3 7.3 0 1 0 2.2-5.2"/><path d="M4 4.7V9.2h4.5"/></svg>
+                    {%- else -%}<svg viewBox="0 0 24 24"><path d="M4 4.5h6.6L20 13.9l-6.1 6.1L4.5 10.6V4.5Z"/><circle cx="8" cy="8" r="1.3"/></svg>
+                  {%- endcase -%}
+                </span>
+                <span class="important__t">{{ note | strip }}</span>
               </li>
               {%- endif -%}
             {%- endfor -%}
-          </ol>
+          </ul>
         </div>
         {%- endif -%}
       </div>
@@ -114,26 +125,6 @@
   {%- endif -%}
 </section>
 
-<!-- ──────────── 3 · DUK / FAQ ──────────── -->
-<section class="sec sec--surface" id="duk">
-  <div class="sec__wrap">
-    <div class="sec__head">
-      <div>
-        <div class="eyebrow-rule">{{ section.settings.faq_eyebrow | default: 'Skyrius <b>03</b> · DUK' }}</div>
-        <h2 class="sec__title">{{ section.settings.faq_title | default: 'Klausimai apie' }} <span class="light">{{ section.settings.faq_title_light | default: 'grąžinimą.' }}</span></h2>
-      </div>
-      <p class="sec__sub">{{ section.settings.faq_sub | default: 'Šeši klausimai, kuriuos užduoda dažniausiai. Plačiau — <a href="/pages/duk" class="uline">visi DUK</a>.' }}</p>
-    </div>
-
-    <div class="faq">
-      {%- assign faq_blocks = section.blocks | where: 'type', 'accordion_item' -%}
-      {%- for block in faq_blocks -%}
-      {%- capture faq_answer -%}<span></span><p class="c">{{ block.settings.answer }}</p>{%- endcapture -%}
-      {% render 'accordion-item', question: block.settings.question, answer: faq_answer, index: block.settings.index, open: block.settings.open, attrs: block.shopify_attributes %}
-      {%- endfor -%}
-    </div>
-  </div>
-</section>
 <script src="{{ 'component-scroll-spy.js' | asset_url }}" defer></script>
 <script src="{{ 'component-copy.js' | asset_url }}" defer></script>
 {% schema %}
@@ -166,12 +157,7 @@
     { "type": "text", "id": "recip_addr_label", "label": "Address label", "default": "Adresas" },
     { "type": "text", "id": "recip_addr_value", "label": "Address value", "default": "Saulės g. 1, Avižieniai" },
     { "type": "text", "id": "notes_title", "label": "Checklist title", "default": "Svarbu" },
-    { "type": "textarea", "id": "notes", "label": "Checklist points", "info": "One per line, separated by | (pipe).", "default": "Įveskite tikslius gavėjo duomenis — kitaip siunta pas mus nepasieks.|Grąžinimo forma privaloma kiekvienoje siuntoje.|Paštomatų siuntas surenkame ir apdorojame kas 2 savaites.|Pinigus grąžiname per 14 darbo dienų nuo siuntos gavimo.|Išsaugokite siuntos sekimo numerį, kol pinigai sugrįš." },
-    { "type": "header", "content": "FAQ section" },
-    { "type": "text", "id": "faq_eyebrow", "label": "Eyebrow", "default": "Skyrius <b>03</b> · DUK" },
-    { "type": "text", "id": "faq_title", "label": "Title (bold)", "default": "Klausimai apie" },
-    { "type": "text", "id": "faq_title_light", "label": "Title (light)", "default": "grąžinimą." },
-    { "type": "textarea", "id": "faq_sub", "label": "Sub", "default": "Šeši klausimai, kuriuos užduoda dažniausiai. Plačiau — <a href=\"/pages/duk\" class=\"uline\">visi DUK</a>." },
+    { "type": "textarea", "id": "notes", "label": "Important points", "info": "One per line, separated by | (pipe). The first five map to matching icons.", "default": "Įveskite tikslius gavėjo duomenis — kitaip siunta pas mus nepasieks.|Grąžinimo forma privaloma kiekvienoje siuntoje.|Paštomatų siuntas surenkame ir apdorojame kas 2 savaites.|Pinigus grąžiname per 14 darbo dienų nuo siuntos gavimo.|Išsaugokite siuntos sekimo numerį, kol pinigai sugrįš." },
     { "type": "header", "content": "Text size & colour" },
     { "type": "range", "id": "title_scale", "label": "Heading size", "min": 60, "max": 130, "step": 5, "unit": "%", "default": 100 },
     { "type": "color_scheme", "id": "color_scheme", "label": "Colour scheme", "default": "scheme-1", "info": "Recolours this whole section. The default matches the rest of the site." },
@@ -205,16 +191,6 @@
         { "type": "url", "id": "cta_link", "label": "Button link" },
         { "type": "checkbox", "id": "show_recipient", "label": "Include recipient details + checklist", "info": "Tick on the parcel method to show the paštomatas recipient and the Svarbu checklist inside it.", "default": false },
         { "type": "checkbox", "id": "dark", "label": "Dark card", "default": false }
-      ]
-    },
-    {
-      "type": "accordion_item",
-      "name": "FAQ item",
-      "settings": [
-        { "type": "text", "id": "index", "label": "Number" },
-        { "type": "text", "id": "question", "label": "Question" },
-        { "type": "textarea", "id": "answer", "label": "Answer" },
-        { "type": "checkbox", "id": "open", "label": "Open by default", "default": false }
       ]
     }
   ],
