@@ -1,1 +1,62 @@
-{"type":"footer","name":"Footer","sections":{"footer":{"type":"footer","blocks":{"pirkti":{"type":"menu","settings":{"heading":"Pirkti","menu":"footer-pirkti"}},"paslaugos":{"type":"menu","settings":{"heading":"Paslaugos","menu":"footer-paslaugos"}},"apie":{"type":"menu","settings":{"heading":"Apie supersymmetry","menu":"footer-apie"}}},"block_order":["pirkti","paslaugos","apie"],"settings":{"tagline":"","newsletter_heading":"Laiškas iš Supersymmetry","newsletter_text":"Vienas laiškas per mėnesį. Naujos kolekcijos ir išpardavimai — nieko daugiau.","newsletter_placeholder":"Jūsų el. paštas","newsletter_button":"Prenumeruoti","legal_left":"© Supersymmetry · 2026","legal_left_desktop":"","legal_right":""}}},"order":["footer"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "footer",
+  "name": "Footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "pirkti": {
+          "type": "menu",
+          "settings": {
+            "heading": "Pirkti",
+            "menu": "parduotuv"
+          }
+        },
+        "paslaugos": {
+          "type": "menu",
+          "settings": {
+            "heading": "Paslaugos",
+            "menu": "footer-paslaugos"
+          }
+        },
+        "apie": {
+          "type": "menu",
+          "settings": {
+            "heading": "Apie supersymmetry",
+            "menu": "footer-apie"
+          }
+        }
+      },
+      "block_order": [
+        "pirkti",
+        "paslaugos",
+        "apie"
+      ],
+      "settings": {
+        "tagline": "",
+        "newsletter_heading": "Laiškas iš Supersymmetry",
+        "newsletter_text": "Vienas laiškas per mėnesį. Naujos kolekcijos ir išpardavimai — nieko daugiau.",
+        "newsletter_placeholder": "Jūsų el. paštas",
+        "newsletter_button": "Prenumeruoti",
+        "legal_left": "© Supersymmetry · 2026",
+        "legal_left_desktop": "",
+        "legal_privacy": "Privatumas",
+        "legal_terms": "Sąlygos",
+        "legal_requisites": "Rekvizitai",
+        "requisites_url": ""
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}
