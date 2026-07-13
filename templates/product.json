@@ -69,6 +69,10 @@
             "more_label": "Naujienos",
             "more_link": "shopify://collections/nuo-to-paties-podiumo"
           }
+        },
+        "judge_me_reviews_preview_badge_Ax9rMC": {
+          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
         }
       },
       "block_order": [
@@ -78,7 +82,8 @@
         "spec",
         "story",
         "care",
-        "related"
+        "related",
+        "judge_me_reviews_preview_badge_Ax9rMC"
       ],
       "settings": {
         "atc_label": "Į krepšelį",
