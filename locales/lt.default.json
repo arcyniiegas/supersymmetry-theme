@@ -137,8 +137,8 @@
     "added_to_cart": "Pridėta į krepšelį.",
     "add_error": "Nepavyko pridėti į krepšelį — bandykite dar kartą.",
     "stock_left": "Liko {count} vnt.",
-    "reviews_show": "Skaityti atsiliepimus",
-    "reviews_hide": "Suskleisti"
+    "rating_aria": "Įvertinimas {{ rating }} iš 5 · {{ count }} atsiliepimai",
+    "reviews_count": "{{ count }} atsiliepimai"
   },
   "faq": {
     "empty_title": "Klausimai ir atsakymai ruošiami.",

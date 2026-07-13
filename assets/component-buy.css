@@ -49,6 +49,9 @@
   letter-spacing: -0.035em;
 }
 
+/* Aggregate rating row — snug under the name/price (counters the sp-8 flow gap) */
+.info__rating{ margin-top: calc(-1 * var(--sp-5)); }
+
 /* Product description — quiet body copy under the name/price row */
 .info__desc{
   margin-top: calc(-1 * var(--sp-4)); /* pull nearer the price than the sp-8 flow gap */

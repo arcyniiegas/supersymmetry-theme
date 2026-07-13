@@ -1,38 +1,18 @@
-{%- comment -%} Product — reviews. Rendered by main-product for the `reviews` block; loops `review` sub-blocks. {%- endcomment -%}
+{%- comment -%}
+  Product — reviews. Our on-brand frame (eyebrow + heading) wrapping the
+  Judge.me review widget, which is hydrated by the Judge.me app embed and
+  reskinned to the theme in component-reviews.css. Judge.me caches the per-
+  product widget HTML into the judgeme.widget metafield; we render that so the
+  reviews are present on first paint, then Judge.me's JS enhances it (write-a-
+  review form, photo upload + lightbox, pagination, verified-buyer, moderation).
+{%- endcomment -%}
 <section class="reviews" id="atsiliepimai" {{ block.shopify_attributes }}>
-  <div class="reviews__bar">
-    <div class="reviews__lead">
-      <div class="eyebrow-rule">{{ block.settings.eyebrow }}</div>
-      {%- comment -%} Score line renders only when the merchant supplies a real
-        score — no fabricated social proof by default. {%- endcomment -%}
-      {%- if block.settings.score != blank -%}
-      <div class="reviews__scoreline">
-        <span class="num">{{ block.settings.score }}<small>/5</small></span>
-        <span class="stars" aria-hidden="true">★★★★★</span>
-        {%- if block.settings.count_line != blank -%}<span class="cnt">{{ block.settings.count_line }}</span>{%- endif -%}
-      </div>
-      {%- endif -%}
-    </div>
-    <p class="reviews__brief">{{ block.settings.brief }}</p>
-    <button class="reviews__toggle" type="button" id="revToggle" aria-expanded="false" aria-controls="revList">
-      {{ block.settings.toggle_label }}
-      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5 L7 9 L11 5"></path></svg>
-    </button>
+  <div class="reviews__head">
+    <div class="eyebrow-rule">{{ block.settings.eyebrow | default: '04 — Atsiliepimai' }}</div>
+    <h2 class="reviews__title"><span class="light">{{ block.settings.title_light | default: 'Ką sako' }}</span> {{ block.settings.title | default: 'pirkėjai.' }}</h2>
   </div>
 
-  <div class="reviews__list" id="revList" hidden>
-    {%- for rev in section.blocks -%}
-      {%- if rev.type == 'review' -%}
-      <article class="rev" {{ rev.shopify_attributes }}>
-        <div class="rev__meta">
-          <span class="rev__stars" aria-label="{{ rev.settings.rating }} iš 5">{% for i in (1..5) %}{% if i <= rev.settings.rating %}★{% else %}<span class="off">★</span>{% endif %}{% endfor %}</span>
-          <span class="rev__who"><b>{{ rev.settings.author }}</b> · patvirtintas pirkimas</span>
-          <time class="rev__date" datetime="{{ rev.settings.date }}">{{ rev.settings.date }}</time>
-        </div>
-        <p class="rev__body">{{ rev.settings.body }}</p>
-        {%- if rev.settings.fit_note != blank -%}<span class="rev__fit">{{ rev.settings.fit_note }}</span>{%- endif -%}
-      </article>
-      {%- endif -%}
-    {%- endfor -%}
+  <div class="reviews__widget jdgm-widget jdgm-review-widget" data-id="{{ product.id }}" data-product-title="{{ product.title | escape }}">
+    {{ product.metafields.judgeme.widget }}
   </div>
 </section>

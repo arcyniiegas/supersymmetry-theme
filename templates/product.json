@@ -61,6 +61,14 @@
             "lede": "Keturi įpročiai, šešiasdešimties dienų ritmas, dvidešimt sezonų dėvėjimo."
           }
         },
+        "reviews": {
+          "type": "reviews",
+          "settings": {
+            "eyebrow": "04 — Atsiliepimai",
+            "title_light": "Ką sako",
+            "title": "pirkėjai."
+          }
+        },
         "related": {
           "type": "related",
           "disabled": true,
@@ -69,10 +77,6 @@
             "more_label": "Naujienos",
             "more_link": "shopify://collections/nuo-to-paties-podiumo"
           }
-        },
-        "judge_me_reviews_preview_badge_Ax9rMC": {
-          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {}
         }
       },
       "block_order": [
@@ -82,8 +86,8 @@
         "spec",
         "story",
         "care",
-        "related",
-        "judge_me_reviews_preview_badge_Ax9rMC"
+        "reviews",
+        "related"
       ],
       "settings": {
         "atc_label": "Į krepšelį",
@@ -92,28 +96,9 @@
         "color_scheme": "",
         "text_color": ""
       }
-    },
-    "17839495290efd5120": {
-      "type": "apps",
-      "blocks": {
-        "judge_me_reviews_review_widget_xJKzgB": {
-          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {
-            "review_data": "sample_data",
-            "max_width": 1200,
-            "show_shop_reviews": false,
-            "empty_state": "empty_widget"
-          }
-        }
-      },
-      "block_order": [
-        "judge_me_reviews_review_widget_xJKzgB"
-      ],
-      "settings": {}
     }
   },
   "order": [
-    "main",
-    "17839495290efd5120"
+    "main"
   ]
 }

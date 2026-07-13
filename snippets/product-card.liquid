@@ -33,6 +33,11 @@
     <span class="card__dot" aria-hidden="true">·</span>
     {%- endif -%}
     {% render 'price', product: product, layout: 'card' %}
+    {%- if show_name -%}
+      {%- capture card_stars -%}{% render 'product-rating', product: product, size: 'sm', show_count: true %}{%- endcapture -%}
+      {%- assign card_stars = card_stars | strip -%}
+      {%- if card_stars != blank -%}<span class="card__rating">{{ card_stars }}</span>{%- endif -%}
+    {%- endif -%}
     {%- if show_name and product.type != blank -%}<span class="card__sub">{{ product.type }}</span>{%- endif -%}
   </div>
 </a>

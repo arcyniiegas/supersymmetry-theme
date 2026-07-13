@@ -1,0 +1,16 @@
+{%- comment -%}
+  product-rating — aggregate score + count for a product, derived from Judge.me's
+  own cached badge metafield (judgeme.badge, always populated when Judge.me is
+  installed). Reading Judge.me directly means the stars need no Shopify metafield
+  sync to configure. Renders nothing when the product has no reviews.
+  Params: product · size · href · show_score · show_count · count_style
+  (all forwarded to rating-stars).
+{%- endcomment -%}
+{%- assign jm_badge = product.metafields.judgeme.badge -%}
+{%- assign jm_count = 0 -%}
+{%- assign jm_avg = 0 -%}
+{%- if jm_badge contains "data-number-of-reviews='" -%}
+  {%- assign jm_count = jm_badge | split: "data-number-of-reviews='" | last | split: "'" | first | plus: 0 -%}
+  {%- assign jm_avg = jm_badge | split: "data-average-rating='" | last | split: "'" | first -%}
+{%- endif -%}
+{%- if jm_count > 0 -%}{% render 'rating-stars', rating: jm_avg, count: jm_count, size: size, href: href, show_score: show_score, show_count: show_count, count_style: count_style %}{%- endif -%}

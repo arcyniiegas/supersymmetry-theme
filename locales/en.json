@@ -137,8 +137,8 @@
     "added_to_cart": "Added to cart.",
     "add_error": "Couldn't add to cart — please try again.",
     "stock_left": "Only {count} left",
-    "reviews_show": "Read reviews",
-    "reviews_hide": "Collapse"
+    "rating_aria": "Rated {{ rating }} out of 5 · {{ count }} reviews",
+    "reviews_count": "{{ count }} reviews"
   },
   "faq": {
     "empty_title": "Questions & answers are on the way.",
