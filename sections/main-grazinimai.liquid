@@ -5,26 +5,12 @@
 {%- assign crumb_current = section.settings.crumb_current | default: 'Grąžinimo centras' -%}
 {% render 'breadcrumbs', parent_label: crumb_parent, parent_url: pages.duk.url, current: crumb_current %}
 
-<!-- ──────────── PAGE HEAD ──────────── -->
-<section class="phead">
-  <div>
-    <div class="eyebrow-rule">{{ section.settings.eyebrow | default: 'Paslauga <b>04 / 07</b> · galioja nuo <b>2024·11·01</b>' }}</div>
-    <h1 class="phead__title">
-      <span class="light">{{ section.settings.title_light | default: 'Grąžinimo' }}</span>
-      {{ section.settings.title | default: 'centras.' }}
-    </h1>
-  </div>
-  <div class="phead__aside">
-    <p class="phead__intro">{{ section.settings.intro | default: 'Pora neprigludo? <b>Per 14 dienų</b> grąžinkite ją mūsų parduotuvėje Vilniuje arba paštomatu. Nenešiotą, originalioje būklėje — pinigus grąžiname per 14 darbo dienų.' }}</p>
-    {%- assign stat_blocks = section.blocks | where: 'type', 'stat' -%}
-    {%- if stat_blocks.size > 0 -%}
-    <div class="phead__stats">
-      {%- for block in stat_blocks -%}
-      {% render 'stat', k: block.settings.label, v: block.settings.value, tabular: block.settings.tabular, accent: block.settings.accent, attrs: block.shopify_attributes %}
-      {%- endfor -%}
-    </div>
-    {%- endif -%}
-  </div>
+<!-- ──────────── PAGE HEAD (title only) ──────────── -->
+<section class="phead phead--bare">
+  <h1 class="phead__title">
+    <span class="light">{{ section.settings.title_light | default: 'Grąžinimo' }}</span>
+    {{ section.settings.title | default: 'centras.' }}
+  </h1>
 </section>
 
 <!-- ──────────── SUBNAV ──────────── -->
@@ -56,82 +42,84 @@
   </div>
 </section>
 
-<!-- ──────────── 2 · GRĄŽINIMO BŪDAI / METHODS ──────────── -->
-<section class="sec" id="parduotuve">
+<!-- ──────────── 2 · GRĄŽINIMO BŪDAI / METHODS (parcel merges the recipient) ──────────── -->
+<section class="sec" id="budai">
   <div class="sec__head">
     <div>
       <div class="eyebrow-rule">{{ section.settings.methods_eyebrow | default: 'Skyrius <b>02</b> · Būdai' }}</div>
       <h2 class="sec__title">{{ section.settings.methods_title | default: 'Du būdai' }} <span class="light">{{ section.settings.methods_title_light | default: 'grąžinti porą.' }}</span></h2>
     </div>
-    <p class="sec__sub">{{ section.settings.methods_sub | default: 'Užsukite į ateljė ir grąžinkite vietoje — nemokamai ir iškart — arba išsiųskite paštomatu. Abu keliai priima ir grąžinimą, ir keitimą kitu dydžiu.' }}</p>
+    <p class="sec__sub">{{ section.settings.methods_sub | default: 'Pasirinkite vieną iš dviejų. Abu keliai priima ir grąžinimą, ir keitimą kitu dydžiu — tos pačios sąlygos.' }}</p>
   </div>
 
   {%- assign method_blocks = section.blocks | where: 'type', 'method' -%}
   {%- if method_blocks.size > 0 -%}
-  <div class="swap">
+  <div class="ways">
     {%- for block in method_blocks -%}
-    <div class="swap__card {% if block.settings.dark %}bg-orange{% else %}bg-surface{% endif %}" {{ block.shopify_attributes }}>
-      <div class="swap__num"><span class="idx">{{ block.settings.idx }}</span>{{ block.settings.kicker }}</div>
-      <h3 class="swap__title"><span class="light">{{ block.settings.t_light }}</span>{{ block.settings.title }}</h3>
-      <p class="swap__body">{{ block.settings.body }}</p>
-      <ul class="swap__list">
-        {%- if block.settings.li1_k != blank -%}<li><span class="k">{{ block.settings.li1_k }}</span><span>{{ block.settings.li1_v }}</span></li>{%- endif -%}
-        {%- if block.settings.li2_k != blank -%}<li><span class="k">{{ block.settings.li2_k }}</span><span>{{ block.settings.li2_v }}</span></li>{%- endif -%}
-        {%- if block.settings.li3_k != blank -%}<li><span class="k">{{ block.settings.li3_k }}</span><span>{{ block.settings.li3_v }}</span></li>{%- endif -%}
-      </ul>
-      {%- if block.settings.cta_label != blank -%}
-      <a href="{{ block.settings.cta_link | default: '#gavejas' }}" class="btn btn--primary"{% if block.settings.cta_link contains 'http' or block.settings.cta_link contains 'maps' %} target="_blank" rel="noopener"{% endif %} style="justify-self:start;{% if block.settings.dark %}background:var(--bg);color:var(--text);{% endif %}">
-        {{ block.settings.cta_label }}
-        <span class="btn__arrow">→</span>
-      </a>
+    <article class="way {% if block.settings.dark %}way--ink{% endif %}" {{ block.shopify_attributes }}>
+      <div class="way__body">
+        <div class="way__tag"><span class="way__idx">{{ block.settings.idx }}</span>{{ block.settings.kicker }}</div>
+        <h3 class="way__title"><span class="light">{{ block.settings.t_light }}</span> {{ block.settings.title }}</h3>
+        {%- if block.settings.body != blank -%}<p class="way__lede">{{ block.settings.body }}</p>{%- endif -%}
+        <dl class="way__facts">
+          {%- if block.settings.li1_k != blank -%}<div><dt>{{ block.settings.li1_k }}</dt><dd>{{ block.settings.li1_v }}</dd></div>{%- endif -%}
+          {%- if block.settings.li2_k != blank -%}<div><dt>{{ block.settings.li2_k }}</dt><dd>{{ block.settings.li2_v }}</dd></div>{%- endif -%}
+          {%- if block.settings.li3_k != blank -%}<div><dt>{{ block.settings.li3_k }}</dt><dd>{{ block.settings.li3_v }}</dd></div>{%- endif -%}
+        </dl>
+        {%- if block.settings.cta_label != blank and block.settings.cta_link != blank -%}
+        <a href="{{ block.settings.cta_link }}" class="btn btn--primary way__cta"{% if block.settings.cta_link contains 'http' %} target="_blank" rel="noopener"{% endif %}>
+          {{ block.settings.cta_label }}<span class="btn__arrow" aria-hidden="true">→</span>
+        </a>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} The parcel method absorbs the recipient details + the important
+        checklist, so everything a returner needs sits in one block. {%- endcomment -%}
+      {%- if block.settings.show_recipient -%}
+      <div class="way__detail">
+        <div class="way__panel">
+          <div class="way__panel-label">{{ section.settings.recip_label | default: 'Siųskite šiam gavėjui' }}</div>
+          <div class="recip">
+            {%- assign r_name = section.settings.recip_name_value | default: 'Supersymmetry, UAB' -%}
+            {%- assign r_phone = section.settings.recip_phone_value | default: '+370 698 06 504' -%}
+            {%- assign r_addr = section.settings.recip_addr_value | default: 'Saulės g. 1, Avižieniai' -%}
+            {% render 'recip-row', label: section.settings.recip_name_label, label_default: 'Gavėjas', value: r_name %}
+            {% render 'recip-row', label: section.settings.recip_phone_label, label_default: 'Telefonas', value: r_phone %}
+            {% render 'recip-row', label: section.settings.recip_addr_label, label_default: 'Adresas', value: r_addr %}
+          </div>
+        </div>
+
+        {%- assign notes = section.settings.notes | default: 'Įveskite tikslius gavėjo duomenis — kitaip siunta pas mus nepasieks.|Grąžinimo forma privaloma kiekvienoje siuntoje.|Paštomatų siuntas surenkame ir apdorojame kas 2 savaites.|Pinigus grąžiname per 14 darbo dienų nuo siuntos gavimo.|Išsaugokite siuntos sekimo numerį, kol pinigai sugrįš.' -%}
+        {%- assign note_list = notes | split: '|' -%}
+        {%- if note_list.size > 0 -%}
+        <div class="way__important">
+          <div class="way__important-head"><span class="way__important-badge" aria-hidden="true">!</span>{{ section.settings.notes_title | default: 'Svarbu' }}</div>
+          <ol class="checklist">
+            {%- for note in note_list -%}
+              {%- if note != blank -%}
+              <li class="checklist__item">
+                <span class="checklist__n">{%- if forloop.index < 10 -%}0{%- endif -%}{{ forloop.index }}</span>
+                <span class="checklist__t">{{ note | strip }}</span>
+              </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ol>
+        </div>
+        {%- endif -%}
+      </div>
       {%- endif -%}
-    </div>
+    </article>
     {%- endfor -%}
   </div>
   {%- endif -%}
 </section>
 
-<!-- ──────────── 3 · PAŠTOMATO GAVĖJAS / RECIPIENT ──────────── -->
-<section class="sec" id="gavejas">
-  <div class="sec__head">
-    <div>
-      <div class="eyebrow-rule">{{ section.settings.recip_eyebrow | default: 'Skyrius <b>03</b> · Paštomato gavėjas' }}</div>
-      <h2 class="sec__title">{{ section.settings.recip_title | default: 'Kam' }} <span class="light">{{ section.settings.recip_title_light | default: 'siųsti.' }}</span></h2>
-    </div>
-    <p class="sec__sub">{{ section.settings.recip_sub | default: 'Siųsdami per Omniva, Venipak ar DPD paštomatą, nurodykite šiuos gavėjo duomenis. Palieskite „Kopijuoti“, kad nusikopijuotumėte.' }}</p>
-  </div>
-
-  <div class="recipwrap">
-    <div class="recip">
-      {%- assign r_name = section.settings.recip_name_value | default: 'Supersymmetry, UAB' -%}
-      {%- assign r_phone = section.settings.recip_phone_value | default: '+370 698 06 504' -%}
-      {%- assign r_addr = section.settings.recip_addr_value | default: 'Saulės g. 1, Avižieniai' -%}
-      {% render 'recip-row', label: section.settings.recip_name_label, label_default: 'Gavėjas', value: r_name %}
-      {% render 'recip-row', label: section.settings.recip_phone_label, label_default: 'Telefonas', value: r_phone %}
-      {% render 'recip-row', label: section.settings.recip_addr_label, label_default: 'Adresas', value: r_addr %}
-    </div>
-
-    {%- assign notes = section.settings.notes | default: 'Įveskite tikslius gavėjo duomenis — kitaip siunta pas mus nepasieks.|Grąžinimo forma privaloma kiekvienoje siuntoje.|Paštomatų siuntas surenkame ir apdorojame kas 2 savaites.|Pinigus grąžiname per 14 darbo dienų nuo siuntos gavimo.|Išsaugokite siuntos sekimo numerį, kol pinigai sugrįš.' -%}
-    {%- assign note_list = notes | split: '|' -%}
-    {%- if note_list.size > 0 -%}
-    <div class="recip__notes">
-      <div class="recip__notes-title">{{ section.settings.notes_title | default: 'Svarbu' }}</div>
-      <ul>
-        {%- for note in note_list -%}
-          {%- if note != blank -%}<li>{{ note | strip }}</li>{%- endif -%}
-        {%- endfor -%}
-      </ul>
-    </div>
-    {%- endif -%}
-  </div>
-</section>
-
-<!-- ──────────── 4 · DUK / FAQ ──────────── -->
+<!-- ──────────── 3 · DUK / FAQ ──────────── -->
 <section class="sec sec--surface" id="duk">
   <div class="sec__wrap">
     <div class="sec__head">
       <div>
-        <div class="eyebrow-rule">{{ section.settings.faq_eyebrow | default: 'Skyrius <b>04</b> · DUK' }}</div>
+        <div class="eyebrow-rule">{{ section.settings.faq_eyebrow | default: 'Skyrius <b>03</b> · DUK' }}</div>
         <h2 class="sec__title">{{ section.settings.faq_title | default: 'Klausimai apie' }} <span class="light">{{ section.settings.faq_title_light | default: 'grąžinimą.' }}</span></h2>
       </div>
       <p class="sec__sub">{{ section.settings.faq_sub | default: 'Šeši klausimai, kuriuos užduoda dažniausiai. Plačiau — <a href="/pages/duk" class="uline">visi DUK</a>.' }}</p>
@@ -155,37 +143,32 @@
     { "type": "header", "content": "Head" },
     { "type": "text", "id": "crumb_parent", "label": "Breadcrumb parent", "default": "Paslaugos" },
     { "type": "text", "id": "crumb_current", "label": "Breadcrumb current", "default": "Grąžinimo centras" },
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Paslauga <b>04 / 07</b> · galioja nuo <b>2024·11·01</b>" },
     { "type": "text", "id": "title_light", "label": "Title (light part)", "default": "Grąžinimo" },
     { "type": "text", "id": "title", "label": "Title (bold part)", "default": "centras." },
-    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Pora neprigludo? <b>Per 14 dienų</b> grąžinkite ją mūsų parduotuvėje Vilniuje arba paštomatu. Nenešiotą, originalioje būklėje — pinigus grąžiname per 14 darbo dienų." },
-    { "type": "header", "content": "Methods section" },
-    { "type": "text", "id": "methods_eyebrow", "label": "Eyebrow", "default": "Skyrius <b>01</b> · Būdai" },
-    { "type": "text", "id": "methods_title", "label": "Title (bold)", "default": "Du būdai" },
-    { "type": "text", "id": "methods_title_light", "label": "Title (light)", "default": "grąžinti porą." },
-    { "type": "textarea", "id": "methods_sub", "label": "Sub", "default": "Užsukite į ateljė ir grąžinkite vietoje — nemokamai ir iškart — arba išsiųskite paštomatu. Abu keliai priima ir grąžinimą, ir keitimą kitu dydžiu." },
     { "type": "header", "content": "Form section" },
-    { "type": "text", "id": "form_eyebrow", "label": "Eyebrow", "default": "Skyrius <b>02</b> · Forma" },
+    { "type": "text", "id": "form_eyebrow", "label": "Eyebrow", "default": "Skyrius <b>01</b> · Forma" },
     { "type": "text", "id": "form_title", "label": "Title (bold)", "default": "Grąžinimo" },
     { "type": "text", "id": "form_title_light", "label": "Title (light)", "default": "forma." },
     { "type": "textarea", "id": "form_sub", "label": "Sub", "default": "Atsispausdinkite formą, užpildykite ir įdėkite į siuntą. Be jos negalėsime identifikuoti, kieno grąžinimą gavome." },
     { "type": "url", "id": "form_pdf", "label": "Return form (PDF)", "info": "Link to the printable return form. The download button hides when empty." },
     { "type": "text", "id": "form_button", "label": "Button label", "default": "Atsisiųsti formą (PDF)" },
-    { "type": "header", "content": "Recipient section" },
-    { "type": "text", "id": "recip_eyebrow", "label": "Eyebrow", "default": "Skyrius <b>03</b> · Paštomato gavėjas" },
-    { "type": "text", "id": "recip_title", "label": "Title (bold)", "default": "Kam" },
-    { "type": "text", "id": "recip_title_light", "label": "Title (light)", "default": "siųsti." },
-    { "type": "textarea", "id": "recip_sub", "label": "Sub", "default": "Siųsdami per Omniva, Venipak ar DPD paštomatą, nurodykite šiuos gavėjo duomenis. Palieskite „Kopijuoti“, kad nusikopijuotumėte." },
+    { "type": "header", "content": "Methods section" },
+    { "type": "text", "id": "methods_eyebrow", "label": "Eyebrow", "default": "Skyrius <b>02</b> · Būdai" },
+    { "type": "text", "id": "methods_title", "label": "Title (bold)", "default": "Du būdai" },
+    { "type": "text", "id": "methods_title_light", "label": "Title (light)", "default": "grąžinti porą." },
+    { "type": "textarea", "id": "methods_sub", "label": "Sub", "default": "Pasirinkite vieną iš dviejų. Abu keliai priima ir grąžinimą, ir keitimą kitu dydžiu — tos pačios sąlygos." },
+    { "type": "header", "content": "Parcel recipient", "info": "Shown inside the method that has \"Include recipient details\" ticked." },
+    { "type": "text", "id": "recip_label", "label": "Recipient label", "default": "Siųskite šiam gavėjui" },
     { "type": "text", "id": "recip_name_label", "label": "Recipient label", "default": "Gavėjas" },
     { "type": "text", "id": "recip_name_value", "label": "Recipient value", "default": "Supersymmetry, UAB" },
     { "type": "text", "id": "recip_phone_label", "label": "Phone label", "default": "Telefonas" },
     { "type": "text", "id": "recip_phone_value", "label": "Phone value", "default": "+370 698 06 504" },
     { "type": "text", "id": "recip_addr_label", "label": "Address label", "default": "Adresas" },
     { "type": "text", "id": "recip_addr_value", "label": "Address value", "default": "Saulės g. 1, Avižieniai" },
-    { "type": "text", "id": "notes_title", "label": "Notes title", "default": "Svarbu" },
-    { "type": "textarea", "id": "notes", "label": "Notes", "info": "One per line, separated by | (pipe).", "default": "Įveskite tikslius gavėjo duomenis — kitaip siunta pas mus nepasieks.|Grąžinimo forma privaloma kiekvienoje siuntoje.|Paštomatų siuntas surenkame ir apdorojame kas 2 savaites.|Pinigus grąžiname per 14 darbo dienų nuo siuntos gavimo.|Išsaugokite siuntos sekimo numerį, kol pinigai sugrįš." },
+    { "type": "text", "id": "notes_title", "label": "Checklist title", "default": "Svarbu" },
+    { "type": "textarea", "id": "notes", "label": "Checklist points", "info": "One per line, separated by | (pipe).", "default": "Įveskite tikslius gavėjo duomenis — kitaip siunta pas mus nepasieks.|Grąžinimo forma privaloma kiekvienoje siuntoje.|Paštomatų siuntas surenkame ir apdorojame kas 2 savaites.|Pinigus grąžiname per 14 darbo dienų nuo siuntos gavimo.|Išsaugokite siuntos sekimo numerį, kol pinigai sugrįš." },
     { "type": "header", "content": "FAQ section" },
-    { "type": "text", "id": "faq_eyebrow", "label": "Eyebrow", "default": "Skyrius <b>04</b> · DUK" },
+    { "type": "text", "id": "faq_eyebrow", "label": "Eyebrow", "default": "Skyrius <b>03</b> · DUK" },
     { "type": "text", "id": "faq_title", "label": "Title (bold)", "default": "Klausimai apie" },
     { "type": "text", "id": "faq_title_light", "label": "Title (light)", "default": "grąžinimą." },
     { "type": "textarea", "id": "faq_sub", "label": "Sub", "default": "Šeši klausimai, kuriuos užduoda dažniausiai. Plačiau — <a href=\"/pages/duk\" class=\"uline\">visi DUK</a>." },
@@ -196,21 +179,11 @@
   ],
   "blocks": [
     {
-      "type": "stat",
-      "name": "Head stat",
-      "settings": [
-        { "type": "text", "id": "label", "label": "Label" },
-        { "type": "text", "id": "value", "label": "Value" },
-        { "type": "checkbox", "id": "tabular", "label": "Tabular numerals", "default": false },
-        { "type": "checkbox", "id": "accent", "label": "Ink accent", "default": false }
-      ]
-    },
-    {
       "type": "chip",
       "name": "Subnav chip",
       "settings": [
         { "type": "text", "id": "label", "label": "Label" },
-        { "type": "text", "id": "anchor", "label": "Anchor (parduotuve / forma / gavejas / duk)" }
+        { "type": "text", "id": "anchor", "label": "Anchor (forma / budai / duk)" }
       ]
     },
     {
@@ -222,14 +195,15 @@
         { "type": "text", "id": "t_light", "label": "Title (light)" },
         { "type": "text", "id": "title", "label": "Title (bold)" },
         { "type": "textarea", "id": "body", "label": "Body" },
-        { "type": "text", "id": "li1_k", "label": "Row 1 label" },
-        { "type": "text", "id": "li1_v", "label": "Row 1 value" },
-        { "type": "text", "id": "li2_k", "label": "Row 2 label" },
-        { "type": "text", "id": "li2_v", "label": "Row 2 value" },
-        { "type": "text", "id": "li3_k", "label": "Row 3 label" },
-        { "type": "text", "id": "li3_v", "label": "Row 3 value" },
-        { "type": "text", "id": "cta_label", "label": "Button label" },
-        { "type": "url", "id": "cta_link", "label": "Button link", "info": "In-store: a maps link. Parcel: leave empty to jump to the recipient block." },
+        { "type": "text", "id": "li1_k", "label": "Fact 1 label" },
+        { "type": "text", "id": "li1_v", "label": "Fact 1 value" },
+        { "type": "text", "id": "li2_k", "label": "Fact 2 label" },
+        { "type": "text", "id": "li2_v", "label": "Fact 2 value" },
+        { "type": "text", "id": "li3_k", "label": "Fact 3 label" },
+        { "type": "text", "id": "li3_v", "label": "Fact 3 value" },
+        { "type": "text", "id": "cta_label", "label": "Button label", "info": "Optional. Best for a maps link on the in-store method." },
+        { "type": "url", "id": "cta_link", "label": "Button link" },
+        { "type": "checkbox", "id": "show_recipient", "label": "Include recipient details + checklist", "info": "Tick on the parcel method to show the paštomatas recipient and the Svarbu checklist inside it.", "default": false },
         { "type": "checkbox", "id": "dark", "label": "Dark card", "default": false }
       ]
     },

@@ -1,8 +1,8 @@
 
 /* ════════════════════════════════════════════════════════════
-   TITLE — local optical fixes: „Grąžinimo" carries an ą ogonek;
-   the shared 0.88 line-height + -0.05em tracking collide it with
-   the line below. Open both up to the system's display values.
+   PAGE HEAD — this page runs a bare, title-only head.
+   „Grąžinimo" carries an ą ogonek; open the display metrics so the
+   ogonek doesn't collide with the line below.
    ════════════════════════════════════════════════════════════ */
 .phead__title{
   line-height: 1.02;
@@ -10,12 +10,14 @@
   font-kerning: normal;
 }
 .phead__title .light{ letter-spacing: -0.035em; }
+.phead--bare{ grid-template-columns: 1fr; padding-bottom: var(--sp-8); }
+.phead--bare .phead__title{ margin-top: 0; }
 
 /* ════════════════════════════════════════════════════════════
    IN-PAGE NAV — sticky, scroll-to anchors
    ════════════════════════════════════════════════════════════ */
 .subnav{
-  display: block; /* explicit — the element is now <scroll-spy>, not <nav> */
+  display: block;
   position: sticky; top: 73px;
   z-index: 20;
   background: color-mix(in oklab, var(--bg) 88%, transparent);
@@ -45,10 +47,6 @@
 }
 .subnav__chip:hover{ color: var(--text); }
 .subnav__chip[aria-current="true"]{ background: var(--ink); color: var(--bg); }
-.subnav__chip .n{
-  font: 500 10px/1 var(--font-mono);
-  opacity: 0.6;
-}
 @media (max-width: 720px){
   .subnav{ top: 64px; }
 }
@@ -67,15 +65,8 @@
 }
 /* tighter vertical rhythm — used by the compact form band near the top */
 .sec--tight{ padding-top: var(--sp-10); padding-bottom: var(--sp-10); }
-/* full-bleed layout of --surface, but white instead of grey (was an inline style) */
-.sec--white{ background: var(--bg); }
+.sec--surface{ background: var(--surface); max-width: none; padding-left: 0; padding-right: 0; }
 .sec--surface > .sec__wrap{
-  max-width: var(--max);
-  margin: 0 auto;
-  padding: 0 var(--gutter);
-}
-.sec--ink{ background: var(--ink); color: #FFFFFF; max-width: none; padding-left: 0; padding-right: 0; }
-.sec--ink > .sec__wrap{
   max-width: var(--max);
   margin: 0 auto;
   padding: 0 var(--gutter);
@@ -99,7 +90,6 @@
   text-wrap: balance;
 }
 .sec__title .light{ color: var(--text-muted); font-weight: 300; }
-.sec--ink .sec__title .light{ color: rgba(255,255,255,0.55); }
 .sec__sub{
   margin: 0;
   font: 400 16px/1.6 var(--font-sans);
@@ -108,84 +98,9 @@
   letter-spacing: -0.005em;
   align-self: end;
 }
-.sec--ink .sec__sub{ color: rgba(255,255,255,0.7); }
-
-.sec--ink .eyebrow-rule{ color: rgba(255,255,255,0.55); }
-.sec--ink .eyebrow-rule::before{ background: #FFFFFF; }
-.sec--ink .eyebrow-rule b{ color: #FFFFFF; }
 
 /* ════════════════════════════════════════════════════════════
-   METHODS — two return paths (reuses the .swap card pattern)
-   ════════════════════════════════════════════════════════════ */
-.swap{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--sp-4);
-}
-@media (max-width: 900px){ .swap{ grid-template-columns: 1fr; } }
-.swap__card{
-  padding: var(--sp-8);
-  border-radius: var(--r-lg);
-  display: grid; gap: var(--sp-5);
-  position: relative;
-  overflow: hidden;
-}
-.swap__card.bg-surface{ background: var(--surface); }
-.swap__card.bg-orange{ background: var(--ink); color: #FFFFFF; }
-.swap__num{
-  font: 500 11px/1 var(--font-mono);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  display: flex; align-items: center; gap: 10px;
-}
-.swap__card.bg-orange .swap__num{ color: rgba(255,255,255,0.65); }
-.swap__num .idx{
-  display: inline-grid; place-items: center;
-  width: 22px; height: 22px;
-  background: var(--ink); color: var(--bg);
-  border-radius: 99px;
-  font-size: 11px;
-}
-.swap__card.bg-orange .swap__num .idx{ background: var(--bg); color: var(--text); }
-.swap__title{
-  font: 500 32px/0.98 var(--font-sans);
-  letter-spacing: -0.03em;
-  margin: 0;
-  text-wrap: balance;
-}
-.swap__title .light{ font-weight: 300; color: var(--text-muted); display: block; }
-.swap__card.bg-orange .swap__title .light{ color: rgba(255,255,255,0.55); }
-.swap__body{
-  font: 400 15px/1.55 var(--font-sans);
-  color: var(--text-muted);
-  margin: 0;
-  max-width: 38ch;
-}
-.swap__card.bg-orange .swap__body{ color: rgba(255,255,255,0.78); }
-.swap__list{
-  list-style: none; padding: 0; margin: 0;
-  display: grid; gap: 8px;
-  font: 400 14px/1.4 var(--font-sans);
-}
-.swap__list li{
-  display: grid; grid-template-columns: 96px 1fr; gap: 10px;
-  padding: 8px 0;
-  border-top: 1px solid rgba(10,10,10,0.1);
-}
-.swap__list li:last-child{ border-bottom: 1px solid rgba(10,10,10,0.1); }
-.swap__list li .k{
-  font: 500 11px/1 var(--font-mono);
-  letter-spacing: 0.04em;
-  color: var(--text-muted);
-  padding-top: 2px;
-}
-.swap__card.bg-orange .swap__list li .k{ color: rgba(255,255,255,0.65); }
-.swap__card.bg-orange .swap__list li{ border-top-color: rgba(255,255,255,0.14); }
-.swap__card.bg-orange .swap__list li:last-child{ border-bottom-color: rgba(255,255,255,0.14); }
-
-/* ════════════════════════════════════════════════════════════
-   FORM CALLOUT — printable return-form download (ink band)
+   FORM CALLOUT — compact printable return-form band (ink)
    ════════════════════════════════════════════════════════════ */
 .formcall{
   display: flex; align-items: center; justify-content: space-between;
@@ -213,20 +128,80 @@
 @media (max-width: 720px){ .formcall__dl{ width: 100%; justify-content: center; } }
 
 /* ════════════════════════════════════════════════════════════
+   WAYS — the two return methods, stacked for a clear read.
+   The in-store card is ink (the quick path); the parcel card is a
+   light surface and absorbs the recipient details + Svarbu checklist.
+   ════════════════════════════════════════════════════════════ */
+.ways{ display: grid; gap: var(--sp-4); }
+.way{
+  background: var(--surface);
+  border-radius: var(--r-lg);
+  padding: clamp(var(--sp-6), 3vw, var(--sp-10));
+  display: grid; gap: var(--sp-8);
+}
+.way--ink{ background: var(--ink); color: #FFFFFF; }
+
+.way__body{ display: grid; gap: var(--sp-5); }
+.way__tag{
+  display: inline-flex; align-items: center; gap: 12px;
+  font: 500 11px/1 var(--font-mono);
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted);
+}
+.way--ink .way__tag{ color: rgba(255,255,255,0.6); }
+.way__idx{
+  display: inline-grid; place-items: center;
+  width: 26px; height: 26px; border-radius: 99px;
+  background: var(--ink); color: var(--bg); font-size: 12px;
+}
+.way--ink .way__idx{ background: var(--bg); color: var(--text); }
+.way__title{
+  margin: 0;
+  font: 500 clamp(26px, 3.1vw, 38px)/1.02 var(--font-sans);
+  letter-spacing: -0.03em; text-wrap: balance;
+}
+.way__title .light{ font-weight: 300; color: var(--text-muted); }
+.way--ink .way__title .light{ color: rgba(255,255,255,0.5); }
+.way__lede{
+  margin: 0; max-width: 54ch;
+  font: 400 16px/1.6 var(--font-sans); color: var(--text-muted); letter-spacing: -0.005em;
+}
+.way--ink .way__lede{ color: rgba(255,255,255,0.75); }
+
+.way__facts{
+  display: flex; flex-wrap: wrap; gap: var(--sp-6) var(--sp-10);
+  margin: 0; padding: var(--sp-5) 0 0;
+  border-top: 1px solid var(--line);
+}
+.way--ink .way__facts{ border-top-color: rgba(255,255,255,0.16); }
+.way__facts > div{ display: grid; gap: 7px; }
+.way__facts dt{
+  font: 500 10px/1 var(--font-mono);
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted);
+}
+.way--ink .way__facts dt{ color: rgba(255,255,255,0.6); }
+.way__facts dd{ margin: 0; font: 500 15px/1.3 var(--font-sans); letter-spacing: -0.01em; color: inherit; }
+.way__facts dd b{ font-weight: 600; }
+
+.way__cta{ justify-self: start; }
+.way--ink .way__cta{ background: var(--bg); color: var(--text); }
+.way--ink .way__cta:hover{ background: var(--surface-hover); }
+
+/* parcel extras — recipient card + Svarbu checklist */
+.way__detail{ display: grid; gap: var(--sp-5); }
+.way__panel{ display: grid; gap: var(--sp-3); }
+.way__panel-label,
+.way__important-head{
+  font: 500 11px/1 var(--font-mono);
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted);
+}
+
+/* ════════════════════════════════════════════════════════════
    RECIPIENT — paštomatas details with copy-to-clipboard
    ════════════════════════════════════════════════════════════ */
-.recipwrap{
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-  gap: var(--sp-8);
-  align-items: start;
-}
-@media (max-width: 820px){ .recipwrap{ grid-template-columns: 1fr; gap: var(--sp-6); } }
-
 .recip{
-  background: var(--surface);
+  background: var(--bg);
   border: 1px solid var(--line);
-  border-radius: var(--r-lg);
+  border-radius: var(--r-md);
   overflow: hidden;
 }
 .recip__row{
@@ -238,19 +213,17 @@
 .recip__row:first-child{ border-top: 0; }
 .recip__k{
   font: 500 10px/1 var(--font-mono);
-  letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--text-muted);
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted);
 }
 .recip__v{
   font: 500 16px/1.35 var(--font-mono);
-  letter-spacing: -0.01em; color: var(--text);
-  word-break: break-word;
+  letter-spacing: -0.01em; color: var(--text); word-break: break-word;
 }
 .recip__copy{
   flex: none; cursor: pointer;
   display: inline-flex; align-items: center; gap: 7px;
   padding: 8px 13px; border-radius: 999px;
-  background: var(--bg); border: 1px solid var(--line);
+  background: var(--surface); border: 1px solid var(--line);
   font: 500 12px/1 var(--font-sans); letter-spacing: -0.005em; color: var(--text);
   transition: background var(--tx-fast) var(--ease), border-color var(--tx-fast) var(--ease), color var(--tx-fast) var(--ease);
 }
@@ -263,81 +236,90 @@
   .recip__k{ grid-column: 1 / -1; }
 }
 
-.recip__notes-title{
-  font: 500 10px/1 var(--font-mono);
-  letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--text-muted); margin-bottom: var(--sp-4);
+/* ════════════════════════════════════════════════════════════
+   SVARBU — the five points, numbered, on a clear white card
+   ════════════════════════════════════════════════════════════ */
+.way__important{
+  display: grid; gap: var(--sp-5);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: clamp(var(--sp-5), 2.4vw, var(--sp-7));
 }
-.recip__notes ul{ list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sp-3); }
-.recip__notes li{
-  position: relative; padding-left: var(--sp-6);
-  font: 400 14px/1.5 var(--font-sans); color: var(--text-muted); letter-spacing: -0.005em;
+.way__important-head{
+  display: inline-flex; align-items: center; gap: 10px; color: var(--text);
 }
-.recip__notes li::before{
-  content: ""; position: absolute; left: 0; top: 9px;
-  width: 6px; height: 6px; border-radius: 99px; background: var(--orange);
+.way__important-badge{
+  display: inline-grid; place-items: center;
+  width: 22px; height: 22px; border-radius: 99px;
+  background: var(--orange); color: var(--bg);
+  font: 700 13px/1 var(--font-sans);
+}
+.checklist{ list-style: none; margin: 0; padding: 0; display: grid; }
+.checklist__item{
+  display: grid; grid-template-columns: 40px 1fr; gap: var(--sp-4); align-items: start;
+  padding: var(--sp-4) 0;
+  border-top: 1px solid var(--line);
+}
+.checklist__item:first-child{ border-top: 0; padding-top: 0; }
+.checklist__item:last-child{ padding-bottom: 0; }
+.checklist__n{
+  display: inline-grid; place-items: center;
+  width: 28px; height: 28px; border-radius: 99px;
+  border: 1px solid var(--ink);
+  font: 500 12px/1 var(--font-mono); color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+.checklist__t{
+  font: 500 clamp(15px, 1.7vw, 17px)/1.5 var(--font-sans);
+  letter-spacing: -0.01em; color: var(--text); padding-top: 3px;
 }
 
 /* ════════════════════════════════════════════════════════════
-   FAQ — return-specific accordion
+   FAQ — return-specific accordion, refined
    ════════════════════════════════════════════════════════════ */
-.faq{
-  display: grid;
-  border-top: 1px solid var(--ink);
-}
-.faq .accordion{
-  border-bottom: 1px solid var(--hairline);
-  padding: 0;
-}
+.faq{ display: grid; border-top: 1px solid var(--ink); }
+.faq .accordion{ border-bottom: 1px solid var(--hairline); }
 .faq .accordion summary{
-  list-style: none;
-  display: grid;
-  grid-template-columns: 60px 1fr auto;
-  gap: var(--sp-5);
-  align-items: baseline;
+  list-style: none; cursor: pointer;
+  display: grid; grid-template-columns: 48px 1fr 40px;
+  gap: var(--sp-5); align-items: center;
   padding: var(--sp-6) 0;
-  cursor: pointer;
 }
 .faq .accordion summary::-webkit-details-marker{ display: none; }
 .faq .accordion summary .idx{
-  font: 500 11px/1 var(--font-mono);
-  letter-spacing: 0.04em;
-  color: var(--text-muted);
+  font: 500 11px/1 var(--font-mono); letter-spacing: 0.04em;
+  color: var(--text-muted); font-variant-numeric: tabular-nums;
 }
 .faq .accordion summary .q{
-  font: 500 22px/1.3 var(--font-sans);
-  letter-spacing: -0.02em;
-  text-wrap: balance;
+  font: 500 clamp(18px, 2.1vw, 23px)/1.3 var(--font-sans);
+  letter-spacing: -0.02em; text-wrap: balance;
 }
 .faq .accordion summary .plus{
-  width: 28px; height: 28px;
-  display: inline-grid; place-items: center;
-  border-radius: 99px;
-  background: var(--surface);
-  font: 400 18px/1 var(--font-mono);
-  color: var(--text);
-  transition: background var(--tx-fast) var(--ease), transform var(--tx-base) var(--ease);
+  width: 32px; height: 32px;
+  display: inline-grid; place-items: center; border-radius: 99px;
+  background: var(--bg); color: var(--text);
+  font: 300 20px/1 var(--font-sans);
+  transition: background var(--tx-fast) var(--ease), transform var(--tx-base) var(--ease-snap);
 }
-.faq .accordion[open] summary .plus{
-  background: var(--ink);
-  color: var(--bg);
-  transform: rotate(45deg);
-}
+.faq .accordion[open] summary .plus{ background: var(--ink); color: var(--bg); transform: rotate(45deg); }
 .faq .accordion:hover summary .plus{ background: var(--surface-hover); }
 .faq .accordion[open]:hover summary .plus{ background: var(--ink); }
 .faq .accordion__body{
-  display: grid;
-  grid-template-columns: 60px 1fr;
-  gap: var(--sp-5);
-  padding-bottom: var(--sp-6);
+  display: grid; grid-template-columns: 48px 1fr;
+  gap: var(--sp-5); padding: 0 0 var(--sp-7);
 }
 .faq .accordion__body .c{
-  font: 400 15px/1.6 var(--font-sans);
-  color: var(--text-muted);
-  letter-spacing: -0.005em;
-  max-width: 64ch;
+  margin: 0; max-width: 62ch;
+  font: 400 15.5px/1.65 var(--font-sans);
+  color: var(--text-muted); letter-spacing: -0.005em;
 }
 .faq .accordion__body .c b{ color: var(--text); font-weight: 500; }
+@media (max-width: 620px){
+  .faq .accordion summary{ grid-template-columns: 1fr 40px; }
+  .faq .accordion summary .idx{ display: none; }
+  .faq .accordion__body{ grid-template-columns: 1fr; }
+}
 @media (prefers-reduced-motion: reduce){
   .faq .accordion summary .plus{ transition: background var(--tx-fast) var(--ease); }
 }
