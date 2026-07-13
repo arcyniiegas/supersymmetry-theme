@@ -43,7 +43,7 @@
     "checkout_note": "Shipping & taxes calculated at checkout.",
     "view_cart": "View cart",
     "empty_short": "Your cart is empty",
-    "empty_cta": "Shop the collection",
+    "empty_cta": "Back home",
     "free_ship_reached": "Free shipping unlocked ✓",
     "free_ship_remaining_html": "<b>{{ amount }}</b> to free shipping"
   },

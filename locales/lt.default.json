@@ -43,7 +43,7 @@
     "checkout_note": "Pristatymas ir mokesčiai skaičiuojami apmokant.",
     "view_cart": "Peržiūrėti krepšelį",
     "empty_short": "Krepšelis tuščias",
-    "empty_cta": "Į kolekciją",
+    "empty_cta": "Į pradžią",
     "free_ship_reached": "Nemokamas pristatymas ✓",
     "free_ship_remaining_html": "Dar <b>{{ amount }}</b> iki nemokamo pristatymo"
   },
