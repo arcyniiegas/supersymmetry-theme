@@ -129,6 +129,36 @@
   {%- endif -%}
 </section>
 
+<!-- ──────────── 3 · GRĄŽINIMO SĄLYGOS / RETURN CONDITIONS ──────────── -->
+<section class="sec" id="salygos">
+  <div class="sec__head">
+    <div>
+      <div class="eyebrow-rule">{{ section.settings.terms_eyebrow | default: 'Skyrius <b>03</b> · Sąlygos' }}</div>
+      <h2 class="sec__title">{{ section.settings.terms_title | default: 'Grąžinimo' }} <span class="light">{{ section.settings.terms_title_light | default: 'sąlygos.' }}</span></h2>
+    </div>
+    <p class="sec__sub">{{ section.settings.terms_sub | default: 'Grąžinimą priimame tik jei įvykdytos visos žemiau nurodytos sąlygos. Neatitinkančias prekes grąžiname pirkėjui.' }}</p>
+  </div>
+
+  {%- assign terms = section.settings.terms | default: '<b>14 dienų</b> grąžinimui — skaičiuojant nuo prekės gavimo dienos. Vėliau grąžinimai nepriimami.|Prekė turi būti <b>nedėvėta</b>, be matavimo ar dėvėjimo žymių, su nepažeistais padais.|Grąžinama tik su <b>originalia dėže</b>, dulkių maišeliais, etiketėmis ir užpildyta grąžinimo forma.|Grąžinimo siuntimo išlaidas dengia <b>pirkėjas</b>.|*<b>Individualiai gaminti</b> ar personalizuoti gaminiai negrąžinami ir nekeičiami.|*<b>Išpardavimo</b> prekės keičiamos kitu dydžiu, bet pinigai už jas negrąžinami.|Pinigus grąžiname per <b>14 darbo dienų</b> nuo prekės patikros, tuo pačiu mokėjimo būdu.' -%}
+  {%- assign term_list = terms | split: '|' -%}
+  {%- if term_list.size > 0 -%}
+  <ul class="terms">
+    {%- for t in term_list -%}
+      {%- assign t_clean = t | strip -%}
+      {%- if t_clean != blank -%}
+      {%- assign flag = false -%}
+      {%- assign first_char = t_clean | slice: 0 -%}
+      {%- if first_char == '*' -%}{%- assign flag = true -%}{%- assign t_clean = t_clean | remove_first: '*' | strip -%}{%- endif -%}
+      <li class="terms__item{% if flag %} terms__item--flag{% endif %}">
+        <span class="terms__mark" aria-hidden="true"></span>
+        <span class="terms__t">{{ t_clean }}</span>
+      </li>
+      {%- endif -%}
+    {%- endfor -%}
+  </ul>
+  {%- endif -%}
+</section>
+
 <script src="{{ 'component-scroll-spy.js' | asset_url }}" defer></script>
 <script src="{{ 'component-copy.js' | asset_url }}" defer></script>
 {% schema %}
@@ -162,6 +192,12 @@
     { "type": "text", "id": "recip_addr_value", "label": "Address value", "default": "Saulės g. 1, Avižieniai" },
     { "type": "text", "id": "notes_title", "label": "Checklist title", "default": "Svarbu" },
     { "type": "textarea", "id": "notes", "label": "Important points", "info": "One per line, separated by | (pipe). The first five map to matching icons.", "default": "Įveskite tikslius gavėjo duomenis — kitaip siunta pas mus nepasieks.|Grąžinimo forma privaloma kiekvienoje siuntoje.|Paštomatų siuntas surenkame ir apdorojame kas 2 savaites.|Pinigus grąžiname per 14 darbo dienų nuo siuntos gavimo.|Išsaugokite siuntos sekimo numerį, kol pinigai sugrįš." },
+    { "type": "header", "content": "Conditions section" },
+    { "type": "text", "id": "terms_eyebrow", "label": "Eyebrow", "default": "Skyrius <b>03</b> · Sąlygos" },
+    { "type": "text", "id": "terms_title", "label": "Title (bold)", "default": "Grąžinimo" },
+    { "type": "text", "id": "terms_title_light", "label": "Title (light)", "default": "sąlygos." },
+    { "type": "textarea", "id": "terms_sub", "label": "Sub", "default": "Grąžinimą priimame tik jei įvykdytos visos žemiau nurodytos sąlygos. Neatitinkančias prekes grąžiname pirkėjui." },
+    { "type": "textarea", "id": "terms", "label": "Conditions", "info": "One per line, separated by | (pipe). Prefix a line with * to emphasise it. HTML like <b> is allowed.", "default": "<b>14 dienų</b> grąžinimui — skaičiuojant nuo prekės gavimo dienos. Vėliau grąžinimai nepriimami.|Prekė turi būti <b>nedėvėta</b>, be matavimo ar dėvėjimo žymių, su nepažeistais padais.|Grąžinama tik su <b>originalia dėže</b>, dulkių maišeliais, etiketėmis ir užpildyta grąžinimo forma.|Grąžinimo siuntimo išlaidas dengia <b>pirkėjas</b>.|*<b>Individualiai gaminti</b> ar personalizuoti gaminiai negrąžinami ir nekeičiami.|*<b>Išpardavimo</b> prekės keičiamos kitu dydžiu, bet pinigai už jas negrąžinami.|Pinigus grąžiname per <b>14 darbo dienų</b> nuo prekės patikros, tuo pačiu mokėjimo būdu." },
     { "type": "header", "content": "Text size & colour" },
     { "type": "range", "id": "title_scale", "label": "Heading size", "min": 60, "max": 130, "step": 5, "unit": "%", "default": 100 },
     { "type": "color_scheme", "id": "color_scheme", "label": "Colour scheme", "default": "scheme-1", "info": "Recolours this whole section. The default matches the rest of the site." },

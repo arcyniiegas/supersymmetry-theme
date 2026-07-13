@@ -100,6 +100,32 @@
 }
 
 /* ════════════════════════════════════════════════════════════
+   TERMS — return-conditions list (hairline-separated, editorial)
+   ════════════════════════════════════════════════════════════ */
+.terms{
+  list-style: none; margin: 0; padding: 0;
+  max-width: 78ch;
+}
+.terms__item{
+  display: grid; grid-template-columns: auto 1fr; gap: var(--sp-4);
+  align-items: start;
+  padding: var(--sp-5) 0;
+  border-top: 1px solid var(--hairline);
+}
+.terms__item:last-child{ border-bottom: 1px solid var(--hairline); }
+.terms__mark{
+  width: 8px; height: 8px; margin-top: 8px;
+  border: 1.5px solid var(--ink); border-radius: 2px;
+}
+.terms__item--flag .terms__mark{ background: var(--ink); }
+.terms__t{
+  font: 400 clamp(15px, 1.7vw, 16.5px)/1.6 var(--font-sans);
+  color: var(--text); letter-spacing: -0.005em;
+}
+.terms__t b{ font-weight: 600; }
+.terms__item--flag .terms__t{ font-weight: 500; }
+
+/* ════════════════════════════════════════════════════════════
    FORM CALLOUT — compact printable return-form band (ink)
    ════════════════════════════════════════════════════════════ */
 .formcall{

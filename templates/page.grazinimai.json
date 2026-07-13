@@ -14,6 +14,7 @@
       "blocks": {
         "chip-2": { "type": "chip", "settings": { "label": "Forma", "anchor": "forma" } },
         "chip-1": { "type": "chip", "settings": { "label": "Grąžinimo būdai", "anchor": "budai" } },
+        "chip-3": { "type": "chip", "settings": { "label": "Sąlygos", "anchor": "salygos" } },
         "method-a": {
           "type": "method",
           "settings": {
@@ -56,7 +57,7 @@
         }
       },
       "block_order": [
-        "chip-2", "chip-1",
+        "chip-2", "chip-1", "chip-3",
         "method-a", "method-b"
       ],
       "settings": {
