@@ -13,23 +13,8 @@
   {%- endif -%}
 </nav>
 
-<!-- ──────────── PAGE HEAD ──────────── -->
-<section class="phead">
-  <div>
-    {%- if section.settings.show_eyebrow -%}
-    <div class="eyebrow-rule phead__eyebrow">{{ section.settings.eyebrow_prefix | default: 'Kolekcija' }} · <b>{{ collection.products_count }}</b> {{ 'collection.models' | t }}</div>
-    {%- endif -%}
-    <h1 class="phead__title">
-      {%- if collection.title != blank -%}
-      {{ collection.title }}
-      {%- else -%}
-      <span class="light">{{ section.settings.default_title_light | default: 'Visa' }}</span>
-      {{ section.settings.default_title | default: 'kolekcija.' }}
-      {%- endif -%}
-    </h1>
-  </div>
-
-</section>
+<!-- ──────────── PAGE HEAD (a11y/SEO heading only; the visible title is the breadcrumb) ──────────── -->
+<h1 class="visually-hidden">{{ collection.title | default: 'Visa kolekcija' }}</h1>
 
 {%- comment -%} Active-filter count — needed by both the toolbar button and the drawer. {%- endcomment -%}
 {%- assign active_count = 0 -%}
@@ -71,10 +56,10 @@
         </span>
       </label>
       <div class="viewtog" role="group" aria-label="{{ 'accessibility.view' | t }}">
-        <button type="button" aria-pressed="true" aria-label="{{ 'accessibility.grid' | t }}">
+        <button type="button" aria-pressed="false" aria-label="{{ 'accessibility.grid' | t }}">
           <svg viewBox="0 0 14 14"><rect x="2" y="2" width="4" height="4"></rect><rect x="8" y="2" width="4" height="4"></rect><rect x="2" y="8" width="4" height="4"></rect><rect x="8" y="8" width="4" height="4"></rect></svg>
         </button>
-        <button type="button" aria-pressed="false" aria-label="{{ 'accessibility.grid_dense' | t }}">
+        <button type="button" aria-pressed="true" aria-label="{{ 'accessibility.grid_dense' | t }}">
           <svg viewBox="0 0 14 14"><rect x="1.5" y="1.5" width="3" height="3"></rect><rect x="5.5" y="1.5" width="3" height="3"></rect><rect x="9.5" y="1.5" width="3" height="3"></rect><rect x="1.5" y="5.5" width="3" height="3"></rect><rect x="5.5" y="5.5" width="3" height="3"></rect><rect x="9.5" y="5.5" width="3" height="3"></rect><rect x="1.5" y="9.5" width="3" height="3"></rect><rect x="5.5" y="9.5" width="3" height="3"></rect><rect x="9.5" y="9.5" width="3" height="3"></rect></svg>
         </button>
         <button type="button" aria-pressed="false" aria-label="{{ 'accessibility.list' | t }}">
@@ -103,8 +88,8 @@
   <!-- ─────── FILTER DRAWER (off-canvas) ─────── -->
   {% render 'collection-filter-drawer', section: section, collection: collection, paginate: paginate %}
 
-  <!-- ─────── PRODUCT GRID ─────── -->
-  <div class="grid">
+  <!-- ─────── PRODUCT GRID (defaults to the dense/middle view) ─────── -->
+  <div class="grid grid--dense">
   {%- if collection.products.size > 0 -%}
     {%- for product in collection.products -%}
     {% render 'product-card', product: product, show_name: true %}
@@ -147,12 +132,8 @@
 {
   "name": "Collection",
   "settings": [
-    { "type": "header", "content": "Page head" },
-    { "type": "checkbox", "id": "show_eyebrow", "label": "Show \"Kolekcija · N modelių\" eyebrow", "default": true },
-    { "type": "text", "id": "eyebrow_prefix", "label": "Eyebrow prefix", "default": "Kolekcija", "info": "Shown as \"[prefix] · N modelių\". The count is always live." },
-    { "type": "text", "id": "meta_label", "label": "Breadcrumb season/meta label", "default": "Pavasaris–Vasara 2026", "info": "Leave empty to hide. Only shown for the all-products page (real collections show their own title)." },
-    { "type": "text", "id": "default_title_light", "label": "Fallback title (light part)", "default": "Visa", "info": "Used only when this page has no collection title (the all-products page)." },
-    { "type": "text", "id": "default_title", "label": "Fallback title (bold part)", "default": "kolekcija." },
+    { "type": "header", "content": "Breadcrumb" },
+    { "type": "text", "id": "meta_label", "label": "Breadcrumb season/meta label", "info": "Optional trailing segment after the collection name in the breadcrumb. Leave empty to hide." },
     { "type": "header", "content": "Products" },
     { "type": "range", "id": "products_per_page", "label": "Products per page", "min": 12, "max": 48, "step": 4, "default": 24 },
     { "type": "header", "content": "Empty state" },
@@ -161,7 +142,6 @@
     { "type": "text", "id": "empty_title", "label": "Title (bold part)", "default": "grįžta netrukus." },
     { "type": "textarea", "id": "empty_text", "label": "Body text", "default": "Ši kolekcija dar pildoma — užsukite po kelių dienų arba peržiūrėkite visą asortimentą." },
     { "type": "header", "content": "Text size & colour" },
-    { "type": "range", "id": "title_scale", "label": "Heading size", "min": 60, "max": 130, "step": 5, "unit": "%", "default": 100 },
     { "type": "range", "id": "card_name_scale", "label": "Product card text size", "min": 70, "max": 150, "step": 5, "unit": "%", "default": 100, "info": "Scales the product name and price on each card in the grid below." },
     { "type": "color_scheme", "id": "color_scheme", "label": "Colour scheme", "default": "scheme-1", "info": "Recolours this whole section. The default matches the rest of the site." },
     { "type": "color", "id": "text_color", "label": "Text colour", "info": "Recolours this section's text. Leave empty for the default near-black." }

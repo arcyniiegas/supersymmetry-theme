@@ -8,65 +8,8 @@
 /* Breadcrumbs: .crumbs (+ a/.sep/b) are the global scaffold in base.css —
    the identical copy that lived here was removed. */
 
-/* ════════════════════════════════════════════════════════════
-   PAGE HEAD — editorial, asymmetric
-   ════════════════════════════════════════════════════════════ */
-
-.phead{
-  max-width: var(--max);
-  margin: 0 auto;
-  padding: var(--sp-8) var(--gutter) var(--sp-10);
-  display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: var(--sp-12);
-  align-items: end;
-  border-bottom: 1px solid var(--ink);
-}
-@media (max-width: 900px){
-  .phead{ grid-template-columns: 1fr; gap: var(--sp-6); padding-top: var(--sp-6); }
-}
-/* eyebrow: .eyebrow-rule (base.css) + section spacing */
-.phead__eyebrow{ margin-bottom: var(--sp-5); }
-
-.phead__title{
-  font: 500 var(--t-hero)/1.02 var(--font-sans);
-  letter-spacing: -0.035em;
-  font-kerning: normal;
-  margin: 0;
-  text-wrap: balance;
-}
-.phead__title .light{ font-weight: 300; color: var(--text-muted); letter-spacing: -0.035em; display: block; }
-
-.phead__aside{
-  display: grid; gap: var(--sp-6);
-  padding-bottom: 6px;
-}
-.phead__intro{
-  font: 400 17px/1.55 var(--font-sans);
-  color: var(--text-muted);
-  max-width: 44ch;
-  letter-spacing: -0.005em;
-}
-.phead__intro b{ color: var(--text); font-weight: 500; }
-.phead__stats{
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--sp-4);
-  padding-top: var(--sp-5);
-  border-top: 1px solid var(--hairline);
-}
-.phead__stat{ display: grid; gap: 6px; }
-.phead__stat .k{
-  font: 500 10px/1 var(--font-mono);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-.phead__stat .v{
-  font: 500 22px/1 var(--font-mono);
-  letter-spacing: -0.02em;
-  font-feature-settings: 'tnum';
-}
+/* Page head removed — the collection title now lives only in the breadcrumb
+   (a visually-hidden <h1> in the section carries it for a11y/SEO). */
 
 /* ════════════════════════════════════════════════════════════
    CATEGORY TABS (sticky) + toolbar
