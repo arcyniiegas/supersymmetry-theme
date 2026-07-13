@@ -5,9 +5,12 @@
   show_name: renders the product title + type on the card (collection grid).
   Omitted/false: price-only card (search, related, arrivals) — the title
   still reaches an aria-label so the link's accessible name is never bare.
+  image_focus: vertical crop anchor for the square media — 'top' | 'center' |
+  'bottom' (default 'center'). Drives object-position via a [data-focus] hook.
 {%- endcomment -%}
+{%- assign card_focus = image_focus | default: 'center' -%}
 <a class="card" href="{{ product.url | default: '#' }}"{% unless show_name %} aria-label="{{ product.title | escape }}"{% endunless %}>
-  <div class="card__media">
+  <div class="card__media"{% if card_focus != 'center' %} data-focus="{{ card_focus }}"{% endif %}>
     {%- unless product.available -%}
     <div class="card__sold"><span>{{ 'product.sold_out' | t }}</span></div>
     {%- endunless -%}

@@ -22,6 +22,9 @@
   width: 100%; height: 100%; object-fit: cover;
   transition: transform var(--tx-base) var(--ease);
 }
+/* Vertical crop anchor — set per collection via [data-focus] (default: center). */
+.card__media[data-focus="top"] img{ object-position: center top; }
+.card__media[data-focus="bottom"] img{ object-position: center bottom; }
 .card:hover .card__media img{ transform: scale(1.03); }
 .card__media svg{ opacity: 0.5; }
 .card--light .card__media{ background: var(--surface); color: var(--soft); }
