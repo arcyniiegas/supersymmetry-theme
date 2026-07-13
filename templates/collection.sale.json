@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "sale_banner": {
@@ -6,13 +15,13 @@
         "eyebrow": "Ribotas pasiūlymas",
         "title_light": "Sezono",
         "title": "išpardavimas.",
-        "subtext": "Ribotas porų skaičius sumažintomis kainomis — kol nepasibaigė.",
+        "subtext": "Pirkdami avalynės porą antrą porą gaukite nemokamai! Nuolaida pritaikoma automatiškai krepšelyje. Nuolaida pritaikoma pigesnei prekei.",
         "show_countdown": true,
-        "end_at": "2026-12-31 23:59",
+        "end_at": "2026-07-20 23:59",
         "timer_label": "Iki pabaigos",
         "ended_text": "Pasiūlymas baigėsi",
         "variant": "ink",
-        "title_scale": 100
+        "title_scale": 85
       }
     },
     "main": {
