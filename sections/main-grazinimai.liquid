@@ -139,23 +139,33 @@
     <p class="sec__sub">{{ section.settings.terms_sub | default: 'Grąžinimą priimame tik jei įvykdytos visos žemiau nurodytos sąlygos. Neatitinkančias prekes grąžiname pirkėjui.' }}</p>
   </div>
 
-  {%- assign terms = section.settings.terms | default: '<b>14 dienų</b> grąžinimui — skaičiuojant nuo prekės gavimo dienos. Vėliau grąžinimai nepriimami.|Prekė turi būti <b>nedėvėta</b>, be matavimo ar dėvėjimo žymių, su nepažeistais padais.|Grąžinama tik su <b>originalia dėže</b>, dulkių maišeliais, etiketėmis ir užpildyta grąžinimo forma.|Grąžinimo siuntimo išlaidas dengia <b>pirkėjas</b>.|*<b>Individualiai gaminti</b> ar personalizuoti gaminiai negrąžinami ir nekeičiami.|*<b>Išpardavimo</b> prekės keičiamos kitu dydžiu, bet pinigai už jas negrąžinami.|Pinigus grąžiname per <b>14 darbo dienų</b> nuo prekės patikros, tuo pačiu mokėjimo būdu.' -%}
-  {%- assign term_list = terms | split: '|' -%}
-  {%- if term_list.size > 0 -%}
-  <ul class="terms">
-    {%- for t in term_list -%}
-      {%- assign t_clean = t | strip -%}
-      {%- if t_clean != blank -%}
-      {%- assign flag = false -%}
-      {%- assign first_char = t_clean | slice: 0 -%}
-      {%- if first_char == '*' -%}{%- assign flag = true -%}{%- assign t_clean = t_clean | remove_first: '*' | strip -%}{%- endif -%}
-      <li class="terms__item{% if flag %} terms__item--flag{% endif %}">
-        <span class="terms__mark" aria-hidden="true"></span>
-        <span class="terms__t">{{ t_clean }}</span>
-      </li>
-      {%- endif -%}
-    {%- endfor -%}
-  </ul>
+  {%- assign accept_items = section.settings.terms_accept | default: 'Nauja, nenaudota, nepraradusi prekinės išvaizdos|Supakuota į originalią, nepažeistą pakuotę|Be naudojimo žymių (pvz. dėvėjimo pėdsakų, plaukų, purvo)|Supakuota neužklijuojant batų dėžutės — dėžė įdedama atskirai' -%}
+  {%- assign reject_items = section.settings.terms_reject | default: 'Prekė naudota ar pažeista|Nėra pridėtos užpildytos grąžinimo formos' -%}
+
+  <div class="policy">
+    <article class="policy__group policy__group--ok">
+      <div class="policy__head">
+        <span class="policy__badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span>
+        {{ section.settings.terms_accept_title | default: 'Grąžinama prekė turi būti' }}
+      </div>
+      {% render 'policy-list', items: accept_items, kind: 'ok' %}
+    </article>
+
+    <article class="policy__group policy__group--no">
+      <div class="policy__head">
+        <span class="policy__badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span>
+        {{ section.settings.terms_reject_title | default: 'Grąžinimas nepriimamas, jei' }}
+      </div>
+      {% render 'policy-list', items: reject_items, kind: 'no' %}
+    </article>
+  </div>
+
+  {%- assign terms_note = section.settings.terms_note | default: 'Grąžinimo taisyklių neatitinkančias prekes saugosime 60 dienų, jei nepavyks susisiekti su klientu.' -%}
+  {%- if terms_note != blank -%}
+  <p class="policy__note">
+    <span class="policy__note-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    <span>{{ terms_note }}</span>
+  </p>
   {%- endif -%}
 </section>
 
@@ -197,7 +207,11 @@
     { "type": "text", "id": "terms_title", "label": "Title (bold)", "default": "Grąžinimo" },
     { "type": "text", "id": "terms_title_light", "label": "Title (light)", "default": "sąlygos." },
     { "type": "textarea", "id": "terms_sub", "label": "Sub", "default": "Grąžinimą priimame tik jei įvykdytos visos žemiau nurodytos sąlygos. Neatitinkančias prekes grąžiname pirkėjui." },
-    { "type": "textarea", "id": "terms", "label": "Conditions", "info": "One per line, separated by | (pipe). Prefix a line with * to emphasise it. HTML like <b> is allowed.", "default": "<b>14 dienų</b> grąžinimui — skaičiuojant nuo prekės gavimo dienos. Vėliau grąžinimai nepriimami.|Prekė turi būti <b>nedėvėta</b>, be matavimo ar dėvėjimo žymių, su nepažeistais padais.|Grąžinama tik su <b>originalia dėže</b>, dulkių maišeliais, etiketėmis ir užpildyta grąžinimo forma.|Grąžinimo siuntimo išlaidas dengia <b>pirkėjas</b>.|*<b>Individualiai gaminti</b> ar personalizuoti gaminiai negrąžinami ir nekeičiami.|*<b>Išpardavimo</b> prekės keičiamos kitu dydžiu, bet pinigai už jas negrąžinami.|Pinigus grąžiname per <b>14 darbo dienų</b> nuo prekės patikros, tuo pačiu mokėjimo būdu." },
+    { "type": "text", "id": "terms_accept_title", "label": "Accepted panel title", "default": "Grąžinama prekė turi būti" },
+    { "type": "textarea", "id": "terms_accept", "label": "Accepted conditions", "info": "One per line, separated by | (pipe). HTML like <b> is allowed.", "default": "Nauja, nenaudota, nepraradusi prekinės išvaizdos|Supakuota į originalią, nepažeistą pakuotę|Be naudojimo žymių (pvz. dėvėjimo pėdsakų, plaukų, purvo)|Supakuota neužklijuojant batų dėžutės — dėžė įdedama atskirai" },
+    { "type": "text", "id": "terms_reject_title", "label": "Rejected panel title", "default": "Grąžinimas nepriimamas, jei" },
+    { "type": "textarea", "id": "terms_reject", "label": "Rejected conditions", "info": "One per line, separated by | (pipe).", "default": "Prekė naudota ar pažeista|Nėra pridėtos užpildytos grąžinimo formos" },
+    { "type": "textarea", "id": "terms_note", "label": "Closing note", "default": "Grąžinimo taisyklių neatitinkančias prekes saugosime 60 dienų, jei nepavyks susisiekti su klientu." },
     { "type": "header", "content": "Text size & colour" },
     { "type": "range", "id": "title_scale", "label": "Heading size", "min": 60, "max": 130, "step": 5, "unit": "%", "default": 100 },
     { "type": "color_scheme", "id": "color_scheme", "label": "Colour scheme", "default": "scheme-1", "info": "Recolours this whole section. The default matches the rest of the site." },
