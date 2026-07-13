@@ -91,8 +91,13 @@
   <!-- ─────── PRODUCT GRID (defaults to the dense/middle view) ─────── -->
   <div class="grid grid--dense">
   {%- if collection.products.size > 0 -%}
+    {%- comment -%} Sold-out models always trail the in-stock ones: two passes over
+      the same paginated page — available first, then unavailable. {%- endcomment -%}
     {%- for product in collection.products -%}
-    {% render 'product-card', product: product, show_name: true %}
+      {%- if product.available -%}{% render 'product-card', product: product, show_name: true %}{%- endif -%}
+    {%- endfor -%}
+    {%- for product in collection.products -%}
+      {%- unless product.available -%}{% render 'product-card', product: product, show_name: true %}{%- endunless -%}
     {%- endfor -%}
   {%- else -%}
     <div class="card--break">

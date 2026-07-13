@@ -184,6 +184,8 @@
   grid-template-columns: repeat(3, 1fr);
   gap: var(--sp-5) var(--sp-4);
 }
+/* In-place filter fetch: dim + lock the grid until the swap lands. */
+.grid.is-loading{ opacity: 0.45; pointer-events: none; transition: opacity var(--tx-fast) var(--ease); }
 @media (max-width: 960px){
   .grid{ grid-template-columns: repeat(2, 1fr); gap: var(--sp-4) var(--sp-3); }
 }
