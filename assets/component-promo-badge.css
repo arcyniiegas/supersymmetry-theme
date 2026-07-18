@@ -1,25 +1,33 @@
 /* ────────────────────────────────────────────────────────────
    promo-badge — promo eligibility states rendered by
-   snippets/promo-badge.liquid (PDP note · cart pill · card chip).
-   The cart pill extends the .tag vocabulary owned by
-   component-cart.css; the card chip reuses .card__tag--ink from
-   component-card.css, so only the states unique to this
-   component live here.
+   snippets/promo-badge.liquid. Loaded only while promo badges
+   are enabled (theme.liquid gates the stylesheet).
+
+   Reuses existing idioms wherever one exists: the PDP chip is
+   the shared .price__chip (component-buy.css); the card chip is
+   .card__tag--ink (component-card.css); cart pills extend the
+   .tag vocabulary (component-cart.css). Only what is unique to
+   this component lives here.
    ──────────────────────────────────────────────────────────── */
 
-/* PDP — quiet one-line note under the size block */
-.promo-note{
-  display: flex; align-items: center; gap: 8px;
-  margin: 10px 0 0;
-  font: 500 12px/1.4 var(--font-mono);
-  letter-spacing: 0.02em;
+/* Size-guide row — becomes a two-ended row while badges are on:
+   "Dydžių gidas →" left, eligibility note right. With badges off
+   this stylesheet never loads and the wrapper is inert. */
+.sizefoot{
+  margin-top: var(--sp-3);
+  display: flex; align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
 }
-.promo-note--in{ color: var(--ink); }
-.promo-note--out{ color: var(--text-muted); }
-.promo-note__dot{
-  flex: none;
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--orange);
+.sizefoot .sizeguide{ margin-top: 0; }
+
+/* Non-participating note — same register as .sizes-note ("Liko 1 vnt."):
+   quiet machine truth, mono, muted. */
+.promo-note{
+  font: 500 11px/1 var(--font-mono);
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
 }
 
 /* Cart line — pill states for the .tags row */
