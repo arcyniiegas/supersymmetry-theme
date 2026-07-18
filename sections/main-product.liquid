@@ -48,6 +48,7 @@
     {%- endif -%}
 
     <div class="sizeblock">
+      {% render 'promo-badge', product: product, context: 'pdp-note' %}
       <div class="sizes" role="radiogroup" aria-label="{{ 'accessibility.size_eu' | t }}">
 {%- if product.variants.size > 0 and product.has_only_default_variant == false -%}
 {%- for variant in product.variants -%}
@@ -62,10 +63,7 @@
         <button class="size is-selected" role="radio" aria-checked="true"><span class="size__eu">{{ current_variant.title | default: 'Vienas dydis' }}</span></button>
 {%- endif -%}
       </div>
-      <div class="sizefoot">
-        <a class="sizeguide" href="{{ pages['dydziu-lentele'].url | default: '/pages/dydziu-lentele' }}">{{ 'product.size_guide' | t }} <span class="sizeguide__ar" aria-hidden="true">→</span></a>
-        {% render 'promo-badge', product: product, context: 'pdp-note' %}
-      </div>
+      <a class="sizeguide" href="{{ pages['dydziu-lentele'].url | default: '/pages/dydziu-lentele' }}">{{ 'product.size_guide' | t }} <span class="sizeguide__ar" aria-hidden="true">→</span></a>
       <p class="sizes-note" data-sizes-note aria-live="polite"{% unless current_variant.available and current_variant.inventory_management != blank and current_variant.inventory_quantity > 0 and current_variant.inventory_quantity <= 5 %} hidden{% endunless %}>{%- if current_variant.inventory_quantity > 0 and current_variant.inventory_quantity <= 5 -%}Liko {{ current_variant.inventory_quantity }} vnt.{%- endif -%}</p>
       {%- if product.metafields.custom.stock_line != blank -%}
       <div class="stock">

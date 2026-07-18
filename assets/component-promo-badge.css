@@ -10,21 +10,11 @@
    this component lives here.
    ──────────────────────────────────────────────────────────── */
 
-/* Size-guide row — becomes a two-ended row while badges are on:
-   "Dydžių gidas →" left, eligibility note right. With badges off
-   this stylesheet never loads and the wrapper is inert. */
-.sizefoot{
-  margin-top: var(--sp-3);
-  display: flex; align-items: baseline;
-  justify-content: space-between;
-  gap: var(--sp-3);
-  flex-wrap: wrap;
-}
-.sizefoot .sizeguide{ margin-top: 0; }
-
-/* Non-participating note — same register as .sizes-note ("Liko 1 vnt."):
-   quiet machine truth, mono, muted. */
+/* Non-participating note — sits above the size grid, in the same
+   register as .sizes-note ("Liko 1 vnt."): quiet machine truth,
+   mono, muted. */
 .promo-note{
+  margin: 0 0 var(--sp-3);
   font: 500 11px/1 var(--font-mono);
   letter-spacing: 0.02em;
   color: var(--text-muted);

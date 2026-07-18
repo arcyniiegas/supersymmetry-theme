@@ -47,7 +47,7 @@
     {%- endif -%}
   {%- when 'pdp-note' -%}
     {%- unless in_promo -%}
-    <span class="promo-note">{{ 'product.promo.not_included' | t: name: promo_name }}</span>
+    <p class="promo-note">{{ 'product.promo.not_included' | t: name: promo_name }}</p>
     {%- endunless -%}
   {%- when 'cart' -%}
     {%- if in_promo -%}
