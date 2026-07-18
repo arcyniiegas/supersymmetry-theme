@@ -232,5 +232,41 @@
         "label": "Tile 2 link"
       }
     ]
+  },
+  {
+    "name": "Promotions",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Promo eligibility badges. When enabled, products show whether they participate in the current promo (e.g. 1+1) on the product page and in the cart — driven by membership in the promo collection below. Keep this collection identical to the automatic discount's collection so the badge and checkout always agree."
+      },
+      {
+        "type": "checkbox",
+        "id": "promo_badge_enabled",
+        "label": "Show promo eligibility badges",
+        "default": false,
+        "info": "Off = storefront unchanged."
+      },
+      {
+        "type": "collection",
+        "id": "promo_collection",
+        "label": "Promo collection",
+        "info": "The collection the automatic discount applies to."
+      },
+      {
+        "type": "text",
+        "id": "promo_name",
+        "label": "Promo name",
+        "default": "1+1",
+        "info": "Short name shown in badges."
+      },
+      {
+        "type": "checkbox",
+        "id": "promo_badge_cards",
+        "label": "Also show a chip on product cards",
+        "default": false,
+        "info": "Participating products get a small chip on collection-grid cards (sale % chip takes priority)."
+      }
+    ]
   }
 ]

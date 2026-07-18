@@ -51,6 +51,7 @@
       {%- if item.original_price > item.final_price -%}
       <span class="tag tag--sale"><i></i>−{{ item.original_price | minus: item.final_price | times: 100.0 | divided_by: item.original_price | round }} %</span>
       {%- endif -%}
+      {% render 'promo-badge', product: item.product, context: 'cart' %}
     </div>
     <div class="line__foot">
       <div class="qty">

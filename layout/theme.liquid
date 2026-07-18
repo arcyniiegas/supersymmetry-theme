@@ -19,6 +19,7 @@
   {{ 'component-form.css' | asset_url | stylesheet_tag }}
   {{ 'component-cart.css' | asset_url | stylesheet_tag }}
   {{ 'component-cart-drawer.css' | asset_url | stylesheet_tag }}
+  {% if settings.promo_badge_enabled %}{{ 'component-promo-badge.css' | asset_url | stylesheet_tag }}{% endif %}
   <style>{% render 'color-schemes' %}</style>
   {{ content_for_header }}
   {%- assign brand = settings.brand_name | default: shop.name -%}

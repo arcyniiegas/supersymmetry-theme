@@ -1,0 +1,53 @@
+{%- comment -%}
+  promo-badge — promo (e.g. "1+1") eligibility state for a product, driven by
+  membership in the merchant-selected promo collection (Theme settings →
+  Promotions). The same collection powers the automatic BXGY discount, so the
+  badge and checkout can never disagree.
+
+  Renders nothing unless settings.promo_badge_enabled and a promo collection
+  is chosen — with defaults the storefront is untouched.
+
+  Params:
+    product {product}  required — the product (or line_item.product) to test
+    context {string}   required — where the badge renders:
+                        'pdp'  → note under the size block: participates /
+                                 does not participate
+                        'cart' → pill for the cart line .tags row, both states
+                        'card' → collection-card chip, participating only;
+                                 additionally gated by settings.promo_badge_cards
+
+  Usage:
+    {% render 'promo-badge', product: product, context: 'pdp' %}
+    {% render 'promo-badge', product: item.product, context: 'cart' %}
+    {% render 'promo-badge', product: product, context: 'card' %}
+{%- endcomment -%}
+{%- if settings.promo_badge_enabled and settings.promo_collection != blank and product != blank -%}
+  {%- liquid
+    assign in_promo = false
+    for c in product.collections
+      if c.id == settings.promo_collection.id
+        assign in_promo = true
+        break
+      endif
+    endfor
+    assign promo_name = settings.promo_name | default: '1+1'
+  -%}
+  {%- case context -%}
+  {%- when 'pdp' -%}
+    {%- if in_promo -%}
+    <p class="promo-note promo-note--in"><span class="promo-note__dot" aria-hidden="true"></span>{{ 'product.promo.included' | t: name: promo_name }}</p>
+    {%- else -%}
+    <p class="promo-note promo-note--out">{{ 'product.promo.not_included' | t: name: promo_name }}</p>
+    {%- endif -%}
+  {%- when 'cart' -%}
+    {%- if in_promo -%}
+    <span class="tag tag--promo"><i></i>{{ promo_name }}</span>
+    {%- else -%}
+    <span class="tag tag--promo-out"><i></i>{{ 'product.promo.not_included_short' | t }}</span>
+    {%- endif -%}
+  {%- when 'card' -%}
+    {%- if in_promo and settings.promo_badge_cards -%}
+    <span class="card__tag card__tag--ink">{{ promo_name }}</span>
+    {%- endif -%}
+  {%- endcase -%}
+{%- endif -%}

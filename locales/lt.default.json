@@ -65,6 +65,11 @@
     "show_html": "Rodyti ({{ count }})"
   },
   "product": {
+    "promo": {
+      "included": "Dalyvauja akcijoje „{{ name }}“",
+      "not_included": "Nedalyvauja akcijoje „{{ name }}“",
+      "not_included_short": "Nedalyvauja akcijoje"
+    },
     "delivery": {
       "placed": "Užsakymas pateiktas",
       "shipped": "Užsakymas išsiunčiamas",

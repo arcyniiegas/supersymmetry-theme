@@ -69,6 +69,7 @@
         <span>{{ product.metafields.custom.stock_line }}</span>
       </div>
       {%- endif -%}
+      {% render 'promo-badge', product: product, context: 'pdp' %}
     </div>
 
     {%- comment -%} The form carries an explicit id ATTRIBUTE for selection via
