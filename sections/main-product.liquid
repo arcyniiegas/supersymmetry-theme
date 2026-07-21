@@ -11,6 +11,16 @@
 {% render 'section-appearance', section: section %}
 {%- liquid
   assign current_variant = product.selected_or_first_available_variant
+  comment
+    No pre-selected size on multi-size products: a silent default (first
+    available, usually the smallest) produces accidental wrong-size orders
+    that feed the returns rate. The CTA stays locked until the shopper picks;
+    the single-variant fallback keeps its pre-selection.
+  endcomment
+  assign multi_size = false
+  if product.variants.size > 0 and product.has_only_default_variant == false
+    assign multi_size = true
+  endif
   assign buybar_price = product.price | money_without_trailing_zeros
   assign buybar_compare = ''
   if product.compare_at_price and product.compare_at_price > product.price
@@ -51,7 +61,7 @@
   data-price="{{ buybar_price | escape }}"
   data-compare="{{ buybar_compare | escape }}"
   data-atc-label="{{ atc_label | escape }}"
-  data-current-size="{{ current_variant.title | split: ' (' | first | strip | escape }}">
+  data-current-size="{% unless multi_size %}{{ current_variant.title | split: ' (' | first | strip | escape }}{% endunless %}">
 
   <!-- GALLERY -->
   {% render 'product-gallery', product: product %}
@@ -85,14 +95,17 @@
 {%- if variant.title contains ' (' -%}
 {%- assign size_cm = variant.title | split: ' (' | last | remove: ')' | replace: 'cm', ' cm' | strip -%}
 {%- endif -%}
-        <button class="size{% if variant.id == current_variant.id %} is-selected{% endif %}" role="radio" aria-checked="{% if variant.id == current_variant.id %}true{% else %}false{% endif %}" data-variant-id="{{ variant.id }}" data-variant-price="{{ variant.price | money_without_trailing_zeros }}"{% if variant.compare_at_price > variant.price %} data-variant-compare="{{ variant.compare_at_price | money_without_trailing_zeros }}"{% endif %} data-variant-available="{{ variant.available }}"{% if variant.inventory_management != blank %} data-variant-qty="{{ variant.inventory_quantity }}"{% endif %}{% unless variant.available %} disabled aria-label="{{ variant.title | escape }} — išparduota"{% endunless %}><span class="size__eu">{{ size_eu }}</span>{% if size_cm != blank %}<span class="size__cm">{{ size_cm }}</span>{% endif %}</button>
+        <button class="size" role="radio" aria-checked="false" data-variant-id="{{ variant.id }}" data-variant-price="{{ variant.price | money_without_trailing_zeros }}"{% if variant.compare_at_price > variant.price %} data-variant-compare="{{ variant.compare_at_price | money_without_trailing_zeros }}"{% endif %} data-variant-available="{{ variant.available }}"{% if variant.inventory_management != blank %} data-variant-qty="{{ variant.inventory_quantity }}"{% endif %}{% unless variant.available %} disabled aria-label="{{ variant.title | escape }} — išparduota"{% endunless %}><span class="size__eu">{{ size_eu }}</span>{% if size_cm != blank %}<span class="size__cm">{{ size_cm }}</span>{% endif %}</button>
 {%- endfor -%}
 {%- else -%}
         <button class="size is-selected" role="radio" aria-checked="true"><span class="size__eu">{{ current_variant.title | default: 'Vienas dydis' }}</span></button>
 {%- endif -%}
       </div>
       <a class="sizeguide" href="{{ pages['dydziu-lentele'].url | default: '/pages/dydziu-lentele' }}">{{ 'product.size_guide' | t }} <span class="sizeguide__ar" aria-hidden="true">→</span></a>
-      <p class="sizes-note" data-sizes-note aria-live="polite"{% unless current_variant.available and current_variant.inventory_management != blank and current_variant.inventory_quantity > 0 and current_variant.inventory_quantity <= 5 %} hidden{% endunless %}>{%- if current_variant.inventory_quantity > 0 and current_variant.inventory_quantity <= 5 -%}Liko {{ current_variant.inventory_quantity }} vnt.{%- endif -%}</p>
+      {%- comment -%} Effort-leniency at the decision point — the exchange
+        promise converts size hesitation exactly where it happens. {%- endcomment -%}
+      <p class="exchange-note"><a href="{{ pages['grazinimai'].url | default: '/pages/grazinimai' }}">{{ 'product.exchange_note' | t }}</a></p>
+      <p class="sizes-note" data-sizes-note aria-live="polite"{% unless multi_size == false and current_variant.available and current_variant.inventory_management != blank and current_variant.inventory_quantity > 0 and current_variant.inventory_quantity <= 5 %} hidden{% endunless %}>{%- if multi_size == false and current_variant.inventory_quantity > 0 and current_variant.inventory_quantity <= 5 -%}Liko {{ current_variant.inventory_quantity }} vnt.{%- endif -%}</p>
       {%- if product.metafields.custom.stock_line != blank -%}
       <div class="stock">
         <span class="stock__dot"></span>
@@ -109,14 +122,17 @@
       form.getAttribute('id') or querySelector('[name="id"]'). {%- endcomment -%}
     {%- assign product_form_id = 'ProductForm-' | append: section.id -%}
     {% form 'product', product, id: product_form_id %}
-    <input type="hidden" name="id" value="{{ current_variant.id }}" data-product-id>
+    <input type="hidden" name="id" value="{% unless multi_size %}{{ current_variant.id }}{% endunless %}" data-product-id>
     <div class="ctas">
-      <button class="btn btn--primary" type="submit" data-atc>
-        <span>{{ atc_label }}</span>
+      <button class="btn btn--primary{% if multi_size %} is-locked{% endif %}" type="submit" data-atc{% if multi_size %} disabled data-locked{% endif %}>
+        <span>{% if multi_size %}{{ 'product.choose_size' | t }}{% else %}{{ atc_label }}{% endif %}</span>
         <span class="btn__arrow">→</span>
       </button>
       {%- if section.settings.show_payment_button -%}
-      {{ form | payment_button }}
+      {%- comment -%} Express checkout stays hidden until a size is picked —
+        it buys the form's variant directly, so an unhidden default would
+        silently purchase a size the shopper never chose. {%- endcomment -%}
+      <div class="ctas__express"{% if multi_size %} hidden{% endif %}>{{ form | payment_button }}</div>
       {%- endif -%}
     </div>
     {% endform %}

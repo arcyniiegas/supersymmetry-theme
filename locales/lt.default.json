@@ -157,7 +157,9 @@
       "gantt_delivery": "Pristatymas",
       "badge_production": "Gamyboje",
       "badge_transit": "Kelyje"
-    }
+    },
+    "choose_size": "Pasirinkite dydį",
+    "exchange_note": "Netiko dydis? Nemokamas keitimas."
   },
   "faq": {
     "empty_title": "Klausimai ir atsakymai ruošiami.",

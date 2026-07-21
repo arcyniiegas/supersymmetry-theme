@@ -75,6 +75,18 @@
       var vid = btn.getAttribute('data-variant-id');
       if (vid && idInput) idInput.value = vid;
 
+      /* first pick unlocks the CTA (rendered disabled with „Pasirinkite dydį")
+         and reveals express checkout, which buys the form's variant directly */
+      if (atc && atc.hasAttribute('data-locked')) {
+        atc.removeAttribute('data-locked');
+        atc.disabled = false;
+        atc.classList.remove('is-locked');
+        var atcSpan = atc.querySelector('span');
+        if (atcSpan) atcSpan.textContent = atcLabel;
+        var express = document.querySelector('.ctas__express');
+        if (express) express.hidden = false;
+      }
+
       var vp = btn.getAttribute('data-variant-price');
       var vc = btn.getAttribute('data-variant-compare');
       if (vp && priceCurrent) priceCurrent.textContent = vp;
@@ -147,7 +159,15 @@
     atc.addEventListener('click', function () { addToCart(atc); });
   }
   var buybarAdd = buybar.querySelector('[data-buybar-add]');
-  if (buybarAdd) buybarAdd.addEventListener('click', function () { addToCart(buybarAdd); });
+  if (buybarAdd) buybarAdd.addEventListener('click', function () {
+    /* no size picked yet → walk the shopper to the size grid instead of a dead add */
+    if (atc && atc.hasAttribute('data-locked')) {
+      var sizes = document.querySelector('.sizes[role="radiogroup"]');
+      if (sizes) sizes.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+    addToCart(buybarAdd);
+  });
 
   /* size radiogroup: roving tabindex + arrow-key navigation (WAI-ARIA APG) */
   (function () {

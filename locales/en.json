@@ -157,7 +157,9 @@
       "gantt_delivery": "Delivery",
       "badge_production": "In production",
       "badge_transit": "In transit"
-    }
+    },
+    "choose_size": "Choose a size",
+    "exchange_note": "Wrong size? Free exchange."
   },
   "faq": {
     "empty_title": "Questions & answers are on the way.",

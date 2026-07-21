@@ -165,6 +165,18 @@
   letter-spacing: 0.02em;
   color: var(--text-muted);
 }
+/* Exchange promise — mono whisper under the size-guide link; converts size
+   hesitation at the decision point (links to the returns page) */
+.exchange-note{
+  margin: var(--sp-2) 0 0;
+  font: 500 11px/1.4 var(--font-mono);
+  letter-spacing: 0.02em;
+}
+.exchange-note a{
+  color: var(--text-muted);
+  transition: color var(--tx-fast) var(--ease);
+}
+.exchange-note a:hover{ color: var(--text); }
 /* Size-guide link — quiet, sits under the size pills */
 .sizeguide{
   margin-top: var(--sp-3);
@@ -256,6 +268,20 @@ html[data-glass="off"] .buybar{
   display: grid;
   gap: var(--sp-2);
 }
+/* No pre-selected size: the CTA renders locked („Pasirinkite dydį") until the
+   shopper picks — a quiet surface state, not an error. Scoped to .ctas so the
+   temporary disabled flash during an AJAX add (same [disabled]) stays unstyled. */
+.ctas .btn.is-locked{
+  background: var(--surface);
+  color: var(--text-muted);
+  border-color: var(--hairline);
+  box-shadow: none;
+  cursor: default;
+}
+.ctas .btn.is-locked .btn__arrow{ display: none; }
+/* express-checkout wrapper — layout-neutral; exists so [hidden] can gate it */
+.ctas__express{ display: grid; }
+.ctas__express[hidden]{ display: none; }
 
 /* Pre-order (preorder.* metafields set) — quiet note under the CTA; the
    timeline itself reuses the delivery .gantt in its batch-aware variant. */
