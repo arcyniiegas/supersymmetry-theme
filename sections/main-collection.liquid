@@ -32,12 +32,6 @@
 <!-- ──────────── TOOLBAR (filter · sort · view) ──────────── -->
 <div class="subbar">
   <div class="subbar__wrap">
-    <button type="button" class="filterbtn" id="filterOpen" data-drawer-open="filterDrawer" aria-haspopup="dialog" aria-controls="filterDrawer" aria-expanded="false">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><line x1="2" y1="4.5" x2="14" y2="4.5"/><line x1="2" y1="11.5" x2="14" y2="11.5"/><circle cx="6" cy="4.5" r="1.8" fill="var(--bg)"/><circle cx="10.5" cy="11.5" r="1.8" fill="var(--bg)"/></svg>
-      <span>{{ 'collection.filters' | t }}</span>
-      {%- if active_count > 0 -%}<span class="filterbtn__n">{{ active_count }}</span>{%- endif -%}
-    </button>
-
     <div class="subbar__spacer"></div>
 
     <div class="tools">
@@ -59,6 +53,11 @@
           <svg class="sort__chev" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 5 L7 9 L11 5"></path></svg>
         </span>
       </label>
+      <button type="button" class="filterbtn" id="filterOpen" data-drawer-open="filterDrawer" aria-haspopup="dialog" aria-controls="filterDrawer" aria-expanded="false">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><line x1="2" y1="4.5" x2="14" y2="4.5"/><line x1="2" y1="11.5" x2="14" y2="11.5"/><circle cx="6" cy="4.5" r="1.8" fill="var(--bg)"/><circle cx="10.5" cy="11.5" r="1.8" fill="var(--bg)"/></svg>
+        <span>{{ 'collection.filters' | t }}</span>
+        {%- if active_count > 0 -%}<span class="filterbtn__n">{{ active_count }}</span>{%- endif -%}
+      </button>
       <div class="viewtog" role="group" aria-label="{{ 'accessibility.view' | t }}">
         <button type="button" aria-pressed="false" aria-label="{{ 'accessibility.grid' | t }}">
           <svg viewBox="0 0 14 14"><rect x="2" y="2" width="4" height="4"></rect><rect x="8" y="2" width="4" height="4"></rect><rect x="2" y="8" width="4" height="4"></rect><rect x="8" y="8" width="4" height="4"></rect></svg>
