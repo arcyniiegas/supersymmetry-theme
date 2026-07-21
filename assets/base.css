@@ -86,30 +86,6 @@ input, textarea{ min-width:0; max-width:100%; }
 a.rating:hover .rating__count{ color: var(--text); }
 .rating--sm .rating__stars{ font-size: 12px; letter-spacing: 1.5px; }
 .rating--sm .rating__count{ font-size: 11px; }
-/* Pre-order status primitive — „Siuvimas · numatoma gegužės pab." with a
-   pulsing dot. Rendered by snippets/preorder-status.liquid; shared by product
-   cards, the PDP buy area and the cart line, so it lives here like .rating. */
-.postatus{ display: inline-flex; align-items: center; gap: 8px; }
-.postatus__dot{
-  flex: none; width: 6px; height: 6px; border-radius: 99px;
-  background: var(--ink); position: relative;
-}
-.postatus__dot::before{
-  content: ''; position: absolute; inset: -4px; border-radius: 99px;
-  background: var(--ink); opacity: 0.28;
-  animation: postatus-ping 2s var(--ease, ease) infinite;
-}
-.postatus__t{
-  font: 500 11px/1.4 var(--font-mono);
-  letter-spacing: 0.02em; color: var(--text-muted);
-}
-@keyframes postatus-ping{
-  0%{ transform: scale(0.7); opacity: 0.35; }
-  100%{ transform: scale(1.9); opacity: 0; }
-}
-@media (prefers-reduced-motion: reduce){
-  .postatus__dot::before{ animation: none; }
-}
 .muted{ color: var(--text-muted); }
 /* Accessible-but-invisible: keeps a heading/label in the a11y tree & SEO
    without occupying layout. */

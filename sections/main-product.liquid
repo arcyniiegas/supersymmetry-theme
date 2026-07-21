@@ -17,17 +17,16 @@
     assign buybar_compare = product.compare_at_price | money_without_trailing_zeros
   endif
   comment
-    Pre-order mode — the `netrukus` tag is the single switch (see the spec,
-    docs/superpowers/specs/2026-07-21-netrukus-preorder-preview-design.md).
-    Swaps the ATC label, adds a note under the CTA and the stage track.
+    Pre-order mode — the switch is the preorder metafields themselves (see the
+    spec, docs/superpowers/specs/2026-07-21-netrukus-preorder-preview-design.md):
+    a product with Būsena or the expected date set is a pre-order. Swaps the
+    ATC label, adds a note under the CTA and the batch-aware delivery gantt.
   endcomment
+  assign po_expected = product.metafields.preorder.expected.value
+  assign po_stage = product.metafields.preorder.stage.value
   assign is_preorder = false
-  assign po_expected = ''
-  assign po_stage = ''
-  if product.tags contains 'netrukus'
+  if po_stage != blank or po_expected != blank
     assign is_preorder = true
-    assign po_expected = product.metafields.preorder.expected.value
-    assign po_stage = product.metafields.preorder.stage.value
   endif
   assign atc_label = section.settings.atc_label | default: 'Į krepšelį'
   if is_preorder
@@ -35,11 +34,12 @@
   endif
   comment
     In production → coarse eta (month + third: pradžioje/viduryje/pabaigoje);
-    the exact day only once Būsena = Pagaminti · kelyje.
+    the exact day only once Būsena = Pagaminti · kelyje. An unset Būsena is
+    treated as still in production (the forgiving default).
   endcomment
-  assign po_coarse = false
-  if po_stage == 'Gamyboje'
-    assign po_coarse = true
+  assign po_coarse = true
+  if po_stage == 'Pagaminti · kelyje'
+    assign po_coarse = false
   endif
 -%}
 {%- capture po_eta -%}{% render 'date-lt', date: po_expected, coarse: po_coarse %}{%- endcapture -%}
@@ -98,33 +98,6 @@
         <span class="stock__dot"></span>
         <span>{{ product.metafields.custom.stock_line }}</span>
       </div>
-      {%- endif -%}
-      {%- if is_preorder -%}
-      {%- comment -%} Batch-progress track. po_keys is the DATA CONTRACT with the
-        preorder.stage choice list (values are Lithuanian, matched verbatim);
-        po_labels is the translatable display list from locales. {%- endcomment -%}
-      {%- assign po_keys = 'Gamyboje|Pagaminti · kelyje' | split: '|' -%}
-      {%- assign po_labels = 'product.preorder.stages' | t | split: '|' -%}
-      {%- assign po_idx = -1 -%}
-      {%- for k in po_keys -%}{%- if k == po_stage -%}{%- assign po_idx = forloop.index0 -%}{%- endif -%}{%- endfor -%}
-      {%- if po_idx > -1 -%}
-      <div class="potrack">
-        <div class="potrack__head">
-          <span class="potrack__title">{{ 'product.preorder.track_title' | t }}</span>
-          {%- if po_eta != blank -%}
-          <span class="potrack__eta">{{ 'product.preorder.expected' | t: date: po_eta }}</span>
-          {%- endif -%}
-        </div>
-        <ol class="potrack__list">
-          {%- for label in po_labels -%}
-          <li class="potrack__step{% if forloop.index0 < po_idx %} done{% elsif forloop.index0 == po_idx %} now{% endif %}"{% if forloop.index0 == po_idx %} aria-current="step"{% endif %}>
-            <span class="potrack__node" aria-hidden="true"></span>
-            <span class="potrack__lab">{{ label }}</span>
-          </li>
-          {%- endfor -%}
-        </ol>
-      </div>
-      {%- endif -%}
       {%- endif -%}
     </div>
 
@@ -221,7 +194,7 @@
           <span class="gantt__leg">{{ 'product.delivery.placed' | t }}</span>
           <span class="gantt__date">{{ 'product.preorder.today' | t }}</span>
         </div>
-        <div class="gantt__row{% if po_stage == 'Gamyboje' %} now{% else %} done{% endif %}">
+        <div class="gantt__row{% if po_stage == 'Pagaminti · kelyje' %} done{% else %} now{% endif %}">
           <span class="gantt__node"></span>
           <span class="gantt__leg">{{ 'product.preorder.gantt_production' | t }}</span>
           <span class="gantt__date"></span>

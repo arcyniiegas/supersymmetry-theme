@@ -148,16 +148,15 @@
     "rating_aria": "Įvertinimas {{ rating }} iš 5 · {{ count }} atsiliepimai",
     "reviews_count": "{{ count }} atsiliepimai",
     "preorder": {
-      "badge": "Netrukus",
       "cta": "Užsakyti iš anksto",
       "expected": "numatoma {{ date }}",
       "note": "Apmokama dabar — išsiųsime, kai partija bus paruošta.",
-      "track_title": "Partijos eiga",
-      "stages": "Gamyboje|Pagaminti · kelyje",
       "cart_tag": "Išankstinis užsakymas",
       "today": "Šiandien",
       "gantt_production": "Partija siuvama dirbtuvėje",
-      "gantt_delivery": "Pristatymas"
+      "gantt_delivery": "Pristatymas",
+      "badge_production": "Gamyboje",
+      "badge_transit": "Kelyje"
     }
   },
   "faq": {

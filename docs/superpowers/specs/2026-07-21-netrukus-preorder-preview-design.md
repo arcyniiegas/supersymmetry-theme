@@ -17,22 +17,21 @@ visible. Fits the existing „partijos" batch narrative.
    - `preorder.expected` („Numatoma gavimo data") — **date** type, picked
      per product; rendered Lithuanian-style via `snippets/date-lt.liquid`
      („rugpjūčio 28 d.", month names from `general.months_genitive`).
-3. **Visibility: preview page + main-grid badge.** Automated collection
-   (rule: tag = `netrukus`, template suffix `preview`); tagged models also
-   show a „Netrukus" badge + status line in every product grid. The
-   `preview` template is additionally assigned to the manual
-   „Ruduo-žiema 2026" collection.
+3. **Visibility: preview page + main-grid badge.** The `preview` template
+   is assigned to the manual „Ruduo-žiema 2026" collection; pre-order
+   models show a stage badge in every product grid.
 
-## The `netrukus` tag is the single switch
+## The preorder metafields are the single switch (revised 2026-07-21)
 
-Drives: automated collection membership, card badge + status line, PDP
-pre-order mode, cart-line note. Remove the tag → everything reverts.
+The `netrukus` tag was dropped as a redundant extra step. A product with
+`preorder.stage` or `preorder.expected` set IS a pre-order: cards show a
+„Gamyboje" / „Kelyje" badge (no status line — details live on the PDP),
+the PDP swaps the CTA + note + batch-aware delivery gantt, the cart line
+gets the eta pill. Clear both fields → everything reverts. The former
+tag-based automated collection was deleted; a dedicated „Partijos eiga"
+PDP track was also removed — the delivery gantt is the one timeline.
 
 ## Components
-
-- **`snippets/preorder-status.liquid`** — the one status primitive:
-  mono line `{stage} · numatoma {expected}` from the two metafields.
-  Renders nothing when untagged/empty. Used by cards, PDP, cart line.
 - **`sections/preview-banner.liquid`** + `assets/section-preview-banner.css` —
   editorial intro band for the preview collection: eyebrow-rule, light/bold
   title, batch paragraph, `stat` blocks (shared snippet). No timers.

@@ -148,16 +148,15 @@
     "rating_aria": "Rated {{ rating }} out of 5 · {{ count }} reviews",
     "reviews_count": "{{ count }} reviews",
     "preorder": {
-      "badge": "Coming soon",
       "cta": "Pre-order",
       "expected": "expected {{ date }}",
       "note": "Charged now — ships when the batch is ready.",
-      "track_title": "Batch progress",
-      "stages": "In production|Made · in transit",
       "cart_tag": "Pre-order",
       "today": "Today",
       "gantt_production": "Batch in production",
-      "gantt_delivery": "Delivery"
+      "gantt_delivery": "Delivery",
+      "badge_production": "In production",
+      "badge_transit": "In transit"
     }
   },
   "faq": {
