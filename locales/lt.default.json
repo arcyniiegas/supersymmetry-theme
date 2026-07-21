@@ -72,9 +72,6 @@
     "show_html": "Rodyti ({{ count }})"
   },
   "product": {
-    "promo": {
-      "not_included_short": "Nedalyvauja akcijoje"
-    },
     "delivery": {
       "placed": "Užsakymas pateiktas",
       "shipped": "Užsakymas išsiunčiamas",

@@ -72,9 +72,6 @@
     "show_html": "Show ({{ count }})"
   },
   "product": {
-    "promo": {
-      "not_included_short": "Not in the offer"
-    },
     "delivery": {
       "placed": "Order placed",
       "shipped": "Order dispatched",

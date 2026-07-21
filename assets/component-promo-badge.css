@@ -45,12 +45,7 @@
   .promo-dot::before{ animation: none; }
 }
 
-/* Cart line — pill states for the .tags row */
+/* Cart line — the participating „1+1" pill for the .tags row (non-participating
+   products show nothing, by user decision). */
 .tag--promo{ background: var(--ink); color: #FFFFFF; }
 .tag--promo i{ background: var(--orange); }
-.tag--promo-out{
-  background: transparent;
-  box-shadow: inset 0 0 0 1px var(--line);
-  color: var(--text-muted);
-}
-.tag--promo-out i{ background: var(--text-muted); }

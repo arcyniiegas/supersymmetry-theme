@@ -17,7 +17,7 @@
   Params:
     product {product}  required — the product (or line_item.product) to test
     context {string}   required — where the badge renders:
-                        'cart'     → pill for the cart line .tags row, both states
+                        'cart'     → „1+1" pill on participating cart lines only
                         'card'     → collection-card mark, participating only;
                                      additionally gated by settings.promo_badge_cards
 
@@ -40,8 +40,6 @@
   {%- when 'cart' -%}
     {%- if in_promo -%}
     <span class="tag tag--promo"><i></i>{{ promo_name }}</span>
-    {%- else -%}
-    <span class="tag tag--promo-out"><i></i>{{ 'product.promo.not_included_short' | t }}</span>
     {%- endif -%}
   {%- when 'card' -%}
     {%- if in_promo and settings.promo_badge_cards -%}
