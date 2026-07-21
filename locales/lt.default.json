@@ -49,7 +49,10 @@
     "empty_short": "Krepšelis tuščias",
     "empty_cta": "Į pradžią",
     "free_ship_reached": "Nemokamas pristatymas ✓",
-    "free_ship_remaining_html": "Dar <b>{{ amount }}</b> iki nemokamo pristatymo"
+    "free_ship_remaining_html": "Dar <b>{{ amount }}</b> iki nemokamo pristatymo",
+    "promo_add_second": "Pridėkite antrą {{ name }} porą — antroji nemokama",
+    "promo_pair_missing": "Viena iš porų nepatenka į {{ name }} akciją — nuolaida jai nebus pritaikyta.",
+    "promo_browse": "Žiūrėti akcijos poras →"
   },
   "collection": {
     "list_empty": "Kolekcijos ruošiamos — netrukus jos pasirodys čia.",

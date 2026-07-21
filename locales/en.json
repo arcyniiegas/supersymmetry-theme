@@ -49,7 +49,10 @@
     "empty_short": "Your cart is empty",
     "empty_cta": "Back home",
     "free_ship_reached": "Free shipping unlocked ✓",
-    "free_ship_remaining_html": "<b>{{ amount }}</b> to free shipping"
+    "free_ship_remaining_html": "<b>{{ amount }}</b> to free shipping",
+    "promo_add_second": "Add a second {{ name }} pair — the second one is free",
+    "promo_pair_missing": "One of the pairs isn’t part of the {{ name }} promo — it won’t get the discount.",
+    "promo_browse": "Browse promo pairs →"
   },
   "collection": {
     "list_empty": "Collections are on their way — they'll appear here soon.",

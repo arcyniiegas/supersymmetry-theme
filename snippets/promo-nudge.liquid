@@ -1,0 +1,37 @@
+{%- comment -%}
+  promo-nudge — one quiet mono line of BOGO-eligibility guidance in the cart
+  (drawer + page), closing the abandon path where a shopper reaches checkout
+  expecting the promo and silently doesn't qualify. Deliberately NOT a
+  progress meter (the drawer's free-shipping bar was removed by design).
+
+  States (eligibility = membership in settings.promo_collection, by quantity):
+    exactly 1 eligible item, rest ineligible → warning: the other pair isn't
+      part of the promo (+ link to the promo collection)
+    exactly 1 eligible item, nothing else   → invitation: add a second promo
+      pair, the second one is free
+    0 or ≥2 eligible                        → renders nothing (nothing to fix —
+      the free line itself is visible in the cart at €0)
+
+  Gated by the same switch as every promo surface: settings.promo_badge_enabled.
+
+  Params:
+    (none — reads the global cart and theme settings)
+{%- endcomment -%}
+{%- if settings.promo_badge_enabled and settings.promo_collection != blank and cart.item_count > 0 -%}
+  {%- assign promo_name = settings.promo_name | default: '1+1' -%}
+  {%- assign po_eligible = 0 -%}
+  {%- assign po_other = 0 -%}
+  {%- for item in cart.items -%}
+    {%- assign in_promo = false -%}
+    {%- for c in item.product.collections -%}
+      {%- if c.id == settings.promo_collection.id -%}{%- assign in_promo = true -%}{%- break -%}{%- endif -%}
+    {%- endfor -%}
+    {%- if in_promo -%}{%- assign po_eligible = po_eligible | plus: item.quantity -%}
+    {%- else -%}{%- assign po_other = po_other | plus: item.quantity -%}{%- endif -%}
+  {%- endfor -%}
+  {%- if po_eligible == 1 and po_other > 0 -%}
+  <p class="promo-nudge promo-nudge--warn">{{ 'cart.promo_pair_missing' | t: name: promo_name }} <a href="{{ settings.promo_collection.url }}">{{ 'cart.promo_browse' | t }}</a></p>
+  {%- elsif po_eligible == 1 -%}
+  <p class="promo-nudge"><a href="{{ settings.promo_collection.url }}">{{ 'cart.promo_add_second' | t: name: promo_name }} →</a></p>
+  {%- endif -%}
+{%- endif -%}

@@ -136,6 +136,9 @@
       {%- endif -%}
     </div>
     {% endform %}
+    {%- if section.settings.payments_note != blank -%}
+    <p class="payments-note">{{ section.settings.payments_note }}</p>
+    {%- endif -%}
     {%- comment -%} Our „Apmokama dabar" note only when NO selling plans exist —
       a pre-order app (e.g. Essential Preorder) that installs selling plans
       renders its own payment terms (deposit / charge-later), and the two
@@ -301,6 +304,7 @@
   "settings": [
     { "type": "text", "id": "atc_label", "label": "Add to cart label", "default": "Į krepšelį" },
     { "type": "checkbox", "id": "show_payment_button", "label": "Show dynamic checkout button", "info": "Shop Pay / wallet express-checkout button below the add-to-cart.", "default": true },
+    { "type": "text", "id": "payments_note", "label": "Payment methods note", "info": "Quiet line under the buy buttons, e.g. „Banko pavedimu · kortele · ESTO dalimis“. Leave empty to hide — fill in once the payment rails actually exist at checkout." },
     { "type": "header", "content": "Appearance" },
     { "type": "range", "id": "title_scale", "label": "Product title size", "min": 60, "max": 130, "step": 5, "unit": "%", "default": 100 },
     { "type": "color_scheme", "id": "color_scheme", "label": "Colour scheme", "default": "scheme-1", "info": "Recolours this whole section. The default matches the rest of the site." },

@@ -85,6 +85,23 @@
 .tag--sale i{ background: var(--c-sale-ink); }
 .tag--origin  { background: var(--c-origin-bg);  color: var(--c-origin-ink); }
 .tag--origin i{ background: var(--c-origin-ink); }
+/* Promo-eligibility nudge — one quiet mono line above the drawer foot /
+   in the summary card; the warn variant borrows the .atc-status error voice
+   (ink left bar, no hue). Rendered by snippets/promo-nudge.liquid. */
+.promo-nudge{
+  margin: var(--sp-3) 0;
+  font: 500 11px/1.5 var(--font-mono);
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+}
+.promo-nudge a{ color: var(--text); text-decoration: underline; text-underline-offset: 2px; }
+.promo-nudge--warn{
+  color: var(--text);
+  border-left: 2px solid var(--ink);
+  padding-left: 10px;
+}
+.cart-drawer__inner > .promo-nudge{ margin: 0 var(--sp-6) var(--sp-3); }
+
 /* Pre-order line — monochrome, matches the ink voice. Its label is long
    („Išankstinis užsakymas · Numatoma …"), so unlike the other pills it wraps
    INSIDE itself — a nowrap pill wider than the drawer would inflate the whole
