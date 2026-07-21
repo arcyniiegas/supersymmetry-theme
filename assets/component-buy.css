@@ -68,7 +68,8 @@
 .info__desc a{ color: var(--text); text-decoration: underline; text-underline-offset: 2px; }
 .info__desc ul, .info__desc ol{ margin: 0.6em 0; padding-left: 1.1em; display: grid; gap: 4px; }
 
-/* PRICE — mono numerals, one weight lighter than the name */
+/* PRICE — mono numerals at the NAME's size, but visibly thinner (300 vs the
+   name's 500), so the pair reads as one line with a clear hierarchy */
 .price{
   display: flex;
   align-items: baseline;
@@ -79,7 +80,7 @@
   display: flex; align-items: baseline; gap: var(--sp-3);
 }
 .price__current{
-  font: 400 clamp(17px, 1.6vw, 20px)/1 var(--font-mono);
+  font: 300 calc(clamp(24px, 2.3vw, 32px) * var(--title-scale, 1))/1 var(--font-mono);
   letter-spacing: -0.01em;
   color: var(--text);
 }
@@ -321,5 +322,6 @@ html[data-glass="off"] .buybar{
   .info__head{ justify-content: center; text-align: center; }
   .info__name{ font-size: calc(clamp(22px, 6vw, 26px) * 1.2 * var(--title-scale, 1)); }
   .price{ flex-wrap: wrap; justify-content: center; }
-  .price__current{ font-size: calc(clamp(17px, 1.6vw, 20px) * 1.2); }
+  /* match the name's mobile size (price keeps its lighter 300 weight) */
+  .price__current{ font-size: calc(clamp(22px, 6vw, 26px) * 1.2 * var(--title-scale, 1)); }
 }
