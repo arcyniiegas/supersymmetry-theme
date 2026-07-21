@@ -1,0 +1,28 @@
+/* Preview banner · sections/preview-banner.liquid · the „Netrukus" collection
+   intro band. Layout only — type/eyebrow/stat primitives come from base.css
+   (.eyebrow-rule, .phead__stat); mirrors the light editorial band idiom. */
+.pvban{
+  padding: var(--sp-14) var(--gutter) var(--sp-10);
+  border-bottom: 1px solid var(--line);
+}
+.pvban__wrap{
+  max-width: var(--max); margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: var(--sp-12); align-items: end;
+}
+.pvban__title{
+  margin: var(--sp-3) 0 0;
+  font: 500 calc(var(--t-display) * var(--title-scale, 1))/0.98 var(--font-sans);
+  letter-spacing: -0.04em; color: var(--text);
+}
+.pvban__title .light{ color: var(--text-muted); font-weight: 300; }
+.pvban__text{
+  margin: 0;
+  font: 400 16px/1.6 var(--font-sans);
+  color: var(--text-muted); max-width: 52ch;
+}
+.pvban__stats{ margin-top: var(--sp-6); }
+@media (max-width: 820px){
+  .pvban{ padding: var(--sp-10) var(--gutter) var(--sp-8); }
+  .pvban__wrap{ grid-template-columns: 1fr; gap: var(--sp-6); align-items: start; }
+}

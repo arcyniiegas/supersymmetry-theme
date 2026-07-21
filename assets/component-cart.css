@@ -85,6 +85,9 @@
 .tag--sale i{ background: var(--c-sale-ink); }
 .tag--origin  { background: var(--c-origin-bg);  color: var(--c-origin-ink); }
 .tag--origin i{ background: var(--c-origin-ink); }
+/* Pre-order line („netrukus" products) — monochrome, matches the ink voice */
+.tag--preorder  { background: var(--surface); color: var(--text); }
+.tag--preorder i{ background: var(--ink); }
 
 /* Best-attribute pills — muted real accents grouped by category. A deliberate,
    signed-off exception to the greyscale palette so attributes read at a glance. */

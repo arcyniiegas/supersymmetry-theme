@@ -142,7 +142,16 @@
     "add_error": "Couldn't add to cart — please try again.",
     "stock_left": "Only {count} left",
     "rating_aria": "Rated {{ rating }} out of 5 · {{ count }} reviews",
-    "reviews_count": "{{ count }} reviews"
+    "reviews_count": "{{ count }} reviews",
+    "preorder": {
+      "badge": "Coming soon",
+      "cta": "Pre-order",
+      "expected": "expected {{ date }}",
+      "note": "Charged now — ships when the batch is ready.",
+      "track_title": "Batch progress",
+      "stages": "Cutting|Stitching|Finishing|Quality check",
+      "cart_tag": "Pre-order"
+    }
   },
   "faq": {
     "empty_title": "Questions & answers are on the way.",

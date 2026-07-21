@@ -1,0 +1,69 @@
+{{ 'section-preview-banner.css' | asset_url | stylesheet_tag }}
+{% render 'section-appearance', section: section %}
+{%- comment -%}
+  Preview banner — the editorial intro band for the „Netrukus" pre-order
+  preview collection (templates/collection.preview.json). The batch story:
+  eyebrow + light/bold title + paragraph + shared stat blocks. Deliberately
+  no countdown and no urgency theatre — calm specificity is the conversion
+  driver for this brand (see the design spec). Pairs with main-collection
+  below it, mirroring how sale-banner composes on collection.sale.
+{%- endcomment -%}
+<section class="pvban">
+  <div class="pvban__wrap">
+    <div class="pvban__lead">
+      <div class="eyebrow-rule">{{ section.settings.eyebrow | default: 'Skyrius · Dirbtuvė' }}</div>
+      <h2 class="pvban__title">
+        <span class="light">{{ section.settings.title_light | default: 'Siuvama' }}</span>
+        {{ section.settings.title | default: 'dabar.' }}
+      </h2>
+    </div>
+    <div class="pvban__aside">
+      <p class="pvban__text">{{ section.settings.text | default: 'Ši partija — ant darbastalio. Kiekviena pora sunumeruota, siuvama ribotu kiekiu; išankstinis užsakymas rezervuoja porą iš šios partijos. Apmokama dabar — išsiunčiame vos partijai išėjus iš dirbtuvės.' }}</p>
+      {%- assign stat_blocks = section.blocks | where: 'type', 'stat' -%}
+      {%- if stat_blocks.size > 0 -%}
+      <div class="phead__stats pvban__stats">
+        {%- for block in stat_blocks -%}
+        {% render 'stat', k: block.settings.label, v: block.settings.value, tabular: block.settings.tabular, attrs: block.shopify_attributes %}
+        {%- endfor -%}
+      </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Preview banner",
+  "settings": [
+    { "type": "header", "content": "Copy" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Skyrius · Dirbtuvė" },
+    { "type": "text", "id": "title_light", "label": "Title (light part)", "default": "Siuvama" },
+    { "type": "text", "id": "title", "label": "Title (bold part)", "default": "dabar." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Ši partija — ant darbastalio. Kiekviena pora sunumeruota, siuvama ribotu kiekiu; išankstinis užsakymas rezervuoja porą iš šios partijos. Apmokama dabar — išsiunčiame vos partijai išėjus iš dirbtuvės." },
+    { "type": "header", "content": "Text size & colour" },
+    { "type": "range", "id": "title_scale", "label": "Heading size", "min": 60, "max": 130, "step": 5, "unit": "%", "default": 100 },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Colour scheme", "default": "scheme-1", "info": "Recolours this whole section. The default matches the rest of the site." },
+    { "type": "color", "id": "text_color", "label": "Text colour", "info": "Recolours this section's text. Leave empty for the default near-black." }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "text", "id": "value", "label": "Value" },
+        { "type": "checkbox", "id": "tabular", "label": "Tabular numerals", "default": false }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Preview banner",
+      "blocks": [
+        { "type": "stat", "settings": { "label": "Modeliai partijoje", "value": "3" } },
+        { "type": "stat", "settings": { "label": "Numatomas langas", "value": "Gegužės pab." } },
+        { "type": "stat", "settings": { "label": "Kiekis", "value": "Ribotas" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

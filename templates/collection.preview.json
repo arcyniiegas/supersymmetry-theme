@@ -1,0 +1,39 @@
+{
+  "sections": {
+    "banner": {
+      "type": "preview-banner",
+      "blocks": {
+        "stat-1": {
+          "type": "stat",
+          "settings": {
+            "label": "Modeliai partijoje",
+            "value": "3"
+          }
+        },
+        "stat-2": {
+          "type": "stat",
+          "settings": {
+            "label": "Numatomas langas",
+            "value": "Gegužės pab."
+          }
+        },
+        "stat-3": {
+          "type": "stat",
+          "settings": {
+            "label": "Kiekis",
+            "value": "Ribotas"
+          }
+        }
+      },
+      "block_order": ["stat-1", "stat-2", "stat-3"],
+      "settings": {}
+    },
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "products_per_page": 24
+      }
+    }
+  },
+  "order": ["banner", "main"]
+}

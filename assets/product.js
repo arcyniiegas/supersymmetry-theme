@@ -11,6 +11,10 @@
   var price = (main && main.getAttribute('data-price')) || '';
   var compare = (main && main.getAttribute('data-compare')) || '';
   var curSize = (main && main.getAttribute('data-current-size')) || '';
+  /* Liquid-resolved CTA label — carries the pre-order wording („Užsakyti iš
+     anksto") when the product is tagged `netrukus`; falls back to the
+     registry default for safety. */
+  var atcLabel = (main && main.getAttribute('data-atc-label')) || theme.t('product.add_to_cart');
 
   /* ── sticky buy bar (JS-generated), fed with real product title + price ── */
   var buybar = document.createElement('div');
@@ -22,10 +26,11 @@
       '<span class="buybar__price"></span>' +
     '</div>' +
     '<span class="buybar__size" data-buybar-size></span>' +
-    '<button class="btn btn--primary" type="button" data-buybar-add style="white-space:nowrap;"><span>' + theme.t('product.add_to_cart') + '</span></button>';
+    '<button class="btn btn--primary" type="button" data-buybar-add style="white-space:nowrap;"><span></span></button>';
   document.body.appendChild(buybar);
   buybar.querySelector('.buybar__name').textContent = title;
   buybar.querySelector('.buybar__price').innerHTML = priceHtml;
+  buybar.querySelector('[data-buybar-add] span').textContent = atcLabel;
   var buybarSize = buybar.querySelector('[data-buybar-size]');
   if (buybarSize) buybarSize.textContent = curSize ? 'EU ' + curSize : '';
 

@@ -16,6 +16,23 @@
   if product.compare_at_price and product.compare_at_price > product.price
     assign buybar_compare = product.compare_at_price | money_without_trailing_zeros
   endif
+  comment
+    Pre-order mode — the `netrukus` tag is the single switch (see the spec,
+    docs/superpowers/specs/2026-07-21-netrukus-preorder-preview-design.md).
+    Swaps the ATC label, adds a note under the CTA and the stage track.
+  endcomment
+  assign is_preorder = false
+  assign po_expected = ''
+  assign po_stage = ''
+  if product.tags contains 'netrukus'
+    assign is_preorder = true
+    assign po_expected = product.metafields.preorder.expected.value
+    assign po_stage = product.metafields.preorder.stage.value
+  endif
+  assign atc_label = section.settings.atc_label | default: 'Į krepšelį'
+  if is_preorder
+    assign atc_label = 'product.preorder.cta' | t
+  endif
 -%}
 
 <!-- ──────────── PRODUCT — sticky split ──────────── -->
@@ -23,6 +40,7 @@
   data-product-title="{{ product.title | escape }}"
   data-price="{{ buybar_price | escape }}"
   data-compare="{{ buybar_compare | escape }}"
+  data-atc-label="{{ atc_label | escape }}"
   data-current-size="{{ current_variant.title | split: ' (' | first | strip | escape }}">
 
   <!-- GALLERY -->
@@ -71,6 +89,33 @@
         <span>{{ product.metafields.custom.stock_line }}</span>
       </div>
       {%- endif -%}
+      {%- if is_preorder -%}
+      {%- comment -%} Batch-progress track. po_keys is the DATA CONTRACT with the
+        preorder.stage choice list (values are Lithuanian, matched verbatim);
+        po_labels is the translatable display list from locales. {%- endcomment -%}
+      {%- assign po_keys = 'Kirpimas|Siuvimas|Apdaila|Kokybės patikra' | split: '|' -%}
+      {%- assign po_labels = 'product.preorder.stages' | t | split: '|' -%}
+      {%- assign po_idx = -1 -%}
+      {%- for k in po_keys -%}{%- if k == po_stage -%}{%- assign po_idx = forloop.index0 -%}{%- endif -%}{%- endfor -%}
+      {%- if po_idx > -1 -%}
+      <div class="potrack">
+        <div class="potrack__head">
+          <span class="potrack__title">{{ 'product.preorder.track_title' | t }}</span>
+          {%- if po_expected != blank -%}
+          <span class="potrack__eta">{{ 'product.preorder.expected' | t: date: po_expected }}</span>
+          {%- endif -%}
+        </div>
+        <ol class="potrack__list">
+          {%- for label in po_labels -%}
+          <li class="potrack__step{% if forloop.index0 < po_idx %} done{% elsif forloop.index0 == po_idx %} now{% endif %}"{% if forloop.index0 == po_idx %} aria-current="step"{% endif %}>
+            <span class="potrack__node" aria-hidden="true"></span>
+            <span class="potrack__lab">{{ label }}</span>
+          </li>
+          {%- endfor -%}
+        </ol>
+      </div>
+      {%- endif -%}
+      {%- endif -%}
     </div>
 
     {%- comment -%} The form carries an explicit id ATTRIBUTE for selection via
@@ -84,7 +129,7 @@
     <input type="hidden" name="id" value="{{ current_variant.id }}" data-product-id>
     <div class="ctas">
       <button class="btn btn--primary" type="submit" data-atc>
-        <span>{{ section.settings.atc_label | default: 'Į krepšelį' }}</span>
+        <span>{{ atc_label }}</span>
         <span class="btn__arrow">→</span>
       </button>
       {%- if section.settings.show_payment_button -%}
@@ -92,6 +137,9 @@
       {%- endif -%}
     </div>
     {% endform %}
+    {%- if is_preorder -%}
+    <p class="po-note">{{ 'product.preorder.note' | t }}{% if po_expected != blank %} <b>{{ 'product.preorder.expected' | t: date: po_expected | capitalize }}.</b>{% endif %}</p>
+    {%- endif -%}
 
     {%- for block in section.blocks -%}
       {%- case block.type -%}

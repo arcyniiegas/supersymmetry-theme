@@ -256,6 +256,73 @@ html[data-glass="off"] .buybar{
   display: grid;
   gap: var(--sp-2);
 }
+
+/* Pre-order (`netrukus` tag) — quiet note under the CTA + the batch-progress
+   track in the sizeblock. The status line itself is .postatus (base.css). */
+.po-note{
+  margin: var(--sp-3) 0 0;
+  font: 400 13px/1.5 var(--font-sans); letter-spacing: -0.005em;
+  color: var(--text-muted);
+}
+.po-note b{ color: var(--text); font-weight: 500; }
+.potrack{
+  margin-top: var(--sp-5);
+  padding: var(--sp-5);
+  background: var(--surface);
+  border-radius: var(--r-md);
+}
+.potrack__head{
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: var(--sp-4); margin-bottom: var(--sp-4);
+}
+.potrack__title{
+  font: 500 11px/1 var(--font-mono);
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--text-muted);
+}
+.potrack__eta{
+  font: 500 11px/1 var(--font-mono);
+  letter-spacing: 0.02em; color: var(--text);
+}
+.potrack__list{
+  list-style: none; margin: 0; padding: 0;
+  display: flex; align-items: flex-start;
+}
+.potrack__step{
+  flex: 1; position: relative;
+  display: grid; justify-items: center; gap: 8px;
+  text-align: center;
+}
+/* connector — a hairline between this node and the previous one */
+.potrack__step + .potrack__step::before{
+  content: ''; position: absolute;
+  top: 3px; right: calc(50% + 8px);
+  width: calc(100% - 16px); height: 1px;
+  background: var(--hairline);
+}
+.potrack__step.done + .potrack__step::before,
+.potrack__step.now + .potrack__step::before{ background: var(--ink); }
+.potrack__node{
+  position: relative; z-index: 1;
+  width: 7px; height: 7px; border-radius: 99px;
+  background: var(--hairline);
+}
+.potrack__step.done .potrack__node{ background: var(--ink); }
+.potrack__step.now .potrack__node{ background: var(--ink); }
+.potrack__step.now .potrack__node::before{
+  content: ''; position: absolute; inset: -4px; border-radius: 99px;
+  background: var(--ink); opacity: 0.28;
+  animation: ping 2.4s ease-out infinite;
+}
+.potrack__lab{
+  font: 500 10px/1.3 var(--font-mono);
+  letter-spacing: 0.02em; color: var(--soft);
+}
+.potrack__step.done .potrack__lab{ color: var(--text-muted); }
+.potrack__step.now .potrack__lab{ color: var(--text); }
+@media (prefers-reduced-motion: reduce){
+  .potrack__step.now .potrack__node::before{ animation: none; }
+}
 /* Buttons: the shared glass component — see component-button.css.
    The compact .buybar .btn override above stays (sticky-bar sizing). */
 

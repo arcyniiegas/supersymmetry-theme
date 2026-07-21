@@ -51,6 +51,10 @@
       {%- if item.original_price > item.final_price -%}
       <span class="tag tag--sale"><i></i>−{{ item.original_price | minus: item.final_price | times: 100.0 | divided_by: item.original_price | round }} %</span>
       {%- endif -%}
+      {%- if item.product.tags contains 'netrukus' -%}
+      {%- assign po_exp = item.product.metafields.preorder.expected.value -%}
+      <span class="tag tag--preorder"><i></i>{{ 'product.preorder.cart_tag' | t }}{% if po_exp != blank %} · {{ 'product.preorder.expected' | t: date: po_exp }}{% endif %}</span>
+      {%- endif -%}
       {% render 'promo-badge', product: item.product, context: 'cart' %}
     </div>
     <div class="line__foot">

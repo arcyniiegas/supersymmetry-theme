@@ -21,7 +21,7 @@
       alt="{{ product.featured_image.alt | escape }}"
       loading="lazy">
     {%- endif -%}
-    {%- comment -%} Single tag slot, by priority: sale % → promo chip → new. {%- endcomment -%}
+    {%- comment -%} Single tag slot, by priority: sale % → promo chip → pre-order → new. {%- endcomment -%}
     {%- if product.compare_at_price > product.price -%}
     <span class="card__tag card__tag--orange">–{{ product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round }}%</span>
     {%- else -%}
@@ -29,6 +29,8 @@
       {%- assign promo_chip = promo_chip | strip -%}
       {%- if promo_chip != blank -%}
     {{ promo_chip }}
+      {%- elsif product.tags contains 'netrukus' -%}
+    <span class="card__tag card__tag--white">{{ 'product.preorder.badge' | t }}</span>
       {%- elsif product.tags contains 'naujiena' or product.tags contains 'Naujiena' or product.tags contains 'new' or product.tags contains 'New' -%}
     <span class="card__tag card__tag--white">{{ 'product.new' | t }}</span>
       {%- endif -%}
@@ -44,6 +46,9 @@
       {%- capture card_stars -%}{% render 'product-rating', product: product, size: 'sm', show_count: true %}{%- endcapture -%}
       {%- assign card_stars = card_stars | strip -%}
       {%- if card_stars != blank -%}<span class="card__rating">{{ card_stars }}</span>{%- endif -%}
+      {%- capture card_postatus -%}{% render 'preorder-status', product: product %}{%- endcapture -%}
+      {%- assign card_postatus = card_postatus | strip -%}
+      {%- if card_postatus != blank -%}<span class="card__status">{{ card_postatus }}</span>{%- endif -%}
     {%- endif -%}
     {%- if show_name and product.type != blank -%}<span class="card__sub">{{ product.type }}</span>{%- endif -%}
   </div>
