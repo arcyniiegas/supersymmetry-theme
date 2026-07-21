@@ -120,7 +120,11 @@
       {%- endif -%}
     </div>
     {% endform %}
-    {%- if is_preorder -%}
+    {%- comment -%} Our „Apmokama dabar" note only when NO selling plans exist —
+      a pre-order app (e.g. Essential Preorder) that installs selling plans
+      renders its own payment terms (deposit / charge-later), and the two
+      messages would contradict each other. {%- endcomment -%}
+    {%- if is_preorder and product.selling_plan_groups.size == 0 -%}
     {%- comment -%} Close the eta sentence unless the date pattern already
       ends with a period (the LT exact form ends in „d."). {%- endcomment -%}
     {%- assign po_dot = '.' -%}

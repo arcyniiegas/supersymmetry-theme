@@ -265,6 +265,11 @@ html[data-glass="off"] .buybar{
   color: var(--text-muted);
 }
 .po-note b{ color: var(--text); font-weight: 500; }
+/* Essential Preorder app embed: it hides our ATC and injects a clone in its
+   own wrapper, which hugs content width and left-aligns — stretch both back
+   to the theme's full-width pill. Scoped inside .ctas so nothing else moves. */
+.ctas [class*="essential-preorder-container"]{ width: 100%; display: grid; }
+.ctas [data-essential-preorder-element="button"]{ width: 100%; justify-content: center; }
 /* Buttons: the shared glass component — see component-button.css.
    The compact .buybar .btn override above stays (sticky-bar sizing). */
 
