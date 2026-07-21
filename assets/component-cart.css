@@ -69,7 +69,7 @@
 .line__remove:hover{ background: var(--c-sale-bg); color: var(--c-sale-ink); }
 
 /* ── Info bubbles ── */
-.tags{ display: flex; flex-wrap: wrap; gap: 6px; }
+.tags{ display: flex; flex-wrap: wrap; gap: 6px; max-width: 100%; min-width: 0; }
 .tag{
   display: inline-flex; align-items: center; gap: 6px;
   padding: 5px 10px; border-radius: 999px;
@@ -85,8 +85,11 @@
 .tag--sale i{ background: var(--c-sale-ink); }
 .tag--origin  { background: var(--c-origin-bg);  color: var(--c-origin-ink); }
 .tag--origin i{ background: var(--c-origin-ink); }
-/* Pre-order line („netrukus" products) — monochrome, matches the ink voice */
-.tag--preorder  { background: var(--surface); color: var(--text); }
+/* Pre-order line — monochrome, matches the ink voice. Its label is long
+   („Išankstinis užsakymas · Numatoma …"), so unlike the other pills it wraps
+   INSIDE itself — a nowrap pill wider than the drawer would inflate the whole
+   .tags row's min-content and push every pill row past the panel edge. */
+.tag--preorder  { background: var(--surface); color: var(--text); white-space: normal; line-height: 1.5; max-width: 100%; }
 .tag--preorder i{ background: var(--ink); }
 
 /* Best-attribute pills — muted real accents grouped by category. A deliberate,

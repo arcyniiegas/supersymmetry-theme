@@ -25,6 +25,20 @@
 .shot--portrait{ aspect-ratio: 4 / 5; }
 .shot--square{ aspect-ratio: 1 / 1; }
 .shot--landscape{ aspect-ratio: 5 / 4; }
+/* DESKTOP — cap each shot to the usable viewport (floating header + breathing
+   room) so a full-width square can never push the product below the fold; the
+   aspect-ratio still applies whenever it fits. Cover crops a sliver from the
+   sides when the cap bites — the photo stays centred. */
+@media (min-width: 961px){
+  .shot{
+    /* explicit width keeps the card full-column (auto margins or the
+       aspect-ratio/max-height pair would otherwise shrink it — the img is
+       absolutely positioned, so the box has no intrinsic size); the cap
+       clamps height and object-fit: cover absorbs the lost ratio. */
+    width: 100%;
+    max-height: calc(100vh - 140px); max-height: calc(100dvh - 140px);
+  }
+}
 
 /* MOBILE — full-bleed swipeable carousel */
 @media (max-width: 960px){
