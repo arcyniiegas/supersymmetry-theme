@@ -21,7 +21,7 @@
     "glass_blur": 30,
     "social_instagram": "https://www.instagram.com/supersymmetry.store/",
     "social_facebook": "https://www.facebook.com/supersymmetry.store",
-    "promo_badge_enabled": true,
+    "promo_badge_enabled": false,
     "promo_collection": "paskutiniai-vienetai-iki-70",
     "promo_badge_cards": false,
     "free_shipping_threshold": 100,
