@@ -190,6 +190,9 @@
     </div>
 {%- endif -%}
       {%- when 'delivery' -%}
+    {%- comment -%} Pre-order products get no courier gantt — its concrete
+      delivery dates would contradict the batch timeline. {%- endcomment -%}
+    {%- if is_preorder -%}{%- continue -%}{%- endif -%}
     <div class="delivery" {{ block.shopify_attributes }}>
       <div class="delivery__head">
         <span class="delivery__title">{{ block.settings.title }}</span>
