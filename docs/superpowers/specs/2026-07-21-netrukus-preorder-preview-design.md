@@ -10,13 +10,18 @@ visible. Fits the existing „partijos" batch narrative.
 
 1. **Mechanic: paid pre-order, native Shopify.** Full price at checkout.
    Product keeps 0 stock + *Continue selling when out of stock*. No app.
-2. **Status: date + stage per model.** Two pinned metafield definitions:
-   - `preorder.stage` — single-line text, choice list:
-     `Kirpimas · Siuvimas · Apdaila · Kokybės patikra`
-   - `preorder.expected` — single-line text (e.g. „gegužės pabaiga").
+2. **Status: date + stage per model.** Two pinned metafield definitions
+   (revised 2026-07-21 after user feedback):
+   - `preorder.stage` („Būsena") — single-line text, choice list:
+     `Gamyboje · Pagaminti · kelyje`
+   - `preorder.expected` („Numatoma gavimo data") — **date** type, picked
+     per product; rendered Lithuanian-style via `snippets/date-lt.liquid`
+     („rugpjūčio 28 d.", month names from `general.months_genitive`).
 3. **Visibility: preview page + main-grid badge.** Automated collection
    (rule: tag = `netrukus`, template suffix `preview`); tagged models also
-   show a „Netrukus" badge + status line in every product grid.
+   show a „Netrukus" badge + status line in every product grid. The
+   `preview` template is additionally assigned to the manual
+   „Ruduo-žiema 2026" collection.
 
 ## The `netrukus` tag is the single switch
 

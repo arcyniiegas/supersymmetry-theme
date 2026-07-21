@@ -10,7 +10,9 @@
 {
   "general": {
     "brand": "Supersymmetry",
-    "close": "Uždaryti"
+    "close": "Uždaryti",
+    "months_genitive": "sausio|vasario|kovo|balandžio|gegužės|birželio|liepos|rugpjūčio|rugsėjo|spalio|lapkričio|gruodžio",
+    "date_md": "{{ month }} {{ day }} d."
   },
   "nav": {
     "home": "Pradžia",
@@ -149,7 +151,7 @@
       "expected": "numatoma {{ date }}",
       "note": "Apmokama dabar — išsiųsime, kai partija bus paruošta.",
       "track_title": "Partijos eiga",
-      "stages": "Kirpimas|Siuvimas|Apdaila|Kokybės patikra",
+      "stages": "Gamyboje|Pagaminti · kelyje",
       "cart_tag": "Išankstinis užsakymas"
     }
   },

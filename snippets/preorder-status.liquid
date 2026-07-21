@@ -2,11 +2,11 @@
   preorder-status — the one pre-order status line, shared by product cards,
   the PDP buy area and the cart line so the wording never diverges.
 
-  Renders a mono line with a pulsing dot:  ● Siuvimas · numatoma gegužės pab.
+  Renders a mono line with a pulsing dot:  ● Gamyboje · numatoma rugpjūčio 28 d.
   Composed from two product metafields (pinned definitions, see spec
   docs/superpowers/specs/2026-07-21-netrukus-preorder-preview-design.md):
-    preorder.stage     — current production stage (choice list, Lithuanian)
-    preorder.expected  — free-text expected window (e.g. „gegužės pabaiga")
+    preorder.stage     — current status (choice list: Gamyboje | Pagaminti · kelyje)
+    preorder.expected  — expected-receipt DATE, formatted via date-lt („rugpjūčio 28 d.")
 
   Renders NOTHING unless the product carries the `netrukus` tag (the single
   pre-order switch) and at least one of the two fields is set.
@@ -17,14 +17,15 @@
 {%- endcomment -%}
 {%- if product.tags contains 'netrukus' -%}
   {%- assign po_stage = product.metafields.preorder.stage.value -%}
-  {%- assign po_expected = product.metafields.preorder.expected.value -%}
-  {%- if po_stage != blank or po_expected != blank -%}
+  {%- capture po_eta -%}{% render 'date-lt', date: product.metafields.preorder.expected.value %}{%- endcapture -%}
+  {%- assign po_eta = po_eta | strip -%}
+  {%- if po_stage != blank or po_eta != blank -%}
   <span class="postatus{% if class %} {{ class }}{% endif %}">
     <span class="postatus__dot" aria-hidden="true"></span>
     <span class="postatus__t">
       {%- if po_stage != blank -%}{{ po_stage }}{%- endif -%}
-      {%- if po_stage != blank and po_expected != blank %} · {% endif -%}
-      {%- if po_expected != blank -%}{{ 'product.preorder.expected' | t: date: po_expected }}{%- endif -%}
+      {%- if po_stage != blank and po_eta != blank %} · {% endif -%}
+      {%- if po_eta != blank -%}{{ 'product.preorder.expected' | t: date: po_eta }}{%- endif -%}
     </span>
   </span>
   {%- endif -%}

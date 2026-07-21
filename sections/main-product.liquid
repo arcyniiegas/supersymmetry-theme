@@ -34,6 +34,8 @@
     assign atc_label = 'product.preorder.cta' | t
   endif
 -%}
+{%- capture po_eta -%}{% render 'date-lt', date: po_expected %}{%- endcapture -%}
+{%- assign po_eta = po_eta | strip -%}
 
 <!-- ──────────── PRODUCT — sticky split ──────────── -->
 <div class="product"
@@ -93,7 +95,7 @@
       {%- comment -%} Batch-progress track. po_keys is the DATA CONTRACT with the
         preorder.stage choice list (values are Lithuanian, matched verbatim);
         po_labels is the translatable display list from locales. {%- endcomment -%}
-      {%- assign po_keys = 'Kirpimas|Siuvimas|Apdaila|Kokybės patikra' | split: '|' -%}
+      {%- assign po_keys = 'Gamyboje|Pagaminti · kelyje' | split: '|' -%}
       {%- assign po_labels = 'product.preorder.stages' | t | split: '|' -%}
       {%- assign po_idx = -1 -%}
       {%- for k in po_keys -%}{%- if k == po_stage -%}{%- assign po_idx = forloop.index0 -%}{%- endif -%}{%- endfor -%}
@@ -101,8 +103,8 @@
       <div class="potrack">
         <div class="potrack__head">
           <span class="potrack__title">{{ 'product.preorder.track_title' | t }}</span>
-          {%- if po_expected != blank -%}
-          <span class="potrack__eta">{{ 'product.preorder.expected' | t: date: po_expected }}</span>
+          {%- if po_eta != blank -%}
+          <span class="potrack__eta">{{ 'product.preorder.expected' | t: date: po_eta }}</span>
           {%- endif -%}
         </div>
         <ol class="potrack__list">
@@ -138,7 +140,7 @@
     </div>
     {% endform %}
     {%- if is_preorder -%}
-    <p class="po-note">{{ 'product.preorder.note' | t }}{% if po_expected != blank %} <b>{{ 'product.preorder.expected' | t: date: po_expected | capitalize }}.</b>{% endif %}</p>
+    <p class="po-note">{{ 'product.preorder.note' | t }}{% if po_eta != blank %} <b>{{ 'product.preorder.expected' | t: date: po_eta | capitalize }}</b>{% endif %}</p>
     {%- endif -%}
 
     {%- for block in section.blocks -%}

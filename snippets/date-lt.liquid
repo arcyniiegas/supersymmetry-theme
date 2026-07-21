@@ -1,0 +1,19 @@
+{%- comment -%}
+  date-lt — formats a date the Lithuanian editorial way: „rugpjūčio 28 d."
+  (month genitive + day). Month names and the pattern come from locales
+  (general.months_genitive, general.date_md), so the English site renders
+  "August 28" from the same call. Used for the pre-order expected date
+  (preorder-status, PDP note/track, cart line).
+
+  Params:
+    date (date) required — a date object or ISO string Liquid's date filter accepts.
+
+  Usage (capture — render output has surrounding whitespace stripped):
+    {%- capture eta -%}{% render 'date-lt', date: product.metafields.preorder.expected.value %}{%- endcapture -%}
+{%- endcomment -%}
+{%- if date != blank -%}
+  {%- assign m_idx = date | date: '%-m' | plus: 0 | minus: 1 -%}
+  {%- assign months = 'general.months_genitive' | t | split: '|' -%}
+  {%- assign day = date | date: '%-d' -%}
+  {{- 'general.date_md' | t: month: months[m_idx], day: day -}}
+{%- endif -%}
