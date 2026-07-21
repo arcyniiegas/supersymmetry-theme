@@ -27,6 +27,10 @@
   gap: var(--sp-4);
   flex-wrap: wrap;
 }
+/* The breadcrumb now rides the toolbar's left end (same row as sort/filter/
+   view). Strip the global .crumbs scaffold's own max-width/margin/top-padding
+   so it sits inline; the subbar__wrap owns the width + rhythm now. */
+.subbar .crumbs{ max-width: none; margin: 0; padding: 0; flex: 0 1 auto; }
 /* ── Filter button — opens the off-canvas drawer */
 .filterbtn{
   display: inline-flex; align-items: center; gap: 8px;
@@ -326,11 +330,13 @@
   .subbar{ top: var(--chrome-h, 64px); }
 }
 @media (max-width: 600px){
+  /* mobile: the subbar becomes the breadcrumb row again — inline sort/view are
+     hidden (sorting lives in the drawer), only the crumbs + „Filtrai" trigger
+     show, so the toolbar reads exactly as before this merge. */
   .subbar__wrap{ padding: 10px var(--gutter); flex-wrap: nowrap; }
-  /* mobile: filter + sort only — the view toggle is a desktop refinement */
-  .viewtog{ display: none; }
-  .sort__label{ display: none; } /* icon-free "Rūšiuoti" label; save width, select still speaks for itself */
-  .sort__select{ width: 96px; }
+  .subbar .crumbs{ flex: 1; }
+  .subbar__spacer,
+  .tools{ display: none; }
 }
 
 /* ── Crumbs filter trigger —「Filtrai」at the right end of the breadcrumb row.
@@ -346,5 +352,4 @@
 }
 @media (max-width: 600px){
   .crumbs__filters{ display: inline-flex; }
-  .subbar{ display: none; }
 }
