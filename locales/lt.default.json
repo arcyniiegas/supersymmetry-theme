@@ -148,7 +148,7 @@
     "rating_aria": "Įvertinimas {{ rating }} iš 5 · {{ count }} atsiliepimai",
     "reviews_count": "{{ count }} atsiliepimai",
     "preorder": {
-      "cta": "Užsakyti iš anksto",
+      "cta": "Išankstinis užsakymas",
       "expected": "Numatoma {{ date }}",
       "note": "Apmokama dabar — išsiųsime, kai partija bus paruošta.",
       "cart_tag": "Išankstinis užsakymas",
