@@ -13,20 +13,15 @@
         "stat-2": {
           "type": "stat",
           "settings": {
-            "label": "Numatomas langas",
-            "value": "Ruduo 2026"
-          }
-        },
-        "stat-3": {
-          "type": "stat",
-          "settings": {
-            "label": "Kiekis",
-            "value": "Ribotas"
+            "label": "Numatomas gavimas",
+            "value": "Rugpjūtis–spalis"
           }
         }
       },
-      "block_order": ["stat-1", "stat-2", "stat-3"],
-      "settings": {}
+      "block_order": ["stat-1", "stat-2"],
+      "settings": {
+        "eyebrow": ""
+      }
     },
     "main": {
       "type": "main-collection",
