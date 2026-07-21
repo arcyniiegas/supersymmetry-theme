@@ -16,21 +16,41 @@
           "type": "stat",
           "settings": {
             "label": "Numatomas gavimas",
-            "value": "Rugpjūtis–spalis"
+            "value": "Rugpjūtis–spalis",
+            "tabular": false
           }
         }
       },
-      "block_order": ["stat-2"],
+      "block_order": [
+        "stat-2"
+      ],
       "settings": {
-        "eyebrow": ""
+        "eyebrow": "",
+        "title_light": "Siuvama",
+        "title": "dabar.",
+        "text": "Ši partija — jau siuvama. Kiekvienas modelis kurtas individualiai, siuvama itin ribotu kiekiu; išankstinis užsakymas rezervuoja porą iš šios partijos. Apmokama dalinai — išsiunčiame sekančią dieną po produkto gavimo.",
+        "title_scale": 100,
+        "color_scheme": "",
+        "text_color": ""
       }
     },
     "main": {
       "type": "main-collection",
       "settings": {
-        "products_per_page": 24
+        "meta_label": "",
+        "products_per_page": 24,
+        "empty_eyebrow": "Kolekcija ruošiama",
+        "empty_title_light": "Poros",
+        "empty_title": "grįžta netrukus.",
+        "empty_text": "Ši kolekcija dar pildoma — užsukite po kelių dienų arba peržiūrėkite visą asortimentą.",
+        "card_name_scale": 100,
+        "color_scheme": "",
+        "text_color": ""
       }
     }
   },
-  "order": ["banner", "main"]
+  "order": [
+    "banner",
+    "main"
+  ]
 }
