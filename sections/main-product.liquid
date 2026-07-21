@@ -205,9 +205,40 @@
     </div>
 {%- endif -%}
       {%- when 'delivery' -%}
-    {%- comment -%} Pre-order products get no courier gantt — its concrete
-      delivery dates would contradict the batch timeline. {%- endcomment -%}
-    {%- if is_preorder -%}{%- continue -%}{%- endif -%}
+    {%- if is_preorder -%}
+    {%- comment -%} Pre-order variant: the courier gantt's computed dates would
+      contradict the batch timeline, so the same .gantt vocabulary tells the
+      batch story instead — states follow Būsena, the delivery row carries the
+      (coarse or exact) expected-receipt date. Static Liquid; no
+      component-delivery.js, which would overwrite the date cells. {%- endcomment -%}
+    <div class="delivery" {{ block.shopify_attributes }}>
+      <div class="delivery__head">
+        <span class="delivery__title">{{ block.settings.title }}</span>
+      </div>
+      <div class="gantt">
+        <div class="gantt__row done">
+          <span class="gantt__node"></span>
+          <span class="gantt__leg">{{ 'product.delivery.placed' | t }}</span>
+          <span class="gantt__date">{{ 'product.preorder.today' | t }}</span>
+        </div>
+        <div class="gantt__row{% if po_stage == 'Gamyboje' %} now{% else %} done{% endif %}">
+          <span class="gantt__node"></span>
+          <span class="gantt__leg">{{ 'product.preorder.gantt_production' | t }}</span>
+          <span class="gantt__date"></span>
+        </div>
+        <div class="gantt__row{% if po_stage == 'Pagaminti · kelyje' %} now{% endif %}">
+          <span class="gantt__node"></span>
+          <span class="gantt__leg">{{ 'product.delivery.transit' | t }}</span>
+          <span class="gantt__date"></span>
+        </div>
+        <div class="gantt__row">
+          <span class="gantt__node"></span>
+          <span class="gantt__leg">{{ 'product.preorder.gantt_delivery' | t }}</span>
+          <span class="gantt__date">{%- if po_eta != blank -%}{{ 'product.preorder.expected' | t: date: po_eta }}{%- endif -%}</span>
+        </div>
+      </div>
+    </div>
+    {%- else -%}
     <div class="delivery" {{ block.shopify_attributes }}>
       <div class="delivery__head">
         <span class="delivery__title">{{ block.settings.title }}</span>
@@ -237,6 +268,7 @@
       </div>
       <script src="{{ 'component-delivery.js' | asset_url }}" defer></script>
     </div>
+    {%- endif -%}
       {%- endcase -%}
     {%- endfor -%}
 

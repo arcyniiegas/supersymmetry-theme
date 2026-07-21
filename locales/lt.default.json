@@ -154,7 +154,10 @@
       "note": "Apmokama dabar — išsiųsime, kai partija bus paruošta.",
       "track_title": "Partijos eiga",
       "stages": "Gamyboje|Pagaminti · kelyje",
-      "cart_tag": "Išankstinis užsakymas"
+      "cart_tag": "Išankstinis užsakymas",
+      "today": "Šiandien",
+      "gantt_production": "Partija siuvama dirbtuvėje",
+      "gantt_delivery": "Pristatymas"
     }
   },
   "faq": {

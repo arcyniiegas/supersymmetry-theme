@@ -10,28 +10,24 @@
 {%- endcomment -%}
 <section class="pvban">
   <div class="pvban__wrap">
-    <div class="pvban__top">
-      <div class="pvban__lead">
-        {%- if section.settings.eyebrow != blank -%}
-        <div class="eyebrow-rule">{{ section.settings.eyebrow }}</div>
-        {%- endif -%}
-        <h2 class="pvban__title">
-          <span class="light">{{ section.settings.title_light | default: 'Siuvama' }}</span>
-          {{ section.settings.title | default: 'dabar.' }}
-        </h2>
-      </div>
-      <p class="pvban__text">{{ section.settings.text | default: 'Ši partija — ant darbastalio. Kiekviena pora sunumeruota, siuvama ribotu kiekiu; išankstinis užsakymas rezervuoja porą iš šios partijos. Apmokama dabar — išsiunčiame vos partijai išėjus iš dirbtuvės.' }}</p>
-    </div>
-    {%- assign stat_blocks = section.blocks | where: 'type', 'stat' -%}
-    {%- if stat_blocks.size > 0 -%}
-    <div class="pvban__stats">
-      <div class="phead__stats">
+    {%- if section.settings.eyebrow != blank -%}
+    <div class="eyebrow-rule">{{ section.settings.eyebrow }}</div>
+    {%- endif -%}
+    <div class="pvban__row">
+      <h2 class="pvban__title">
+        <span class="light">{{ section.settings.title_light | default: 'Siuvama' }}</span>
+        {{ section.settings.title | default: 'dabar.' }}
+      </h2>
+      {%- assign stat_blocks = section.blocks | where: 'type', 'stat' -%}
+      {%- if stat_blocks.size > 0 -%}
+      <div class="phead__stats pvban__stats">
         {%- for block in stat_blocks -%}
         {% render 'stat', k: block.settings.label, v: block.settings.value, tabular: block.settings.tabular, attrs: block.shopify_attributes %}
         {%- endfor -%}
       </div>
+      {%- endif -%}
     </div>
-    {%- endif -%}
+    <p class="pvban__text">{{ section.settings.text | default: 'Ši partija — ant darbastalio. Kiekviena pora sunumeruota, siuvama ribotu kiekiu; išankstinis užsakymas rezervuoja porą iš šios partijos. Apmokama dabar — išsiunčiame vos partijai išėjus iš dirbtuvės.' }}</p>
   </div>
 </section>
 {% schema %}

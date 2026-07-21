@@ -3,13 +3,6 @@
     "banner": {
       "type": "preview-banner",
       "blocks": {
-        "stat-1": {
-          "type": "stat",
-          "settings": {
-            "label": "Modeliai partijoje",
-            "value": "14"
-          }
-        },
         "stat-2": {
           "type": "stat",
           "settings": {
@@ -18,7 +11,7 @@
           }
         }
       },
-      "block_order": ["stat-1", "stat-2"],
+      "block_order": ["stat-2"],
       "settings": {
         "eyebrow": ""
       }
