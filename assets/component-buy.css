@@ -166,18 +166,6 @@
   letter-spacing: 0.02em;
   color: var(--text-muted);
 }
-/* Exchange promise — mono whisper under the size-guide link; converts size
-   hesitation at the decision point (links to the returns page) */
-.exchange-note{
-  margin: var(--sp-2) 0 0;
-  font: 500 11px/1.4 var(--font-mono);
-  letter-spacing: 0.02em;
-}
-.exchange-note a{
-  color: var(--text-muted);
-  transition: color var(--tx-fast) var(--ease);
-}
-.exchange-note a:hover{ color: var(--text); }
 /* Size-guide link — quiet, sits under the size pills */
 .sizeguide{
   margin-top: var(--sp-3);
