@@ -149,7 +149,7 @@
     "reviews_count": "{{ count }} atsiliepimai",
     "preorder": {
       "cta": "Užsakyti iš anksto",
-      "expected": "numatoma {{ date }}",
+      "expected": "Numatoma {{ date }}",
       "note": "Apmokama dabar — išsiųsime, kai partija bus paruošta.",
       "cart_tag": "Išankstinis užsakymas",
       "today": "Šiandien",

@@ -149,7 +149,7 @@
     "reviews_count": "{{ count }} reviews",
     "preorder": {
       "cta": "Pre-order",
-      "expected": "expected {{ date }}",
+      "expected": "Expected {{ date }}",
       "note": "Charged now — ships when the batch is ready.",
       "cart_tag": "Pre-order",
       "today": "Today",
