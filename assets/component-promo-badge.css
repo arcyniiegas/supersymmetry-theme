@@ -20,6 +20,41 @@
   color: var(--text-muted);
 }
 
+/* Promo accent — a deliberate, user-approved exception to the monochrome
+   palette: semi-transparent red glass pill + pulsating yellow dot. The photo
+   reads through the fill, so the badge marks without covering. */
+/* Compound selectors: this stylesheet's load order vs component-buy/card.css
+   isn't guaranteed, so the promo modifiers must outrank the base pills. */
+.price__chip.price__chip--promo,
+.card__tag.card__tag--promo{
+  display: inline-flex; align-items: center; gap: 7px;
+  background: rgba(224, 62, 43, 0.55);
+  color: #FFFFFF;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+/* PDP: the price row aligns on baselines — a padded pill "sinks" against the
+   big title; centre it on the row instead. */
+.price__chip.price__chip--promo{ align-self: center; }
+/* Card: ride the TOP of the media (the bottom slot keeps sale/new chips). */
+.card__tag.card__tag--promo{ top: var(--sp-4); bottom: auto; }
+.promo-dot{
+  flex: none; width: 6px; height: 6px; border-radius: 99px;
+  background: #FFD84D; position: relative;
+}
+.promo-dot::before{
+  content: ''; position: absolute; inset: -4px; border-radius: 99px;
+  background: #FFD84D; opacity: 0.45;
+  animation: promo-ping 2.4s ease-out infinite;
+}
+@keyframes promo-ping{
+  0%{ transform: scale(0.7); opacity: 0.5; }
+  100%{ transform: scale(1.9); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce){
+  .promo-dot::before{ animation: none; }
+}
+
 /* Cart line — pill states for the .tags row */
 .tag--promo{ background: var(--ink); color: #FFFFFF; }
 .tag--promo i{ background: var(--orange); }

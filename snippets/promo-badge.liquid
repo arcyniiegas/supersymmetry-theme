@@ -7,10 +7,11 @@
   Renders nothing unless settings.promo_badge_enabled and a promo collection
   is chosen — with defaults the storefront is untouched.
 
-  Every context reuses an existing theme idiom — no new visual vocabulary:
-  the PDP chip is the `.price__chip` pill the sale −% mark uses; the PDP note
+  The PDP chip and card chip carry the promo accent (semi-transparent red
+  glass + pulsating yellow dot — a deliberate, user-approved exception to the
+  monochrome palette, styled in component-promo-badge.css); the PDP note
   matches the `.sizes-note` register ("Liko 1 vnt."); cart states extend the
-  `.tag` pill system; the card chip is the existing `.card__tag--ink`.
+  `.tag` pill system.
 
   Params:
     product {product}  required — the product (or line_item.product) to test
@@ -43,7 +44,7 @@
   {%- case context -%}
   {%- when 'pdp-chip' -%}
     {%- if in_promo -%}
-    <span class="price__chip">{{ promo_name }}</span>
+    <span class="price__chip price__chip--promo"><i class="promo-dot" aria-hidden="true"></i>{{ promo_name }}</span>
     {%- endif -%}
   {%- when 'pdp-note' -%}
     {%- unless in_promo -%}
@@ -57,7 +58,7 @@
     {%- endif -%}
   {%- when 'card' -%}
     {%- if in_promo and settings.promo_badge_cards -%}
-    <span class="card__tag card__tag--ink">{{ promo_name }}</span>
+    <span class="card__tag card__tag--promo"><i class="promo-dot" aria-hidden="true"></i>{{ promo_name }}</span>
     {%- endif -%}
   {%- endcase -%}
 {%- endif -%}
