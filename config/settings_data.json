@@ -21,9 +21,10 @@
     "glass_blur": 30,
     "social_instagram": "https://www.instagram.com/supersymmetry.store/",
     "social_facebook": "https://www.facebook.com/supersymmetry.store",
-    "promo_badge_enabled": false,
+    "promo_badge_enabled": true,
     "promo_collection": "paskutiniai-vienetai-iki-70",
-    "promo_badge_cards": false,
+    "promo_name": "1+1",
+    "promo_badge_cards": true,
     "free_shipping_threshold": 100,
     "utility_left_message": "Parduotuvė atidaryta · siunčiame iš Vilniaus",
     "atelier_hours": "II–V 11:00–18:00 · VI–VII 12:00–17:00",
@@ -44,6 +45,14 @@
         "type": "shopify://apps/essential-preorder/blocks/app-embed/bb7e7a06-2a82-4e7d-8984-c3918deb1c2a",
         "disabled": false,
         "settings": {}
+      },
+      "6464650315188175684": {
+        "type": "shopify://apps/dibs/blocks/lb-ordereasy-embed/7cc74442-1b61-4b87-afed-944e0def999c",
+        "disabled": false,
+        "settings": {
+          "ordereasy_custom_script": "<script></script>",
+          "disable_form_product_validation": false
+        }
       }
     },
     "color_schemes": {
@@ -80,10 +89,6 @@
           "button_label": "#0a0a0a"
         }
       }
-    },
-    "promo_badge_enabled": true,
-    "promo_collection": "paskutiniai-vienetai-iki-70",
-    "promo_name": "1+1",
-    "promo_badge_cards": true
+    }
   }
 }

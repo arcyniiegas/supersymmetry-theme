@@ -77,6 +77,10 @@
             "more_label": "Naujienos",
             "more_link": "shopify://collections/nuo-to-paties-podiumo"
           }
+        },
+        "dibs_lb_ordereasy_product_block_8hV4H4": {
+          "type": "shopify://apps/dibs/blocks/lb-ordereasy-product-block/7cc74442-1b61-4b87-afed-944e0def999c",
+          "settings": {}
         }
       },
       "block_order": [
@@ -87,11 +91,13 @@
         "story",
         "care",
         "reviews",
-        "related"
+        "related",
+        "dibs_lb_ordereasy_product_block_8hV4H4"
       ],
       "settings": {
         "atc_label": "Į krepšelį",
         "show_payment_button": true,
+        "payments_note": "",
         "title_scale": 100,
         "color_scheme": "",
         "text_color": ""
