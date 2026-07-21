@@ -73,7 +73,6 @@
   },
   "product": {
     "promo": {
-      "not_included": "Not included in the “{{ name }}” offer",
       "not_included_short": "Not in the offer"
     },
     "delivery": {

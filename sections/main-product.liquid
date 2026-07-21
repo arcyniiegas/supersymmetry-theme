@@ -85,7 +85,6 @@
     {%- endif -%}
 
     <div class="sizeblock">
-      {% render 'promo-badge', product: product, context: 'pdp-note' %}
       <div class="sizes" role="radiogroup" aria-label="{{ 'accessibility.size_eu' | t }}">
 {%- if product.variants.size > 0 and product.has_only_default_variant == false -%}
 {%- for variant in product.variants -%}

@@ -10,21 +10,18 @@
   The card mark is a pulsating system-green dot + mono label (the one
   deliberate, user-approved colour exception, styled in
   component-promo-badge.css) — by user decision it renders in the collection
-  view only, never on the PDP price row. The PDP note matches the
-  `.sizes-note` register ("Liko 1 vnt."); cart states extend the `.tag`
-  pill system.
+  view only, never on the PDP (the green mark is signal enough; the PDP
+  shows nothing for non-participating products). Cart states extend the
+  `.tag` pill system.
 
   Params:
     product {product}  required — the product (or line_item.product) to test
     context {string}   required — where the badge renders:
-                        'pdp-note' → quiet note above the size grid
-                                     (non-participating only)
                         'cart'     → pill for the cart line .tags row, both states
                         'card'     → collection-card mark, participating only;
                                      additionally gated by settings.promo_badge_cards
 
   Usage:
-    {% render 'promo-badge', product: product, context: 'pdp-note' %}
     {% render 'promo-badge', product: item.product, context: 'cart' %}
     {% render 'promo-badge', product: product, context: 'card' %}
 {%- endcomment -%}
@@ -40,10 +37,6 @@
     assign promo_name = settings.promo_name | default: '1+1'
   -%}
   {%- case context -%}
-  {%- when 'pdp-note' -%}
-    {%- unless in_promo -%}
-    <p class="promo-note">{{ 'product.promo.not_included' | t: name: promo_name }}</p>
-    {%- endunless -%}
   {%- when 'cart' -%}
     {%- if in_promo -%}
     <span class="tag tag--promo"><i></i>{{ promo_name }}</span>

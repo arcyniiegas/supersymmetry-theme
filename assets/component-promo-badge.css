@@ -10,16 +10,6 @@
    this component lives here.
    ──────────────────────────────────────────────────────────── */
 
-/* Non-participating note — sits above the size grid, in the same
-   register as .sizes-note ("Liko 1 vnt."): quiet machine truth,
-   mono, muted. */
-.promo-note{
-  margin: 0 0 var(--sp-3);
-  font: 500 11px/1 var(--font-mono);
-  letter-spacing: 0.02em;
-  color: var(--text-muted);
-}
-
 /* Promo mark — collection cards only (user decision: never on the PDP).
    No pill, no fill: just the label with a pulsating green dot (the
    system-status idiom; green #34C759 is the one deliberate, user-approved
