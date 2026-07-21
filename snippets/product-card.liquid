@@ -35,7 +35,7 @@
       {%- if promo_chip != blank -%}
     {{ promo_chip }}
       {%- elsif po_stage != blank or po_expected != blank -%}
-    <span class="card__tag card__tag--white">{% if po_stage == 'Pagaminti · kelyje' %}{{ 'product.preorder.badge_transit' | t }}{% else %}{{ 'product.preorder.badge_production' | t }}{% endif %}</span>
+    <span class="card__tag card__tag--white card__tag--po"><i class="card__tag-dot" aria-hidden="true"></i>{% if po_stage == 'Pagaminti · kelyje' %}{{ 'product.preorder.badge_transit' | t }}{% else %}{{ 'product.preorder.badge_production' | t }}{% endif %}</span>
       {%- elsif product.tags contains 'naujiena' or product.tags contains 'Naujiena' or product.tags contains 'new' or product.tags contains 'New' -%}
     <span class="card__tag card__tag--white">{{ 'product.new' | t }}</span>
       {%- endif -%}

@@ -68,6 +68,28 @@
 .card__tag--orange{ background: var(--orange); color: var(--bg); }
 .card__tag--white{ background: #FFFFFF; color: var(--text); }
 .card__tag--ink{ background: var(--ink); color: #FFFFFF; }
+/* Pre-order badge („Gamyboje" / „Kelyje") — rides the TOP of the media (the
+   bottom slot stays for sale/new chips) with a quiet live-status ping. */
+.card__tag--po{
+  top: var(--sp-4); bottom: auto;
+  display: inline-flex; align-items: center; gap: 7px;
+}
+.card__tag-dot{
+  width: 6px; height: 6px; border-radius: 99px;
+  background: var(--ink); position: relative; flex: none;
+}
+.card__tag-dot::before{
+  content: ''; position: absolute; inset: -4px; border-radius: 99px;
+  background: var(--ink); opacity: 0.28;
+  animation: card-tag-ping 2.4s ease-out infinite;
+}
+@keyframes card-tag-ping{
+  0%{ transform: scale(0.7); opacity: 0.35; }
+  100%{ transform: scale(1.9); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce){
+  .card__tag-dot::before{ animation: none; }
+}
 .card__swatches{
   position: absolute; bottom: var(--sp-4); right: var(--sp-4);
   display: flex; gap: 4px;
