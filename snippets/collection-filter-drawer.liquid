@@ -10,6 +10,23 @@
       </div>
       <div class="fdrawer__body">
 
+    {%- comment -%} Sorting lives in the drawer too — on mobile the toolbar is
+      hidden, so this is the only sort surface there. Buttons carry data-sort;
+      collection.js applies it onto the CURRENT url (filters preserved) and the
+      body swap refreshes the pressed states. {%- endcomment -%}
+    {%- if collection.sort_options.size > 0 -%}
+    <details class="facet" open>
+      <summary>{{ 'collection.sort' | t }} <span class="meta"></span></summary>
+      <div class="facet__body">
+        <div class="sortlist" role="group" aria-label="{{ 'collection.sort' | t }}">
+          {%- for opt in collection.sort_options -%}
+          <button class="sortopt" type="button" aria-pressed="{% if opt.value == collection.sort_by %}true{% else %}false{% endif %}" data-sort="{{ opt.value }}">{{ opt.name }}</button>
+          {%- endfor -%}
+        </div>
+      </div>
+    </details>
+    {%- endif -%}
+
     {%- assign rendered_filter = false -%}
     {%- for f in collection.filters -%}
       {%- assign flabel = f.label | downcase -%}

@@ -332,3 +332,19 @@
   .sort__label{ display: none; } /* icon-free "Rūšiuoti" label; save width, select still speaks for itself */
   .sort__select{ width: 96px; }
 }
+
+/* ── Crumbs filter trigger —「Filtrai」at the right end of the breadcrumb row.
+   Mobile-only: ≤600px it replaces the whole toolbar (the drawer carries
+   sorting too), while desktop keeps the .subbar as the filter surface. ── */
+.crumbs__filters{
+  margin-left: auto;
+  display: none;
+  align-items: center; gap: 8px;
+  font: inherit; letter-spacing: inherit; text-transform: inherit;
+  color: var(--text);
+  padding: 12px 0 12px 12px; margin-block: -12px; /* 44px tap target, same visual row */
+}
+@media (max-width: 600px){
+  .crumbs__filters{ display: inline-flex; }
+  .subbar{ display: none; }
+}

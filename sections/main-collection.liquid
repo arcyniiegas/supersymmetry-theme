@@ -2,7 +2,15 @@
 {{ 'component-filter-drawer.css' | asset_url | stylesheet_tag }}
 {% render 'section-appearance', section: section %}
 
-<!-- ──────────── BREADCRUMBS ──────────── -->
+{%- comment -%} Active-filter count — needed by the crumbs trigger, the toolbar
+  button and the drawer. {%- endcomment -%}
+{%- assign active_count = 0 -%}
+{%- for f in collection.filters -%}
+  {%- assign active_count = active_count | plus: f.active_values.size -%}
+  {%- if f.type == 'price_range' and f.min_value.value != blank -%}{%- assign active_count = active_count | plus: 1 -%}{%- endif -%}
+{%- endfor -%}
+
+<!-- ──────────── BREADCRUMBS (+ mobile filter trigger, right end) ──────────── -->
 <nav class="crumbs" aria-label="{{ 'accessibility.breadcrumb' | t }}">
   <a href="{{ routes.root_url }}">{{ 'nav.home' | t }}</a>
   <span class="sep">/</span>
@@ -11,17 +19,13 @@
   <span class="sep">/</span>
   <span>{{ section.settings.meta_label }}</span>
   {%- endif -%}
+  <button type="button" class="crumbs__filters" data-drawer-open="filterDrawer" aria-haspopup="dialog" aria-controls="filterDrawer" aria-expanded="false">
+    {{ 'collection.filters' | t }}{% if active_count > 0 %} <span class="filterbtn__n">{{ active_count }}</span>{% endif %}
+  </button>
 </nav>
 
 <!-- ──────────── PAGE HEAD (a11y/SEO heading only; the visible title is the breadcrumb) ──────────── -->
 <h1 class="visually-hidden">{{ collection.title | default: 'Visa kolekcija' }}</h1>
-
-{%- comment -%} Active-filter count — needed by both the toolbar button and the drawer. {%- endcomment -%}
-{%- assign active_count = 0 -%}
-{%- for f in collection.filters -%}
-  {%- assign active_count = active_count | plus: f.active_values.size -%}
-  {%- if f.type == 'price_range' and f.min_value.value != blank -%}{%- assign active_count = active_count | plus: 1 -%}{%- endif -%}
-{%- endfor -%}
 
 <form method="get" action="{{ collection.url | default: routes.root_url }}">
 

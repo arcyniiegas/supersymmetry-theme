@@ -280,3 +280,23 @@ body.fdrawer-open{ overflow: hidden; }
 }
 .price__bar .knob.lo{ left: 18%; transform: translateX(-50%); }
 .price__bar .knob.hi{ left: 92%; transform: translateX(-50%); }
+
+/* ── Sort options (drawer) — plain rows in the .opt voice; the applied row
+   speaks with a leading ink dot. Buttons carry data-sort → collection.js. ── */
+.sortlist{ display: grid; }
+.sortopt{
+  display: flex; align-items: center; gap: 10px;
+  padding: 7px 0;
+  font: 400 14px/1.2 var(--font-sans); letter-spacing: -0.005em;
+  color: var(--text-muted);
+  text-align: left; cursor: pointer;
+  transition: color var(--tx-fast) var(--ease);
+}
+.sortopt::before{
+  content: ''; width: 6px; height: 6px; border-radius: 99px;
+  background: var(--hairline); flex: none;
+  transition: background var(--tx-fast) var(--ease);
+}
+.sortopt:hover{ color: var(--text); }
+.sortopt[aria-pressed="true"]{ color: var(--text); font-weight: 500; }
+.sortopt[aria-pressed="true"]::before{ background: var(--ink); }

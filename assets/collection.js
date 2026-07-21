@@ -48,16 +48,17 @@
     // "Show N" button label (keep the element so its close handler survives)
     var show = liveDrawer('.fdrawer__foot .btn'), nshow = doc.querySelector('.fdrawer__foot .btn');
     if (show && nshow) show.textContent = nshow.textContent;
-    // Toolbar filter-count badge (keep #filterOpen so its drawer-open handler survives)
-    var openBtn = document.querySelector('#filterOpen');
-    if (openBtn) {
+    // Filter-count badges on every drawer trigger (toolbar #filterOpen + the
+    // crumbs .crumbs__filters). The triggers themselves are kept so their
+    // drawer-open handlers survive; only the badge text syncs.
+    var nextBadge = doc.querySelector('#filterOpen .filterbtn__n') || doc.querySelector('.crumbs__filters .filterbtn__n');
+    Array.prototype.forEach.call(document.querySelectorAll('[data-drawer-open="filterDrawer"]'), function (openBtn) {
       var liveBadge = openBtn.querySelector('.filterbtn__n');
-      var nextBadge = doc.querySelector('#filterOpen .filterbtn__n');
       if (nextBadge) {
         if (liveBadge) liveBadge.textContent = nextBadge.textContent;
         else { var s = document.createElement('span'); s.className = 'filterbtn__n'; s.textContent = nextBadge.textContent; openBtn.appendChild(s); }
       } else if (liveBadge) { liveBadge.remove(); }
-    }
+    });
     // Keep the sort control in sync with the applied URL
     var ls = document.querySelector('#sortSel'), ns = doc.querySelector('#sortSel');
     if (ls && ns) ls.value = ns.value;
@@ -86,6 +87,14 @@
     if (facet) {
       var to = facet.getAttribute('data-filter-url');
       if (to) { e.preventDefault(); applyUrl(to); }
+      return;
+    }
+    /* Drawer sort options — sort_by onto the CURRENT url keeps active filters. */
+    var sortBtn = e.target.closest('[data-sort]');
+    if (sortBtn) {
+      var su = new URL(window.location.href);
+      su.searchParams.set('sort_by', sortBtn.getAttribute('data-sort'));
+      applyUrl(su.toString());
       return;
     }
     var link = e.target.closest('.active__chip, .active__clear, .fdrawer__reset');
