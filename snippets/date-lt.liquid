@@ -1,19 +1,36 @@
 {%- comment -%}
-  date-lt — formats a date the Lithuanian editorial way: „rugpjūčio 28 d."
-  (month genitive + day). Month names and the pattern come from locales
-  (general.months_genitive, general.date_md), so the English site renders
-  "August 28" from the same call. Used for the pre-order expected date
+  date-lt — formats a date the Lithuanian editorial way. Month names and the
+  patterns come from locales (general.months_genitive, general.date_md,
+  general.month_periods, general.date_coarse), so the English site renders
+  correctly from the same call. Used for the pre-order expected date
   (preorder-status, PDP note/track, cart line).
 
+  Two granularities:
+    exact  (default)      → „rugpjūčio 28 d."  /  "August 28"
+    coarse (coarse: true) → „rugsėjo viduryje" /  "mid September" — the picked
+      day maps to a third of the month (1–10 pradžioje · 11–20 viduryje ·
+      21–31 pabaigoje). Used while Būsena = Gamyboje, so a product still in
+      production never promises a false-precision date.
+
   Params:
-    date (date) required — a date object or ISO string Liquid's date filter accepts.
+    date   (date)    required — a date object or ISO string the date filter accepts.
+    coarse (boolean) optional — month + beginning/middle/end instead of the exact day.
 
   Usage (capture — render output has surrounding whitespace stripped):
-    {%- capture eta -%}{% render 'date-lt', date: product.metafields.preorder.expected.value %}{%- endcapture -%}
+    {%- capture eta -%}{% render 'date-lt', date: d, coarse: true %}{%- endcapture -%}
 {%- endcomment -%}
 {%- if date != blank -%}
   {%- assign m_idx = date | date: '%-m' | plus: 0 | minus: 1 -%}
   {%- assign months = 'general.months_genitive' | t | split: '|' -%}
-  {%- assign day = date | date: '%-d' -%}
-  {{- 'general.date_md' | t: month: months[m_idx], day: day -}}
+  {%- if coarse -%}
+    {%- assign day_n = date | date: '%-d' | plus: 0 -%}
+    {%- assign periods = 'general.month_periods' | t | split: '|' -%}
+    {%- if day_n <= 10 -%}{%- assign p = periods[0] -%}
+    {%- elsif day_n <= 20 -%}{%- assign p = periods[1] -%}
+    {%- else -%}{%- assign p = periods[2] -%}{%- endif -%}
+    {{- 'general.date_coarse' | t: month: months[m_idx], period: p -}}
+  {%- else -%}
+    {%- assign day = date | date: '%-d' -%}
+    {{- 'general.date_md' | t: month: months[m_idx], day: day -}}
+  {%- endif -%}
 {%- endif -%}

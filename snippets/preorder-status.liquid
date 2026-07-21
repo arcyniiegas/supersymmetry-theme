@@ -17,7 +17,11 @@
 {%- endcomment -%}
 {%- if product.tags contains 'netrukus' -%}
   {%- assign po_stage = product.metafields.preorder.stage.value -%}
-  {%- capture po_eta -%}{% render 'date-lt', date: product.metafields.preorder.expected.value %}{%- endcapture -%}
+  {%- comment -%} Still in production → coarse eta (month + third), never a
+    false-precision day. Exact date appears once Būsena = Pagaminti · kelyje. {%- endcomment -%}
+  {%- assign po_coarse = false -%}
+  {%- if po_stage == 'Gamyboje' -%}{%- assign po_coarse = true -%}{%- endif -%}
+  {%- capture po_eta -%}{% render 'date-lt', date: product.metafields.preorder.expected.value, coarse: po_coarse %}{%- endcapture -%}
   {%- assign po_eta = po_eta | strip -%}
   {%- if po_stage != blank or po_eta != blank -%}
   <span class="postatus{% if class %} {{ class }}{% endif %}">

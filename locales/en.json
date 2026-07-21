@@ -12,7 +12,9 @@
     "brand": "Supersymmetry",
     "close": "Close",
     "months_genitive": "January|February|March|April|May|June|July|August|September|October|November|December",
-    "date_md": "{{ month }} {{ day }}"
+    "date_md": "{{ month }} {{ day }}",
+    "month_periods": "early|mid|late",
+    "date_coarse": "{{ period }} {{ month }}"
   },
   "nav": {
     "home": "Home",

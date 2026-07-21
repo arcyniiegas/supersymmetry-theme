@@ -12,7 +12,9 @@
     "brand": "Supersymmetry",
     "close": "Uždaryti",
     "months_genitive": "sausio|vasario|kovo|balandžio|gegužės|birželio|liepos|rugpjūčio|rugsėjo|spalio|lapkričio|gruodžio",
-    "date_md": "{{ month }} {{ day }} d."
+    "date_md": "{{ month }} {{ day }} d.",
+    "month_periods": "pradžioje|viduryje|pabaigoje",
+    "date_coarse": "{{ month }} {{ period }}"
   },
   "nav": {
     "home": "Pradžia",

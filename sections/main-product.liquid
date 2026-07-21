@@ -33,8 +33,16 @@
   if is_preorder
     assign atc_label = 'product.preorder.cta' | t
   endif
+  comment
+    In production → coarse eta (month + third: pradžioje/viduryje/pabaigoje);
+    the exact day only once Būsena = Pagaminti · kelyje.
+  endcomment
+  assign po_coarse = false
+  if po_stage == 'Gamyboje'
+    assign po_coarse = true
+  endif
 -%}
-{%- capture po_eta -%}{% render 'date-lt', date: po_expected %}{%- endcapture -%}
+{%- capture po_eta -%}{% render 'date-lt', date: po_expected, coarse: po_coarse %}{%- endcapture -%}
 {%- assign po_eta = po_eta | strip -%}
 
 <!-- ──────────── PRODUCT — sticky split ──────────── -->
@@ -140,7 +148,12 @@
     </div>
     {% endform %}
     {%- if is_preorder -%}
-    <p class="po-note">{{ 'product.preorder.note' | t }}{% if po_eta != blank %} <b>{{ 'product.preorder.expected' | t: date: po_eta | capitalize }}</b>{% endif %}</p>
+    {%- comment -%} Close the eta sentence unless the date pattern already
+      ends with a period (the LT exact form ends in „d."). {%- endcomment -%}
+    {%- assign po_dot = '.' -%}
+    {%- assign po_last = po_eta | slice: -1 -%}
+    {%- if po_last == '.' -%}{%- assign po_dot = '' -%}{%- endif -%}
+    <p class="po-note">{{ 'product.preorder.note' | t }}{% if po_eta != blank %} <b>{{ 'product.preorder.expected' | t: date: po_eta | capitalize }}{{ po_dot }}</b>{% endif %}</p>
     {%- endif -%}
 
     {%- for block in section.blocks -%}
