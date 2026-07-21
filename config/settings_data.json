@@ -23,7 +23,7 @@
     "social_facebook": "https://www.facebook.com/supersymmetry.store",
     "promo_badge_enabled": true,
     "promo_collection": "paskutiniai-vienetai-iki-70",
-    "promo_badge_cards": true,
+    "promo_badge_cards": false,
     "free_shipping_threshold": 100,
     "utility_left_message": "Parduotuvė atidaryta · siunčiame iš Vilniaus",
     "atelier_hours": "II–V 11:00–18:00 · VI–VII 12:00–17:00",
