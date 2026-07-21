@@ -20,13 +20,14 @@
   color: var(--text-muted);
 }
 
-/* Promo mark — no pill, no fill: just the label with a pulsating green dot
-   (the system-status idiom; green #34C759 is the one deliberate, user-approved
-   colour exception here). Nothing covers the photo.
-   Compound selectors: this stylesheet's load order vs component-buy/card.css
-   isn't guaranteed, so the promo modifiers must outrank the base pills. */
-.price__chip.price__chip--promo,
+/* Promo mark — collection cards only (user decision: never on the PDP).
+   No pill, no fill: just the label with a pulsating green dot (the
+   system-status idiom; green #34C759 is the one deliberate, user-approved
+   colour exception here). Nothing covers the photo. The compound selector
+   outranks the base .card__tag pill regardless of stylesheet load order;
+   it rides the TOP of the media (the bottom slot keeps sale/new chips). */
 .card__tag.card__tag--promo{
+  top: var(--sp-4); bottom: auto;
   display: inline-flex; align-items: center; gap: 7px;
   padding: 0;
   background: none;
@@ -37,10 +38,6 @@
   font: 500 11px/1 var(--font-mono);
   letter-spacing: 0.04em;
 }
-/* PDP: the price row aligns on baselines — centre the mark on the row instead. */
-.price__chip.price__chip--promo{ align-self: center; }
-/* Card: ride the TOP of the media (the bottom slot keeps sale/new chips). */
-.card__tag.card__tag--promo{ top: var(--sp-4); bottom: auto; }
 .promo-dot{
   flex: none; width: 7px; height: 7px; border-radius: 99px;
   background: #34C759; position: relative;

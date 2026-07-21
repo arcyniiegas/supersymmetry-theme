@@ -74,7 +74,6 @@
       </h1>
       <span class="info__sep" aria-hidden="true">·</span>
       {% render 'price', product: product %}
-      {% render 'promo-badge', product: product, context: 'pdp-chip' %}
     </div>
 
     {%- capture pr_stars -%}{% render 'product-rating', product: product, href: '#atsiliepimai', show_score: true, show_count: true, count_style: 'words' %}{%- endcapture -%}

@@ -7,25 +7,23 @@
   Renders nothing unless settings.promo_badge_enabled and a promo collection
   is chosen — with defaults the storefront is untouched.
 
-  The PDP chip and card chip carry the promo accent (semi-transparent red
-  glass + pulsating yellow dot — a deliberate, user-approved exception to the
-  monochrome palette, styled in component-promo-badge.css); the PDP note
-  matches the `.sizes-note` register ("Liko 1 vnt."); cart states extend the
-  `.tag` pill system.
+  The card mark is a pulsating system-green dot + mono label (the one
+  deliberate, user-approved colour exception, styled in
+  component-promo-badge.css) — by user decision it renders in the collection
+  view only, never on the PDP price row. The PDP note matches the
+  `.sizes-note` register ("Liko 1 vnt."); cart states extend the `.tag`
+  pill system.
 
   Params:
     product {product}  required — the product (or line_item.product) to test
     context {string}   required — where the badge renders:
-                        'pdp-chip' → price-row chip (participating only);
-                                     render beside {% render 'price' %}
-                        'pdp-note' → quiet right-hand note on the size-guide
-                                     row (non-participating only)
+                        'pdp-note' → quiet note above the size grid
+                                     (non-participating only)
                         'cart'     → pill for the cart line .tags row, both states
-                        'card'     → collection-card chip, participating only;
+                        'card'     → collection-card mark, participating only;
                                      additionally gated by settings.promo_badge_cards
 
   Usage:
-    {% render 'promo-badge', product: product, context: 'pdp-chip' %}
     {% render 'promo-badge', product: product, context: 'pdp-note' %}
     {% render 'promo-badge', product: item.product, context: 'cart' %}
     {% render 'promo-badge', product: product, context: 'card' %}
@@ -42,10 +40,6 @@
     assign promo_name = settings.promo_name | default: '1+1'
   -%}
   {%- case context -%}
-  {%- when 'pdp-chip' -%}
-    {%- if in_promo -%}
-    <span class="price__chip price__chip--promo"><i class="promo-dot" aria-hidden="true"></i>{{ promo_name }}</span>
-    {%- endif -%}
   {%- when 'pdp-note' -%}
     {%- unless in_promo -%}
     <p class="promo-note">{{ 'product.promo.not_included' | t: name: promo_name }}</p>
