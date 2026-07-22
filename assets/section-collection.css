@@ -325,10 +325,6 @@
 .loadmore__pagination .deco{ color: var(--soft); }
 .loadmore__pagination .prev, .loadmore__pagination .next{ color: var(--text); padding: 0 14px; }
 
-/* Mobile chrome */
-@media (max-width: 960px){
-  .subbar{ top: var(--chrome-h, 64px); }
-}
 @media (max-width: 600px){
   /* mobile: the subbar becomes the breadcrumb row again — inline sort/view are
      hidden (sorting lives in the drawer), only the crumbs + „Filtrai" trigger
