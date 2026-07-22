@@ -116,11 +116,11 @@
         "card_image_focus": "center",
         "title_light": "Visi",
         "title": "aksesuarai.",
-        "intro": "Kiekvienas rinkinys — atskira partija, ribotas porų skaičius, <b>vienas modelis, daug niuansų</b>. Rinkis pagal nuotaiką arba pagal sezoną.",
-        "band_eyebrow": "Kaip skaityti partijas",
-        "band_title_light": "Vienas modelis.",
-        "band_title": "Daug partijų.",
-        "band_text": "Negaminame visko iš karto. Kas kelis mėnesius išleidžiame naują partiją — ribotą, sunumeruotą, dažnai šiek tiek kitokią. Kai partija išparduota, ji keliauja į archyvą. Štai kodėl kiekviena pora turi savo numerį."
+        "intro": "",
+        "band_eyebrow": "",
+        "band_title_light": "",
+        "band_title": "",
+        "band_text": ""
       }
     }
   },
