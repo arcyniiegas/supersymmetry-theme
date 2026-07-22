@@ -41,18 +41,10 @@
         "disabled": false,
         "settings": {}
       },
-      "15393088698543645836": {
-        "type": "shopify://apps/essential-preorder/blocks/app-embed/bb7e7a06-2a82-4e7d-8984-c3918deb1c2a",
+      "1513253815146976218": {
+        "type": "shopify://apps/omnisend-email-marketing-sms/blocks/app-embed/44704aa2-794f-4c5d-8c8e-039c841158e9",
         "disabled": false,
         "settings": {}
-      },
-      "6464650315188175684": {
-        "type": "shopify://apps/dibs/blocks/lb-ordereasy-embed/7cc74442-1b61-4b87-afed-944e0def999c",
-        "disabled": false,
-        "settings": {
-          "ordereasy_custom_script": "<script></script>",
-          "disable_form_product_validation": false
-        }
       }
     },
     "color_schemes": {
