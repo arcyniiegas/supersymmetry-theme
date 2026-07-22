@@ -1,0 +1,78 @@
+{{ 'section-review-invite.css' | asset_url | stylesheet_tag }}
+{% render 'section-appearance', section: section %}
+{%- comment -%}
+  Review invite — the landing page a physical package-insert card's QR points
+  to. Explains the store-credit-for-review offer (two tiers), how to claim it,
+  the legally-required incentive disclosure (EU Omnibus / Judge.me policy), and
+  mounts the Judge.me shop-review widget. Assigned via templates/page.atsiliepimai.json.
+{%- endcomment -%}
+<section class="rinv">
+
+  <header class="rinv__head">
+    <div class="eyebrow-rule">{{ section.settings.eyebrow | default: 'Jūsų nuomonė' }}</div>
+    <h1 class="rinv__title">
+      <span class="light">{{ section.settings.title_light | default: 'Palikite atsiliepimą,' }}</span>
+      {{ section.settings.title | default: 'gaukite kredito.' }}
+    </h1>
+    <p class="rinv__lede">{{ section.settings.lede | default: 'Jūsų sąžiningas atsiliepimas padeda kitiems pirkėjams — ir grįžta pas jus parduotuvės kreditu kitam pirkiniui.' }}</p>
+  </header>
+
+  <div class="rinv__tiers">
+    <article class="rinv__tier">
+      <span class="rinv__pct">{{ section.settings.tier1_pct | default: '5%' }}</span>
+      <span class="rinv__tier-k">{{ section.settings.tier1_label | default: 'parduotuvės kredito' }}</span>
+      <p class="rinv__tier-b">{{ section.settings.tier1_note | default: 'už sąžiningą atsiliepimą apie pirkinį ir aptarnavimą.' }}</p>
+    </article>
+    <article class="rinv__tier rinv__tier--hi">
+      <span class="rinv__pct">{{ section.settings.tier2_pct | default: '7%' }}</span>
+      <span class="rinv__tier-k">{{ section.settings.tier2_label | default: 'parduotuvės kredito' }}</span>
+      <p class="rinv__tier-b">{{ section.settings.tier2_note | default: 'kai prie atsiliepimo pridedate nuotrauką su pora.' }}</p>
+    </article>
+  </div>
+
+  <ol class="rinv__steps">
+    <li class="rinv__step"><span class="rinv__num">01</span><p>{{ section.settings.step1 | default: 'Palikite atsiliepimą žemiau — tuo pačiu el. paštu, kuriuo pirkote.' }}</p></li>
+    <li class="rinv__step"><span class="rinv__num">02</span><p>{{ section.settings.step2 | default: 'Patvirtiname atsiliepimą (paprastai per 1–2 darbo dienas).' }}</p></li>
+    <li class="rinv__step"><span class="rinv__num">03</span><p>{{ section.settings.step3 | default: 'Įskaitome kreditą į jūsų paskyrą — panaudokite kitam užsakymui.' }}</p></li>
+  </ol>
+
+  <div class="rinv__widget">
+    {%- comment -%} Judge.me shop-review widget mount. Paste your store's shop
+      review widget code here from Judge.me → Settings → Widgets (Shop reviews).
+      The app embed (already enabled) hydrates it. {%- endcomment -%}
+    {{ shop.metafields.judgeme.widget }}
+    <div class="jdgm-widget jdgm-all-reviews-widget" data-auto-install="false"></div>
+  </div>
+
+  <p class="rinv__legal">{{ section.settings.legal | default: 'Kreditą skiriame už bet kokį sąžiningą atsiliepimą, nepriklausomai nuo įvertinimo. Atsiliepimai gali būti skatinami. Vienas kreditas vienam patvirtintam užsakymui.' }}</p>
+
+</section>
+{% schema %}
+{
+  "name": "Review invite",
+  "settings": [
+    { "type": "header", "content": "Head" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Jūsų nuomonė" },
+    { "type": "text", "id": "title_light", "label": "Title (light part)", "default": "Palikite atsiliepimą," },
+    { "type": "text", "id": "title", "label": "Title (bold part)", "default": "gaukite kredito." },
+    { "type": "textarea", "id": "lede", "label": "Lede", "default": "Jūsų sąžiningas atsiliepimas padeda kitiems pirkėjams — ir grįžta pas jus parduotuvės kreditu kitam pirkiniui." },
+    { "type": "header", "content": "Offer tiers" },
+    { "type": "text", "id": "tier1_pct", "label": "Tier 1 percent", "default": "5%" },
+    { "type": "text", "id": "tier1_label", "label": "Tier 1 label", "default": "parduotuvės kredito" },
+    { "type": "text", "id": "tier1_note", "label": "Tier 1 note", "default": "už sąžiningą atsiliepimą apie pirkinį ir aptarnavimą." },
+    { "type": "text", "id": "tier2_pct", "label": "Tier 2 percent", "default": "7%" },
+    { "type": "text", "id": "tier2_label", "label": "Tier 2 label", "default": "parduotuvės kredito" },
+    { "type": "text", "id": "tier2_note", "label": "Tier 2 note", "default": "kai prie atsiliepimo pridedate nuotrauką su pora." },
+    { "type": "header", "content": "Steps" },
+    { "type": "text", "id": "step1", "label": "Step 1", "default": "Palikite atsiliepimą žemiau — tuo pačiu el. paštu, kuriuo pirkote." },
+    { "type": "text", "id": "step2", "label": "Step 2", "default": "Patvirtiname atsiliepimą (paprastai per 1–2 darbo dienas)." },
+    { "type": "text", "id": "step3", "label": "Step 3", "default": "Įskaitome kreditą į jūsų paskyrą — panaudokite kitam užsakymui." },
+    { "type": "header", "content": "Legal" },
+    { "type": "textarea", "id": "legal", "label": "Disclosure", "info": "Required incentive disclosure (EU Omnibus / Judge.me). Keep the „bet kokį sąžiningą atsiliepimą, nepriklausomai nuo įvertinimo“ meaning.", "default": "Kreditą skiriame už bet kokį sąžiningą atsiliepimą, nepriklausomai nuo įvertinimo. Atsiliepimai gali būti skatinami. Vienas kreditas vienam patvirtintam užsakymui." },
+    { "type": "header", "content": "Appearance" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Colour scheme", "default": "scheme-1" },
+    { "type": "color", "id": "text_color", "label": "Text colour" }
+  ],
+  "presets": [{ "name": "Review invite" }]
+}
+{% endschema %}
