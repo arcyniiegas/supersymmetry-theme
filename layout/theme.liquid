@@ -24,8 +24,24 @@
   {{ content_for_header }}
   {%- assign brand = settings.brand_name | default: shop.name -%}
   <title>{% if page_title contains brand or page_title == blank %}{{ page_title | default: brand }}{% else %}{{ page_title }} · {{ brand }}{% endif %}</title>
-  {% if page_description %}<meta name="description" content="{{ page_description | escape }}">{% endif %}
-  {% render 'meta-social' %}
+  {%- liquid
+    assign meta_description = page_description
+    if meta_description == blank
+      case request.page_type
+        when 'product'
+          assign meta_description = product.description | strip_html | truncate: 155
+        when 'collection'
+          assign meta_description = collection.description | strip_html | truncate: 155
+        when 'article'
+          assign meta_description = article.excerpt_or_content | strip_html | truncate: 155
+        when 'page'
+          assign meta_description = page.content | strip_html | truncate: 155
+      endcase
+    endif
+    assign meta_description = meta_description | default: shop.description
+  -%}
+  {%- if meta_description != blank %}<meta name="description" content="{{ meta_description | escape }}">{% endif %}
+  {% render 'meta-social', meta_description: meta_description %}
 </head>
 <body class="template-{{ request.page_type }} color-scheme-1">
   {% sections 'header-group' %}

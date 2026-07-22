@@ -8,7 +8,7 @@
 {%- liquid
   assign ms_brand = settings.brand_name | default: shop.name
   assign ms_title = page_title | default: ms_brand
-  assign ms_description = page_description | default: shop.description | default: ms_brand
+  assign ms_description = meta_description | default: page_description | default: shop.description | default: ms_brand
 
   assign ms_type = 'website'
   if request.page_type == 'product'
