@@ -276,6 +276,47 @@
         "color_scheme": "",
         "text_color": ""
       }
+    },
+    "178471291873a9aa13": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_cards_carousel_EGAqeA": {
+          "type": "shopify://apps/judge-me-reviews/blocks/cards_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "show_sample_reviews": true,
+            "reviews_selection": "all",
+            "products": [],
+            "star_rating": "4_to_5_star",
+            "show_review_media": true,
+            "display_order": "media_first",
+            "no_image_fallback": "review_text_only",
+            "max_reviews": 20,
+            "review_length": "small",
+            "text_size": "small",
+            "image_ratio": "1",
+            "reviews_shown": 4,
+            "show_reviewer_name": true,
+            "show_product_name": true,
+            "hide_arrows_mobile": true,
+            "arrows_position": "sides",
+            "max_width": 1100,
+            "corner_styling": "soft",
+            "header_text_color": "#000000",
+            "text_color": "#000000",
+            "card_color": "#F9F9F9",
+            "stars_color": "",
+            "arrows_color": "#000000",
+            "transition_speed": 5,
+            "header_text": "Apie mus atsiliepia",
+            "show_average_rating": true,
+            "rating_display": "default"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_cards_carousel_EGAqeA"
+      ],
+      "settings": {}
     }
   },
   "order": [
@@ -285,6 +326,7 @@
     "arrivals",
     "journal",
     "fit",
-    "visit"
+    "visit",
+    "178471291873a9aa13"
   ]
 }
