@@ -16,6 +16,7 @@
           "type": "collection",
           "settings": {
             "collection": "rankines-1",
+            "image_focus": "inherit",
             "badge": "",
             "count_word": "poros"
           }
@@ -25,6 +26,7 @@
           "settings": {
             "collection": "pirstines",
             "image": "shopify://shop_images/da4d3cad6397c8843c9a5bafffde049a.jpg",
+            "image_focus": "inherit",
             "badge": "",
             "count_word": "poros"
           }
@@ -34,6 +36,7 @@
           "settings": {
             "collection": "salikai",
             "image": "shopify://shop_images/608b5f05612715ec1171a1bdd8963ed1.jpg",
+            "image_focus": "inherit",
             "badge": "",
             "count_word": "poros"
           }
@@ -42,6 +45,7 @@
           "type": "collection",
           "settings": {
             "collection": "minkstos-ausines",
+            "image_focus": "inherit",
             "badge": "",
             "count_word": "poros"
           }
@@ -51,14 +55,17 @@
           "settings": {
             "collection": "kepures",
             "image": "shopify://shop_images/1be07e37fa878dff591aa8655e22f65d.jpg",
+            "image_focus": "inherit",
             "badge": "",
             "count_word": "poros"
           }
         },
         "collection_FbkKi9": {
           "type": "collection",
+          "disabled": true,
           "settings": {
             "collection": "2026-saules-akiniai",
+            "image_focus": "inherit",
             "badge": "",
             "count_word": "poros"
           }
@@ -67,6 +74,7 @@
           "type": "collection",
           "settings": {
             "collection": "",
+            "image_focus": "inherit",
             "badge": "",
             "count_word": "poros"
           }
@@ -75,6 +83,7 @@
           "type": "collection",
           "settings": {
             "collection": "",
+            "image_focus": "inherit",
             "badge": "",
             "count_word": "poros"
           }
@@ -83,6 +92,7 @@
           "type": "collection",
           "settings": {
             "collection": "",
+            "image_focus": "inherit",
             "badge": "",
             "count_word": "poros"
           }
@@ -103,11 +113,10 @@
       "settings": {
         "color_scheme": "",
         "text_color": "",
-        "eyebrow": "Visi rinkiniai · SS 26",
+        "card_image_focus": "center",
         "title_light": "Visi",
         "title": "aksesuarai.",
         "intro": "Kiekvienas rinkinys — atskira partija, ribotas porų skaičius, <b>vienas modelis, daug niuansų</b>. Rinkis pagal nuotaiką arba pagal sezoną.",
-        "season": "SS·26",
         "band_eyebrow": "Kaip skaityti partijas",
         "band_title_light": "Vienas modelis.",
         "band_title": "Daug partijų.",
