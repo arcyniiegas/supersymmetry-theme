@@ -1,4 +1,5 @@
 {{ 'section-review-invite.css' | asset_url | stylesheet_tag }}
+{{ 'component-reviews.css' | asset_url | stylesheet_tag }}
 {% render 'section-appearance', section: section %}
 {%- comment -%}
   Review invite — the landing page a physical package-insert card's QR points
@@ -37,11 +38,17 @@
   </ol>
 
   <div class="rinv__widget">
-    {%- comment -%} Judge.me shop-review widget mount. Paste your store's shop
-      review widget code here from Judge.me → Settings → Widgets (Shop reviews).
-      The app embed (already enabled) hydrates it. {%- endcomment -%}
-    {{ shop.metafields.judgeme.widget }}
-    <div class="jdgm-widget jdgm-all-reviews-widget" data-auto-install="false"></div>
+    {%- comment -%} Judge.me free plan has no shop-review widget, so store reviews
+      are collected on a hidden, non-purchasable „store review" product via its
+      normal Judge.me PRODUCT widget — the app embed hydrates the write-a-review
+      button, form and photo upload, and lists the reviews. Product id is a
+      setting (defaults to the „Jūsų patirtis su Supersymmetry" product). {%- endcomment -%}
+    {%- assign rev_pid = section.settings.judgeme_product_id -%}
+    {%- if rev_pid != blank -%}
+    <div class="jdgm-widget jdgm-review-widget" data-id="{{ rev_pid }}" data-product-title="Supersymmetry"></div>
+    {%- else -%}
+    <p class="rinv__legal">Atsiliepimų valdiklis dar nesukonfigūruotas.</p>
+    {%- endif -%}
   </div>
 
   <p class="rinv__legal">{{ section.settings.legal | default: 'Kreditą skiriame už bet kokį sąžiningą atsiliepimą, nepriklausomai nuo įvertinimo. Atsiliepimai gali būti skatinami. Vienas kreditas vienam patvirtintam užsakymui.' }}</p>
@@ -67,6 +74,8 @@
     { "type": "text", "id": "step1", "label": "Step 1", "default": "Palikite atsiliepimą žemiau — tuo pačiu el. paštu, kuriuo pirkote." },
     { "type": "text", "id": "step2", "label": "Step 2", "default": "Patvirtiname atsiliepimą (paprastai per 1–2 darbo dienas)." },
     { "type": "text", "id": "step3", "label": "Step 3", "default": "Įskaitome kreditą į jūsų paskyrą — panaudokite kitam užsakymui." },
+    { "type": "header", "content": "Reviews" },
+    { "type": "text", "id": "judgeme_product_id", "label": "Judge.me review product ID", "info": "Numeric ID of the hidden „store review“ product the Judge.me form collects into. Default: „Jūsų patirtis su Supersymmetry“.", "default": "16349507027293" },
     { "type": "header", "content": "Legal" },
     { "type": "textarea", "id": "legal", "label": "Disclosure", "info": "Required incentive disclosure (EU Omnibus / Judge.me). Keep the „bet kokį sąžiningą atsiliepimą, nepriklausomai nuo įvertinimo“ meaning.", "default": "Kreditą skiriame už bet kokį sąžiningą atsiliepimą, nepriklausomai nuo įvertinimo. Atsiliepimai gali būti skatinami. Vienas kreditas vienam patvirtintam užsakymui." },
     { "type": "header", "content": "Appearance" },
