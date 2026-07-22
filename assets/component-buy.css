@@ -306,6 +306,7 @@ html[data-glass="off"] .buybar{
   font: 500 12px/1 var(--font-mono);
   letter-spacing: -0.005em;
   color: var(--text);
+  white-space: nowrap;
 }
 .po-terms__bar{
   position: relative;
