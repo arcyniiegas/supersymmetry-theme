@@ -238,45 +238,6 @@
         "text_color": ""
       }
     },
-    "visit": {
-      "type": "home-visit",
-      "blocks": {
-        "h2": {
-          "type": "hours",
-          "settings": {
-            "day": "Pirmadienis — Penktadienis",
-            "time": "11:00 — 18:00",
-            "closed": false,
-            "highlight": false
-          },
-          "blocks": {}
-        },
-        "h3": {
-          "type": "hours",
-          "settings": {
-            "day": "Šeštadienis — Sekmadienis",
-            "time": "11:00 — 16:00",
-            "closed": false,
-            "highlight": false
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "h2",
-        "h3"
-      ],
-      "settings": {
-        "eyebrow": "Užsukite",
-        "title": "Parduotuvė — Vilniaus senamiestyje.",
-        "text": "Trakų g. 16, pačiame Vilniaus senamiestyje. Užsukite pasimatuoti arba atsiimti užsakymo.",
-        "cta_label": "Adresas ir maršrutas",
-        "cta_link": "https://maps.app.goo.gl/uBnUEu2YfDMbRtmeA",
-        "title_scale": 100,
-        "color_scheme": "",
-        "text_color": ""
-      }
-    },
     "178471291873a9aa13": {
       "type": "apps",
       "blocks": {
@@ -317,6 +278,45 @@
         "judge_me_reviews_cards_carousel_EGAqeA"
       ],
       "settings": {}
+    },
+    "visit": {
+      "type": "home-visit",
+      "blocks": {
+        "h2": {
+          "type": "hours",
+          "settings": {
+            "day": "Pirmadienis — Penktadienis",
+            "time": "11:00 — 18:00",
+            "closed": false,
+            "highlight": false
+          },
+          "blocks": {}
+        },
+        "h3": {
+          "type": "hours",
+          "settings": {
+            "day": "Šeštadienis — Sekmadienis",
+            "time": "11:00 — 16:00",
+            "closed": false,
+            "highlight": false
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "h2",
+        "h3"
+      ],
+      "settings": {
+        "eyebrow": "Užsukite",
+        "title": "Parduotuvė — Vilniaus senamiestyje.",
+        "text": "Trakų g. 16, pačiame Vilniaus senamiestyje. Užsukite pasimatuoti arba atsiimti užsakymo.",
+        "cta_label": "Adresas ir maršrutas",
+        "cta_link": "https://maps.app.goo.gl/uBnUEu2YfDMbRtmeA",
+        "title_scale": 100,
+        "color_scheme": "",
+        "text_color": ""
+      }
     }
   },
   "order": [
@@ -326,7 +326,7 @@
     "arrivals",
     "journal",
     "fit",
-    "visit",
-    "178471291873a9aa13"
+    "178471291873a9aa13",
+    "visit"
   ]
 }
