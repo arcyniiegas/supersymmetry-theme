@@ -157,19 +157,19 @@
     {%- if section.settings.payments_note != blank -%}
     <p class="payments-note">{{ section.settings.payments_note }}</p>
     {%- endif -%}
-    {%- comment -%} Payment-terms note: with the native 30%-deposit selling
-      plan attached (submitted by the hidden selling_plan input above) the
-      note explains the deposit; without one it falls back to the original
-      full-payment copy so the message never contradicts checkout. {%- endcomment -%}
+    {%- comment -%} Payment terms: with the deposit selling plan attached
+      (submitted by the hidden selling_plan input above) the split renders
+      as the preorder-terms instrument; without one it falls back to the
+      original full-payment note so the message never contradicts checkout. {%- endcomment -%}
     {%- if is_preorder -%}
+    {%- if has_deposit_plan -%}
+    {% render 'preorder-terms', product: product, eta: po_eta %}
+    {%- else -%}
     {%- comment -%} Close the eta sentence unless the date pattern already
       ends with a period (the LT exact form ends in „d."). {%- endcomment -%}
     {%- assign po_dot = '.' -%}
     {%- assign po_last = po_eta | slice: -1 -%}
     {%- if po_last == '.' -%}{%- assign po_dot = '' -%}{%- endif -%}
-    {%- if has_deposit_plan -%}
-    <p class="po-note">{{ 'product.preorder.deposit_note' | t }}{% if po_eta != blank %} <b>{{ 'product.preorder.expected' | t: date: po_eta | capitalize }}{{ po_dot }}</b>{% endif %}</p>
-    {%- else -%}
     <p class="po-note">{{ 'product.preorder.note' | t }}{% if po_eta != blank %} <b>{{ 'product.preorder.expected' | t: date: po_eta | capitalize }}{{ po_dot }}</b>{% endif %}</p>
     {%- endif -%}
     {%- endif -%}

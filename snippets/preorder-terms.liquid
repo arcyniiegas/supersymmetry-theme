@@ -1,0 +1,60 @@
+{%- comment -%}
+  preorder-terms — the deposit instrument for pre-order PDPs. Renders the
+  payment split as a measured bar (the theme draws facts as instruments:
+  fit → chart, delivery → gantt, payment → this), followed by two quiet
+  icon rows that answer the shopper's real questions: when is the rest
+  charged, and what does the deposit do. Sits under the CTAs in place of
+  the old plain-text note; the expected date rides the head in mono like
+  a gantt date.
+
+  Data-driven: the percent comes from the product's selling plan
+  (checkout_charge), amounts from product.price — nothing hardcoded, so a
+  future plan change re-draws the bar by itself. Renders nothing without a
+  percentage-type plan (caller falls back to the plain note).
+
+  Params:
+    product (product) — the pre-order product carrying the selling plan.
+    eta     (string)  — formatted expected date (date-lt output). Optional.
+{%- endcomment -%}
+{%- liquid
+  assign pot_plan = product.selling_plan_groups.first.selling_plans.first
+  assign pot_charge = pot_plan.checkout_charge
+-%}
+{%- if pot_charge.value_type == 'percentage' and pot_charge.value > 0 and pot_charge.value < 100 -%}
+{%- liquid
+  assign pot_percent = pot_charge.value | round
+  assign pot_deposit = product.price | times: pot_percent | divided_by: 100.0 | round
+  assign pot_balance = product.price | minus: pot_deposit
+  assign pot_deposit_money = pot_deposit | money_without_trailing_zeros
+  assign pot_balance_money = pot_balance | money_without_trailing_zeros
+-%}
+<div class="po-terms">
+  <div class="po-terms__head">
+    <span class="po-terms__eyebrow">{{ 'product.preorder.terms_title' | t }}</span>
+    {%- if eta != blank -%}
+    <span class="po-terms__eta">{{ 'product.preorder.expected' | t: date: eta | capitalize }}</span>
+    {%- endif -%}
+  </div>
+  <div class="po-terms__bar" role="img" aria-label="{{ 'product.preorder.terms_bar_label' | t: percent: pot_percent, deposit: pot_deposit_money, balance: pot_balance_money }}">
+    <span class="po-terms__seg" style="width: {{ pot_percent }}%;"></span>
+  </div>
+  <div class="po-terms__amounts">
+    <span class="po-terms__amount"><b>{{ pot_deposit_money }}</b> {{ 'product.preorder.terms_now' | t }}</span>
+    <span class="po-terms__amount po-terms__amount--later"><b>{{ pot_balance_money }}</b> {{ 'product.preorder.terms_later' | t }}</span>
+  </div>
+  <ul class="po-terms__rows">
+    <li class="po-terms__row">
+      <span class="po-terms__ic" aria-hidden="true">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1.5" y="3.5" width="13" height="9.5" rx="1.8"/><path d="M1.5 6.5h13"/><path d="M4 10.5h3"/></svg>
+      </span>
+      {{ 'product.preorder.terms_balance' | t }}
+    </li>
+    <li class="po-terms__row">
+      <span class="po-terms__ic" aria-hidden="true">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8.6 1.8 14 7.2a1.6 1.6 0 0 1 0 2.3l-4.5 4.5a1.6 1.6 0 0 1-2.3 0L1.8 8.6A1.3 1.3 0 0 1 1.4 7.7V3a1.6 1.6 0 0 1 1.6-1.6h4.7c.34 0 .66.13.9.4Z"/><circle cx="5.1" cy="5.1" r="1.1"/></svg>
+      </span>
+      {{ 'product.preorder.terms_reserve' | t }}
+    </li>
+  </ul>
+</div>
+{%- endif -%}

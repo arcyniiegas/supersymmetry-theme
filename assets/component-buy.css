@@ -280,6 +280,82 @@ html[data-glass="off"] .buybar{
   color: var(--text-muted);
 }
 .po-note b{ color: var(--text); font-weight: 500; }
+/* Pre-order deposit instrument (snippets/preorder-terms.liquid) — the payment
+   split drawn as a measured bar, the way fit is a chart and delivery a gantt.
+   Quiet surface panel matching .fit; amounts + eta in mono like gantt dates;
+   the split node echoes .gantt__node. Static by design — no motion to freeze. */
+.po-terms{
+  margin: var(--sp-3) 0 0;
+  background: var(--surface);
+  border-radius: var(--r-lg);
+  padding: var(--sp-4) var(--sp-5);
+  display: grid;
+  gap: var(--sp-3);
+}
+.po-terms__head{
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: var(--sp-3);
+}
+.po-terms__eyebrow{
+  font: 500 10px/1 var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.po-terms__eta{
+  font: 500 12px/1 var(--font-mono);
+  letter-spacing: -0.005em;
+  color: var(--text);
+}
+.po-terms__bar{
+  position: relative;
+  height: 3px;
+  border-radius: 99px;
+  background: var(--line);
+}
+.po-terms__seg{
+  position: absolute; inset: 0 auto 0 0;
+  border-radius: 99px;
+  background: var(--ink);
+}
+/* the split node — same 10px dot vocabulary as .gantt__node */
+.po-terms__seg::after{
+  content: '';
+  position: absolute;
+  right: -5px; top: 50%;
+  width: 10px; height: 10px;
+  margin-top: -5px;
+  border-radius: 99px;
+  background: var(--ink);
+  box-shadow: 0 0 0 3px var(--surface);
+}
+.po-terms__amounts{
+  display: flex; justify-content: space-between;
+  gap: var(--sp-3);
+}
+.po-terms__amount{
+  font: 400 12px/1 var(--font-mono);
+  letter-spacing: -0.005em;
+  color: var(--text-muted);
+}
+.po-terms__amount b{ font-weight: 600; color: var(--text); }
+.po-terms__amount--later b{ color: var(--text-muted); }
+.po-terms__rows{
+  margin: 0; padding: var(--sp-3) 0 0;
+  border-top: 1px solid var(--line);
+  list-style: none;
+  display: grid;
+  gap: var(--sp-2);
+}
+.po-terms__row{
+  display: flex; align-items: flex-start;
+  gap: var(--sp-2);
+  font: 400 12px/1.5 var(--font-sans);
+  letter-spacing: -0.005em;
+  color: var(--text-muted);
+}
+.po-terms__ic{ display: inline-flex; flex-shrink: 0; margin-top: 2px; }
+.po-terms__ic svg{ width: 13px; height: 13px; color: var(--text-muted); }
 /* Payment-methods whisper under the CTAs — settings-driven, hidden when empty */
 .payments-note{
   margin: var(--sp-2) 0 0;

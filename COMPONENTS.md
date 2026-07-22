@@ -49,6 +49,7 @@ Render with named args and a documented `{% comment %}` header:
 | `collection-filter-drawer` | Off-canvas filters (swatch case) | `section`, `collection`, `paginate` | Stable — clean compile |
 | `collection-notes` | Collection notes (`note_row`) | `section` | Stable (split from `main-collection`) |
 | `stat` | Shared page-head stat — **unifies 5 sections** | `k`, `v`, `tabular`, `accent`, `attrs` | ✅ verified live |
+| `preorder-terms` | Deposit instrument — payment split bar + terms rows for pre-order PDPs | `product`, `eta` | ✅ verified live |
 
 ### Planned primitives (the missing library)
 
