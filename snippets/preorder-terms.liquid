@@ -4,8 +4,8 @@
   fit → chart, delivery → gantt, payment → this), followed by two quiet
   icon rows that answer the shopper's real questions: when is the rest
   charged, and what does the deposit do. Sits under the CTAs in place of
-  the old plain-text note; the expected date rides the head in mono like
-  a gantt date.
+  the old plain-text note. The expected date is not repeated here — the
+  delivery gantt below already carries it.
 
   Data-driven: the percent comes from the product's selling plan
   (checkout_charge), amounts from product.price — nothing hardcoded, so a
@@ -14,7 +14,6 @@
 
   Params:
     product (product) — the pre-order product carrying the selling plan.
-    eta     (string)  — formatted expected date (date-lt output). Optional.
 {%- endcomment -%}
 {%- liquid
   assign pot_plan = product.selling_plan_groups.first.selling_plans.first
@@ -29,12 +28,7 @@
   assign pot_balance_money = pot_balance | money_without_trailing_zeros
 -%}
 <div class="po-terms">
-  <div class="po-terms__head">
-    <span class="po-terms__eyebrow">{{ 'product.preorder.terms_title' | t }}</span>
-    {%- if eta != blank -%}
-    <span class="po-terms__eta">{{ 'product.preorder.expected' | t: date: eta | capitalize }}</span>
-    {%- endif -%}
-  </div>
+  <span class="po-terms__eyebrow">{{ 'product.preorder.terms_title' | t }}</span>
   <div class="po-terms__bar" role="img" aria-label="{{ 'product.preorder.terms_bar_label' | t: percent: pot_percent, deposit: pot_deposit_money, balance: pot_balance_money }}">
     <span class="po-terms__seg" style="width: {{ pot_percent }}%;"></span>
   </div>

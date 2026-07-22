@@ -163,7 +163,7 @@
       original full-payment note so the message never contradicts checkout. {%- endcomment -%}
     {%- if is_preorder -%}
     {%- if has_deposit_plan -%}
-    {% render 'preorder-terms', product: product, eta: po_eta %}
+    {% render 'preorder-terms', product: product %}
     {%- else -%}
     {%- comment -%} Close the eta sentence unless the date pattern already
       ends with a period (the LT exact form ends in „d."). {%- endcomment -%}

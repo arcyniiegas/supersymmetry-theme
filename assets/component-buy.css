@@ -292,21 +292,12 @@ html[data-glass="off"] .buybar{
   display: grid;
   gap: var(--sp-3);
 }
-.po-terms__head{
-  display: flex; align-items: baseline; justify-content: space-between;
-  gap: var(--sp-3);
-}
 .po-terms__eyebrow{
+  display: block;
   font: 500 10px/1 var(--font-mono);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-muted);
-}
-.po-terms__eta{
-  font: 500 12px/1 var(--font-mono);
-  letter-spacing: -0.005em;
-  color: var(--text);
-  white-space: nowrap;
 }
 .po-terms__bar{
   position: relative;
