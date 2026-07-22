@@ -75,6 +75,18 @@
         <span class="line__was">{{ item.original_line_price | money_without_trailing_zeros }}</span>
         {%- endif -%}
         <span class="line__now">{{ item.final_line_price | money_without_trailing_zeros }}</span>
+        {%- comment -%} Deposit pre-orders: the cart shows the full line price
+          (native Shopify — the split happens at checkout), so a quiet mono
+          hint says what is actually due today. Amounts from the line's
+          selling-plan allocation; nothing hardcoded. {%- endcomment -%}
+        {%- if item.selling_plan_allocation and item.selling_plan_allocation.checkout_charge_amount < item.selling_plan_allocation.price -%}
+        {%- liquid
+          assign dep_amount = item.selling_plan_allocation.checkout_charge_amount | times: item.quantity
+          assign dep_money = dep_amount | money_without_trailing_zeros
+          assign dep_pct = item.selling_plan_allocation.checkout_charge_amount | times: 100.0 | divided_by: item.selling_plan_allocation.price | round
+        -%}
+        <span class="line__deposit">{{ 'product.preorder.cart_deposit' | t: percent: dep_pct, amount: dep_money }}</span>
+        {%- endif -%}
       </div>
     </div>
   </div>

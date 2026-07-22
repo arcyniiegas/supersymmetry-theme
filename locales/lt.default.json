@@ -157,6 +157,7 @@
       "terms_reserve": "Avansas rezervuoja porą iš šios partijos — siuvama ribotu kiekiu.",
       "terms_bar_label": "{{ percent }} % avansas — {{ deposit }} dabar, likutis {{ balance }} išsiunčiant",
       "cart_tag": "Išankstinis užsakymas",
+      "cart_deposit": "{{ percent }} % dabar — {{ amount }}",
       "gantt_delivery": "Pristatymas",
       "badge_production": "Gamyboje",
       "badge_transit": "Kelyje"

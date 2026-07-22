@@ -147,9 +147,19 @@
 /* price column */
 .line__price{
   text-align: right; display: flex; align-items: baseline; gap: 8px;
+  flex-wrap: wrap; justify-content: flex-end;
 }
 .line__now{ font: 500 18px/1 var(--font-mono); letter-spacing: -0.01em; }
 .line__was{ font: 500 12px/1 var(--font-mono); color: var(--soft); text-decoration: line-through; }
+/* Deposit pre-orders: what is actually due today, under the full line price.
+   Full-width flex child so it wraps onto its own right-aligned line. */
+.line__deposit{
+  flex-basis: 100%;
+  margin-top: 2px;
+  font: 500 10px/1 var(--font-mono);
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+}
 
 /* ── compact variant — the drawer's narrow panel (set via cart-line param) ── */
 .line--compact{ grid-template-columns: 84px 1fr; gap: var(--sp-4); padding: var(--sp-5) 0; }
