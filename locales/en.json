@@ -150,6 +150,7 @@
       "cta": "Pre-order",
       "expected": "Expected {{ date }}",
       "note": "Charged now — ships when the batch is ready.",
+      "deposit_note": "Pay a 30% deposit now — the balance is charged when the batch ships.",
       "cart_tag": "Pre-order",
       "today": "Today",
       "gantt_production": "Batch in production",

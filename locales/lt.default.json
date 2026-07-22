@@ -150,6 +150,7 @@
       "cta": "Išankstinis užsakymas",
       "expected": "Numatoma {{ date }}",
       "note": "Apmokama dabar — išsiųsime, kai partija bus paruošta.",
+      "deposit_note": "Dabar mokamas 30 % avansas — likusi suma nuskaičiuojama, kai partija iškeliauja.",
       "cart_tag": "Išankstinis užsakymas",
       "today": "Šiandien",
       "gantt_production": "Partija siuvama",

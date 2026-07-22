@@ -57,3 +57,24 @@ emails, per-variant pre-order states.
 
 Tag `netrukus` + set stage/expected + 0 stock with continue-selling →
 advance stage as the batch progresses → on arrival: stock in, untag.
+
+## Addendum — 30% deposit via native selling plan (2026-07-22)
+
+Decision 1 revised: pre-orders now charge a **30% deposit** at checkout,
+not full price. Deposits are still **app-free** — a store-owned Dev
+Dashboard credential (`preorder-deposits`, client id `c482a077…`) owns a
+native PRE_ORDER selling plan group „Išankstinis užsakymas – 30% avansas"
+(30% checkout charge, balance vaulted; auto-collected on fulfillment or
+manually from the order page any time). The plan is attached to the
+„Ruduo-žiema 2027" batch products via the Admin API.
+
+Theme side: `main-product.liquid` submits the plan with a hidden
+`selling_plan` input (auto-applied — pre-order is the only purchase path)
+and the CTA note swaps to `product.preorder.deposit_note` when a plan is
+present; the original full-payment note remains as fallback. The former
+Dibs app was uninstalled; its orphaned plans are inert.
+
+Merchant workflow addition: new pre-order batches must have the selling
+plan attached (Admin API `sellingPlanGroupUpdate`/`AddProducts`) alongside
+the stage/expected metafields. Deleting the `preorder-deposits` app in the
+Dev Dashboard would orphan the plan — keep it installed.

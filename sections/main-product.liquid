@@ -118,6 +118,15 @@
     {%- assign product_form_id = 'ProductForm-' | append: section.id -%}
     {% form 'product', product, id: product_form_id %}
     <input type="hidden" name="id" value="{% unless multi_size %}{{ current_variant.id }}{% endunless %}" data-product-id>
+    {%- comment -%} Pre-order deposit: the store's own `preorder-deposits`
+      credential owns a native 30%-deposit selling plan attached to pre-order
+      products. Submitting it with the form makes checkout charge the deposit
+      and vault the card for the balance (collected from the order page or
+      auto on fulfillment). Auto-applied — pre-order is the only purchase
+      path for these products, so no plan picker is needed. {%- endcomment -%}
+    {%- if is_preorder and product.selling_plan_groups.size > 0 -%}
+    <input type="hidden" name="selling_plan" value="{{ product.selling_plan_groups.first.selling_plans.first.id }}">
+    {%- endif -%}
     <div class="ctas">
       <button class="btn btn--primary{% if multi_size %} is-locked{% endif %}" type="submit" data-atc{% if multi_size %} disabled data-locked{% endif %}>
         <span>{% if multi_size %}{{ 'product.choose_size' | t }}{% else %}{{ atc_label }}{% endif %}</span>
@@ -134,17 +143,21 @@
     {%- if section.settings.payments_note != blank -%}
     <p class="payments-note">{{ section.settings.payments_note }}</p>
     {%- endif -%}
-    {%- comment -%} Our „Apmokama dabar" note only when NO selling plans exist —
-      a pre-order app (e.g. Essential Preorder) that installs selling plans
-      renders its own payment terms (deposit / charge-later), and the two
-      messages would contradict each other. {%- endcomment -%}
-    {%- if is_preorder and product.selling_plan_groups.size == 0 -%}
+    {%- comment -%} Payment-terms note: with the native 30%-deposit selling
+      plan attached (submitted by the hidden selling_plan input above) the
+      note explains the deposit; without one it falls back to the original
+      full-payment copy so the message never contradicts checkout. {%- endcomment -%}
+    {%- if is_preorder -%}
     {%- comment -%} Close the eta sentence unless the date pattern already
       ends with a period (the LT exact form ends in „d."). {%- endcomment -%}
     {%- assign po_dot = '.' -%}
     {%- assign po_last = po_eta | slice: -1 -%}
     {%- if po_last == '.' -%}{%- assign po_dot = '' -%}{%- endif -%}
+    {%- if product.selling_plan_groups.size > 0 -%}
+    <p class="po-note">{{ 'product.preorder.deposit_note' | t }}{% if po_eta != blank %} <b>{{ 'product.preorder.expected' | t: date: po_eta | capitalize }}{{ po_dot }}</b>{% endif %}</p>
+    {%- else -%}
     <p class="po-note">{{ 'product.preorder.note' | t }}{% if po_eta != blank %} <b>{{ 'product.preorder.expected' | t: date: po_eta | capitalize }}{{ po_dot }}</b>{% endif %}</p>
+    {%- endif -%}
     {%- endif -%}
 
     {%- for block in section.blocks -%}
