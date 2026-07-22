@@ -61,14 +61,6 @@
             "lede": "Keturi įpročiai, šešiasdešimties dienų ritmas, dvidešimt sezonų dėvėjimo."
           }
         },
-        "reviews": {
-          "type": "reviews",
-          "settings": {
-            "eyebrow": "04 — Atsiliepimai",
-            "title_light": "Ką sako",
-            "title": "pirkėjai."
-          }
-        },
         "related": {
           "type": "related",
           "disabled": true,
@@ -77,10 +69,6 @@
             "more_label": "Naujienos",
             "more_link": "shopify://collections/nuo-to-paties-podiumo"
           }
-        },
-        "dibs_lb_ordereasy_product_block_8hV4H4": {
-          "type": "shopify://apps/dibs/blocks/lb-ordereasy-product-block/7cc74442-1b61-4b87-afed-944e0def999c",
-          "settings": {}
         }
       },
       "block_order": [
@@ -90,9 +78,7 @@
         "spec",
         "story",
         "care",
-        "reviews",
-        "related",
-        "dibs_lb_ordereasy_product_block_8hV4H4"
+        "related"
       ],
       "settings": {
         "atc_label": "Į krepšelį",
@@ -102,9 +88,51 @@
         "color_scheme": "",
         "text_color": ""
       }
+    },
+    "17847131606be1ddbb": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_cards_carousel_7hyjhX": {
+          "type": "shopify://apps/judge-me-reviews/blocks/cards_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "show_sample_reviews": true,
+            "reviews_selection": "all",
+            "products": [],
+            "star_rating": "4_to_5_star",
+            "show_review_media": true,
+            "display_order": "media_first",
+            "no_image_fallback": "review_text_only",
+            "max_reviews": 20,
+            "review_length": "small",
+            "text_size": "small",
+            "image_ratio": "1",
+            "reviews_shown": 4,
+            "show_reviewer_name": true,
+            "show_product_name": true,
+            "hide_arrows_mobile": true,
+            "arrows_position": "sides",
+            "max_width": 1100,
+            "corner_styling": "soft",
+            "header_text_color": "#000000",
+            "text_color": "#000000",
+            "card_color": "#F9F9F9",
+            "stars_color": "",
+            "arrows_color": "#000000",
+            "transition_speed": 5,
+            "header_text": "",
+            "show_average_rating": false,
+            "rating_display": "default"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_cards_carousel_7hyjhX"
+      ],
+      "settings": {}
     }
   },
   "order": [
-    "main"
+    "main",
+    "17847131606be1ddbb"
   ]
 }
