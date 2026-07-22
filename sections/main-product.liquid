@@ -232,35 +232,41 @@
 {%- endif -%}
       {%- when 'delivery' -%}
     {%- if is_preorder -%}
-    {%- comment -%} Pre-order variant: the courier gantt's computed dates would
-      contradict the batch timeline, so the same .gantt vocabulary tells the
-      batch story instead — states follow Būsena, the delivery row carries the
-      (coarse or exact) expected-receipt date. Static Liquid; no
-      component-delivery.js, which would overwrite the date cells. {%- endcomment -%}
+    {%- comment -%} Pre-order variant: the courier gantt's computed dates and
+      order-centric copy would be false here (nothing is ordered yet), so the
+      block becomes the batch track — a horizontal 3-stop line speaking the
+      collection badges' vocabulary (Gamyboje → Kelyje → Pristatymas), the
+      expected date answering the title in the head. States follow Būsena.
+      Static Liquid; no component-delivery.js. {%- endcomment -%}
+    {%- liquid
+      assign track_transit = false
+      if po_stage == 'Pagaminti · kelyje'
+        assign track_transit = true
+      endif
+      if track_transit
+        assign track_stage_label = 'product.preorder.badge_transit' | t
+      else
+        assign track_stage_label = 'product.preorder.badge_production' | t
+      endif
+    -%}
     <div class="delivery" {{ block.shopify_attributes }}>
       <div class="delivery__head">
         <span class="delivery__title">{{ block.settings.title }}</span>
+        {%- if po_eta != blank -%}
+        <span class="delivery__eta">{{ 'product.preorder.expected' | t: date: po_eta | capitalize }}</span>
+        {%- endif -%}
       </div>
-      <div class="gantt">
-        <div class="gantt__row done">
-          <span class="gantt__node"></span>
-          <span class="gantt__leg">{{ 'product.delivery.placed' | t }}</span>
-          <span class="gantt__date">{{ 'product.preorder.today' | t }}</span>
+      <div class="po-track" role="img" aria-label="{{ track_stage_label }}{% if po_eta != blank %} — {{ 'product.preorder.expected' | t: date: po_eta }}{% endif %}">
+        <div class="po-track__line">
+          <span class="po-track__fill"{% if track_transit %} style="width: 50%;"{% endif %}></span>
+          <span class="po-track__stop{% if track_transit %} is-done{% else %} is-now{% endif %}" style="left: 0;"></span>
+          <span class="po-track__stop{% if track_transit %} is-now{% endif %}" style="left: 50%;"></span>
+          <span class="po-track__stop" style="left: 100%;"></span>
         </div>
-        <div class="gantt__row{% if po_stage == 'Pagaminti · kelyje' %} done{% else %} now{% endif %}">
-          <span class="gantt__node"></span>
-          <span class="gantt__leg">{{ 'product.preorder.gantt_production' | t }}</span>
-          <span class="gantt__date"></span>
-        </div>
-        <div class="gantt__row{% if po_stage == 'Pagaminti · kelyje' %} now{% endif %}">
-          <span class="gantt__node"></span>
-          <span class="gantt__leg">{{ 'product.delivery.transit' | t }}</span>
-          <span class="gantt__date"></span>
-        </div>
-        <div class="gantt__row">
-          <span class="gantt__node"></span>
-          <span class="gantt__leg">{{ 'product.preorder.gantt_delivery' | t }}</span>
-          <span class="gantt__date">{%- if po_eta != blank -%}{{ 'product.preorder.expected' | t: date: po_eta }}{%- endif -%}</span>
+        <div class="po-track__labels" aria-hidden="true">
+          <span class="po-track__label{% if track_transit %} is-done{% else %} is-now{% endif %}">{{ 'product.preorder.badge_production' | t }}</span>
+          <span class="po-track__label{% if track_transit %} is-now{% endif %}">{{ 'product.preorder.badge_transit' | t }}</span>
+          <span class="po-track__label">{{ 'product.preorder.gantt_delivery' | t }}</span>
         </div>
       </div>
     </div>

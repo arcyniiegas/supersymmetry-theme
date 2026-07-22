@@ -157,8 +157,6 @@
       "terms_reserve": "The deposit reserves a pair from this batch — sewn in a limited run.",
       "terms_bar_label": "{{ percent }}% deposit — {{ deposit }} now, {{ balance }} balance at dispatch",
       "cart_tag": "Pre-order",
-      "today": "Today",
-      "gantt_production": "Batch in production",
       "gantt_delivery": "Delivery",
       "badge_production": "In production",
       "badge_transit": "In transit"
