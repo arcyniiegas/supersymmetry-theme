@@ -135,7 +135,13 @@
     if (btn) btn.disabled = true;
     atcStatus.textContent = '';
     atcStatus.classList.remove('is-error');
-    theme.cart.add([{ id: id, quantity: 1 }])
+    /* The payload is hand-built (not FormData), so the pre-order deposit
+       plan — a hidden [name="selling_plan"] in the form — must be carried
+       over explicitly or checkout silently charges full price. */
+    var item = { id: id, quantity: 1 };
+    var planInput = form && form.querySelector('[name="selling_plan"]');
+    if (planInput && planInput.value) item.selling_plan = planInput.value;
+    theme.cart.add([item])
       .then(function () {
         added(btn);
         atcStatus.textContent = theme.t('product.added_to_cart');
