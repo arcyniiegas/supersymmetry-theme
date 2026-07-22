@@ -51,6 +51,15 @@
   if po_stage == 'Pagaminti · kelyje'
     assign po_coarse = false
   endif
+  comment
+    Deposit switch: a pre-order carrying the native 30%-deposit selling plan.
+    Drives the hidden selling_plan input, the deposit note, and suppresses
+    express checkout (Shopify's deferred-purchase button UI would replace it).
+  endcomment
+  assign has_deposit_plan = false
+  if is_preorder and product.selling_plan_groups.size > 0
+    assign has_deposit_plan = true
+  endif
 -%}
 {%- capture po_eta -%}{% render 'date-lt', date: po_expected, coarse: po_coarse %}{%- endcapture -%}
 {%- assign po_eta = po_eta | strip -%}
@@ -124,7 +133,7 @@
       and vault the card for the balance (collected from the order page or
       auto on fulfillment). Auto-applied — pre-order is the only purchase
       path for these products, so no plan picker is needed. {%- endcomment -%}
-    {%- if is_preorder and product.selling_plan_groups.size > 0 -%}
+    {%- if has_deposit_plan -%}
     <input type="hidden" name="selling_plan" value="{{ product.selling_plan_groups.first.selling_plans.first.id }}">
     {%- endif -%}
     <div class="ctas">
@@ -132,10 +141,15 @@
         <span>{% if multi_size %}{{ 'product.choose_size' | t }}{% else %}{{ atc_label }}{% endif %}</span>
         <span class="btn__arrow">→</span>
       </button>
-      {%- if section.settings.show_payment_button -%}
       {%- comment -%} Express checkout stays hidden until a size is picked —
         it buys the form's variant directly, so an unhidden default would
-        silently purchase a size the shopper never chose. {%- endcomment -%}
+        silently purchase a size the shopper never chose. Suppressed entirely
+        on deposit pre-orders: with a selling plan in the form, Shopify
+        re-renders the button as a generic blue „Pirkti dabar" and injects
+        its deferred-purchase consent wall, wrecking the PDP. The single
+        pre-order CTA is the design; checkout still shows the deposit
+        terms where they belong. {%- endcomment -%}
+      {%- if section.settings.show_payment_button and has_deposit_plan == false -%}
       <div class="ctas__express"{% if multi_size %} hidden{% endif %}>{{ form | payment_button }}</div>
       {%- endif -%}
     </div>
@@ -153,7 +167,7 @@
     {%- assign po_dot = '.' -%}
     {%- assign po_last = po_eta | slice: -1 -%}
     {%- if po_last == '.' -%}{%- assign po_dot = '' -%}{%- endif -%}
-    {%- if product.selling_plan_groups.size > 0 -%}
+    {%- if has_deposit_plan -%}
     <p class="po-note">{{ 'product.preorder.deposit_note' | t }}{% if po_eta != blank %} <b>{{ 'product.preorder.expected' | t: date: po_eta | capitalize }}{{ po_dot }}</b>{% endif %}</p>
     {%- else -%}
     <p class="po-note">{{ 'product.preorder.note' | t }}{% if po_eta != blank %} <b>{{ 'product.preorder.expected' | t: date: po_eta | capitalize }}{{ po_dot }}</b>{% endif %}</p>
