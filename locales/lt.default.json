@@ -304,5 +304,12 @@
     "collection_notes": "Kolekcijos paaiškinimai",
     "faq_search": "Ieškoti dažniausių klausimų",
     "size_eu": "Dydis EU"
+  },
+  "shopify": {
+    "checkout": {
+      "payment_gateway": {
+        "credit_card_label": "Banko kortelė"
+      }
+    }
   }
 }
